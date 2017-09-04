@@ -172,6 +172,7 @@ use "-" to make input and output files stdin/out
 
 -ext <string>    File extension for divided waveforms
 
+-compress Apply Dynamic Range Compression by factor specified 
 -extract <string> Used in conjunction with -key to extract a 
     single section of waveform from the input 
     waveform. The argument is the name of a file given 
