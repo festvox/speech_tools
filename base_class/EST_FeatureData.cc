@@ -361,7 +361,7 @@ EST_write_status save_est(const EST_FeatureData &f, const EST_String &filename)
 	return write_fail;
     
     outf->precision(5);
-    outf->setf(ios::fixed, ios::floatfield);
+    outf->setf(ios::scientific, ios::floatfield);
     outf->width(8);
     
     *outf << "EST_File feature_data\n"; // EST header identifier

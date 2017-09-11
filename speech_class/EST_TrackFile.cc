@@ -762,7 +762,7 @@ EST_write_status EST_TrackFile::save_est_ts(FILE *fp, EST_Track tr)
 	fprintf(fp, "%f\t", tr.t(i));
 	fprintf(fp, "%s\t", (char *)(tr.val(i) ? "1 " : "0 "));
 	for (j = 0; j < tr.num_channels(); ++j)
-	    fprintf(fp, "%f ", tr.a_no_check(i, j));
+	    fprintf(fp, "%g ", tr.a_no_check(i, j));
 	for (j = 0; j < tr.num_aux_channels(); ++j)
 	    fprintf(fp, "%s ", (const char *)tr.aux(i, j).string());
 	fprintf(fp, "\n");
@@ -850,6 +850,9 @@ EST_write_status EST_TrackFile::save_est_binary_ts(FILE *fp, EST_Track tr)
 
 EST_write_status EST_TrackFile::save_ascii(const EST_String filename, EST_Track tr)
 {
+    /* We want to print these "nice" but not lose precision for
+       various precisioned numbers.  so we're going to use %g to do this */
+    char fbuf[100];
     
     if (tr.equal_space() == TRUE)
 	tr.change_type(0.0, FALSE);
@@ -862,7 +865,7 @@ EST_write_status EST_TrackFile::save_ascii(const EST_String filename, EST_Track 
     
     if (!(*outf))
 	return write_fail;
-    
+
     outf->precision(5);
     outf->setf(ios::fixed, ios::floatfield);
     outf->width(8);
@@ -870,7 +873,10 @@ EST_write_status EST_TrackFile::save_ascii(const EST_String filename, EST_Track 
     for (int i = 0; i < tr.num_frames(); ++i)
     {
 	for (int j = 0; j < tr.num_channels(); ++j)
-	    *outf << tr.a(i, j) << " ";
+        {
+            snprintf(fbuf,sizeof(fbuf),"%g",tr.a(i, j));
+	    *outf << fbuf << " ";
+        }
 	*outf << endl;
     }
     

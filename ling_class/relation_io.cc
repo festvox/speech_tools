@@ -154,7 +154,7 @@ EST_write_status save_esps_label(ostream *outf,
     {
 	*outf << "\t";
 	outf->precision(5);
-	outf->setf(ios::fixed, ios::floatfield);
+	outf->setf(ios::scientific, ios::floatfield);
 	outf->width(8);
 	//	outf->fill('0');
 	if (s.f("timing_style","0") == "event")
@@ -395,7 +395,7 @@ EST_write_status save_label_spn(const EST_String &filename,
     outf->setf(ios::left, ios::adjustfield);
     outf->width(8);
     *outf << ptr->name();
-    outf->setf(ios::fixed, ios::floatfield);
+    outf->setf(ios::scientific, ios::floatfield);
     outf->width(8);
     *outf << (ptr->dur() * 1000.0) << "\t (0,140)" << endl;
     
@@ -405,7 +405,7 @@ EST_write_status save_label_spn(const EST_String &filename,
 	outf->setf(ios::left, ios::adjustfield);
 	outf->width(8);
 	*outf << ptr->name();
-	outf->setf(ios::fixed, ios::floatfield);
+	outf->setf(ios::scientific, ios::floatfield);
 	outf->width(8);
 	*outf << (ptr->dur() * 1000.0) << endl;
     }
@@ -413,7 +413,7 @@ EST_write_status save_label_spn(const EST_String &filename,
     //    outf->setf(ios::left, ios::adjustfield);
     outf->width(8);
     *outf << ptr->name();
-    outf->setf(ios::fixed, ios::floatfield);
+    outf->setf(ios::scientific, ios::floatfield);
     outf->width(8);
     *outf << (ptr->dur() * 1000.0) << "\t (99,80)" << endl;
     
