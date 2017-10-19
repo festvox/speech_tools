@@ -175,7 +175,7 @@ int main (int argc, char *argv[])
 		       
 	 "-ext <string>    File extension for divided waveforms\n\n"
          
-         "-compress Apply Dynamic Range Compression by factor specified \n" 		       
+         "-compress <float> Apply Dynamic Range Compression by factor specified \n" 		       
 
 	 "-extract <string> Used in conjunction with -key to extract a \n"
 	 "    single section of waveform from the input \n"
