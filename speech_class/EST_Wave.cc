@@ -452,18 +452,18 @@ void EST_Wave::resample(int new_freq)
     
 }
 
-
 void EST_Wave::compress(float mu, float lim)
 {
-  int x;
+    int x;
  
-  for (int i = 0; i < num_samples(); ++i)
-    for (int j = 0; j< num_channels(); ++j)
+    for (int i = 0; i < num_samples(); ++i)
     {
-      x = a_no_check(i,j);
-      a_no_check(i,j) = lim * (sgn(x)*(log(1+(mu/lim)*abs(x))/log(1+mu)));
-    }
-    
+        for (int j = 0; j< num_channels(); ++j)
+        {
+            x = a_no_check(i,j);
+            a_no_check(i,j) = lim * (sgn(x)*(log(1+(mu/lim)*abs(x))/log(1+mu)));
+        }
+    }    
 }  
 
 void EST_Wave::rescale(float gain, int normalize)

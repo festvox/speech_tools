@@ -245,27 +245,20 @@ int main (int argc, char *argv[])
     if (al.present("-F"))	// resample
 	sig.resample(al.ival("-F"));
     
+    if (al.present("-compress")) // Dynamic Range Compression
+    {
+        float mu = al.fval("-compress" , 0);
+        float lim = 30000.0;
+
+        sig.compress(mu, lim);
+    } 
+
     if (al.present("-scale"))	// rescale
     {
 	float scale = al.fval("-scale", 0);
 	sig.rescale(scale);
     }
-    if (al.present("-compress")) // Dynamic Range Compression
-    {
-        //float mu = al.fval("-compress", 0);
-        float mu = 255.0;
-        float lim = 30000.0;
-        sig.compress(mu, lim);
-        //float x;
-        //nsig = sig;
-        //for (int i = 0; i < nsig.num_samples(); i++)
-        //{
-        //  x = nsig[i];
-        //  sig[i]= lim* (sgn(x)*(log(1+(mu/lim)*abs(x))/log(1+mu)));
-        
-        
-    }
-    else if (al.present("-scaleN"))	// rescale
+    if (al.present("-scaleN"))	// rescale
     {
 	float scale = al.fval("-scaleN", 0);
 	if ((scale < 0) || (scale > 1.0))

@@ -186,7 +186,7 @@ public:
 
   /// Resample waveform to <tt>rate</tt>
   void resample(int rate);
- 
+
   /// Dynamic Range Compression - SaiKrishna May 2017
   void compress(float mu, float limit);
 
