@@ -50,7 +50,7 @@ lpc_test () {
 	$CH_TRACK -info tmp/kdt_001.lpc
 	$CH_WAVE -info tmp/kdt_001.res
 	# Should not be any of these unless there is an error
-	grep "0.000000" tmp/kdt_001.lpc
+	grep " 0 " tmp/kdt_001.lpc
 	grep "NaN" tmp/kdt_001.lpc
 	grep -i "Infinity" tmp/kdt_001.lpc
 	
@@ -65,7 +65,7 @@ mfcc_test () {
 	$SIG2FV  -coefs melcep  -delta melcep -melcep_order 12 -fbank_order 24 -shift 0.005 -factor 5.0 -preemph 0.97 -otype est "$DATA/kdt_001.wav" -o tmp/kdt_001.mfcc
 	$CH_TRACK -info tmp/kdt_001.mfcc
         echo "expect one line containing 0s (first delta params)"
-	numzeros=`grep "0.000000" tmp/kdt_001.mfcc | wc -l`
+	numzeros=`grep " 0 " tmp/kdt_001.mfcc | wc -l`
 	echo "Number of vectors with 0s is " $numzeros
 }
 
