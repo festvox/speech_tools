@@ -64,6 +64,8 @@ EST_Track wgn_UnitTrack;
 int wgn_min_cluster_size = 50;
 int wgn_max_questions = 2000000; /* not ideal, but adequate */
 int wgn_held_out = 0;
+float wgn_dropout_feats = 0.0;
+float wgn_dropout_samples = 0.0;
 int wgn_cos = 1;
 int wgn_prune = TRUE;
 int wgn_quiet = FALSE;
@@ -778,8 +780,24 @@ void wgn_find_split(WQuestion &q,WVectorVector &ds,
 {
     int i, iy, in;
 
-    y.resize(q.get_yes());
-    n.resize(q.get_no());
+    if (wgn_dropout_samples > 0.0)
+    {
+        // You need to count the number of yes/no again in all ds
+        for (iy=in=i=0; i < ds.n(); i++)
+            if (q.ask(*ds(i)) == TRUE)
+                iy++;
+            else
+                in++;
+    }
+    else
+    {
+        // Current counts are corrent (as all data was used)
+        iy = q.get_yes();
+        in = q.get_no();
+    }
+
+    y.resize(iy);
+    n.resize(in);
     
     for (iy=in=i=0; i < ds.n(); i++)
 	if (q.ask(*ds(i)) == TRUE)
@@ -787,6 +805,12 @@ void wgn_find_split(WQuestion &q,WVectorVector &ds,
 	else
 	    n[in++] = ds(i);
 
+}
+
+static float wgn_random_number(float x)
+{
+    // Returns random number between 0 and x
+    return (((float)random())/RAND_MAX)*x;
 }
 
 #ifdef OMP_WAGON
@@ -813,6 +837,8 @@ static WQuestion find_best_question(WVectorVector &dset)
 	if ((wgn_dataset.ignore(i) == TRUE) ||
 	    (i == wgn_predictee))
 	    scores[i] = WGN_HUGE_VAL;     // ignore this feature this time
+        else if (wgn_random_number(1.0) < wgn_dropout_feats)
+	    scores[i] = WGN_HUGE_VAL;     // randomly dropout feature
 	else if (wgn_dataset.ftype(i) == wndt_binary)
 	{
 	    construct_binary_ques(i,*questions[i]);
@@ -1094,7 +1120,11 @@ static float score_question_set(WQuestion &q, WVectorVector &ds, int ignorenth)
     n.data = &ds;
     for (d=0; d < ds.n(); d++)
     {
-	if ((ignorenth < 2) ||
+        if (wgn_random_number(1.0) < wgn_dropout_samples)
+        {
+            continue;  // dropout this sample
+        }
+        else if ((ignorenth < 2) ||
 	    (d%ignorenth != ignorenth-1))
 	{
 	    wv = ds(d);

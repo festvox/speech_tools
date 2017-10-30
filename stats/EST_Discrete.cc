@@ -151,21 +151,21 @@ Discretes::~Discretes()
  
     for (i=0; i<next_free; i++)
 	delete discretes[i];
-    delete discretes;
+    delete [] discretes;
 }
 
 const int Discretes::def(const EST_StrList &vocab)
 {
     //  Define discrete, increasing the size of the table if need be
     int i,pos;
-    
-    if (next_free == max)
+
+    if ((next_free == max) && (max > 0))
     {
 	EST_Discrete **new_discretes = new EST_Discrete *[max*2];
 	for (i=0; i<next_free; i++)
 	    new_discretes[i] = discretes[i];
 	max *= 2;
-	delete discretes;
+	delete [] discretes;
 	discretes = new_discretes;
     }
 

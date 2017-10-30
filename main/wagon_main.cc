@@ -219,6 +219,8 @@ static int wagon_main(int argc, char **argv)
 	 "                  by balance is greater than stop it is used as stop\n"+
 	 "                  if balance is 0 (default) always use stop as is.\n"+
          "-cos              Use mean cosine distance rather than gausian (TBD).\n"+
+         "-dof <float>      Randomly dropout feats in training (prob).\n"+
+         "-dos <float>      Randomly dropout samples in training (prob).\n"+
          "-vertex_output <string> Output <mean> or <best> of cluster\n"+
 	 "-held_out <int>   Percent to hold out for pruning\n"+
          "-max_questions <int> Maximum number of questions in tree\n"+
@@ -235,6 +237,10 @@ static int wagon_main(int argc, char **argv)
 
     if (al.present("-held_out"))
 	wgn_held_out = al.ival("-held_out");
+    if (al.present("-dof"))
+	wgn_dropout_feats = al.fval("-dof");
+    if (al.present("-dos"))
+	wgn_dropout_samples = al.fval("-dos");
     if (al.present("-cos"))
 	wgn_cos = al.ival("-cos");
     if (al.present("-balance"))

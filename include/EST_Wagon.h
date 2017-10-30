@@ -268,6 +268,8 @@ float summary_results(WNode &tree,ostream *output);
 extern int wgn_min_cluster_size;
 extern int wgn_max_questions;
 extern int wgn_held_out;
+extern float wgn_dropout_feats;
+extern float wgn_dropout_samples;
 extern int wgn_cos;
 extern int wgn_prune;
 extern int wgn_quiet;

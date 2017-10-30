@@ -39,11 +39,10 @@ splitting on each partition until some stop criteria is reached
 (e.g. a minimum number of samples in the partition.
 
 
-The basic CART building algorithm is a *greedy algorithm
-in that it chooses the locally best
-discriminatory feature at each stage in the process.  This is
-suboptimal but a full search for a fully optimized set of question
-would be computationallly very expensive.  Although there are
+The basic CART building algorithm is a *greedy algorithm* in that it
+chooses the locally best choice which is suboptimal but a full search
+for a fully optimized set of question would be computationallly very
+expensive (and often not much better).  Although there are
 pathological cases in most data sets this greediness is not a problem.
 
 The basic building algorithm starts with a set of feature vectors
@@ -64,7 +63,7 @@ the number the less impure the sample set is.
 For sample sets with continuous predictees Wagon uses the variance
 times number of sample points.  The variance alone could
 be used by this overly favour very small sample sets.  As the
-test thatuses the impurity is trying to minimise it over
+test that uses the impurity is trying to minimise it over
 a partitioning of the data, multiple each part with the number
 of samples will encourage larger partitions, which we have found
 lead to better decision trees in general.
@@ -109,14 +108,14 @@ the range of the values that best optimizes the average
 impurity of the partitions.  This is currently done by linearly
 splitting the range into a predefined subparts (10 by default)
 and testing each split.  This again isn't optimal but does
-offer reasonably accuracy without require vast amounts of
+offer reasonably accuracy without requiring vast amounts of
 computation.
 
 
 ## Tree Building criteria {#estwagonoverviewtreebuild}
 
 There are many ways to constrain the tree building algorithm to help
-build the "best" tree.  Wagon supports many of theses (though there
+build the "best" tree.  Wagon supports many of these (though there
 are almost certainly others that is does not.
 
 In the most basic forms of the tree building algorithm a fully
@@ -154,7 +153,7 @@ samples.
 
 
 To some extent the multiplication of the entropy (or variance) by
-the number of samples in the impurity measure is also way to
+the number of samples in the impurity measure is also a way to
 combat imbalance in tree building.
 
 
@@ -191,6 +190,21 @@ is using the test set which optimizing the tree, it is not valid
 to view the specified test set as a genuine test set.  Another
 externally held test set should be used to test the accuracy of
 generated tree.
+
+Another technique that has been shown to work in tree building is
+called *random forests".  In these technique multiple trees are build
+with some random subset of the features presented, then the multiple
+trees are combined by some technique (e.g. simple average).  This
+often works much better.  Although doesn't offer building randon
+forests as a direct option, it can be (and is) used to do this.  You
+can vary the features in in the description file by marking them with
+*ignore* or you can use the *dropout* options *-dof* and *dos* which
+specify a probability of ignoring a feature or sample at easy stage of
+the build process.  Its not clear if the *-dof* or *-dos* options are
+useful, we have only fully investigated random forests in the voice
+building process through externally selecting features, but we added
+these internal options (with trendier names) as part of our
+investigation.
 
 ## Data format {#cart-formats}
 
