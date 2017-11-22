@@ -892,6 +892,8 @@ static WQuestion find_best_question(WVectorVector &dset)
 	if ((wgn_dataset.ignore(i) == TRUE) ||
 	    (i == wgn_predictee))
 	    tscore = WGN_HUGE_VAL;     // ignore this feature this time
+        else if (wgn_random_number(1.0) < wgn_dropout_feats)
+	    tscore = WGN_HUGE_VAL;     // randomly dropout feature
 	else if (wgn_dataset.ftype(i) == wndt_binary)
 	{
 	    construct_binary_ques(i,test_ques);
