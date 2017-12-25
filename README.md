@@ -11,6 +11,7 @@ Informatics Forum
 10 Crichton Street 
 Edinburgh EH8 9AB, UK
 http://www.cstr.ed.ac.uk/projects/speech_tools
+https://github.com/festvox/speech_tools/
 
 Although this is a considered stable release, there are still a number
 of known parts are missing or incomplete.
