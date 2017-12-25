@@ -392,7 +392,7 @@ static int wagon_main(int argc, char **argv)
 #else
     if (al.present ("-omp_nthreads"))
     {
-        printf("wagon: -omp_nthreads ignored: not support in this build.\n");
+        printf("wagon: -omp_nthreads ignored: not supported in this build.\n");
     }
 #endif
 
