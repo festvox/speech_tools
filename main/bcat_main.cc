@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	(argc, argv, 
 	 EST_String("-o [ofile] [files...]\n")+
 	 "Summary; concatenate files in binary mode\n"+
-	 "-o <ofile>       Ouptut file of binary data\n",
+	 "-o <ofile>       Output file of binary data\n",
 	 files, cmd_line);
 
     EST_String out_file;

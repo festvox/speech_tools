@@ -218,7 +218,7 @@ static int wagon_main(int argc, char **argv)
 	 "-balance <float>  For derived stop size, if dataset at node, divided\n"+
 	 "                  by balance is greater than stop it is used as stop\n"+
 	 "                  if balance is 0 (default) always use stop as is.\n"+
-         "-cos              Use mean cosine distance rather than gausian (TBD).\n"+
+         "-cos              Use mean cosine distance rather than Gaussian (TBD).\n"+
          "-dof <float>      Randomly dropout feats in training (prob).\n"+
          "-dos <float>      Randomly dropout samples in training (prob).\n"+
          "-vertex_output <string> Output <mean> or <best> of cluster\n"+

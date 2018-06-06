@@ -1064,7 +1064,7 @@ EST_String options_track_input(void)
         "-startt <float>  Time of first frame, for formats which don't provide this\n\n"
 	"-c <string>      Select a subset of channels (starts from 0). \n"
 	"                 Tracks can have multiple channels. This option \n"
-        "                 specifies a list of numbers, refering to the channel \n"
+        "                 specifies a list of numbers, referring to the channel \n"
 	"                 numbers which are to be used for for processing. \n\n"+
 	options_subtrack();
 }
