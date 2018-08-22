@@ -1376,7 +1376,7 @@ enum EST_read_status load_wave_raw(EST_TokenStream &ts, short **data, int
 	/* Guess the size */
 	if ((offset != 0) || (length != 0))
 	{
-	    fprintf(stderr,"Load ascii wave: doesn't support offets and lengths\n");
+	    fprintf(stderr,"Load ascii wave: doesn't support offsets and lengths\n");
 	    return misc_read_error;
 	}
 	

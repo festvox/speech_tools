@@ -626,7 +626,7 @@ LISP errswitch(void)
 void err_stack(char *ptr)
      /* The user could be given an option to continue here */
 {(void)ptr;
- err("the currently assigned stack limit has been exceded",NIL);}
+ err("the currently assigned stack limit has been exceeded",NIL);}
 
 LISP stack_limit(LISP amount,LISP silent)
 {if NNULLP(amount)

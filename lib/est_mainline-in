@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	(argc, argv, 
 	 EST_String("[OPTIONS] [files...]\n")+
 	 "Summary; <<DO SOMETHING>>\n"+
-	 "-o <ofile>       Ouptut file\n",
+	 "-o <ofile>       Output file\n",
 	 files, cmd_line);
 
     EST_String out_file;

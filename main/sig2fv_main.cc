@@ -175,17 +175,17 @@ int main(int argc, char *argv[])
          "    each the pms.\n\n"
 
 	 "-coefs <string> list of basic types of processing required. \n"
-	 "    Permissable types are: \n" + sigpr_options_supported()+" \n"
+	 "    Permissible types are: \n" + sigpr_options_supported()+" \n"
 	 "-delta <string> list of delta types of processing required. Basic \n"
 	 "    processing does not need to be specified for this option to work. \n"
-	 "    Permissable types are: \n" + sigpr_options_supported()+" \n"
+	 "    Permissible types are: \n" + sigpr_options_supported()+" \n"
 	 "-acc <string>  list of acceleration (delta delta) processing \n"
 	 "    required. Basic processing does not need to be specified for \n"
          "    this option to work. \n" 
-	 "    Permissable types are: \n" 
+	 "    Permissible types are: \n" 
 	 + sigpr_options_supported()+"\n"
 	 "-window_type <string> Type of window used on waveform. \n"
-	 "    Permissable types are: \n" +
+	 "    Permissible types are: \n" +
 	 EST_Window::options_supported() + 
 	 "    default: \"DEFAULT_WINDOW\"\n\n"
 	 "-lpc_order <int>      Order of lpc analysis. \n\n"

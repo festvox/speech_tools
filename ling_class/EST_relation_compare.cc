@@ -483,7 +483,7 @@ EST_FMatrix matrix_compare(EST_Relation &reflab, EST_Relation &testlab, int meth
 		    else if (method == 2)
 			m(i, j) = label_distance2(*r_ptr, *t_ptr);
 		    else
-			cerr << "Unknown comparision method" << method << endl;
+			cerr << "Unknown comparison method" << method << endl;
 		    ++j;
 		}
 	    ++i;
