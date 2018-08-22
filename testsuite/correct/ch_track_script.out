@@ -37,7 +37,7 @@ use "-" to make input and output files stdin/out
 
 -c <string>      Select a subset of channels (starts from 0). 
                  Tracks can have multiple channels. This option 
-                 specifies a list of numbers, refering to the channel 
+                 specifies a list of numbers, referring to the channel 
                  numbers which are to be used for for processing. 
 
 -start <float>   Extract track starting at this time, 
