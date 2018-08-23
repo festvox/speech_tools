@@ -87,5 +87,5 @@ OMP_DEFS=
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <omp.h>]], [[ int j=1;]])],[OMP_DEFS="-DOMP_WAGON=1"],[])
 AC_SUBST(OMP_DEFS)
 
-AC_CONFIG_FILES([config/config])
+AC_CONFIG_FILES([config/config config/user_flags.mak])
 AC_OUTPUT

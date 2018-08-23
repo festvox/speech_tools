@@ -31,20 +31,14 @@
 ##                                                                       ##
 ###########################################################################
 ##                                                                       ##
-##  Makefile for config directory                                        ##
+##                 Author: Sergio Oller <sergioller@gmail.com>           ##
+##                   Date: Jan 6 2014                                    ##
+## --------------------------------------------------------------------  ##
+## Settings for compiler defined via autoconf                            ##
 ##                                                                       ##
 ###########################################################################
-TOP=..
-DIRNAME=config
 
-FILES = Makefile ReadMe example.Makefile example.module.mak\
-	 common_make_rules test_make_rules vc_common_make_rules  \
-	config.in vc_config_make_rules-dist \
-	project.mak system.sh make_system.mak user_flags.mak
-
-#LOCAL_CLEAN = modinclude*.inc system.mak
-
-ALL_DIRS = systems compilers rules configs modules
-
-include $(TOP)/config/common_make_rules
+USER_CFLAGS    = @CFLAGS@
+USER_CXXFLAGS  = @CXXFLAGS@
+USER_LINKFLAGS = @LDFLAGS@
 
