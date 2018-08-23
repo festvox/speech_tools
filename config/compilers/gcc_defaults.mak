@@ -83,7 +83,7 @@ SHARED_LINKFLAGS =
 ifndef GCC_MAKE_SHARED_LIB
 # Older versions of gcc might have required -fno-shared-data
 #    MAKE_SHARED_LIB = $(CXX) -shared -fno-shared-data -o XXX
-    MAKE_SHARED_LIB = $(CXX) -shared -o XXX
+    MAKE_SHARED_LIB = $(CXX) $(OMP_OPTS) -shared -o XXX
 else
     MAKE_SHARED_LIB = $(GCC_MAKE_SHARED_LIB)
 endif
