@@ -35,6 +35,7 @@ AC_INIT
 AC_CONFIG_SRCDIR([include/EST.h])
 
 AC_CANONICAL_TARGET
+AC_PROG_CXX
 AC_PROG_CC
 if test "x$GCC" = "xyes"; then
 	CFLAGS="$CFLAGS -Wall"
