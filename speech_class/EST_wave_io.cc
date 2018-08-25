@@ -111,6 +111,8 @@ const char *sample_type_to_nist(enum EST_sample_type_t sample_type)
 	c = ""; break;
     case st_schar:  
 	c = "PCM-1"; break;
+    case st_alaw:
+	c = "ALAW"; break;
     case st_mulaw:
 	c = "ULAW"; break;
     case st_short: 
@@ -141,6 +143,9 @@ enum EST_sample_type_t nist_to_sample_type(char *type)
 	     (EST_strcasecmp(type,"mu-law",NULL) == 0) ||
 	     (EST_strcasecmp(type,"mulaw",NULL) == 0))
 	return st_mulaw;
+    else if ((EST_strcasecmp(type,"ALAW",NULL) == 0) ||
+	     (EST_strcasecmp(type,"A-LAW",NULL) == 0))
+	return st_alaw;
     else if (strcmp(type,"alaw") == 0)
 	return st_alaw;
     else if (strcmp(type,"PCM-1") == 0)
@@ -191,6 +196,11 @@ enum EST_read_status load_wave_nist(EST_TokenStream &ts, short **data, int
     {
 	byte_order = wstrdup((EST_BIG_ENDIAN ? "10" : "01"));
 	sample_coding = wstrdup("ULAW");
+    }
+    if (streq(byte_order,"a-law"))
+    {
+	byte_order = wstrdup((EST_BIG_ENDIAN ? "10" : "01"));
+	sample_coding = wstrdup("ALAW");
     }
 
     /* code for reading in Tony Robinson's shorten files.
@@ -484,12 +494,13 @@ enum EST_read_status load_wave_riff(EST_TokenStream &ts, short **data, int
 	/* The follow are registered proprietary WAVE formats  (?) */
     case WAVE_FORMAT_MULAW:
 	actual_sample_type = st_mulaw; break;
+    case WAVE_FORMAT_ALAW:
+	actual_sample_type = st_alaw; break;
     case WAVE_FORMAT_ADPCM:
 	fprintf(stderr, "RIFF file: unsupported proprietary sample format ADPCM\n"); 
 	actual_sample_type = st_short;
 	break;
 	/*	  actual_sample_type = st_adpcm; break; */ /* yes but which adpcm ! */
-    case WAVE_FORMAT_ALAW:
     default:
 	fprintf(stderr, "RIFF file: unknown sample format\n");
 	actual_sample_type = st_short;
@@ -894,9 +905,62 @@ enum EST_write_status save_wave_ulaw(FILE *fp, const short *data, int offset,
     (void)sample_type;
     return save_wave_raw(fp,data,offset,num_samples,num_channels,
 			 8000,st_mulaw,bo);
-    
-    
+
+
 }
+
+enum EST_read_status load_wave_alaw(EST_TokenStream &ts, short **data, int
+				    *num_samples, int *num_channels, int *word_size, int
+				    *sample_rate, enum EST_sample_type_t *sample_type, int *bo,
+				    int offset, int length)
+
+{
+    unsigned char *alaw;
+    int data_length,samps;
+
+    ts.seek_end();
+    samps = ts.tell();
+
+    if (length == 0)
+	data_length = samps - offset;
+    else
+	data_length = length;
+
+    alaw = walloc(unsigned char, data_length);
+    ts.seek(offset);
+    if (ts.fread(alaw,1,data_length) != data_length)
+    {
+	wfree(alaw);
+	return misc_read_error;
+    }
+
+    *data = walloc(short,data_length);
+    alaw_to_short(alaw,*data,data_length);
+    wfree(alaw);
+
+    *num_samples = data_length;
+    *sample_rate = 8000;
+    *num_channels = 1;
+    *sample_type = st_short;
+    *word_size = 2;
+    *bo = EST_NATIVE_BO;
+
+    return format_ok;
+}
+
+enum EST_write_status save_wave_alaw(FILE *fp, const short *data, int offset,
+				     int num_samples, int num_channels,
+				     int sample_rate,
+				     enum EST_sample_type_t sample_type, int bo)
+{
+    (void)sample_rate;
+    (void)sample_type;
+    return save_wave_raw(fp,data,offset,num_samples,num_channels,
+			 8000,st_alaw,bo);
+
+
+}
+
 
 /*=======================================================================*/
 /* Sun and Next snd files                                                */

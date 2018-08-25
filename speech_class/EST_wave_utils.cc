@@ -53,7 +53,9 @@
 #include "EST_error.h"
 
 static short st_ulaw_to_short(unsigned char ulawbyte);
+static short st_alaw_to_short(unsigned char alawbyte);
 static unsigned char st_short_to_ulaw(short sample);
+static unsigned char st_short_to_alaw(short sample);
 
 /*
  * This table is 
@@ -202,6 +204,16 @@ void short_to_ulaw(const short *data,unsigned char *ulaw,int length)
     
 }
 
+void short_to_alaw(const short *data,unsigned char *alaw,int length)
+{
+    /* Convert alaw to shorts */
+    int i;
+
+    for (i=0; i<length; i++)
+	alaw[i] = st_short_to_alaw(data[i]);  /* alaw convert */
+    
+}
+
 short *convert_raw_data(unsigned char *file_data,int data_length,
 			enum EST_sample_type_t sample_type,int bo)
 {
@@ -220,6 +232,13 @@ short *convert_raw_data(unsigned char *file_data,int data_length,
     {
 	d = walloc(short,data_length);
 	ulaw_to_short(file_data,d,data_length);
+	wfree(file_data);
+	return d;
+    }
+    else if (sample_type == st_alaw)
+    {
+	d = walloc(short,data_length);
+	alaw_to_short(file_data,d,data_length);
 	wfree(file_data);
 	return d;
     }
@@ -276,6 +295,16 @@ enum EST_write_status save_raw_data(FILE *fp, const short *data, int offset,
 		      ulaw,num_samples*num_channels);
 	n = fwrite(ulaw,1,num_channels * num_samples,fp);	
 	wfree(ulaw);
+	if (n != (num_channels * num_samples))
+	    return misc_write_error;
+    }
+    else if (sample_type == st_alaw)
+    {
+	unsigned char *alaw = walloc(unsigned char,num_samples*num_channels);
+	short_to_alaw(data+(offset*num_channels),
+		      alaw,num_samples*num_channels);
+	n = fwrite(alaw,1,num_channels * num_samples,fp);	
+	wfree(alaw);
 	if (n != (num_channels * num_samples))
 	    return misc_write_error;
     }
@@ -354,6 +383,7 @@ int get_word_size(enum EST_sample_type_t sample_type)
       case st_schar:  
 	word_size = 1;	break;
       case st_mulaw:
+      case st_alaw:
 	word_size = 1;	break;
 #if 0
       case st_adpcm:  /* maybe I mean 0.5 */
@@ -420,6 +450,7 @@ const char *sample_type_to_str(enum EST_sample_type_t type)
       case st_short:   return "short";
       case st_shorten:   return "shorten";
       case st_mulaw:   return "ulaw";
+      case st_alaw:    return "alaw";
       case st_schar:    return "char";
       case st_uchar:    return "unsignedchar";
       case st_int:     return "int";
@@ -530,6 +561,77 @@ static short st_ulaw_to_short( unsigned char ulawbyte )
 
     return sample;
 }
+
+
+/* The following is copied from sox:g711.c */
+/*
+ * This source code is a product of Sun Microsystems, Inc. and is provided
+ * for unrestricted use.  Users may copy or modify this source code without
+ * charge.
+ * [ no warranties or liabilities whatsoever; see there for details. ]
+ */
+/* copy from CCITT G.711 specifications */
+static unsigned char _u2a[128] = {	/* u- to A-law conversions */
+	1,	1,	2,	2,	3,	3,	4,	4,
+	5,	5,	6,	6,	7,	7,	8,	8,
+	9,	10,	11,	12,	13,	14,	15,	16,
+	17,	18,	19,	20,	21,	22,	23,	24,
+	25,	27,	29,	31,	33,	34,	35,	36,
+	37,	38,	39,	40,	41,	42,	43,	44,
+	46,	48,	49,	50,	51,	52,	53,	54,
+	55,	56,	57,	58,	59,	60,	61,	62,
+	64,	65,	66,	67,	68,	69,	70,	71,
+	72,	73,	74,	75,	76,	77,	78,	79,
+	80,	82,	83,	84,	85,	86,	87,	88,
+	89,	90,	91,	92,	93,	94,	95,	96,
+	97,	98,	99,	100,	101,	102,	103,	104,
+	105,	106,	107,	108,	109,	110,	111,	112,
+	113,	114,	115,	116,	117,	118,	119,	120,
+	121,	122,	123,	124,	125,	126,	127,	128};
+
+static unsigned char _a2u[128] = {		/* A- to u-law conversions */
+	1,	3,	5,	7,	9,	11,	13,	15,
+	16,	17,	18,	19,	20,	21,	22,	23,
+	24,	25,	26,	27,	28,	29,	30,	31,
+	32,	32,	33,	33,	34,	34,	35,	35,
+	36,	37,	38,	39,	40,	41,	42,	43,
+	44,	45,	46,	47,	48,	48,	49,	49,
+	50,	51,	52,	53,	54,	55,	56,	57,
+	58,	59,	60,	61,	62,	63,	64,	64,
+	65,	66,	67,	68,	69,	70,	71,	72,
+	73,	74,	75,	76,	77,	78,	79,	80,
+	80,	81,	82,	83,	84,	85,	86,	87,
+	88,	89,	90,	91,	92,	93,	94,	95,
+	96,	97,	98,	99,	100,	101,	102,	103,
+	104,	105,	106,	107,	108,	109,	110,	111,
+	112,	113,	114,	115,	116,	117,	118,	119,
+	120,	121,	122,	123,	124,	125,	126,	127};
+
+/* A-law to u-law conversion */
+static inline unsigned char st_alaw2ulaw(
+	unsigned char	aval)
+{
+	aval &= 0xff;
+	return (unsigned char) ((aval & 0x80) ? (0xFF ^ _a2u[aval ^ 0xD5]) :
+	    (0x7F ^ _a2u[aval ^ 0x55]));
+}
+
+/* u-law to A-law conversion */
+static inline unsigned char st_ulaw2alaw(
+	unsigned char	uval)
+{
+	uval &= 0xff;
+	return (unsigned char) ((uval & 0x80) ? (0xD5 ^ (_u2a[0xFF ^ uval] - 1)) :
+	    (unsigned char) (0x55 ^ (_u2a[0x7F ^ uval] - 1)));
+}
+/* end of Sun code */
+
+/* This is somewhat simple-minded, but ... */
+static unsigned char st_short_to_alaw(short sample)
+{
+    return st_ulaw2alaw(st_short_to_ulaw(sample));
+}
+
 
 /*
  * C O N V E R T   T O   I E E E   E X T E N D E D

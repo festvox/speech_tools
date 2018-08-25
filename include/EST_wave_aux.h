@@ -97,6 +97,7 @@ void alaw_to_short(const unsigned char *alaw,short *data,int length);
 void uchar_to_short(const unsigned char *chars,short *data,int length);
 void short_to_char(const short *data,unsigned char *chars,int length);
 void short_to_ulaw(const short *data,unsigned char *ulaw,int length);
+void short_to_alaw(const short *data,unsigned char *alaw,int length);
 
 // Used when setting Waves in Features
 VAL_REGISTER_CLASS_DCLS(wave,EST_Wave)
