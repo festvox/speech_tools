@@ -128,6 +128,6 @@ $(TEMPS:%.cc=%.o) : %.o : %.cc
 
 
 % : %.o $(PROJECT_LIBDEPS)
-	$(CXX) $(CXXFLAGS) $(TEMPLATES) -o $@ $@.o $($(@:=_LIBS)) $(LIBS)
+	$(LINK_COMMAND) -o $@ $@.o $($(@:=_LIBS)) $(LIBS)
 
 

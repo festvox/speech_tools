@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 	 "     label end time the search region should be. Typical value, 0.1 \n\n"
 	 "-range  <float>   Range of RFC search region. In addition to \n" 
 	 "     the limit, the range defines the limits of the rfc matching \n" 
-	 "     search region as a  percentage of the overal input label \n"
+	 "     search region as a  percentage of the overall input label \n"
 	 "     duration. Typical value, 0.25 (the search region is the first and \n"
 	 "     last 25% of the label) \n\n"
 	 "-smooth                  Smooth and Interpolate input F0 contour. \n"

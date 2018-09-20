@@ -192,7 +192,7 @@ EST_PredictionSuffixTree::accumulate(const EST_StrVector &words,
     */
 
     if (words.n()+index < p_order)
-	cerr << "EST_PredictionSuffixTree: accumlating window is wtoo small"
+	cerr << "EST_PredictionSuffixTree: accumulating window is too small"
 	     << endl;
     else
     {
