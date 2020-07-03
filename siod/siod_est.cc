@@ -191,7 +191,7 @@ static void val_free(LISP val)
     USERVAL(val) = NULL;
 }
 
-static void val_prin1(LISP v, FILE *fd)
+static int val_prin1(LISP v, FILE *fd)
 {
     char b[1024];
     fput_st(fd,"#<");
@@ -199,6 +199,7 @@ static void val_prin1(LISP v, FILE *fd)
     sprintf(b," %p",val(v).internal_ptr());
     fput_st(fd,b);
     fput_st(fd,">");
+    return 0;
 }
 
 static void val_print_string(LISP v, char *tkbuffer)

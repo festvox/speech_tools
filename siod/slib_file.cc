@@ -333,16 +333,21 @@ LISP fclose_l(LISP p)
  no_interrupt(flag);
  return(NIL);}
 
-static void file_prin1(LISP ptr,FILE *f)
-{char *name;
- name = ptr->storage_as.c_file.name;
- fput_st(f,"#<FILE ");
- sprintf(tkbuffer," %p",(void *)ptr->storage_as.c_file.f);
- fput_st(f,tkbuffer);
- if (name)
-   {fput_st(f," ");
-    fput_st(f,name);}
- fput_st(f,">");}
+static int file_prin1(LISP ptr,FILE *f)
+{
+    char *name;
+    name = ptr->storage_as.c_file.name;
+    fput_st(f,"#<FILE ");
+    sprintf(tkbuffer," %p",(void *)ptr->storage_as.c_file.f);
+    fput_st(f,tkbuffer);
+    if (name)
+    {
+        fput_st(f," ");
+        fput_st(f,name);
+    }
+    fput_st(f,">");
+    return 0;
+}
 
 FILE *get_c_file(LISP p,FILE *deflt)
 {if (NULLP(p) && deflt) return(deflt);

@@ -30,7 +30,7 @@ LISP luntrace_1(LISP fcn);
 LISP luntrace(LISP fcns);
 static void ct_gc_scan(LISP ptr);
 static LISP ct_gc_mark(LISP ptr);
-void ct_prin1(LISP ptr,FILE *f);
+int ct_prin1(LISP ptr,FILE *f);
 LISP ct_eval(LISP ct,LISP *px,LISP *penv);
 
 LISP ltrace_fcn_name(LISP body)
@@ -95,12 +95,14 @@ static LISP ct_gc_mark(LISP ptr)
 {gc_mark(ptr->storage_as.closure.code);
  return(ptr->storage_as.closure.env);}
 
-void ct_prin1(LISP ptr,FILE *f)
+int ct_prin1(LISP ptr,FILE *f)
 {fput_st(f,"#<CLOSURE(TRACED) ");
  lprin1f(car(ptr->storage_as.closure.code),f);
  fput_st(f," ");
  lprin1f(cdr(ptr->storage_as.closure.code),f);
- fput_st(f,">");}
+ fput_st(f,">");
+ return 0;
+}
 
 LISP ct_eval(LISP ct,LISP *px,LISP *penv)
 {LISP fcn_name,args,env,result,l;

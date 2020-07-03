@@ -56,40 +56,44 @@ static void array_gc_free(LISP ptr)
       wfree(ptr->storage_as.lisp_array.data);
       break;}}
 
-static void array_prin1(LISP ptr,FILE *f)
-{int j;
- switch (ptr->type)
-   {case tc_string:
-      fput_st(f,"\"");
-      fput_st(f,ptr->storage_as.string.data);
-      fput_st(f,"\"");
-      break;
+static int array_prin1(LISP ptr,FILE *f)
+{
+    int j;
+    switch (ptr->type)
+    {case tc_string:
+            fput_st(f,"\"");
+            fput_st(f,ptr->storage_as.string.data);
+            fput_st(f,"\"");
+            break;
     case tc_double_array:
-      fput_st(f,"#(");
-      for(j=0; j < ptr->storage_as.double_array.dim; ++j)
+        fput_st(f,"#(");
+        for(j=0; j < ptr->storage_as.double_array.dim; ++j)
 	{sprintf(tkbuffer,"%g",ptr->storage_as.double_array.data[j]);
-	 fput_st(f,tkbuffer);
-	 if ((j + 1) < ptr->storage_as.double_array.dim)
-	   fput_st(f," ");}
-      fput_st(f,")");
-      break;
+            fput_st(f,tkbuffer);
+            if ((j + 1) < ptr->storage_as.double_array.dim)
+                fput_st(f," ");}
+        fput_st(f,")");
+        break;
     case tc_long_array:
-      fput_st(f,"#(");
-      for(j=0; j < ptr->storage_as.long_array.dim; ++j)
+        fput_st(f,"#(");
+        for(j=0; j < ptr->storage_as.long_array.dim; ++j)
 	{sprintf(tkbuffer,"%ld",ptr->storage_as.long_array.data[j]);
-	 fput_st(f,tkbuffer);
-	 if ((j + 1) < ptr->storage_as.long_array.dim)
-	   fput_st(f," ");}
-      fput_st(f,")");
-      break;
+            fput_st(f,tkbuffer);
+            if ((j + 1) < ptr->storage_as.long_array.dim)
+                fput_st(f," ");}
+        fput_st(f,")");
+        break;
     case tc_lisp_array:
-      fput_st(f,"#(");
-      for(j=0; j < ptr->storage_as.lisp_array.dim; ++j)
+        fput_st(f,"#(");
+        for(j=0; j < ptr->storage_as.lisp_array.dim; ++j)
 	{lprin1f(ptr->storage_as.lisp_array.data[j],f);
-	 if ((j + 1) < ptr->storage_as.lisp_array.dim)
-	   fput_st(f," ");}
-      fput_st(f,")");
-      break;}}
+            if ((j + 1) < ptr->storage_as.lisp_array.dim)
+                fput_st(f," ");}
+        fput_st(f,")");
+        break;
+    }
+    return 0;
+}
 
 static LISP aref1(LISP a,LISP i)
 {long k;
@@ -341,9 +345,13 @@ static void put_long(long i,FILE *f)
 {fwrite(&i,sizeof(long),1,f);}
 
 static long get_long(FILE *f)
-{long i;
- fread(&i,sizeof(long),1,f);
- return(i);}
+{
+    long i;
+    if (fread(&i,sizeof(long),1,f) == 1)
+        return i;
+    else
+        return -1;
+}
 
 static long fast_print_table(LISP obj,LISP table)
 {FILE *f;
@@ -459,18 +467,24 @@ static LISP fast_read(LISP table)
       return(l);
     case tc_flonum:
       tmp = newcell(tc_flonum);
-      fread(&tmp->storage_as.flonum.data,
-	    sizeof(tmp->storage_as.flonum.data),
-	    1,
-	    f);
-      return(tmp);
+      if (fread(&tmp->storage_as.flonum.data,
+                sizeof(tmp->storage_as.flonum.data),
+                1,
+                f) == 1)
+          return(tmp);
+      else
+          return NIL;
     case tc_symbol:
       len = get_long(f);
       if (len >= TKBUFFERN)
 	err("symbol name too long",NIL);
-      fread(tkbuffer,len,1,f);
-      tkbuffer[len] = 0;
-      return(rintern(tkbuffer));
+      if (fread(tkbuffer,len,1,f) == 1)
+      {
+          tkbuffer[len] = 0;
+          return(rintern(tkbuffer));
+      }
+      else
+	err("failed to write array",NIL);
     default:
       p = get_user_type_hooks(c);
       if (p->fast_read)
@@ -520,8 +534,8 @@ static LISP array_fast_read(int code,LISP table)
    {case tc_string:
       len = get_long(f);
       ptr = strcons(len,NULL);
-      fread(ptr->storage_as.string.data,len,1,f);
-      ptr->storage_as.string.data[len] = 0;
+      if (fread(ptr->storage_as.string.data,len,1,f) == 1)
+          ptr->storage_as.string.data[len] = 0;
       return(ptr);
     case tc_double_array:
       len = get_long(f);
@@ -530,7 +544,8 @@ static LISP array_fast_read(int code,LISP table)
       ptr->storage_as.double_array.dim = len;
       ptr->storage_as.double_array.data =
 	(double *) must_malloc(len * sizeof(double));
-      fread(ptr->storage_as.double_array.data,sizeof(double),len,f);
+      if (fread(ptr->storage_as.double_array.data,sizeof(double),len,f) != (unsigned)len)
+          return NULL;
       no_interrupt(iflag);
       return(ptr);
     case tc_long_array:
@@ -540,7 +555,8 @@ static LISP array_fast_read(int code,LISP table)
       ptr->storage_as.long_array.dim = len;
       ptr->storage_as.long_array.data =
 	(long *) must_malloc(len * sizeof(long));
-      fread(ptr->storage_as.long_array.data,sizeof(long),len,f);
+      if (fread(ptr->storage_as.long_array.data,sizeof(long),len,f) != (unsigned)len)
+          return 0;
       no_interrupt(iflag);
       return(ptr);
     case tc_lisp_array:

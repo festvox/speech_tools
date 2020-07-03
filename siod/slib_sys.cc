@@ -52,17 +52,24 @@ static LISP lchdir(LISP args, LISP env)
 {
     (void)env;
     char *home;
+    int r;
     
     if (siod_llength(args) == 0)
     {
 	home = getenv("HOME");
-	chdir(home);
-	return rintern(home);
+	r=chdir(home);
+        if (r==0)
+            return rintern(home);
+        else
+            return NIL;
     }
     else
     {
-	chdir(get_c_string(leval(car(args),env)));
-	return (car(args));
+	r=chdir(get_c_string(leval(car(args),env)));
+        if (r == 0)
+            return (car(args));
+        else
+            return NIL;
     }
 }
 

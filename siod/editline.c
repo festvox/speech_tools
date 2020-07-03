@@ -234,11 +234,19 @@ extern int	tgetnum();
 **  TTY input/output functions.
 */
 
+STATIC int writeerr = 0;
+
 void TTYflush()
 {
+    int r;
     if (ScreenCount) {
 	if (el_no_echo == 0)
-	    (void)write(1, Screen, ScreenCount);
+        {
+	    r = write(1, Screen, ScreenCount);
+            /* I don't care about failure to write here, really */
+            /* but to keep the compiler gods happy I'll count the errors */
+            writeerr += ScreenCount - r;
+        }
 	ScreenCount = 0;
     }
 }
