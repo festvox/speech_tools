@@ -423,12 +423,14 @@ EST_read_status EST_UtteranceFile::load_apml(EST_TokenStream &ts,
   {
   char buf[80];
 
-  fgets(buf, 80, stream);
+  if (fgets(buf, 80, stream) == NULL)
+      return read_format_error;
 
   if (strncmp(buf, "<?xml", 5) != 0)
     return read_format_error;
 
-  fgets(buf, 80, stream);
+  if (fgets(buf, 80, stream) == NULL)
+      return read_format_error;
 
   if (strncmp(buf, "<!DOCTYPE apml", 14) != 0)
     return read_format_error;
@@ -461,7 +463,8 @@ EST_read_status EST_UtteranceFile::load_genxml(EST_TokenStream &ts,
   {
   char buf[80];
 
-  fgets(buf, 80, stream);
+  if (fgets(buf, 80, stream) == NULL)
+      return read_format_error;
 
   if (strncmp(buf, "<?xml", 5) != 0)
     return read_format_error;
