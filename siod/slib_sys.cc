@@ -34,8 +34,9 @@ static LISP lsetenv(LISP name,LISP value)
 
 static LISP lsystem(LISP name)
 {
-    (void)system(get_c_string(name));
-    return NIL;
+    int r;
+    r = system(get_c_string(name));
+    return flocons((double)r);
 }
 
 static LISP lpwd(void)

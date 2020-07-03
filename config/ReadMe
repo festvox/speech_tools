@@ -145,7 +145,7 @@ JAVA_INCLUDES  = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/solaris
 MAKE_DEPEND = makedepend $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
 
 ## Normal library building
-BUILD_LIB =$(AR) cruv
+BUILD_LIB =$(AR) crv
 
 ## library indexing
 INDEX_LIB = $(RANLIB)
