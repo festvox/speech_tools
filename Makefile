@@ -52,7 +52,7 @@ ALL_DIRS = include $(BUILD_DIRS) $(EXTRA_DIRS) config doc
 VERSION=$(PROJECT_VERSION)
 CONFIG=configure configure.in config.sub config.guess \
        missing install-sh mkinstalldirs
-FILES=Makefile README.md INSTALL $(CONFIG)
+FILES=Makefile README.md INSTALL $(CONFIG) COPYING
 
 LOCAL_CLEAN= Build.trace Test.trace Templates.DB
 
