@@ -291,7 +291,8 @@ load_ngram_cstr_bin(const EST_String filename, EST_Ngrammar &n)
     
     if ((ifd=fopen(filename,"rb")) == NULL)
 	return misc_read_error;
-    fread(&magic,sizeof(int),1,ifd);
+    if (fread(&magic,sizeof(int),1,ifd) != 1)
+	return misc_read_error;
     
     if (SWAPINT(magic) == EST_NGRAMBIN_MAGIC)
 	swap = TRUE;
