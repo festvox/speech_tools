@@ -1,6 +1,6 @@
 speech_tools
                    EDINBURGH SPEECH TOOLS LIBRARY
-                     VERSION 2.5 February 2017
+                     VERSION 2.5.1 July 2020
 
 Principal authors: Alan W Black, Paul Taylor, Richard Caley, 
                    Simon King, Rob Clark and Korin Richmond
@@ -28,10 +28,10 @@ basic signal processing software.
 ========================================================================
 
 
-            Edinburgh Speech Tools Library version 2.5
+            Edinburgh Speech Tools Library version 2.5.1
               Centre for Speech Technology Research                
                    University of Edinburgh, UK                     
-                    Copyright (c) 1994-2017
+                    Copyright (c) 1994-2020
                       All Rights Reserved.                         
                                                                    
 Permission is hereby granted, free of charge, to use and distribute  

@@ -34,7 +34,7 @@
 ##     Top level Makefile for Edinburgh Speech tools library             ##
 ##     Authors: Paul Taylor, Simon King, Alan W Black, Richard Caley     ##
 ##                 and others (see ACKNOWLEDGEMENTS)                     ##
-#     Version: 2.5 release December 2017                                ##
+##     Version: 2.5.1 current July 2020                                  ##
 ##                                                                       ##
 ###########################################################################
 
