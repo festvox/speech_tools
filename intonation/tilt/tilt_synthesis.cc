@@ -99,13 +99,13 @@ void fill_connection_values(EST_Track &fz, float start_f0, float start_pos,
 	m = 0.0;
     else
 	m = (end_f0 - start_f0) / (end_pos - start_pos);
-	for (j = 0; j < fz.num_frames()-1; ++j)
-	{
-		fz.a(j) = (m * (float) j * f_shift) + start_f0;
-		fz.set_value(j);
-	}
-	fz.a(fz.num_frames()-1) = end_f0;
-	fz.set_value(fz.num_frames()-1);
+    for (j = 0; j < fz.num_frames()-1; ++j)
+    {
+        fz.a(j) = (m * (float) j * f_shift) + start_f0;
+        fz.set_value(j);
+    }
+    fz.a(fz.num_frames()-1) = end_f0;
+    fz.set_value(fz.num_frames()-1);
 		// hack to fill final values because of timing rounding errors
     //a = fz.a(j -1);  // I Think this is ezafi
     //for (; j < fz.num_frames(); ++j)
