@@ -58,7 +58,7 @@ InputSource SourceFromStream(const char8 *description, FILE *file)
 {
     Entity e;
 
-    e = NewExternalEntity(0, 0, description, 0, 0);
+    e = NewExternalEntity("", 0, description, 0, 0);
     if(!strchr8(description, '/'))
 	EntitySetBaseURL(e, default_base_url());
     

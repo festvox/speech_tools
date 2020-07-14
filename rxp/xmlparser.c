@@ -1613,7 +1613,7 @@ static int parse_dtd(Parser p)
 
     if(systemid || publicid)
     {
-	external_part = NewExternalEntity(0, publicid, systemid, 0, parent);
+	external_part = NewExternalEntity("", publicid, systemid, 0, parent);
 	if(!external_part)
 	{
 	    Free(name);
@@ -1628,7 +1628,7 @@ static int parse_dtd(Parser p)
 
 	require(read_markupdecls(p));
 	skip_whitespace(s);
-	internal_part = NewInternalEntity(0, p->pbuf, parent, line, cpos, 1);
+	internal_part = NewInternalEntity("", p->pbuf, parent, line, cpos, 1);
 	Consume(p->pbuf);
 	if(!internal_part)
 	{

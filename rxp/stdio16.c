@@ -416,8 +416,14 @@ int Vfprintf(FILE16 *file, const char *format, va_list args)
     const char8 *p;
     const char16 *q;
     char16 cbuf[1];
-    int mflag, pflag, sflag, hflag, zflag;
-    int l, h, L;
+    int mflag;
+#ifdef extra_flags
+    int pflag, sflag, hflag, zflag;
+#endif
+    int l, h;
+#ifdef HAVE_LONG_DOUBLE
+    int L;
+#endif    
     int nchars = 0;
 
     while((c = *format++))
@@ -431,8 +437,14 @@ int Vfprintf(FILE16 *file, const char *format, va_list args)
 	start = format-1;
 	width = 0;
 	prec = -1;
-	mflag=0, pflag=0, sflag=0, hflag=0, zflag=0;
-	l=0, h=0, L=0;
+	mflag=0;
+#ifdef extra_flags
+        pflag=0, sflag=0, hflag=0, zflag=0;
+#endif
+	l=0, h=0;
+#ifdef HAVE_LONG_DOUBLE
+        L=0;
+#endif
 
 	while(1)
 	{
@@ -441,6 +453,7 @@ int Vfprintf(FILE16 *file, const char *format, va_list args)
 	    case '-':
 		mflag = 1;
 		break;
+#ifdef extra_flags
 	    case '+':
 		pflag = 1;
 		break;
@@ -453,6 +466,7 @@ int Vfprintf(FILE16 *file, const char *format, va_list args)
 	    case '0':
 		zflag = 1;
 		break;
+#endif
 	    default:
 		goto flags_done;
 	    }
