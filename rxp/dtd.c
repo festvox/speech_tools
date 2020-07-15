@@ -187,13 +187,14 @@ Entity NewExternalEntityN(const Char *name, int namelen, const char8 *publicid,
 
     if(!(e = Malloc(sizeof(*e))))
 	return 0;
-    if ((name == 0) || (strcmp(name,"") == 0))
-        return 0;
     if(name && !(name = Strndup(name, namelen)))
 	    return 0;
 
     e->type = ET_external;
-    e->name = name;
+    if ((name == 0) || (strcmp(name,"") == 0))
+        e->name = 0;
+    else
+        e->name = name;
     e->base_url = 0;
     e->encoding = CE_unknown;
     e->next = 0;
