@@ -203,7 +203,7 @@ int main (int argc, char *argv[])
 		wave_info(sigload);
 	    else if (al.present("-pc"))
 	    {
-		if ((al.val("-pc") == "longest") &&
+		if ((downcase(al.val("-pc")) == "longest") &&
 		    (sig.num_samples() < sigload.num_samples()))
 		    sig.resize(sigload.num_samples());
 		else /* "first" or sig is longer */
