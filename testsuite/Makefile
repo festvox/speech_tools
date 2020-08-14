@@ -103,9 +103,11 @@ just_test test:
 		echo "-------------" ;\
 		echo "Tests failed:" ;\
 		egrep 'FAILED|INCORRECT|Warning' .test_out ;\
+		false;\
 	else \
 		echo "-------------" ;\
 		echo "Test OK" ;\
+		true;\
 	fi
 tmpdir:
 	rm -rf tmp
