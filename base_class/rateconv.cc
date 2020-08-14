@@ -431,7 +431,7 @@ static int outmax;
 
 static int ioerr(void)
 {
-    delete g_coep;
+    delete[] g_coep;
     return -1;
 }
 
@@ -585,7 +585,7 @@ int rateconv(short *in,int isize, short **out, int *osize,
 	    return ioerr();
     } while (outsize == OUTBUFFSIZE); 
 
-    delete g_coep;
+    delete[] g_coep;
 
     *osize = outpos;
 
