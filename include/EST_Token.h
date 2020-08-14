@@ -327,7 +327,7 @@ class EST_TokenStream{
     /// peek at next token
     EST_Token &peek(void);
     /// Reading binary data, (don't use peek() immediately beforehand)
-    int fread(void *buff,int size,int nitems);
+    int fread(void *buff,int size,int nitems) EST_WARN_UNUSED_RESULT;
     //@}
     /**@name stream initialization functions */
     //@{
