@@ -50,7 +50,7 @@ TEMPLATE_DIRS=include audio utils base_class base_class/string \
 EXTRA_DIRS=siod java rxp wrappers
 ALL_DIRS = include $(BUILD_DIRS) $(EXTRA_DIRS) config doc 
 VERSION=$(PROJECT_VERSION)
-CONFIG=configure configure.in config.sub config.guess \
+CONFIG=configure configure.ac config.sub config.guess \
        missing install-sh mkinstalldirs
 FILES=Makefile README.md INSTALL $(CONFIG) COPYING
 
@@ -108,7 +108,7 @@ rebuild_and_test:
 config/config: config/config.in config.status
 	./config.status
 
-configure: configure.in
+configure: configure.ac
 	autoconf
 
 include $(TOP)/config/rules/top_level.mak

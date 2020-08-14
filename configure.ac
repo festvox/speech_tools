@@ -30,9 +30,12 @@ dnl ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF       ##
 dnl THIS SOFTWARE.                                                       ##
 dnl                                                                      ##
 dnl########################################################################
-AC_INIT(include/EST.h)
+AC_PREREQ([2.69])
+AC_INIT
+AC_CONFIG_SRCDIR([include/EST.h])
 
-AC_CANONICAL_SYSTEM
+AC_CANONICAL_TARGET
+AC_PROG_CXX
 AC_PROG_CC
 if test "x$GCC" = "xyes"; then
 	CFLAGS="$CFLAGS -Wall"
@@ -50,36 +53,26 @@ AC_SUBST(TERMCAPLIB)
 
 dnl Which version of GCC do we have here
 COMPILERTYPE=gcc
-AC_TRY_COMPILE([#include <stdio.h>],
-               [int j= 
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j= 
                 #if __GNUC__ == 2 && __GNUC_MINOR__ == 95
                 3;
-                #endif ],
-               [COMPILERTYPE=gcc295])
-AC_TRY_COMPILE([#include <stdio.h>],
-               [int j= 
+                #endif ]])],[COMPILERTYPE=gcc295],[])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j= 
                 #if __GNUC__ == 3 
                 3;
-                #endif ],
-               [COMPILERTYPE=gcc32])
-AC_TRY_COMPILE([#include <stdio.h>],
-               [ int j=
+                #endif ]])],[COMPILERTYPE=gcc32],[])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[ int j=
                 #if __GNUC__ == 2 && __GNUC_MINOR__ == 96
                 3;
-                #endif ],
-               [COMPILERTYPE=gcc296])
-AC_TRY_COMPILE([#include <stdio.h>],
-               [int j=
+                #endif ]])],[COMPILERTYPE=gcc296],[])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j=
                 #if __GNUC__ == 2 && __GNUC_MINOR__ == 91
                 3;
-                #endif ],
-               [COMPILERTYPE=egcs])
-AC_TRY_COMPILE([#include <stdio.h>],
-               [int j=
+                #endif ]])],[COMPILERTYPE=egcs],[])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j=
                 #if __GNUC__ == 2 && __GNUC_MINOR__ == 8
                 3;
-                #endif ],
-               [COMPILERTYPE=gcc28])
+                #endif ]])],[COMPILERTYPE=gcc28],[])
 AC_SUBST(COMPILERTYPE)
 
 LINUXAUDIO=none
@@ -88,14 +81,11 @@ AC_CHECK_HEADER(alsa/asoundlib.h,
 AC_SUBST(LINUXAUDIO)
 
 OMP_OPTS=
-AC_TRY_COMPILE([#include <omp.h>],
-               [ int j=1;],
-               [OMP_OPTS="-fopenmp"])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <omp.h>]], [[ int j=1;]])],[OMP_OPTS="-fopenmp"],[])
 AC_SUBST(OMP_OPTS)
 OMP_DEFS=
-AC_TRY_COMPILE([#include <omp.h>],
-               [ int j=1;],
-               [OMP_DEFS="-DOMP_WAGON=1"])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <omp.h>]], [[ int j=1;]])],[OMP_DEFS="-DOMP_WAGON=1"],[])
 AC_SUBST(OMP_DEFS)
 
-AC_OUTPUT(config/config)
+AC_CONFIG_FILES([config/config config/user_flags.mak])
+AC_OUTPUT
