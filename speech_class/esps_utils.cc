@@ -545,12 +545,23 @@ esps_fea read_esps_fea(FILE *fd, esps_hdr hdr)
     double ddata;
     char cdata;
 
-    fread(&sdata,2,1,fd);
+    if (fread(&sdata,2,1,fd) != 1)
+    {
+	fprintf(stderr,"ESPS: can't read first bytes\n");
+	wfree(r);
+	return NULL;
+    }
+        
     if (hdr->swapped) sdata = SWAPSHORT(sdata);
     r->type = sdata;
     if (r->type == 0)              /* a field name */
     {   /* next short is the size in bytes */
-	fread(&sdata,2,1,fd);
+	if (fread(&sdata,2,1,fd) != 1)
+        {
+            fprintf(stderr,"ESPS: header too short\n");
+            wfree(r);
+            return NULL;
+        }
 	if (hdr->swapped) sdata = SWAPSHORT(sdata);
 	r->clength = sdata;
     }
@@ -560,7 +571,12 @@ esps_fea read_esps_fea(FILE *fd, esps_hdr hdr)
              (r->type == 4)  ||   /* a filename */
 	     (r->type == 15))     /* directory name */
     {                 
-	fread(&sdata,2,1,fd);
+	if (fread(&sdata,2,1,fd) != 1)
+        {
+            fprintf(stderr,"ESPS: header too short\n");
+            wfree(r);
+            return NULL;
+        }
 	if (hdr->swapped) sdata = SWAPSHORT(sdata);
 	r->clength = sdata * 4;
     }
@@ -571,16 +587,31 @@ esps_fea read_esps_fea(FILE *fd, esps_hdr hdr)
 	return NULL;
     }
     r->name = walloc(char,r->clength+1);
-    fread(r->name,1,r->clength,fd);
+    if (fread(r->name,1,r->clength,fd) != (unsigned int)r->clength)
+    {
+        fprintf(stderr,"ESPS: header too short\n");
+        wfree(r);
+        return NULL;
+    }
     r->name[r->clength] = '\0';
     if ((r->type == 11) ||       /* a single string */
 	(r->type == 1)  ||       /* a filename */
 	(r->type == 15))         /* directory name */
 	return r;  
-    fread(&idata,4,1,fd);
+    if (fread(&idata,4,1,fd) != 1)
+    {
+        fprintf(stderr,"ESPS: header too short\n");
+        wfree(r);
+        return NULL;
+    }
     if (hdr->swapped) idata = SWAPINT(idata);
     r->count = idata;
-    fread(&sdata,2,1,fd);
+    if (fread(&sdata,2,1,fd) != 1)
+    {
+        fprintf(stderr,"ESPS: header too short\n");
+        wfree(r);
+        return NULL;
+    }
     if (hdr->swapped) sdata = SWAPSHORT(sdata);
     r->dtype = sdata;
     if (esps_alloc_fea(r) == -1)
@@ -590,27 +621,52 @@ esps_fea read_esps_fea(FILE *fd, esps_hdr hdr)
 	switch (r->dtype)
 	{
 	  case ESPS_DOUBLE:
-	    fread(&ddata,8,1,fd);
+            if (fread(&ddata,8,1,fd) != 1)
+            {
+                fprintf(stderr,"ESPS: header too short\n");
+                wfree(r);
+                return NULL;
+            }
 	    if (hdr->swapped) swapdouble(&ddata);
 	    r->v.dval[i] = ddata;
 	    break;
 	  case ESPS_FLOAT:
-	    fread(&fdata,4,1,fd);
+            if (fread(&fdata,4,1,fd) != 1)
+            {
+                fprintf(stderr,"ESPS: header too short\n");
+                wfree(r);
+                return NULL;
+            }
 	    if (hdr->swapped) swapfloat(&fdata);
 	    r->v.fval[i] = fdata;
 	    break;
 	  case ESPS_INT:
-	    fread(&idata,4,1,fd);
+            if (fread(&idata,4,1,fd) != 1)
+            {
+                fprintf(stderr,"ESPS: header too short\n");
+                wfree(r);
+                return NULL;
+            }
 	    if (hdr->swapped) idata = SWAPINT(idata);
 	    r->v.ival[i] = idata;
 	    break;
 	  case ESPS_SHORT:
-	    fread(&sdata,2,1,fd);
+            if (fread(&sdata,2,1,fd) != 1)
+            {
+                fprintf(stderr,"ESPS: header too short\n");
+                wfree(r);
+                return NULL;
+            }
 	    if (hdr->swapped) sdata = SWAPSHORT(sdata);
 	    r->v.sval[i] = sdata;
 	    break;
 	  case ESPS_CHAR:
-	    fread(&cdata,1,1,fd);
+            if (fread(&cdata,1,1,fd) != 1)
+            {
+                fprintf(stderr,"ESPS: header too short\n");
+                wfree(r);
+                return NULL;
+            }
 	    r->v.cval[i] = cdata;
 	    break;
 	  default:
@@ -649,7 +705,12 @@ static char *esps_get_field_name(FILE *fd, esps_hdr hdr, int expect_source)
 
   if (expect_source)
     {
-      fread(&size,2,1,fd);
+        if (fread(&size,2,1,fd) != 1)
+        {
+            fprintf(stderr,"ESPS: header too short\n");
+            return NULL;
+        }
+
       if (hdr->swapped) size = SWAPSHORT(size);
       fseek(fd,size,SEEK_CUR);
     }
@@ -933,7 +994,8 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
     int swap;
     short name_flag;
 
-    fread(&preamble,sizeof(preamble),1,fd);
+    if (fread(&preamble,sizeof(preamble),1,fd) != 1)
+        return wrong_format;
     if (preamble.check == ESPS_MAGIC)
 	swap = FALSE;
     else if (preamble.check == SWAPINT(ESPS_MAGIC))
@@ -943,7 +1005,13 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 
     hdr = new_esps_hdr();
     hdr->swapped = swap;
-    fread(&fhdr,sizeof(fhdr),1,fd);
+    if (fread(&fhdr,sizeof(fhdr),1,fd) != 1)
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header (record description)\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
+        
     if (hdr->swapped) 
     {
 	preamble.data_offset = SWAPINT(preamble.data_offset);
@@ -999,7 +1067,12 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
     hdr->field_dimension = walloc(int,hdr->num_fields);
     for (i=0; i<hdr->num_fields; i++)                   
     {
-	fread(&intdata,4,1,fd);                         /* dimensions */
+	if (fread(&intdata,4,1,fd)!=1)                     /* dimensions */
+        {
+            fprintf(stderr,"ESPS hdr: got lost in the header\n");
+            delete_esps_hdr(hdr);
+            return misc_read_error;
+        }
 	if (hdr->swapped) intdata = SWAPINT(intdata);
 	hdr->field_dimension[i] = intdata;
     }
@@ -1009,29 +1082,59 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
     hdr->field_type = walloc(short,hdr->num_fields);    
     for (i=0; i<hdr->num_fields; i++)
     {
-	fread(&shortdata,2,1,fd);                       /* field types */  
+	if (fread(&shortdata,2,1,fd)!=1)                /* field types */  
+        {
+            fprintf(stderr,"ESPS hdr: got lost in the header\n");
+            delete_esps_hdr(hdr);
+            return misc_read_error;
+        }
 	if (hdr->swapped) shortdata = SWAPSHORT(shortdata);
 	hdr->field_type[i] = shortdata;
     }
     typematch = TRUE;
-    fread(&intdata,4,1,fd);                             /* number of doubles */
+    if (fread(&intdata,4,1,fd)!=1)                      /* number of doubles */
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
     if (hdr->swapped) intdata = SWAPINT(intdata);
     if (fhdr.num_doubles != intdata) typematch = FALSE;
-    fread(&intdata,4,1,fd);                             /* number of floats */
+    if (fread(&intdata,4,1,fd)!=1)                      /* number of floats */
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
     if (hdr->swapped) intdata = SWAPINT(intdata);
     if (fhdr.num_floats != intdata) typematch = FALSE;
-    fread(&intdata,4,1,fd);                             /* number of ints */
+    if (fread(&intdata,4,1,fd)!=1)                      /* number of ints */
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
     if (hdr->swapped) intdata = SWAPINT(intdata);
     if (fhdr.num_ints != intdata) typematch = FALSE;
-    fread(&intdata,4,1,fd);                             /* number of shorts */
+    if (fread(&intdata,4,1,fd)!=1)                      /* number of shorts */
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
     if (hdr->swapped) intdata = SWAPINT(intdata);
     if (fhdr.num_shorts != intdata) typematch = FALSE;
-    fread(&intdata,4,1,fd);                             /* number of chars */
+    if (fread(&intdata,4,1,fd)!=1)                      /* number of chars */
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
     if (hdr->swapped) intdata = SWAPINT(intdata);
     if (fhdr.num_chars != intdata) typematch = FALSE;
     if ((hdr->file_type != ESPS_SD) && (typematch == FALSE))
     {
-	fprintf(stderr,"ESPS hdr: got lost in the header (record description)\n");
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
 	delete_esps_hdr(hdr);
 	return misc_read_error;
     }
@@ -1041,7 +1144,12 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
     /* Now we can read the field names */
     hdr->field_name = walloc(char *,hdr->num_fields);
 
-    fread(&name_flag, 2, 1, fd);
+    if (fread(&name_flag, 2, 1, fd)!=1)
+    {
+	fprintf(stderr,"ESPS hdr: got lost in the header\n");
+	delete_esps_hdr(hdr);
+	return misc_read_error;
+    }
     if (hdr->swapped) name_flag = SWAPSHORT(name_flag);
 
     for (i=0; i < hdr->num_fields; i++)

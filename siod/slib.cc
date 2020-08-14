@@ -139,10 +139,10 @@ LISP unbound_marker = NIL;
 LISP *obarray;
 long obarray_dim = 100;
 struct catch_frame *catch_framep = (struct catch_frame *) NULL;
-void (*repl_puts)(char *) = NULL;
+int (*repl_puts)(char *) = NULL;
 LISP (*repl_read)(void) = NULL;
 LISP (*repl_eval)(LISP) = NULL;
-void (*repl_print)(LISP) = NULL;
+int (*repl_print)(LISP) = NULL;
 repl_getc_fn siod_fancy_getc = f_getc;
 repl_ungetc_fn siod_fancy_ungetc = f_ungetc;
 LISP *inums;
@@ -368,12 +368,18 @@ long repl_driver(long want_sigint,long want_init,struct repl_hooks *h)
  else
    return(repl(h));}
 
-static void ignore_puts(char *st)
-{(void)st;}
+static int ignore_puts(char *st)
+{
+    (void)st;
+    return 0;
+}
 
-static void noprompt_puts(char *st)
-{if (strcmp(st,"> ") != 0)
-   put_st(st);}
+static int noprompt_puts(char *st)
+{
+    if (strcmp(st,"> ") != 0)
+        put_st(st);
+    return 0;
+}
 
 static char *repl_c_string_arg = NULL;
 static long repl_c_string_flag = 0;
@@ -386,13 +392,17 @@ static LISP repl_c_string_read(void)
  repl_c_string_arg = NULL;
  return(read_from_string(get_c_string(s)));}
 
-static void ignore_print(LISP x)
-{(void)x;
- repl_c_string_flag = 1;}
+static int ignore_print(LISP x)
+{
+    (void)x;
+    repl_c_string_flag = 1;
+    return 0;
+}
 
-static void not_ignore_print(LISP x)
+static int not_ignore_print(LISP x)
 {repl_c_string_flag = 1;
- pprint(x);}
+ pprint(x);
+ return 0;}
 
 long repl_c_string(char *str,
 		   long want_sigint,long want_init,long want_print)
@@ -443,34 +453,42 @@ double myruntime(void)
 #endif
 #endif
 
-void set_repl_hooks(void (*puts_f)(char *),
+void set_repl_hooks(int (*puts_f)(char *),
 		    LISP (*read_f)(void),
 		    LISP (*eval_f)(LISP),
-		    void (*print_f)(LISP))
+		    int (*print_f)(LISP))
 {repl_puts = puts_f;
  repl_read = read_f;
  repl_eval = eval_f;
  repl_print = print_f;}
 
-void fput_st(FILE *f,const char *st)
-{long flag;
- if (f != NULL)  /* so we can block warning messages easily */
- {
-     flag = no_interrupt(1);
-     fprintf(f,"%s",st);
-     no_interrupt(flag);
- }
+int fput_st(FILE *f,const char *st)
+{
+    long flag;
+    if (f != NULL)  /* so we can block warning messages easily */
+    {
+        flag = no_interrupt(1);
+        fprintf(f,"%s",st);
+        no_interrupt(flag);
+    }
+    return 0;
 }
 
 void put_st(const char *st)
 {fput_st(stdout,st);}
      
-void grepl_puts(char *st,void (*repl_putss)(char *))
-{if (repl_putss == NULL)
-   {fput_st(fwarn,st);
-    if (fwarn != NULL) fflush(stdout);}
- else
-   (*repl_putss)(st);}
+int grepl_puts(char *st,int (*repl_putss)(char *))
+{
+    if (repl_putss == NULL)
+    {
+        fput_st(fwarn,st);
+        if (fwarn != NULL)
+            fflush(stdout);
+    }
+    else
+        (*repl_putss)(st);
+    return 0;
+}
 
 static void display_backtrace(LISP args)
 {
@@ -1489,7 +1507,7 @@ LISP leval(LISP x,LISP qenv)
         return(x);}}
 
 void set_print_hooks(long type,
-		     void (*prin1)(LISP, FILE *),
+		     int (*prin1)(LISP, FILE *),
 		     void (*print_string)(LISP, char *)
 		     )
 {struct user_type_hooks *p;

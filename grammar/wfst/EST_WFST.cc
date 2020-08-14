@@ -426,20 +426,25 @@ EST_write_status EST_WFST::save(const EST_String &filename,
 
 static float get_float(FILE *fd,int swap)
 {
-    float f;
-    fread(&f,4,1,fd);
-    if (swap) swapfloat(&f);
+    float f=0.0;
+    if (fread(&f,4,1,fd) == 1)
+    {
+        if (swap) swapfloat(&f);
+    }
     return f;
 }
 
 static int get_int(FILE *fd,int swap)
 {
-    int i;
-    fread(&i,4,1,fd);
-    if (swap) 
-	return SWAPINT(i);
-    else
-	return i;
+    int i=0;
+    if (fread(&i,4,1,fd) == 1)
+    {
+        if (swap) 
+            return SWAPINT(i);
+        else
+            return i;
+    }
+    return i;
 }
 
 EST_read_status EST_WFST::load_binary(FILE *fd,

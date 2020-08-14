@@ -17,6 +17,9 @@ int siod_server_socket = -1;
 
 LISP siod_send_lisp_to_client(LISP x)
 {
+    int r;
+    LISP rx = x;
+    
     // Send x to the client
     if (siod_server_socket == -1)
     {
@@ -40,43 +43,53 @@ LISP siod_send_lisp_to_client(LISP x)
 #ifdef WIN32
 	send(siod_server_socket,"LP\n",3,0);
 #else
-	write(siod_server_socket,"LP\n",3);
+	r = write(siod_server_socket,"LP\n",3);
+        if (r != 3)
+            rx = NIL;
 #endif
 	socket_send_file(siod_server_socket,tmpfile);
 	unlink(tmpfile);
     }
 
-    return x;
+    return rx;
 }
 
-void sock_acknowledge_error()
+int sock_acknowledge_error()
 {
     // Called to let client know if server gets an error
     // Thanks to mcb for pointing out this omission
+    int r = 0;
     
     if (siod_server_socket != -1)
 #ifdef WIN32
 	send(siod_server_socket,"ER\n",3,0);
 #else
-	write(siod_server_socket,"ER\n",3);
+        r = write(siod_server_socket,"ER\n",3);
 #endif
+        return r;
 
 }
     
-static void acknowledge_sock_print(LISP x)
+static int acknowledge_sock_print(LISP x)
 {   // simple return "OK" -- used in server socket mode
+    int r;
 
     siod_send_lisp_to_client(x);
 #ifdef WIN32
     send(siod_server_socket,"OK\n",3,0);
 #else
-    write(siod_server_socket,"OK\n",3);
+    r = write(siod_server_socket,"OK\n",3);
 #endif
+    if (r == 3)
+        return 0;
+    else
+        return -1;
 }
 
-static void ignore_puts(char *x)
+static int ignore_puts(char *x)
 {   
     (void)x;
+    return 0;
 }
 
 long repl_from_socket(int fd)

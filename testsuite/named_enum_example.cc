@@ -180,7 +180,8 @@ int main(void)
     {
       cout << "\n\ncolour name map\n";
       cout.flush();
-      system("cat tmp/colour.map");
+      if (system("cat tmp/colour.map") != 0)
+          cout << "\n\ncat tmp/colour.map failed\n";
     }
 
   // Of course this can result in the file not being valid when the
@@ -200,7 +201,8 @@ int main(void)
     {
       cout << "\n\ncolour name map (spanish)\n";
       cout.flush();
-      system("cat tmp/colour_spanish.map");
+      if (system("cat tmp/colour_spanish.map") != 0)
+          cout << "\n\ncat tmp/colour_spanish.map failed\n";
     }
 
   // There are two corresponding ways to read in a map.
@@ -215,7 +217,8 @@ int main(void)
       cout << "\n\nread in table\n";
       LoadedColourMap.save("tmp/tmp.map");
       cout.flush();
-      system("cat tmp/tmp.map");
+      if (system("cat tmp/tmp.map") != 0)
+          cout << "\n\ncat tmp/tmp.map failed\n";
     }
 
   // If it's defined in the file using the names... 
@@ -228,7 +231,8 @@ int main(void)
 
       LoadedColourMap.save("tmp/tmp.map");
       cout.flush();
-      system("cat tmp/tmp.map");
+      if (system("cat tmp/tmp.map") != 0)
+          cout << "\n\ncat tmp/tmp.map failed\n";
     }
 
   exit(0);

@@ -34,7 +34,7 @@
 ##     Top level Makefile for Edinburgh Speech tools library             ##
 ##     Authors: Paul Taylor, Simon King, Alan W Black, Richard Caley     ##
 ##                 and others (see ACKNOWLEDGEMENTS)                     ##
-#     Version: 2.5 release December 2017                                ##
+##     Version: 2.5.1 current July 2020                                  ##
 ##                                                                       ##
 ###########################################################################
 
@@ -52,7 +52,7 @@ ALL_DIRS = include $(BUILD_DIRS) $(EXTRA_DIRS) config doc
 VERSION=$(PROJECT_VERSION)
 CONFIG=configure configure.ac config.sub config.guess \
        missing install-sh mkinstalldirs
-FILES=Makefile README.md INSTALL $(CONFIG)
+FILES=Makefile README.md INSTALL $(CONFIG) COPYING
 
 LOCAL_CLEAN= Build.trace Test.trace Templates.DB
 

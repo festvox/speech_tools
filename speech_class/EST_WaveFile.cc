@@ -85,7 +85,10 @@ EST_read_status load_using(standard_load_fn_fp fn,
 
   if (status == read_ok)
     {
-      wv.values().set_memory(data, 0, nsamp, nchan, TRUE);
+      short *data2 = new short[nsamp*nchan];
+      memcpy(data2, data, nsamp*nchan*sizeof(short));
+      wfree(data);
+      wv.values().set_memory(data2, 0, nsamp, nchan, TRUE);
       wv.set_sample_rate(srate);
     }
 

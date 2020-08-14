@@ -189,10 +189,10 @@ struct gen_readio
 #define UNGETC_FCN(c,x) (*((*x).ungetc_fcn))(c,(*x).cb_argument)
 
 struct repl_hooks
-{void (*repl_puts)(char *);
+{int (*repl_puts)(char *);
  LISP (*repl_read)(void);
  LISP (*repl_eval)(LISP);
- void (*repl_print)(LISP);};
+ int (*repl_print)(LISP);};
 
 /* Macro for defining new class as values public functions */
 #define SIOD_REGISTER_CLASS_DCLS(NAME,CLASS)           \

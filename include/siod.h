@@ -60,7 +60,7 @@ void set_gc_hooks(long type,
 		  long *kind);
 void set_eval_hooks(long type,LISP (*fcn)(LISP, LISP *, LISP *));
 void set_type_hooks(long type, long (*c_sxhash)(LISP,long), LISP (*equal)(LISP,LISP));
-void set_print_hooks(long type,void (*prin1)(LISP, FILE *), void (*print_string)(LISP, char *));
+void set_print_hooks(long type,int (*prin1)(LISP, FILE *), void (*print_string)(LISP, char *));
 void set_io_hooks(long type, LISP (*fast_print)(LISP,LISP), LISP (*fast_read)(int,LISP));
 
 void set_fatal_exit_hook(void (*fcn)(void));
@@ -171,7 +171,7 @@ long repl_c_string(char *,long want_sigint,long want_init,long want_print);
 long repl_from_socket(int fd);
 void init_subrs(void);
 LISP stringexplode(const char *str);
-void fput_st(FILE *f,const char *st);
+int fput_st(FILE *f,const char *st);
 LISP get_eof_val(void);
 
 

@@ -73,7 +73,7 @@
 /* modified by awb to allow specifcation of history size at run time  */
 /* (though only once)                                                 */
 int editline_histsize=256;
-char *editline_history_file;
+char *editline_history_file = ".editline_history";
 /* If this is defined it'll be called for completion first, before the */
 /* internal file name completion will be                               */
 EL_USER_COMPLETION_FUNCTION_TYPE*el_user_completion_function = NULL;
@@ -234,11 +234,19 @@ extern int	tgetnum();
 **  TTY input/output functions.
 */
 
+STATIC int writeerr = 0;
+
 void TTYflush()
 {
+    int r;
     if (ScreenCount) {
 	if (el_no_echo == 0)
-	    (void)write(1, Screen, ScreenCount);
+        {
+	    r = write(1, Screen, ScreenCount);
+            /* I don't care about failure to write here, really */
+            /* but to keep the compiler gods happy I'll count the errors */
+            writeerr += ScreenCount - r;
+        }
 	ScreenCount = 0;
     }
 }

@@ -100,7 +100,6 @@ static char **command_completion (char *text,int start,int end);
 
 static char *el_line = NULL;
 
-char *editline_history_file = ".editline_history";
 static char *full_history_file = ".editline_history";
 
 static STATUS siod_display_doc ()

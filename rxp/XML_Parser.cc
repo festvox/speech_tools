@@ -79,7 +79,7 @@ XML_Parser *XML_Parser_Class::make_parser(FILE *input,
 					   const EST_String desc, 
 					   void *data)
 {
-  Entity ent = NewExternalEntity(0,0,strdup8(desc),0,0);
+  Entity ent = NewExternalEntity("",0,strdup8(desc),0,0);
 
   FILE16 *input16=MakeFILE16FromFILE(input, "r");
 
@@ -110,7 +110,7 @@ XML_Parser *XML_Parser_Class::make_parser(const EST_String filename,
   if (input==NULL)
     EST_sys_error("Can't open '%s'", (const char *)filename);
 
-  Entity ent = NewExternalEntity(0,0,strdup8(filename),0,0);
+  Entity ent = NewExternalEntity("",0,strdup8(filename),0,0);
 
   FILE16 *input16=MakeFILE16FromFILE(input, "r");
 

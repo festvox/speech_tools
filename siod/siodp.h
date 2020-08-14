@@ -28,7 +28,7 @@ extern LISP open_files;
 extern LISP eof_val;
 extern LISP siod_docstrings;
 extern int siod_interactive;
-void sock_acknowledge_error();
+int sock_acknowledge_error();
 extern FILE *fwarn;
 extern LISP unbound_marker;
 extern long gc_kind_copying;
@@ -46,7 +46,7 @@ struct user_type_hooks
  LISP (*gc_mark)(LISP);
  void (*gc_free)(LISP);
  void (*gc_clear)(LISP);
- void (*prin1)(LISP, FILE *);
+    int (*prin1)(LISP, FILE *);
  void (*print_string)(LISP, char *);
  LISP (*leval)(LISP, LISP *, LISP *);
  long (*c_sxhash)(LISP,long);

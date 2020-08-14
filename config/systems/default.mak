@@ -104,7 +104,7 @@ MAKE_DEPEND_C = makedepend $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
 MAKE_DEPEND_CXX = makedepend $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
 
 ## Generic library building
-BUILD_LIB =$(AR) cruv
+BUILD_LIB =$(AR) crv
 
 ## generic library indexing
 INDEX_LIB = $(RANLIB)

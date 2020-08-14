@@ -55,6 +55,7 @@ DEBUG_CXXFLAGS  = -g
 DEBUG_LINKFLAGS = -g
 
 WARN_CCFLAGS   = -Wall
+WARN_CXXFLAGS  = -Wall -std=c++11
 WARN_CXXFLAGS  = -Wall
 WARN_LINKFLAGS = -Wall
 
@@ -83,7 +84,7 @@ SHARED_LINKFLAGS =
 ifndef GCC_MAKE_SHARED_LIB
 # Older versions of gcc might have required -fno-shared-data
 #    MAKE_SHARED_LIB = $(CXX) -shared -fno-shared-data -o XXX
-    MAKE_SHARED_LIB = $(CXX) -shared -o XXX $(USER_LINKFLAGS)
+	  MAKE_SHARED_LIB = $(CXX) $(OMP_OPTS) -shared -o XXX $(USER_LINKFLAGS)
 else
     MAKE_SHARED_LIB = $(GCC_MAKE_SHARED_LIB)
 endif
@@ -106,7 +107,7 @@ COMPILERLIBS= $(COMPILER_LIBS_DIR:%=-L%) -lstdc++ $(OMP_OPTS)
 
 MAKE_DEPEND_C = $(CC) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
 MAKE_DEPEND_CXX = $(CC) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
-BUILD_LIB   = $(AR) cruv
+BUILD_LIB   = $(AR) crv
 INDEX_LIB   = $(RANLIB)
 
 

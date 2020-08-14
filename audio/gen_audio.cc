@@ -175,8 +175,9 @@ static int play_aucomm_wave(EST_Wave &inwave, EST_Option &al)
 {
     // Play wave by specified command 
     EST_String usrcommand, otype;
-    char tmpfile[2048];
+    char tmpfile[2000];
     char pref[2048];
+    int r;
 
     if (al.present("-command"))
 	usrcommand = al.val("-command");
@@ -206,11 +207,11 @@ static int play_aucomm_wave(EST_Wave &inwave, EST_Option &al)
 
     sprintf(pref,"FILE=%s;SR=%d;",tmpfile,inwave.sample_rate());
 
-    system((EST_String)pref+usrcommand.unquote('"'));
+    r = system((EST_String)pref+usrcommand.unquote('"'));
 
     unlink(tmpfile);  // so we don't fill up /tmp
 
-    return 0;
+    return r;
 }
 
 static int play_sunau_wave(EST_Wave &inwave, EST_Option &al)

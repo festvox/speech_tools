@@ -653,7 +653,7 @@ static float test_tree_ols(WNode &tree,WDataSet &dataset,ostream *output)
 {
     // Test tree against data to get summary of results OLS
     EST_Litem *p;
-    WNode *leaf;
+    //    WNode *leaf;
     float predict,real;
     EST_SuffStats x,y,xx,yy,xy,se,e;
     double cor,error;
@@ -661,7 +661,7 @@ static float test_tree_ols(WNode &tree,WDataSet &dataset,ostream *output)
 
     for (p=dataset.head(); p != 0; p=p->next())
     {
-	leaf = tree.predict_node((*dataset(p)));
+	//leaf = tree.predict_node((*dataset(p)));
         // do ols to get predict;
         predict = 0.0;  // This is incomplete ! you need to use leaf
 	real = dataset(p)->get_flt_val(wgn_predictee);
