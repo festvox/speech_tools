@@ -153,6 +153,7 @@ void pm_min_check(EST_Track &pm, float min)
 void pm_fill(EST_Track &pm, float new_end, float max, float min, float def)
 {
     EST_FVector new_pm;
+    EST_FVector new_voicing;
 
     if (new_end < 0)
 	new_end = pm.end();
@@ -165,6 +166,7 @@ void pm_fill(EST_Track &pm, float new_end, float max, float min, float def)
 //    cout << "num frames:" << pm.end() << endl;
 //    cout << "num frames:" << min << endl;
     new_pm.resize(int(new_end / min));
+    new_voicing.resize(int(new_end / min));
 //    cout << "num frames:" << pm.end()/min << endl;
 //    cout << "num frames:" << new_pm.n() << endl;
 
@@ -191,9 +193,10 @@ void pm_fill(EST_Track &pm, float new_end, float max, float min, float def)
 	    // interpolate
 	    int num = ifloor((current - last)/ def);
 	    float size = (current-last) / num;
-	    for (i = 1; i <= num; i++)
+	    for (i = 1; i < num; i++)
 	    {
 		new_pm[npm] = last + i * size;
+        new_voicing[npm] = 0.0;
 		npm++;
 		added++;
 	    }
@@ -201,6 +204,7 @@ void pm_fill(EST_Track &pm, float new_end, float max, float min, float def)
 	else
 	{
 	    new_pm[npm] = pm.t(j);
+        new_voicing[npm] = 1.0;
 	    npm++;
 	}
 	last=current;
@@ -214,6 +218,7 @@ void pm_fill(EST_Track &pm, float new_end, float max, float min, float def)
 	for (i = 1; i <= num; i++)
 	{
 	    new_pm[npm] = last + i * size;
+        new_voicing[npm] = 0.0;
 	    npm++;
 	    added++;
 	}
@@ -226,7 +231,11 @@ void pm_fill(EST_Track &pm, float new_end, float max, float min, float def)
 //    if (debug)
     pm.resize(npm, pm.num_channels());
     for (i = 0; i < npm; i++)
-	pm.t(i) = new_pm(i);
+    {
+        pm.t(i) = new_pm(i);
+        if (new_voicing(i) == 0.0)
+            pm.set_break(i);
+    }
 }
 
 void neg_zero_cross_pick(EST_Wave &lx, EST_Track &pm)
