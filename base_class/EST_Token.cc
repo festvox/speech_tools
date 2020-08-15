@@ -287,8 +287,9 @@ int EST_TokenStream::seek_end()
 	return -1;
 	break;
       case tst_istream:
-	cerr << "EST_TokenStream seek on istream not yet supported" << endl;
-	return -1;
+	is->seekg(0,is->end);
+	p_filepos = is->tellg();
+	return p_filepos;
 	break;
       case tst_string:
 	pos = buffer_length;
@@ -320,8 +321,9 @@ int EST_TokenStream::seek(int position)
 	return -1;
 	break;
       case tst_istream:
-	cerr << "EST_TokenStream seek on istream not yet supported" << endl;
-	return -1;
+	p_filepos = position;
+	is->seekg(position, is->beg);
+	return 0;
 	break;
       case tst_string:
 	if (position >= pos)
@@ -381,8 +383,9 @@ int EST_TokenStream::fread(void *buff, int size, int nitems)
 	return 0;
 	break;
       case tst_istream:
-	cerr << "EST_TokenStream fread istream not yet supported" << endl;
-	return 0;
+	is->read((char*)buff, (size_t) size*nitems);
+	return is->gcount()/size;
+    break;
       case tst_string:
 	if ((buffer_length-pos)/size < nitems)
 	    items_read = (buffer_length-pos)/size;
