@@ -405,8 +405,8 @@ EST_read_status read_wave(EST_Wave &sig, const EST_String &in_file,
     }
     if (al.present("-alaw"))
     {
-al.add_item("-itype","alaw");
-al.add_item("-f","8000");
+	al.add_item("-itype","alaw");
+	al.add_item("-f","8000");
     }
     if (al.present("-iswap"))
 	al.add_item("-ibo","other");
