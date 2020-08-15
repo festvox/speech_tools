@@ -41,7 +41,7 @@
 
 #include <stdio.h>
 
-/* The follow two (raw and ulaw) cannot be in the table as they cannot */
+/* The following three (raw, alaw and ulaw) cannot be in the table as they cannot */
 /* identify themselves from files (both are unheadered)                */
 enum EST_read_status load_wave_raw(EST_TokenStream &ts, short **data, int
 	 *num_samples, int *num_channels, int *word_size, int
@@ -58,6 +58,15 @@ enum EST_read_status load_wave_ulaw(EST_TokenStream &ts, short **data, int
 	 *sample_rate,  enum EST_sample_type_t *sample_type, int *bo, int
 	 offset, int length);
 enum EST_write_status save_wave_ulaw(FILE *fp, const short *data, int offset,
+				int length, int num_channels, 
+				int sample_rate,
+				enum EST_sample_type_t, int bo);
+
+enum EST_read_status load_wave_alaw(EST_TokenStream &ts, short **data, int
+	 *num_samples, int *num_channels, int *word_size, int
+	 *sample_rate,  enum EST_sample_type_t *sample_type, int *bo, int
+	 offset, int length);
+enum EST_write_status save_wave_alaw(FILE *fp, const short *data, int offset,
 				int length, int num_channels, 
 				int sample_rate,
 				enum EST_sample_type_t, int bo);

@@ -77,7 +77,7 @@ use "-" to make input and output files stdin/out
 -iswap  Swap bytes. (For use on an unheadered input file)
 
 -istype <string> Sample type in an unheadered input file:
-     short, mulaw, byte, ascii
+     short, alaw, mulaw, byte, ascii
 
 -c <string>  Select a single channel (starts from 0). 
     Waveforms can have multiple channels. This option 
@@ -112,7 +112,7 @@ use "-" to make input and output files stdin/out
 
 -oswap Swap bytes when saving to output
 
--ostype <string> Output sample type: short, mulaw, byte or ascii
+-ostype <string> Output sample type: short, alaw, mulaw, byte or ascii
 
 -scale <float> Scaling factor. Increase or descrease the amplitude
     of the whole waveform by the factor given

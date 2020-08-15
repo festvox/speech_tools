@@ -315,6 +315,27 @@ EST_write_status EST_WaveFile::save_ulaw(FILE *fp,
     return save_using(save_wave_ulaw, fp, localwv, stype, bo);
 }
 
+EST_read_status EST_WaveFile::load_alaw(EST_TokenStream &ts,
+  EST_Wave &wv,
+  int rate,
+  EST_sample_type_t stype, int bo, int nchan,
+  int offset, int length)
+{
+  return load_using(load_wave_alaw,
+    ts, wv, rate, 
+    stype, bo, nchan,
+    offset, length);
+}
+
+EST_write_status EST_WaveFile::save_alaw(FILE *fp,
+ const EST_Wave &wv,
+ EST_sample_type_t stype, int bo)
+{
+    EST_Wave localwv = wv;
+    localwv.resample(8000);
+    return save_using(save_wave_alaw, fp, localwv, stype, bo);
+}
+
 static int parse_esps_r_option(EST_String arg, int &offset, int &length)
 {
     EST_String s, e;
@@ -385,6 +406,11 @@ EST_read_status read_wave(EST_Wave &sig, const EST_String &in_file,
 	al.add_item("-itype","ulaw");
 	al.add_item("-f","8000");
     }
+    if (al.present("-alaw"))
+    {
+	al.add_item("-itype","alaw");
+	al.add_item("-f","8000");
+    }
     if (al.present("-iswap"))
 	al.add_item("-ibo","other");
 
@@ -420,6 +446,13 @@ EST_read_status read_wave(EST_Wave &sig, const EST_String &in_file,
 	sample_rate = 8000;
 	sample_type = "mulaw";
     }
+
+    if (file_type == "alaw")
+    {
+	sample_rate = 8000;
+	sample_type = "alaw";
+    }
+
 	
     if (al.present("-r")) // only load in part of waveform
     {

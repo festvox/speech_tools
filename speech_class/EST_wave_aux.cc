@@ -287,7 +287,7 @@ EST_String options_wave_input(void)
 	"    endian)\n\n"
 	"-iswap  Swap bytes. (For use on an unheadered input file)\n\n"
 	"-istype <string> Sample type in an unheadered input file:\n"
-	"     short, mulaw, byte, ascii\n\n"
+	"     short, alaw, mulaw, byte, ascii\n\n"
 	"-c <string>  Select a single channel (starts from 0). \n"
 	"    Waveforms can have multiple channels. This option \n"
         "    extracts a single channel for progcessing and \n"
@@ -318,7 +318,7 @@ EST_String options_wave_output(void)
 	"    Intel, Alpha, DEC Mips, Vax are LSB \n"
 	"    (little endian)\n\n"
 	"-oswap Swap bytes when saving to output\n\n"+
-	"-ostype <string> Output sample type: short, mulaw, byte or ascii\n\n";
+	"-ostype <string> Output sample type: short, alaw, mulaw, byte or ascii\n\n";
 }
 
 Declare_TNamedEnum(EST_sample_type_t)
