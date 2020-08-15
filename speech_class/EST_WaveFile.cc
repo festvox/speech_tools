@@ -443,6 +443,13 @@ al.add_item("-f","8000");
 	sample_rate = 8000;
 	sample_type = "mulaw";
     }
+
+    if (file_type == "alaw")
+    {
+	sample_rate = 8000;
+	sample_type = "alaw";
+    }
+
 	
     if (al.present("-r")) // only load in part of waveform
     {
@@ -477,11 +484,6 @@ al.add_item("-f","8000");
 	if (in_file == "-") unlink(fname);
 	cerr << "Cannot recognize file format or cannot access file: \"" << in_file << "\"\n";
 	return read_error;
-    }
-    if (file_type == "alaw")
-    {
-sample_rate = 8000;
-sample_type = "alaw";
     }
 
     if (al.present("-start") || al.present("-end") 
