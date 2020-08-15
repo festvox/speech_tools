@@ -298,11 +298,19 @@ public:
 
   EST_write_status save_file(const EST_String filename, 
 			     EST_String filetype,
-			     EST_String sample_type, int bo);
+			     EST_String sample_type, int bo,
+			     const char *mode = "wb");
 
   EST_write_status save_file(FILE *fp,
 			     EST_String filetype,
 			     EST_String sample_type, int bo);
+
+  EST_write_status save_file_header(FILE *fp,
+				     EST_String ftype,
+				     EST_String stype, int obo);
+  EST_write_status save_file_data(FILE *fp,
+				     EST_String ftype,
+				     EST_String stype, int obo);
   //@}
 
   /// Assignment operator

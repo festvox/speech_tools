@@ -96,37 +96,59 @@ public:
     bool recognise;
     Load_TokenStream *load;
     Save_TokenStream *save;
+    Save_TokenStream *save_header;
+    Save_TokenStream *save_data;
     const char *description;
   } Info;
 
   static EST_write_status save_nist(SaveWave_TokenStreamArgs);
+  static EST_write_status save_nist_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_nist_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_nist(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_est(SaveWave_TokenStreamArgs);
+  static EST_write_status save_est_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_est_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_est(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_esps(SaveWave_TokenStreamArgs);
+  static EST_write_status save_esps_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_esps_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_esps(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_audlab(SaveWave_TokenStreamArgs);
+  static EST_write_status save_audlab_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_audlab_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_audlab(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_snd(SaveWave_TokenStreamArgs);
+  static EST_write_status save_snd_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_snd_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_snd(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_aiff(SaveWave_TokenStreamArgs);
+  static EST_write_status save_aiff_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_aiff_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_aiff(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_riff(SaveWave_TokenStreamArgs);
+  static EST_write_status save_riff_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_riff_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_riff(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_raw(SaveWave_TokenStreamArgs);
+  static EST_write_status save_raw_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_raw_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_raw(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_ulaw(SaveWave_TokenStreamArgs);
+  static EST_write_status save_ulaw_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_ulaw_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_ulaw(LoadWave_TokenStreamArgs);
 
   static EST_write_status save_alaw(SaveWave_TokenStreamArgs);
+  static EST_write_status save_alaw_header(SaveWave_TokenStreamArgs);
+  static EST_write_status save_alaw_data(SaveWave_TokenStreamArgs);
   static EST_read_status load_alaw(LoadWave_TokenStreamArgs);
 
   static EST_TNamedEnumI<EST_WaveFileType, Info> map;

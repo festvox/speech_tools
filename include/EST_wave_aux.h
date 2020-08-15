@@ -116,6 +116,13 @@ enum EST_sample_type_t {
   st_alaw, 
   st_ascii};
 
+
+enum EST_write_status wave_io_save_header(FILE *fp,
+                      const int num_samples, const int num_channels,
+                      const int sample_rate,
+                      const EST_String& stype, const int bo,
+                      const EST_String& ftype);
+
 extern EST_TNamedEnum<EST_sample_type_t> EST_sample_type_map;
 
 #endif /* __EST_WAVE_AUX_H__ */

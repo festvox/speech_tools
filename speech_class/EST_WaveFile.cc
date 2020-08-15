@@ -43,8 +43,8 @@
 #include "EST_cutils.h"
 #include "EST_Option.h"
 #include "EST_io_aux.h"
-#include "stdio.h"
-#include "math.h"
+#include <cstdio>
+#include <cmath>
 
 void extract(EST_Wave &sig, EST_Option &al);
 
@@ -63,6 +63,11 @@ EST_write_status (*standard_save_fn_fp)(FILE *fp,
 				    int nchan, int srate,
 				    EST_sample_type_t stype, int bo);
 				    
+typedef
+EST_write_status (*standard_save_header_fn_fp)(FILE *fp,
+				    int nsamp,
+				    int nchan, int srate,
+				    EST_sample_type_t stype, int bo);
   
 static 
 EST_read_status load_using(standard_load_fn_fp fn,
@@ -109,6 +114,19 @@ EST_write_status status =  (*fn)(fp,
 return status; 
 }
 
+static
+EST_write_status save_header_using(standard_save_header_fn_fp fn,
+			    FILE *fp, const EST_Wave wv,
+			    EST_sample_type_t stype, int bo)
+{
+
+EST_write_status status =  (*fn)(fp,
+                wv.num_samples(), wv.num_channels(),
+				wv.sample_rate(),
+				stype, bo);
+return status;
+}
+
 EST_read_status EST_WaveFile::load_nist(EST_TokenStream &ts,
 			  EST_Wave &wv,
 			  int rate,
@@ -126,6 +144,20 @@ EST_write_status EST_WaveFile::save_nist(FILE *fp,
 					 EST_sample_type_t stype, int bo)
 {
   return save_using(save_wave_nist, fp, wv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_nist_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_nist_data, fp, wv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_nist_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_nist_header, fp, wv, stype, bo);
 }
 
 EST_read_status EST_WaveFile::load_est(EST_TokenStream &ts,
@@ -149,7 +181,24 @@ EST_write_status EST_WaveFile::save_est(FILE *fp,
   return save_using(save_wave_est,
 		    fp, wv,
 		    stype, bo);
+}
 
+EST_write_status EST_WaveFile::save_est_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_est_data,
+		    fp, wv,
+		    stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_est_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_est_header,
+		    fp, wv,
+		    stype, bo);
 }
 
 EST_read_status EST_WaveFile::load_aiff(EST_TokenStream &ts, 
@@ -171,6 +220,19 @@ EST_write_status EST_WaveFile::save_aiff(FILE *fp,
   return save_using(save_wave_aiff, fp, wv, stype, bo);
 }
 
+EST_write_status EST_WaveFile::save_aiff_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_aiff_data, fp, wv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_aiff_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_aiff_header, fp, wv, stype, bo);
+}
 
 EST_read_status EST_WaveFile::load_riff(EST_TokenStream &ts,
 			  EST_Wave &wv,
@@ -191,6 +253,19 @@ EST_write_status EST_WaveFile::save_riff(FILE *fp,
   return save_using(save_wave_riff, fp, wv, stype, bo);
 }
 
+EST_write_status EST_WaveFile::save_riff_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_riff_data, fp, wv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_riff_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_riff_header, fp, wv, stype, bo);
+}
 
 EST_read_status EST_WaveFile::load_esps(EST_TokenStream &ts, 
 			  EST_Wave &wv,
@@ -213,6 +288,23 @@ EST_write_status EST_WaveFile::save_esps(FILE *fp,
 		    stype, bo);
 }
 
+EST_write_status EST_WaveFile::save_esps_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_sd_data,
+		    fp, wv,
+		    stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_esps_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_sd_header,
+		    fp, wv,
+		    stype, bo);
+}
 
 EST_read_status EST_WaveFile::load_audlab(EST_TokenStream &ts, 
 			  EST_Wave &wv,
@@ -233,6 +325,19 @@ EST_write_status EST_WaveFile::save_audlab(FILE *fp,
   return save_using(save_wave_audlab, fp, wv, stype, bo);
 }
 
+EST_write_status EST_WaveFile::save_audlab_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_audlab_data, fp, wv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_audlab_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_audlab_header, fp, wv, stype, bo);
+}
 
 EST_read_status EST_WaveFile::load_snd(EST_TokenStream &ts, 
 			  EST_Wave &wv,
@@ -252,6 +357,21 @@ EST_write_status EST_WaveFile::save_snd(FILE *fp,
 {
   return save_using(save_wave_snd, fp, wv, stype, bo);
 }
+
+EST_write_status EST_WaveFile::save_snd_data(FILE *fp,
+					const EST_Wave &wv,
+					EST_sample_type_t stype, int bo)
+{
+  return save_using(save_wave_snd_data, fp, wv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_snd_header(FILE *fp,
+					const EST_Wave &wv,
+					EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_snd_header, fp, wv, stype, bo);
+}
+
 
 
 EST_read_status EST_WaveFile::load_raw(EST_TokenStream &ts, 
@@ -293,6 +413,20 @@ EST_write_status status =  save_wave_raw(fp,
 return status; 
 }
 
+EST_write_status EST_WaveFile::save_raw_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+return save_raw(fp, wv, stype, bo);
+}
+
+
+EST_write_status EST_WaveFile::save_raw_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+  return save_header_using(save_wave_raw_header, fp, wv, stype, bo);
+}
 
 EST_read_status EST_WaveFile::load_ulaw(EST_TokenStream &ts,
 			  EST_Wave &wv,
@@ -315,6 +449,25 @@ EST_write_status EST_WaveFile::save_ulaw(FILE *fp,
     return save_using(save_wave_ulaw, fp, localwv, stype, bo);
 }
 
+EST_write_status EST_WaveFile::save_ulaw_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+    EST_Wave localwv = wv;
+    localwv.resample(8000);
+    return save_using(save_wave_ulaw_data, fp, localwv, stype, bo);
+}
+
+
+EST_write_status EST_WaveFile::save_ulaw_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+    EST_Wave localwv = wv;
+    localwv.resample(8000);
+    return save_header_using(save_wave_ulaw_header, fp, localwv, stype, bo);
+}
+
 EST_read_status EST_WaveFile::load_alaw(EST_TokenStream &ts,
   EST_Wave &wv,
   int rate,
@@ -325,6 +478,24 @@ EST_read_status EST_WaveFile::load_alaw(EST_TokenStream &ts,
     ts, wv, rate, 
     stype, bo, nchan,
     offset, length);
+}
+
+EST_write_status EST_WaveFile::save_alaw_header(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+    EST_Wave localwv = wv;
+    localwv.resample(8000);
+    return save_header_using(save_wave_alaw_header, fp, localwv, stype, bo);
+}
+
+EST_write_status EST_WaveFile::save_alaw_data(FILE *fp,
+					 const EST_Wave &wv,
+					 EST_sample_type_t stype, int bo)
+{
+    EST_Wave localwv = wv;
+    localwv.resample(8000);
+    return save_using(save_wave_alaw_data, fp, localwv, stype, bo);
 }
 
 EST_write_status EST_WaveFile::save_alaw(FILE *fp,
@@ -577,25 +748,47 @@ static
 EST_TValuedEnumDefinition<EST_WaveFileType, const char *, EST_WaveFile::Info> wavefile_names[] =
 {
   { wff_none,	{ NULL }, 
-    { FALSE, NULL, NULL, "unknown track file type"} },
+    { FALSE, NULL, NULL, NULL, NULL, "unknown track file type"} },
   { wff_nist,	{ "nist", "timit" }, 
-    { TRUE, EST_WaveFile::load_nist,  EST_WaveFile::save_nist, "nist/timit" } },
+    { TRUE, EST_WaveFile::load_nist,  EST_WaveFile::save_nist,
+      EST_WaveFile::save_nist_header, EST_WaveFile::save_nist_data,
+      "nist/timit" } },
   { wff_est,	{ "est"}, 
-    { TRUE, EST_WaveFile::load_est,  EST_WaveFile::save_est, "est" } },
+    { TRUE, EST_WaveFile::load_est,  EST_WaveFile::save_est,
+      EST_WaveFile::save_est_header, EST_WaveFile::save_est_data,
+      "est" } },
   { wff_esps,	{ "esps", "sd"}, 
-    { TRUE,  EST_WaveFile::load_esps,  EST_WaveFile::save_esps, "esps SD waveform" } },
+    { TRUE,  EST_WaveFile::load_esps,  EST_WaveFile::save_esps,
+      EST_WaveFile::save_esps_header, EST_WaveFile::save_esps_data,
+      "esps SD waveform" } },
   { wff_audlab, { "audlab", "vox"}, 
-    { TRUE,  EST_WaveFile::load_audlab,  EST_WaveFile::save_audlab, "audlab waveform" } },
+    { TRUE,  EST_WaveFile::load_audlab,  EST_WaveFile::save_audlab,
+      EST_WaveFile::save_audlab_header, EST_WaveFile::save_audlab_data,
+      "audlab waveform" } },
   { wff_snd,	{ "snd", "au"}, 
-    { TRUE,  EST_WaveFile::load_snd,  EST_WaveFile::save_snd, "Sun snd file" } },
+    { TRUE,  EST_WaveFile::load_snd,  EST_WaveFile::save_snd,
+      EST_WaveFile::save_snd_header, EST_WaveFile::save_snd_data,
+      "Sun snd file" } },
   { wff_aiff,	{ "aiff" }, 
-    { TRUE,  EST_WaveFile::load_aiff,  EST_WaveFile::save_aiff, "Apple aiff file" } },
+    { TRUE,  EST_WaveFile::load_aiff,  EST_WaveFile::save_aiff,
+      EST_WaveFile::save_aiff_header, EST_WaveFile::save_aiff_data,
+      "Apple aiff file" } },
   { wff_riff,	{ "riff", "wav" }, 
-    { TRUE,  EST_WaveFile::load_riff,  EST_WaveFile::save_riff, "Microsoft wav/riff file" } },
+    { TRUE,  EST_WaveFile::load_riff,  EST_WaveFile::save_riff,
+      EST_WaveFile::save_riff_header, EST_WaveFile::save_riff_data,
+      "Microsoft wav/riff file" } },
   { wff_raw,	{ "raw" }, 
-    { FALSE,  EST_WaveFile::load_raw,  EST_WaveFile::save_raw, "Headerless File" } },
+    { FALSE,  EST_WaveFile::load_raw,  EST_WaveFile::save_raw,
+      EST_WaveFile::save_raw_header, EST_WaveFile::save_raw_data,
+      "Headerless File" } },
   { wff_ulaw,	{ "ulaw", "basic" }, 
-    { FALSE,  EST_WaveFile::load_ulaw,  EST_WaveFile::save_ulaw, "Headerless 8K ulaw  File" } },
+    { FALSE,  EST_WaveFile::load_ulaw,  EST_WaveFile::save_ulaw,
+      EST_WaveFile::save_ulaw_header, EST_WaveFile::save_ulaw_data,
+      "Headerless 8K ulaw  File" } },
+  { wff_alaw,	{ "alaw", "basic" }, 
+    { FALSE,  EST_WaveFile::load_alaw,  EST_WaveFile::save_alaw,
+      EST_WaveFile::save_alaw_header, EST_WaveFile::save_alaw_data,
+      "Headerless 8K alaw  File" } },
   { wff_none,	{NULL} }
 };
 
