@@ -44,6 +44,8 @@ FILES = Makefile ReadMe example.Makefile example.module.mak\
 
 #LOCAL_CLEAN = modinclude*.inc system.mak
 
+LOCAL_DISTCLEAN = modinclude*.inc system.mak config user_flags.mak
+
 ALL_DIRS = systems compilers rules configs modules
 
 include $(TOP)/config/common_make_rules
