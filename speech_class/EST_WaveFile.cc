@@ -595,7 +595,9 @@ EST_TValuedEnumDefinition<EST_WaveFileType, const char *, EST_WaveFile::Info> wa
   { wff_raw,	{ "raw" }, 
     { FALSE,  EST_WaveFile::load_raw,  EST_WaveFile::save_raw, "Headerless File" } },
   { wff_ulaw,	{ "ulaw", "basic" }, 
-    { FALSE,  EST_WaveFile::load_ulaw,  EST_WaveFile::save_ulaw, "Headerless 8K ulaw  File" } },
+    { FALSE,  EST_WaveFile::load_ulaw,  EST_WaveFile::save_ulaw, "Headerless 8K ulaw file" } },
+  { wff_alaw,   { "alaw", "basic" },
+    { FALSE,  EST_WaveFile::load_alaw,  EST_WaveFile::save_alaw, "Headerless 8K alaw file" } },
   { wff_none,	{NULL} }
 };
 
