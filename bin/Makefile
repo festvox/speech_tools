@@ -47,6 +47,7 @@ TOP=..
 DIRNAME=bin
 FILES= Makefile
 
+LOCAL_DISTCLEAN_RULES = .remove_links
 ALL = .remove_links .process_scripts .link_main 
 
 include $(TOP)/config/common_make_rules

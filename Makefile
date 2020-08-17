@@ -48,13 +48,15 @@ BUILD_DIRS = $(LIB_BUILD_DIRS) lib main scripts testsuite bin
 TEMPLATE_DIRS=include audio utils base_class base_class/string \
               ling_class speech_class sigpr stats grammar siod
 EXTRA_DIRS=siod java rxp wrappers
-ALL_DIRS = include $(BUILD_DIRS) $(EXTRA_DIRS) config doc 
+ALL_DIRS = include $(BUILD_DIRS) $(EXTRA_DIRS) doc config
 VERSION=$(PROJECT_VERSION)
 CONFIG=configure configure.ac config.sub config.guess \
        missing install-sh mkinstalldirs
 FILES=Makefile README.md INSTALL $(CONFIG) COPYING
 
 LOCAL_CLEAN= Build.trace Test.trace Templates.DB
+
+LOCAL_DISTCLEAN = config.log config.status
 
 ALL = .config_error .sub_directories
 
