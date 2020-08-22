@@ -37,14 +37,14 @@
 
 #include <iostream>
 
-/** A time index for a container. The container defines how to get an
+/** @class EST_TTI_Entry
+  * A time index for a container. The container defines how to get an
   * object and so on, this lets you find a point in the container not
   * far before the entry you want.
   * 
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_TTimeIndex.h,v 1.3 2004/09/29 08:24:17 robert Exp $
   */
-
 template<class  CONTAINER>
 struct EST_TTI_Entry
 {
