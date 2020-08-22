@@ -79,7 +79,7 @@ ALL = build_test_programs
 ALL_EXECS = $(TEST_MODULES:%=%_example) $(TEST_MODULES:%=%_regression)
 LOCAL_CLEAN = tmp
 
-LOCAL_DISTCLEAN = *.out .test_out
+LOCAL_DISTCLEAN = *.out .test_out $(ALL_EXECS)
 
 include $(TOP)/config/test_make_rules
 
