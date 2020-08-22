@@ -37,75 +37,74 @@
 #ifndef __EST_RELATION_TREE_H__
 #define __EST_RELATION_TREE_H__
 
-/**@name Functions for building and traversing tree relations
+/**@defgroup buildtraversetrees Functions for building and traversing tree relations
 
  */
-//@{
 
-/**@name Tree traversal functions 
+/**@defgroup treetraversalfunctions Tree traversal functions
+ * @ingroup buildtraversetrees
 */
 
-//@{
+///@{
 
-/// return parent of <parameter>n</parameter>
+/// \brief return parent of `n`
 inline EST_Item *parent(const EST_Item *n) { return iup(first(n)); }
 
-/// return first daughter of <parameter>n</parameter>
+/// \brief return first daughter of `n`
 inline EST_Item *daughter1(const EST_Item *n) { return idown(n); }
 
-/// return second daughter of <parameter>n</parameter>
+/// \brief return second daughter of `n`
 inline EST_Item *daughter2(const EST_Item *n) { return inext(idown(n)); }
 
-/// return nth daughter of <parameter>n</parameter>
+/// \brief return nth daughter of `n`
 EST_Item *daughtern(const EST_Item *n, int nth);
 
-/// return last daughter of <parameter>n</parameter>
+/// \brief return last daughter of `n`
 inline EST_Item *daughtern(const EST_Item *n) { return last(idown(n)); }
 
-/// return next sibling (sister) of <parameter>n</parameter>
+/// \brief return next sibling (sister) of `n`
 inline EST_Item *next_sibling(const EST_Item *n) { return inext(n); }
 
-/// return previous sibling (sister) of <parameter>n</parameter>
+/// \brief return previous sibling (sister) of `n`
 inline EST_Item *prev_sibling(const EST_Item *n) { return iprev(n); }
 
-/// return root node of treeprevious sibling (sister) of <parameter>n</parameter>
+/// \brief return root node of treeprevious sibling (sister) of `n`
 inline EST_Item *root(const EST_Item *n) { return top(n); }
 
-/** return parent of <parameter>n</parameter> as seen from relation 
-<parameter>relname</parameter> */
+/** \brief return parent of `n` as seen from relation `relname` */
 inline EST_Item *parent(const EST_Item *n,const char *relname)
     { return parent(as(n,relname)); }
 
 //inline EST_Item *daughters(const EST_Item *n,const char *relname)
 //    { return daughters(as(n,relname)); }
 
-/** return first daughter of <parameter>n</parameter> as seen from relation 
-    <parameter>relname</parameter> */
+/** \brief return first daughter of `n` as seen from relation 
+    `relname` */
 inline EST_Item *daughter1(const EST_Item *n,const char *relname)
     { return daughter1(as(n,relname)); }
 
-/** return second daughter of <parameter>n</parameter> as seen from relation 
-    <parameter>relname</parameter> */
+/** \brief return second daughter of `n` as seen from relation 
+    `relname` */
 inline EST_Item *daughter2(const EST_Item *n,const char *relname)
     { return daughter2(as(n,relname)); }
 
-/** return last daughter of <parameter>n</parameter> as seen from relation 
-    <parameter>relname</parameter> */
+/** \brief return last daughter of `n` as seen from relation 
+    `relname` */
 inline EST_Item *daughtern(const EST_Item *n,const char *relname)
     { return daughtern(as(n,relname)); }
 
-/** return next sibling (sister) of <parameter>n</parameter> as seen
-     from relation <parameter>relname</parameter> */
+/** \brief return next sibling (sister) of `n` as seen
+     from relation `relname` */
 inline EST_Item *next_sibling(const EST_Item *n,const char *relname)
     { return next_sibling(as(n,relname)); }
 
-/** return previous sibling (sister) of <parameter>n</parameter> as seen 
-    from relation <parameter>relname</parameter> */
+/** \brief return previous sibling (sister) of `n` as seen 
+    from relation `relname` */
 inline EST_Item *prev_sibling(const EST_Item *n,const char *relname)
     { return prev_sibling(as(n,relname)); }
 
-/** return root of tree of <parameter>n</parameter> as seen from
-    relation <parameter>relname</parameter> */
+/** \brief return root of tree of `n` as seen from
+    relation `relname` */
 inline EST_Item *root(const EST_Item *n,const char *relname)
     { return root(as(n,relname)); }
 
@@ -115,54 +114,55 @@ EST_Item *first_leaf_in_tree(const EST_Item *root);
 // should be deleted.
 EST_Item *last_leaf_in_tree(const EST_Item *root);
 
-/** Return number of leaves (terminal nodes) under <parameter>n</parameter>
+/** Return number of leaves (terminal nodes) under `n`
  */
 int num_leaves(const EST_Item *n);
 
-/** Given a node <parameter>t</parameter>, return true if
-    <parameter>c</parameter> is under it in a tree */
+/** Given a node `t`, return true if
+    `c` is under it in a tree */
 int in_tree(const EST_Item *c,const  EST_Item *t);
 
-//@}
+///@}
 
-/**@name Tree building functions */
-//@{
+/**@defgroup treebuildfunctions Tree building functions 
+   @ingroup buildtraversetrees
+ */
+///@{
 
-/** Add a daughter to node <parameter>n</parameter>, after any
+/** Add a daughter to node `n`, after any
 existing daughters, and return the next daughter. If
-<parameter>p</parameter> is 0, make a new node for the daughter,
-otherwise add <parameter>p</parameter> to this relation as
-<parameter>n</parameter>'s daughter.  */
+`p` is 0, make a new node for the daughter,
+otherwise add `p` to this relation as
+`n`'s daughter.  */
 
 EST_Item *append_daughter(EST_Item *n, EST_Item *p=0);
 
-/** Add a daughter to node <parameter>n</parameter> as seen from
-relation <parameter>relname</parameter>, after any existing
-daughters, and return the next daughter. If <parameter>p</parameter>
+/** Add a daughter to node `n` as seen from
+relation `relname`, after any existing
+daughters, and return the next daughter. If `p`
 is 0, make a new node for the daughter, otherwise add
-<parameter>p</parameter> to this relation as
-<parameter>n</parameter>'s daughter.  */
+`p` to this relation as
+`n`'s daughter.  */
 
 EST_Item *append_daughter(EST_Item *n, const char *relname, EST_Item *p=0);
 
-/** Add a daughter to node <parameter>n</parameter>, before any
+/** Add a daughter to node `n`, before any
 existing daughters, and return the next daughter. If
-<parameter>p</parameter> is 0, make a new node for the daughter,
-otherwise add <parameter>p</parameter> to this relation as
-<parameter>n</parameter>'s daughter.  */
+`p` is 0, make a new node for the daughter,
+otherwise add `p` to this relation as
+`n`'s daughter.  */
 
 EST_Item *prepend_daughter(EST_Item *n, EST_Item *p=0);
 
-/** Add a daughter to node <parameter>n</parameter> as seen from
-relation <parameter>relname</parameter>, before any existing
-daughters, and return the next daughter. If <parameter>p</parameter>
+/** Add a daughter to node `n` as seen from
+relation `relname`, before any existing
+daughters, and return the next daughter. If `p`
 is 0, make a new node for the daughter, otherwise add
-<parameter>p</parameter> to this relation as
-<parameter>n</parameter>'s daughter.  */
+`p` to this relation as
+`n`'s daughter.  */
 
 EST_Item *prepend_daughter(EST_Item *n, const char *relname, EST_Item *p=0);
 
-//@}
+///@}
 
-//@}
 #endif
