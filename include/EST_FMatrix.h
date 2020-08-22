@@ -49,7 +49,9 @@
 
 class EST_FVector;
 
-/** A matrix class for floating point numbers. EST_FMatrix x should be
+/** @class EST_FMatrix
+ *  @ingroup containerclasses
+ * A matrix class for floating point numbers. EST_FMatrix x should be
  used instead of float **x wherever possible.  
 */
 
@@ -79,7 +81,7 @@ public:
     /// Load from file in est format (binary/ascii defined in file itself)
     EST_read_status est_load(const EST_String &filename);
 
-    /// Copy 2-d array {\tt x} of size {\tt rows x cols} into matrix.
+    /// Copy 2-d array `x` of size `rows x cols` into matrix.
     void copyin(float **x, int rows, int cols);
 
     /// Add elements of 2 same sized matrices.
@@ -94,7 +96,7 @@ public:
     /// elementwise divide by scalar
     EST_FMatrix &operator/=(const float f); 
 
-    /// Multiply all elements of matrix by {\tt x}.
+    /// Multiply all elements of matrix by `x`.
     friend EST_FMatrix operator*(const EST_FMatrix &a, const float x);
 
     /// Multiply matrix by vector.
@@ -107,8 +109,10 @@ public:
     friend EST_FMatrix operator*(const EST_FMatrix &a, const EST_FMatrix &b);
 };
 
-/** A vector class for floating point numbers. 
-    {\tt EST_FVector x} should be used instead of {\tt float *x}
+/** \class EST_FVector
+ *  @ingroup containerclasses
+ *  \brief A vector class for floating point numbers. 
+    `EST_FVector x` should be used instead of `float *x`
     wherever possible.
 */
 class EST_FVector: public EST_TSimpleVector<float> {
