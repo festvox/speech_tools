@@ -194,7 +194,7 @@ enum EST_tprob_type {tprob_string, tprob_int, tprob_discrete};
 
     Methods are provided to iterate over the values in a distribution,
     for example
-    \begin{verbatim}
+    \verbatim
        EST_DiscreteProbistribution pdf;
        for (int i=pdf.item_start(); i < pdf.item_end(); i=pdf.item_next(i))
        {
@@ -203,7 +203,7 @@ enum EST_tprob_type {tprob_string, tprob_int, tprob_discrete};
           item_prob(i,name,prob);
           cout << name << ": prob " << prob << endl;
        }
-    \end{verbatim}
+    \endverbatim
 
     @author Alan W Black (awb@cstr.ed.ac.uk): July 1996
 */
@@ -224,9 +224,9 @@ public:
     /// Create with given vocabulary
     EST_DiscreteProbDistribution(const EST_TList<EST_String> &vocab)
           {init(); (void)init(vocab);}
-    /// Create using given \Ref{EST_Discrete} class as the vocabulary
+    /// Create using given \ref EST_Discrete  class as the vocabulary
     EST_DiscreteProbDistribution(const EST_Discrete *d) {init(); init(d);}
-    /** Create using given \Ref{EST_Discrete} class as vocabulary plus given
+    /** Create using given \ref EST_Discrete  class as vocabulary plus given
         counts
     */
     EST_DiscreteProbDistribution(const EST_Discrete *d,
@@ -242,7 +242,7 @@ public:
     void clear(void);
     /// Initialise using given vocabulary
     bool init(const EST_StrList &vocab);
-    /// Initialise using given \Ref{EST_Discrete} as vocabulary
+    /// Initialise using given \ref EST_Discrete  as vocabulary
     void init(const EST_Discrete *d);
     /// Initialise
     void init();
@@ -256,7 +256,7 @@ public:
     /// Return the most probable member of the distribution
     const EST_String &most_probable(double *prob = NULL) const;
     /** Return the entropy of the distribution
-        \[ -\sum_{i=1}^N(prob(i)*log(prob(i))) \]
+        \f[ -\sum_{i=1}^N(prob(i)*log(prob(i))) \f]
     */
     double entropy(void) const;
     /// 
@@ -282,21 +282,21 @@ public:
     void item_prob(EST_Litem *idx,EST_String &s,double &prob) const;
 
     /// Returns discrete vocabulary of distribution
-    inline const EST_Discrete *const get_discrete() const { return discrete; };
+    inline const EST_Discrete * get_discrete() const { return discrete; };
     
-    /** Sets the frequency of named item, modifies {\tt num\_samples}
+    /** Sets the frequency of named item, modifies `num\_samples`
          accordingly.  This is used when smoothing frequencies.
     */
     void set_frequency(const EST_String &s,double c);
-    /** Sets the frequency of named item, modifies {\tt num\_samples}
+    /** Sets the frequency of named item, modifies `num\_samples`
         accordingly.  This is used when smoothing frequencies.
     */
     void set_frequency(int i,double c); 
     void set_frequency(EST_Litem *i,double c); 
     
-    /// Sets the frequency of named item, without modifying {\tt num\_samples}.
+    /// Sets the frequency of named item, without modifying `num\_samples`.
     void override_frequency(const EST_String &s,double c);
-    /// Sets the frequency of named item, without modifying {\tt num\_samples}.
+    /// Sets the frequency of named item, without modifying `num\_samples`.
     void override_frequency(int i,double c); 
     void override_frequency(EST_Litem *i,double c); 
     
