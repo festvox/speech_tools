@@ -40,7 +40,8 @@
 #include "EST_TKVL.h"
 #include "EST_Server.h"
 
-/** A class providing mechanisms to talk to fringe.
+/** \class EST_FringeServer
+  * \brief A class providing mechanisms to talk to fringe.
   * 
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_FringeServer.h,v 1.2 2001/04/04 13:11:27 awb Exp $
