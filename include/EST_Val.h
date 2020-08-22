@@ -64,6 +64,8 @@ extern val_type val_string;
  * List of all linguistic classes
  */
 
+///@{
+
 /** @class EST_Val
     @ingroup estlingclasses
     The EST_Val class is a container class, used to store a single

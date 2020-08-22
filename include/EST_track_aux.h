@@ -256,4 +256,4 @@ void channel_to_time_lengths(EST_Track &tr, const EST_String c_name, float scale
 VAL_REGISTER_CLASS_DCLS(track,EST_Track)
 
 #endif /* __EST_TRACK_AUX_H__ */
-//@}
+///@}
