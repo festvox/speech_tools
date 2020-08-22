@@ -35,16 +35,15 @@
 #ifndef __EST_FEATUREFUNCTIONPACKAGE_H__
 #define __EST_FEATUREFUNCTIONPACKAGE_H__
 
+#include "ling_class/EST_Item.h"
+#include "EST_THash.h"
+
+
 /** Represents a named collection of named functions.
   * 
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_FeatureFunctionPackage.h,v 1.2 2001/04/04 13:11:27 awb Exp $
   */
-
-#include "ling_class/EST_Item.h"
-#include "EST_THash.h"
-
-
 class EST_FeatureFunctionPackage {
 public:
 	struct Entry
