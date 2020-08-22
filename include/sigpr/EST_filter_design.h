@@ -38,7 +38,7 @@
 #include "EST_FMatrix.h"
 #include "EST_Track.h"
 
-/**@name Filter Design
+/**@defgroup FilterDesign Filter Design
 
 FIR Filtering is a 2 stage process, first involving design and then
 the filtering itself. As the design is somewhat costly, it is usually
@@ -55,13 +55,13 @@ default is 199 which gives a pretty good filter, but a value as low as
 19 is still usable if speech is important.
 
 */ 
-//@{
+///@{
 
-/** Create an arbitrary filter or order {\tt order} that attempts to
-give the frequency response given by {\tt freq_response}. The vector
-{\tt freq_response} should be any size 2**N and contain a plot of the
+/** Create an arbitrary filter or order `order` that attempts to
+give the frequency response given by `freq_response`. The vector
+`freq_response` should be any size 2**N and contain a plot of the
 desired frequency response with values ranging between 0.0 and
-1.0. The actual filtering is done by \Ref{FIRfilter}.
+1.0. The actual filtering is done by \ref FIRfilter.
 
 @see design_lowpass_FIR_filter, design_highpass_FIR_filter
 @see FIRfilter, FIRlowpass_filter, FIRhighpass_filter
@@ -70,19 +70,18 @@ desired frequency response with values ranging between 0.0 and
 EST_FVector design_FIR_filter(const EST_FVector &freq_response, int
 			      filter_order);
 
-/** Design a FIR lowpass filter of order {\tt order} and cut-off
-frequency {\tt freq}. The filter coefficients are returned in the
-FVector and should be used in conjunction with \Ref{FIRfilter}.
+/** Design a FIR lowpass filter of order  `order` and cut-off
+frequency `freq`. The filter coefficients are returned in the
+EST_FVector and should be used in conjunction with \ref FIRfilter.
 
 @see design_FIR_filter, design_highpass_FIR_filter, FIRfilter,
 FIRlowpass_filter, FIRhighpass_filter 
 */
-
 EST_FVector design_lowpass_FIR_filter(int sample_rate, int freq, int
 				      order);
 
-/** Design a FIR highpass filter of order {\tt order} and cut-off frequency
-{\tt freq}. The filter coefficients are returned in the FVector and should be used in conjunction with \Ref{FIRfilter}
+/** Design a FIR highpass filter of order `order` and cut-off frequency
+`freq`. The filter coefficients are returned in the EST_FVector and should be used in conjunction with \ref FIRfilter
 @see design_FIR_filter, design_lowpass_FIR_filter, design_highpass_FIR_filter
 @see FIRfilter, FIRlowpass_filter, FIRhighpass_filter
 
@@ -90,7 +89,7 @@ EST_FVector design_lowpass_FIR_filter(int sample_rate, int freq, int
 EST_FVector design_highpass_FIR_filter(int sample_rate, int
 				       freq, int order);
 
-//@}
+///@}
 
 
 #endif /* __EST_FILTER_DESIGN_H__ */
