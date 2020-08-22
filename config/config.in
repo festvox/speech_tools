@@ -148,7 +148,7 @@ INCLUDE_MODULES += RXP
 ## Efence protected malloc library to catch memory errors
 # INCLUDE_MODULES += EFENCE
 
-## Dmalloc, another chekcing malloc library
+## Dmalloc, another checking malloc library
 # INCLUDE_MODULES += DMALLOC
 
 ###################################################################
