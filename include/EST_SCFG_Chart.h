@@ -48,7 +48,8 @@
 
 class EST_SCFG_Chart_Edge;
 
-/** An internal class for \Ref{EST_SCFG_Chart} for representing edges
+/** \class EST_SCFG_Chart_Edge
+    \brief An internal class for \ref EST_SCFG_Chart  for representing edges
     in the chart during parsing with SCFGs.
 
     A standard Earley type chart edge, with representations for two
@@ -63,11 +64,11 @@ class EST_SCFG_Chart_Edge {
     double p_prob;
   public:
     /**@name Constructor and initialisation functions */
-    //@{
+    ///@{
     EST_SCFG_Chart_Edge();
     EST_SCFG_Chart_Edge(double prob, int d1, int d2, int pos);
     ~EST_SCFG_Chart_Edge();
-    //@}
+    ///@}
 
     /// Postion, 0 1 or 2, where 0 is empty, 1 is incomplete 2 is complete.
     int pos(void) { return p_pos; }
@@ -80,18 +81,19 @@ class EST_SCFG_Chart_Edge {
 
 };
 
-/** A class for parsing with a probabilistic grammars.
+/** \class EST_SCFG_Chart
+    \brief A class for parsing with a probabilistic grammars.
 
     The chart (sort of closer to CKY table) consists of indexes of
     edges indexed by vertex number of mother non-terminal.
 
     The initial values (well-formed substring table) are taken from
-    an \Ref{EST_Stream} with a given feature.  The grammar may be
-    specified as LISP rules or as an already constructed \Ref{EST_SCFG}.
+    an \ref EST_String  with a given feature.  The grammar may be
+    specified as LISP rules or as an already constructed \ref EST_SCFG.
 
     This produces a single best parse.  It treats the grammar as
     strictly context free in that the probability of a nonterminal
-    over vertex n to m, is the sum of all the possible analyses
+    over vertex `n` to `m`, is the sum of all the possible analyses
     of that sub-tree.  Only the best analysis is kept for the
     resulting parse tree.
 
@@ -112,8 +114,8 @@ class EST_SCFG_Chart {
     /// An empty edge, denotes 0 probability edge.
     EST_SCFG_Chart_Edge *emptyedge;
 
-    // Find the best analysis of nonterminal {\tt p} from {\tt start} 
-    // to {\tt end}.  Used after parsing
+    // Find the best analysis of nonterminal `p` from `start` 
+    // to `end`.  Used after parsing
     double find_best_tree(int start,int end,int p)
        { EST_SCFG_Chart_Edge *r;
 	 if ((r=edges[start][end][p]) != 0) return r->prob();
@@ -132,27 +134,27 @@ class EST_SCFG_Chart {
     void extract_forced_parse(int start, int end, EST_Item *s, EST_Item *w);
   public:
     /**@name Constructor and initialisation functions */
-    //@{
+    ///@{
     EST_SCFG_Chart();
     ~EST_SCFG_Chart();
-    //@}
+    ///@}
 
     /**@name Grammar and parse string initialisation functions */
-    //@{
+    ///@{
     /// Initialize from LISP rules set
     void set_grammar_rules(LISP r);
-    /// Initialize from existing \Ref{EST_SCFG} grammar
+    /// Initialize from existing \ref EST_SCFG  grammar
     void set_grammar_rules(EST_SCFG &grammar);
-    /** Initialize for parsing from relation using {\tt name} feature
+    /** Initialize for parsing from relation using `name` feature
         setting up the "Well Formed Substring Table" */
     void setup_wfst(EST_Relation *s,const EST_String &name="name");
-    /** Initialize for parsing from s to e using {\tt name} feature
+    /** Initialize for parsing from s to e using `name` feature
         setting up the "Well Formed Substring Table" */
     void setup_wfst(EST_Item *s, EST_Item *e,const EST_String &name="name");
-    //@}
+    ///@}
 
     /**@name parsing functions */
-    //@{
+    ///@{
     /// Parses the loaded WFST with the loaded grammar.
     void parse();
     /// Return the parse in full LISP form.
@@ -162,7 +164,7 @@ class EST_SCFG_Chart {
     /// Extract parse tree and add it to syn linking leafs to items s to e
     void extract_parse(EST_Relation *syn,EST_Item *s, 
 		       EST_Item *e,int force=0);
-    //@}
+    ///@}
 };
 
 /** Build a relation from a LISP list of items.
@@ -172,7 +174,7 @@ void EST_SCFG_chart_load_relation(EST_Relation *s,LISP sent);
 /** Parse a given string using the given grammar.
 */
 LISP scfg_parse(LISP string,LISP grammar);
-/** Parse the given string using the given \Ref{EST_SCFG}.
+/** Parse the given string using the given \ref EST_SCFG .
 */
 LISP scfg_parse(LISP string,EST_SCFG &grammar);
 /** Parse named features in (list) relation Word into (tree)
