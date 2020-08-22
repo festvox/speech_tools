@@ -35,12 +35,14 @@
 #define __EST_THANDLE_H__
 
 #include <iostream>
+#include "EST_bool.h"
 
 using namespace std;
 
-#include "EST_bool.h"
-
-/** A `smart' pointer which does reference counting.
+/** @class EST_THandle
+  * @ingroup supportclasses
+  * 
+  * A `smart' pointer which does reference counting.
   *
   * Behaves almost like a pointer as far as naive code is concerned, but
   * keeps count of how many handles are holding on to the contents
@@ -51,7 +53,7 @@ using namespace std;
   *
   * Things to be handled should implement the same interface as EST_Handleable
   * (either by taking that as a superclass or by reimplementing it) and in
-  * addition define {\tt object_ptr()}. See EST_TBox for an example.
+  * addition define `object_ptr()`. See EST_TBox for an example.
   *
   * There are two parameter types. In most cases the thing which contains the
   * reference count and the data it represents will be the same object, but
@@ -65,8 +67,6 @@ using namespace std;
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_THandle.h,v 1.5 2006/07/19 21:52:12 awb Exp $
   */
-
-
 template<class BoxT, class ObjectT>
 class EST_THandle {
 
