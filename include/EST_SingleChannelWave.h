@@ -35,15 +35,15 @@
 #ifndef __EST_SINGECHANNELWAVE_H__
 #define __EST_SINGECHANNELWAVE_H__
 
-/** An alias for wave which can be used to tell the compiler you know it
+#include "EST_Wave.h"
+
+/** \class EST_SingleChannelWave
+  * An alias for wave which can be used to tell the compiler you know it
   * is a simple one channel wave. This can speed up access.
   * 
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_SingleChannelWave.h,v 1.2 2001/04/04 13:11:27 awb Exp $
   */
-
-#include "EST_Wave.h"
-
 class EST_SingleChannelWave : public EST_Wave {
 
 public:
