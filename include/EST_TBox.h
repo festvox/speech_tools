@@ -35,15 +35,15 @@
 #ifndef __EST_TBOX_H__
 #define __EST_TBOX_H__
 
+#include <cstddef>
+#include "EST_Handleable.h"
+
 /** Box for putting things in. The box and the thing can then be refcounted
   * as a unit.
   * 
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_TBox.h,v 1.2 2001/04/04 13:11:27 awb Exp $
   */
-
-#include "EST_Handleable.h"
-
 template<class T>
 class EST_TBox : public EST_Handleable
 {
