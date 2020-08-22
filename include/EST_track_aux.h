@@ -32,13 +32,12 @@
 /*************************************************************************/
 
 
-/**@name EST_track_aux.h
-  * EST_Track Auxiliary functions
+/** @defgroup EST_Track_aux_functions EST_Track Auxiliary functions
   * @author Paul Taylor <pault@cstr.ed.ac.uk>
   * @version $Id: EST_track_aux.h,v 1.4 2004/05/24 11:15:51 korin Exp $
   */
 
-//@{
+///@{
 
 #ifndef __EST_TRACK_AUX_H__
 #define __EST_TRACK_AUX_H__
@@ -57,7 +56,11 @@ void simple_med_smooth(EST_Track &c, int n, int channel=0);
 void simple_mean_smooth(EST_Track &c, int n, int channel=0);
 
 /** Calculate the mean absolute error between the same channel in
-  * two tracks. This is given by \[\frac{1}{n}\sum_{i=1}^{n}|a_{i} - b_{i}|\]
+  * two tracks. This is given by \f[\frac{1}{n}\sum_{i=1}^{n}|a_{i} - b_{i}|\f]
+    \param a First track
+    \param b Second track
+    \param channel Channel from track for which the error is to be computed
+    \return absolute error
   * @see abs_error, rms_error(EST_Track &a, EST_Track &b)
   */
 
@@ -73,14 +76,13 @@ void normalise(EST_TrackList &trlist, EST_FVector &mean,
 	       EST_FVector &sd, float upper, float lower);
 
 /** Calculate the simple derivative of a track. This is given by
-  * \[a_{i+1} - a_{i}\] The values in the resultant track are spaced
+  * \f[a_{i+1} - a_{i}\f] The values in the resultant track are spaced
   * midway between the values in the input track, resulting in 1 fewer
   * frames in the track. This is a very local estimation of the derivative
   * of the track at a point in time. A smoother value can be obtained
   * using the delta function. 
   * @see delta
   */
-
 EST_Track differentiate(EST_Track &c, float samp_int=0.0);
 EST_Track difference(EST_Track &a, EST_Track &b);
 
@@ -101,8 +103,8 @@ void meansd(EST_Track &a, EST_FVector &m, EST_FVector &sd);
 
 /** Calculate the root mean square error between each channels in two
   * tracks. For two tracks of M channels, the result is returned as an
-  * EST_FVector of size M, with element {\it i} representing the
-  * rms error for channel {\it i}. 
+  * EST_FVector of size M, with element *i* representing the
+  * rms error for channel *i*. 
   * @see abs_error, rms_error 
   */ 
 EST_FVector rms_error(EST_Track &a, EST_Track &b); 
@@ -123,7 +125,7 @@ int nearest_boundary(EST_Track &tr, float time, int sample_rate, float offset=0)
 
 /// Move the track so that it starts at the indicated time.
 void set_start(EST_Track &tr, float start);
-/// Move the track by {\it shift} seconds
+/// Move the track by *shift* seconds
 void move_start(EST_Track &tr, float shift);
 
 EST_Track error(EST_Track &ref, EST_Track &test, int relax= 0);
@@ -139,10 +141,10 @@ EST_String options_subtrack(void);
 
 int read_track(EST_Track &tr, const EST_String &in_file, EST_Option &al);
 
-/** Return the frame size in {\bf seconds} based on analysis of
+/** Return the frame size in **seconds** based on analysis of
 current time points.  This function basically determines the local
 frame size (shift) by subtracting the current time point from the next
-time point. If the {\tt prefer_prev} flag is set to {\tt true}, or the
+time point. If the `prefer_prev` flag is set to `true`, or the
 index is the last in the track, the size is determined by subtracting
 the previous time point from the current one.
 
@@ -151,13 +153,12 @@ the local pitch period.
 
 @see get_frame_size
 */
-
 float get_time_frame_size(EST_Track &pms, int i, int prefer_prev = 0);
 
-/** Return the frame size in {\bf samples} based on analysis of
+/** Return the frame size in **samples** based on analysis of
 current time points.  This function basically determines the local
 frame size (shift) by subtracting the current time point from the next
-time point. If the {\tt prefer_prev} flag is set to {\tt true}, or the
+time point. If the `prefer_prev` flag is set to `true`, or the
 index is the last in the track, the size is determined by subtracting
 the previous time point from the current one.
 
@@ -184,15 +185,18 @@ void get_start_positions(const EST_Track &t,
 			 int sample_rate,
 			 EST_TBuffer<int> &pos);
 
+ ///@}
+
 /**@name Analysis frame position
+  * @ingroup EST_Track_aux_functions
   * Functions which define which part of a single is associated with a
   * given frame in a track. 
-  * <p>
+  *
   * This is defined here in one place for consistency. They are inline since 
   * they tend to be used in inner loops. There are two versions,
   * the second for when there are offsets in the track.
   */
-//@{
+///@{
 
 /// Get the start and end of a given frame (in samples)
 static inline void get_frame(const EST_Track &tr, int sample_rate,
@@ -234,7 +238,10 @@ static inline void get_frame_o(const EST_Track &tr, int sample_rate,
   end    = start + tr.a(f, channel_length)/(float)sample_rate;
 }
 
-//@}
+///@}
+
+/** @addtogroup EST_Track_aux_functions
+ *  @{ */
 
 // take one of the channels as the timeline
 void channel_to_time(EST_Track &tr, int channel, float scale=1.0);
