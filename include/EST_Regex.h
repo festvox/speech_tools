@@ -38,7 +38,9 @@ class EST_Regex;
 
 #include "EST_String.h"
 
-/** A Regular expression class to go with the CSTR EST_String class. 
+/** @class EST_Regex
+  * \ingroup stringclasses
+  * \brief A Regular expression class to go with the CSTR EST_String class. 
   *
   * The regular expression syntax is the FSF syntax used in emacs and
   * in the FSF String library. This is translated into the syntax supported
@@ -51,7 +53,6 @@ class EST_Regex;
   * @author (regular expression library by Henry Spencer, University of Toronto)
   * @version $Id: EST_Regex.h,v 1.3 2004/05/04 00:00:16 awb Exp $
   */
-
 class EST_Regex : protected EST_String {
 
 private:
@@ -105,14 +106,14 @@ public:
     { return (const EST_String)*this != (const EST_String)ex; }
 
     /**@name Assignment */
-    //@{
+    ///@{
     ///
     EST_Regex &operator = (const EST_Regex ex);
     ///
     EST_Regex &operator = (const EST_String s);
     ///
     EST_Regex &operator = (const char *s);
-    //@}
+    ///@}
 
     /// Stream output of regular expression.
     friend ostream &operator << (ostream &s, const EST_Regex &str);
@@ -123,7 +124,7 @@ ostream &operator << (ostream &s, const EST_Regex &str);
 /**@name Predefined_regular_expressions
   * Some regular expressions matching common things are predefined
   */
-//@{
+///@{
 /// White space
 extern EST_Regex RXwhite;	// "[ \n\t\r]+"
 /// Sequence of alphabetic characters.
@@ -140,7 +141,7 @@ extern EST_Regex RXidentifier;	// "[A-Za-z_][0-9A-Za-z_]+"
 extern EST_Regex RXint;		// "-?[0-9]+"
 /// Floating point number.
 extern EST_Regex RXdouble;	// "-?\\(\\([0-9]+\\.[0-9]*\\)\\|\\([0-9]+\\)\\|\\(\\.[0-9]+\\)\\)\\([eE][---+]?[0-9]+\\)?"
-//@}
+///@}
 
 // GCC lets us use the static constant to declare arrays, Sun CC
 // doesn't, so for a quiet, if ugly, life we declare it here with a suitable
