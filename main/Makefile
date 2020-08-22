@@ -83,6 +83,8 @@ ALL = .make_execs .sub_directories
 SRCS = $(CPPSRCS)
 FILES= $(BASESRCS) $(EXTRASRCS) $(TSRCS) Makefile
 
+LOCAL_DISTCLEAN = $(ALL_EXECS)
+
 include $(TOP)/config/common_make_rules
 include $(TOP)/config/rules/bin_process.mak
 
