@@ -51,16 +51,16 @@ class EST_String;
 class EST_TokenStream;
 
 
-/** A class for storing digital waveforms. The waveform is stored as
-an array of 16 bit shorts. Multiple channels are supported, but if no
-channel information is given the 0th channel is accessed.
-<p>
-
-The waveforms can be of any sample rate, and can be changed to another
-sampling rate using the <tt>resample</tt> function.
+/** \class EST_Wave 
+ *  \brief A class for storing digital waveforms.
+ * The waveform is stored as an array of 16 bit shorts.
+ *  Multiple channels are supported, but if no channel information
+ * is given the 0th channel is accessed.
+ * 
+ * The waveforms can be of any sample rate, and can be changed to
+ * another sampling rate using the \ref resample function.
 
 */
-
 class EST_Wave : public EST_Featured
 {
 protected:
@@ -94,7 +94,7 @@ public:
     
 
   /**@name Access functions for finding amplitudes of samples */
-  //@{
+  ///@{
 
   /** return amplitude of sample <tt>i</tt> from channel <tt>
       channel</tt>.  By default the 0th channel is selected. This
@@ -135,10 +135,10 @@ public:
 
   /// return the time position in seconds of the ith sample
   float t(int i) const { return (float)i/(float)p_sample_rate; }
-  //@}
+  ///@}
 
   /**@name Information functions */
-  //@{
+  ///@{
   /// return the number of samples in the waveform
   int num_samples() const { return p_values.num_rows();}
   /// return the number of channels in the waveform
@@ -172,13 +172,13 @@ public:
   /// Sets name.
   void set_name(const EST_String n){ f_set("name", n); }
 
-  //@}
+  ///@}
 
   const EST_SMatrix &values() const { return p_values; }
   EST_SMatrix &values() { return p_values; }
 
   /**@name Waveform manipulation functions */
-  //@{
+  ///@{
 
   /// resize the waveform 
   void resize(int num_samples, int num_channels = EST_ALL, int set=1) 
@@ -236,17 +236,16 @@ public:
 		int start_c=0, int nchan=EST_ALL) const
     { ((EST_Wave *)this)->sub_wave(sw, offset, num, start_c, nchan); }
 
-  //@}
+  ///@}
 
   /**@name File i/o functions */
-  //@{
+  ///@{
 
   /** Load a file into the waveform. The load routine attempts to
       automatically determine which file type is being loaded.  A
-      portion of the waveform can be loaded by setting <tt>
-      offset</tt> to the sample position from the beginning and
-      <length> to the number of required samples after this.  */
-
+      portion of the waveform can be loaded by setting 
+      `offset` to the sample position from the beginning and
+      `length` to the number of required samples after this.  */
   EST_read_status load(const EST_String filename, 
 		       int offset=0, 
 		       int length = 0,
@@ -269,15 +268,14 @@ public:
 		       int length = 0,
 		       int rate = default_sample_rate);
 
-  /** Load a file of type <tt>filetype</tt> into the waveform. This
+  /** Load a file of type `filetype` into the waveform. This
       can be used to load unheadered files, in which case the fields
-      <tt>sample_rate, sample_type, bo</tt> and <tt>nc</tt> are used
+      `sample_rate`, `sample_type`, `bo` and `nc` are used
       to specify the sample rate, type, byte order and number of
       channels.  A portion of the waveform can be loaded by setting
-      <tt> offset</tt> to the sample position from the beginning and
-      <length> to the number of required samples after this.
+      `offset` to the sample position from the beginning and
+      `length` to the number of required samples after this.
   */
-
   EST_read_status load_file(const EST_String filename, 
 			    const EST_String filetype, int sample_rate, 
 			    const EST_String sample_type, int bo, int nc,
@@ -287,8 +285,8 @@ public:
 			    const EST_String sample_type, int bo, int nc,
 			    int offset = 0, int length = 0);
 
-  /* Save waveform to a file called <tt>filename</tt> of file
-     format <tt>EST_filetype</tt>.
+  /** Save waveform to a file called `filename` of file
+     format `EST_filetype`.
   */
   EST_write_status save(const  EST_String filename, 
 			const EST_String EST_filetype = "");
@@ -311,7 +309,7 @@ public:
   EST_write_status save_file_data(FILE *fp,
 				     EST_String ftype,
 				     EST_String stype, int obo);
-  //@}
+  ///@}
 
   /// Assignment operator
   EST_Wave& operator = (const EST_Wave& w);
