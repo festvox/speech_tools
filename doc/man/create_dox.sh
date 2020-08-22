@@ -15,9 +15,11 @@ doc_body="$2"
 program=`basename $full_program`
 doc_out="${program}_man.dox"
 
+XSLTPROC=${XSLTPROC:-xsltproc}
+
 # Generate
-$full_program -sgml_synopsis | xsltproc convert-synopsis.xslt - > "${program}_synopsis.txt"
-$full_program -sgml_options | xsltproc convert-options.xslt - > "${program}_options.txt"
+$full_program -sgml_synopsis | "${XSLTPROC}" convert-synopsis.xslt - > "${program}_synopsis.txt"
+$full_program -sgml_options | "${XSLTPROC}" convert-options.xslt - > "${program}_options.txt"
 
 awk 'BEGIN {
         while ((getline line < ARGV[1]) > 0) {file1 = file1 nl line; nl = "\n"}; 

@@ -63,6 +63,6 @@ LOCAL_CLEAN = doxygen
 
 doc:
 	(cd $(TOP)/doc/man; make all_dox)
-	doxygen $(TOP)/doc/DoxyFile
+	$(DOXYGEN) $(TOP)/doc/DoxyFile
 
 
