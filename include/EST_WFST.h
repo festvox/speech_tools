@@ -54,7 +54,8 @@
 class EST_WFST_State;
 class EST_WFST;
 
-/** an internal class for \Ref{EST_WFST} for representing transitions 
+/** \class EST_WFST_Transition
+ *  \brief an internal class for \ref EST_WFST for representing transitions 
     in an WFST
  */
 class EST_WFST_Transition {
@@ -90,7 +91,8 @@ enum wfst_state_type {wfst_final, wfst_nonfinal, wfst_error, wfst_licence};
 #define WFST_LICENCE  3
 
 
-/** an internal class for \Ref{EST_WFST} used to represent a 
+/** \class EST_WFST_State
+ * \brief an internal class for \ref EST_WFST used to represent a 
     state in a WFST 
 */
 class EST_WFST_State {
@@ -121,7 +123,8 @@ typedef EST_TVector<EST_WFST_State *> wfst_state_vector;
 typedef EST_TStringHash<int> EST_WFST_MultiStateIndex;
 enum wfst_mstate_type {wfst_ms_set, wfst_ms_list};
 
-/** an internal class to \Ref{EST_WFST} used in holding multi-states
+/** \class EST_WFST_MultiState
+ * \brief an internal class to \ref EST_WFST used in holding multi-states
     when determinizing and find the intersections of other WFSTs.
  */
 class EST_WFST_MultiState : public EST_IList {
@@ -145,7 +148,8 @@ class EST_WFST_MultiState : public EST_IList {
 
 int multistate_index(EST_WFST_MultiStateIndex &i,EST_WFST_MultiState *ms);
 
-/** a call representing a weighted finite-state transducer
+/** \class EST_WFST
+ *  \brief a call representing a weighted finite-state transducer
  */
 class EST_WFST {
   private:
@@ -176,16 +180,16 @@ class EST_WFST {
     static int traverse_tag;
   public:
     /**@name Constructor and initialisation functions */
-    //@{
+    ///@{
     /// ?
     EST_WFST();
     /// ?
     EST_WFST(const EST_WFST &wfst) { p_num_states = 0; copy(wfst); }
     ~EST_WFST();
-    //@}
+    ///@}
 
     /**@name Reseting functions */
-    //@{
+    ///@{
     /// Clear with (estimation of number of states required)
     void init(int init_num_states=10);
     /// clear an initialise with given input and out alphabets
@@ -194,10 +198,10 @@ class EST_WFST {
     void copy(const EST_WFST &wfst);
     /// clear removing existing states if any
     void clear();
-    //@}
+    ///@}
 
     /**@name General utility functions */
-    //@{
+    ///@{
     int num_states() const { return p_num_states; }
     int start_state() const { return p_start_state; }
     /// Map input symbol to input alphabet index
@@ -222,7 +226,7 @@ class EST_WFST {
     const EST_WFST_State *state(int i) const { return p_states(i); }
     /// Return internal state information (non-const)
     EST_WFST_State *state_non_const(int i) { return p_states(i); }
-    /// True if state {\tt i} is final
+    /// True if state `i` is final
     int final(int i) const 
        { return ((i != WFST_ERROR_STATE) && (state(i)->type() == wfst_final));}
     /// Accessing the input alphabet
@@ -230,10 +234,10 @@ class EST_WFST {
     /// Accessing the output alphabet
     const EST_Discrete &out_symbols() const { return p_out_symbols; }
 
-    //@}
+    ///@}
 
     /**@name file i/o */
-    //@{
+    ///@{
     /// ?
     EST_write_status save(const EST_String &filename,
 			  const EST_String type = "ascii");
@@ -245,10 +249,10 @@ class EST_WFST {
 				EST_Option &hinfo, 
 				int num_states,
 				int swap);
-    //@}
+    ///@}
 
     /**@name transduction functions */
-    //@{
+    ///@{
     /// Find (first) new state given in and out symbols
     int transition(int state,int in, int out) const;
     int transition(int state,int in, int out, float &prob) const;
@@ -268,21 +272,21 @@ class EST_WFST {
     void transition_all(int state,int in, int out,
 			EST_WFST_MultiState *ms) const;
 
-    //@}
+    ///@}
 
     /**@name Cumulation functions for adding collective probabilities
        for transitions from data */
-    //@{
+    ///@{
     /// Cumulation condition
     int cumulate() const {return p_cumulate;}
     /// Clear and start cumulation
     void start_cumulate();
     /// Stop cumulation and calculate probabilities on transitions
     void stop_cumulate();
-    //@}
+    ///@}
 
     /**@name WFST construction functions from external representations **/
-    //@{
+    ///@{
     /// Add a new state, returns new name
     int add_state(enum wfst_state_type state_type);
     /// Given a multi-state return type (final, ok, error)
@@ -308,10 +312,10 @@ class EST_WFST {
     // Build simple tree lexicon
     void build_tree_lex(LISP inalpha, LISP outalpha, 
 			 LISP wlist);
-    //@}
+    ///@}
 
     /**@name Basic WFST operators */
-    //@{
+    ///@{
     /// Build determinized form of a
     void determinize(const EST_WFST &a);
     /// Build minimized form of a
@@ -344,10 +348,10 @@ class EST_WFST {
     /** Build WFST that accepts a language that consists of any string in
         a followed by any string in b **/
     void concat(const EST_WFST &a,const EST_WFST &b);
-    //@}
+    ///@}
 
     /**@name construction support functions */
-    //@{
+    ///@{
     /// True if WFST is deterministic
     int deterministic() const;
     /// Transduce a multi-state given n and out
@@ -362,6 +366,7 @@ class EST_WFST {
     EST_String summary() const;
     /// ?
     EST_WFST & operator = (const EST_WFST &a) { copy(a); return *this; }
+    ///@}
 };
 typedef EST_TList<EST_WFST> wfst_list;
 
