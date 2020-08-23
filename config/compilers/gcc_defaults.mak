@@ -92,10 +92,7 @@ STATIC_LINKFLAGS = -static
 TEMPLATE_SPECIFIC = -DINSTANTIATE_TEMPLATES
 TEMPLATE_ARGS = 
 
-## The -lgcc here is redundant - gcc does this anyway - but it
-## helps java know what needs to be loaded.
-
-COMPILERLIBS= $(COMPILER_LIBS_DIR:%=-L%) -lstdc++ $(OMP_OPTS)
+COMPILERLIBS= $(COMPILER_LIBS_DIR:%=-L%) $(OMP_OPTS)
 
 ## special ways of doing things, blank means default
 
