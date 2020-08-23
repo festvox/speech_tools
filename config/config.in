@@ -59,9 +59,9 @@ CONFIGURATION =
 OPTIMISE=3
 WARN=1
 # VERBOSE=1
-#DEBUG=1
+DEBUG=@DEBUG@ # either 0 or 1. See ./configure --help
 # PROFILE=gprof
-#SHARED=2
+SHARED=@SHARED@ # either 0 or 1 or 2. See ./configure --help
 
 ## Directory specific selections which override the above
 
