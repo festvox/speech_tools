@@ -51,8 +51,11 @@ dnl    AC_CHECK_LIB(termcap, tputs, [TERMCAPLIB=-ltermcap], [TERMCAPLIB=-lncurse
 dnl 
 AC_SUBST(TERMCAPLIB)
 
-dnl Which version of GCC do we have here
-COMPILERTYPE=gcc
+dnl Which compiler do we have here
+AC_ARG_VAR(COMPILERTYPE, [compiler profile to use from config/compilers. This
+           is used to set compiler flags on libraries and source file dependency resolution])
+dnl If the user has not set COMPILERTYPE, check for some compilers:
+if test "x${COMPILERTYPE}" = "x"; then
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j= 
                 #if __GNUC__ == 2 && __GNUC_MINOR__ == 95
                 3;
@@ -73,6 +76,21 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j=
                 #if __GNUC__ == 2 && __GNUC_MINOR__ == 8
                 3;
                 #endif ]])],[COMPILERTYPE=gcc28],[])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j =
+                #if defined(__GNUC__)
+                3;
+                #endif ]])],[COMPILERTYPE=gcc],[])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stdio.h>]], [[int j =
+                #if defined(__clang__)
+                3;
+                #endif ]])],[COMPILERTYPE=clang],[])
+fi
+dnl If the user has not set COMPILERTYPE and the checks did not deliver
+dnl results, set COMPILERTYPE to basename $CC.
+if test "x${COMPILERTYPE}" = "x"; then
+    COMPILERTYPE=`basename $CC`
+fi
+
 AC_SUBST(COMPILERTYPE)
 
 LINUXAUDIO=none

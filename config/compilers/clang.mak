@@ -2,7 +2,7 @@
  ##                                                                       ##
  ##                Centre for Speech Technology Research                  ##
  ##                     University of Edinburgh, UK                       ##
- ##                         Copyright (c) 1999                            ##
+ ##                         Copyright (c) 1996                            ##
  ##                        All Rights Reserved.                           ##
  ##                                                                       ##
  ##  Permission is hereby granted, free of charge, to use and distribute  ##
@@ -31,67 +31,13 @@
  ##                                                                       ##
  ###########################################################################
  ##                                                                       ##
- ##                 Author: Rob Clark                                     ##
- ##                   Date: Feb 2004                                      ##
+ ##                 Author: Sergio Oller <sergioller@gmail.com>           ##
+ ##                   Date: Sun Mar 30 2014                               ##
  ## --------------------------------------------------------------------  ##
- ## Settings for intec cc 8.0                                             ##
+ ## Settings for clang. Fortunately clang is very compatible with gcc :-) ##
  ##                                                                       ##
  ###########################################################################
 
-COMPILER_DESC=Intel 8.0
-COMPILER_VERSION_COMMAND=$(CXX) -v 2>&1 | tail -1 | sed -e 's/^Version.//'
-
-CFLAGS  =  $(CC_OTHER_FLAGS)
-CXXFLAGS  =  $(CC_OTHER_FLAGS)
-
-DEBUG_CCFLAGS   = -g
-DEBUG_CXXFLAGS  = -g
-DEBUG_LINKFLAGS = -g
-
-WARN_CCFLAGS   = -Wall
-WARN_CXXFLAGS  = -Wall
-WARN_LINKFLAGS = -Wall
-
-OPTIMISE_CCFLAGS   = -O$(OPTIMISE)
-OPTIMISE_CXXFLAGS  = -O$(OPTIMISE)
-OPTIMISE_LINKFLAGS = -O$(OPTIMISE)
-
-PROFILE_DEFAULT = gprof
-
-PROFILE_prof_CCFLAGS   = -p
-PROFILE_prof_CXXFLAGS  = -p
-PROFILE_prof_LINKFLAGS = -p
-
-PROFILE_gprof_CCFLAGS   = -pg
-PROFILE_gprof_CXXFLAGS  = -pg
-PROFILE_gprof_LINKFLAGS = -pg
-
-SHARED_CCFLAGS  = -fpic 
-SHARED_CXXFLAGS  = -fPIC
-SHARED_LINKFLAGS = 
-
-MAKE_SHARED_LIB = $(CXX) -shared -o XXX
-
-#-shared -R$(MAIN_LIBRARY_DIR)
-
-STATIC_CCFLAGS   = 
-STATIC_CXXFLAGS  = 
-STATIC_LINKFLAGS = -Dstatic
-
-TEMPLATE_SPECIFIC = -DINSTANTIATE_TEMPLATES
-TEMPLATE_ARGS = 
-
-BUILD_LIB   = $(AR) crv
-INDEX_LIB   = $(RANLIB)
-
-WARN_CXXFLAGS  +=  
-
-
-MAKE_DEPEND_C = $(CC) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
-MAKE_DEPEND_CXX = $(CXX) -MM $(INCLUDES) $(WARN_CXXFLAGS) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
-
-COMPILERLIBS= $(COMPILER_LIBS_DIR:%=-L%) 
-
-
-
+include $(EST)/config/compilers/gcc_defaults.mak
+COMPILER_DESC_clang= clang compiler
 

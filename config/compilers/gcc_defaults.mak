@@ -38,8 +38,6 @@
  ##                                                                       ##
  ###########################################################################
 
-CC=gcc
-CXX=g++
 
 COMPILER_DESC=FSF gcc
 COMPILER_VERSION_COMMAND=$(CXX) -v 2>&1 | tail -1 | sed -e 's/^....//'
@@ -102,7 +100,7 @@ COMPILERLIBS= $(COMPILER_LIBS_DIR:%=-L%) -lstdc++ $(OMP_OPTS)
 ## special ways of doing things, blank means default
 
 MAKE_DEPEND_C = $(CC) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
-MAKE_DEPEND_CXX = $(CC) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
+MAKE_DEPEND_CXX = $(CXX) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
 BUILD_LIB   = $(AR) crv
 INDEX_LIB   = $(RANLIB)
 

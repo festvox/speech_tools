@@ -50,7 +50,5 @@ NAWK=awk
 
 GCC295=cc
 
-CXX=g++
-
-GCC_MAKE_SHARED_LIB = g++ -dynamiclib -undefined dynamic_lookup -o XXX
+GCC_MAKE_SHARED_LIB = $(CXX) -dynamiclib -undefined dynamic_lookup -o XXX
 LD_LIBRARY_PATH_VARIABLE = DYLD_LIBRARY_PATH

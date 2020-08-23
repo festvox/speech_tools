@@ -45,10 +45,6 @@ COMPILER_DESC=gcc-3.0
 ifndef GCC30
     GCC30 = gcc
 endif
-
-CC= $(GCC30)
-CXX = $(GCC30)
-
 WARN_CXXFLAGS  +=  -Wno-non-template-friend
 
 STATIC_LINKFLAGS = -Dstatic

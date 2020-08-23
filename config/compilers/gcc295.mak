@@ -45,10 +45,6 @@ COMPILER_DESC=FSF gcc2.95.1
 ifndef GCC295
     GCC295 = gcc
 endif
-
-CC= $(GCC295)
-CXX = $(GCC295)
-
 CXXFLAGS  +=  -fguiding-decls
 
 STATIC_LINKFLAGS = -Dstatic

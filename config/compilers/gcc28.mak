@@ -44,8 +44,6 @@ ifndef GCC28
     GCC28 = gcc
 endif
 
-CC= $(GCC28)
-CXX = $(GCC28)
 
 COMPILER_DESC=FSF gcc2.8
 

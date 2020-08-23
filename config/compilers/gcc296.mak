@@ -45,10 +45,6 @@ COMPILER_DESC=RH gcc2.96
 ifndef GCC296
     GCC296 = gcc
 endif
-
-CC= $(GCC296)
-CXX = $(GCC296)
-
 WARN_CXXFLAGS  +=  -Wno-non-template-friend
 
 STATIC_LINKFLAGS = -Dstatic

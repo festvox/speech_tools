@@ -44,9 +44,6 @@ include $(EST)/config/compilers/gcc_defaults.mak
 
 COMPILER_DESC=FSF gcc2.7 EMX
 
-CC = gcc
-CXX = gcc
-
 COMPILERLIBS = $(COMPILER_LIBS_DIR:%=-L%) -lstdcpp
 
 LINKFLAGS += -Zexe -Zmtd
