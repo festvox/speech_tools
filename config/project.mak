@@ -102,8 +102,9 @@ PROJECT_LIBRARY_DIR_estbase = $(TOP)/lib
 PROJECT_LIBRARY_DIR_eststring = $(TOP)/lib
 PROJECT_LIBRARY_DIR_estjava = $(TOP)/lib
 
+PROJECT_LIBRARY_USES_eststring = 
 PROJECT_LIBRARY_USES_estbase = eststring
-
+PROJECT_LIBRARY_USES_estools = estbase eststring
 PROJECT_LIBRARY_USES_estjava = estbase eststring
 
 
