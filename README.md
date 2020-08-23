@@ -234,9 +234,8 @@ we would appreciate greatly any code which will add to the usefulness
 of the system. Signal processing routines are particularly welcome.
 
 
-======================================================================
 ADDITIONAL SOFTWARE
-======================================================================
+------------------------------------------------------------------------
 
 CSTR supplies a number of different speech technology systems
 including speech synthesis systems and (in the future) a recognition
