@@ -39,6 +39,7 @@
 ###########################################################################
 
 USER_CFLAGS    = @CFLAGS@
+USER_CPPFLAGS  = @CPPFLAGS@
 USER_CXXFLAGS  = @CXXFLAGS@
 USER_LINKFLAGS = @LDFLAGS@
 
