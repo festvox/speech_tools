@@ -707,7 +707,8 @@ CPPFLAGS
 CCC
 CC
 CFLAGS
-CPP'
+CPP
+COMPILERTYPE'
 
 
 # Initialize some variables set by options.
@@ -1338,6 +1339,10 @@ Some influential environment variables:
   CC          C compiler command
   CFLAGS      C compiler flags
   CPP         C preprocessor
+  COMPILERTYPE
+              compiler profile to use from config/compilers. This is used to
+              set compiler flags on libraries and source file dependency
+              resolution
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4131,7 +4136,8 @@ fi
 
 
 
-COMPILERTYPE=gcc
+
+if test "x${COMPILERTYPE}" = "x"; then
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 #include <stdio.h>
@@ -4222,6 +4228,47 @@ if ac_fn_c_try_compile "$LINENO"; then :
   COMPILERTYPE=gcc28
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <stdio.h>
+int
+main ()
+{
+int j =
+                #if defined(__GNUC__)
+                3;
+                #endif
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  COMPILERTYPE=gcc
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <stdio.h>
+int
+main ()
+{
+int j =
+                #if defined(__clang__)
+                3;
+                #endif
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  COMPILERTYPE=clang
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+fi
+if test "x${COMPILERTYPE}" = "x"; then
+    COMPILERTYPE=`basename $CC`
+fi
+
 
 
 LINUXAUDIO=none
