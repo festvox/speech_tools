@@ -39,10 +39,7 @@
  ###########################################################################
 
 CC=gcc
-CXX=gcc
-ifeq ($(OSTYPE),Darwin)
 CXX=g++
-endif
 
 COMPILER_DESC=FSF gcc
 COMPILER_VERSION_COMMAND=$(CXX) -v 2>&1 | tail -1 | sed -e 's/^....//'
@@ -55,7 +52,6 @@ DEBUG_CXXFLAGS  = -g
 DEBUG_LINKFLAGS = -g
 
 WARN_CCFLAGS   = -Wall
-WARN_CXXFLAGS  = -Wall -std=c++11
 WARN_CXXFLAGS  = -Wall
 WARN_LINKFLAGS = -Wall
 
