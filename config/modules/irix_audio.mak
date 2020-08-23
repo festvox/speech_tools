@@ -45,3 +45,5 @@ MOD_DESC_IRIX_AUDIO=Native audio module for Irix systems
 AUDIO_DEFINES += -DSUPPORT_IRIX
 
 MODULE_LIBS += -L/usr/lib32 -laudio
+
+PROJECT_LIBRARY_SYSLIBS_estbase += -L/usr/lib32 -laudio
