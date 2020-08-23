@@ -159,30 +159,6 @@ endif
 FileList: file-list
 
 ###########################################################################
-## list things which doc++ should process
-
-doc++files : FORCE
-	@echo "doc++files in $(DIRNAME)"
-ifdef H
-	@for i in $(H) ; \
-	do  \
-	   echo $(DIRNAME)/$$i ; \
-	done >>$(TOP)/Doc++Files
-endif
-ifdef DOCXX_FILES
-	@for i in $(DOCXX_FILES) ; \
-	do  \
-	   echo $(DIRNAME)/$$i ; \
-	done >>$(TOP)/Doc++Files
-endif
-ifdef ALL_DIRS
-	@for i in $(ALL_DIRS) ; \
-	do \
-	   $(MAKE) MADE_FROM_ABOVE=1 --no-print-directory -C $$i doc++files ; \
-	done
-endif
-
-###########################################################################
 ## Instalation rules
 
 install_all: $(INSTALL) nothing

@@ -44,8 +44,10 @@
 #include "EST_TSimpleMatrix.h"
 #include "EST_TSimpleVector.h"
 
-/** A matrix class for integers. {\tt EST_IMatrix x} should be
-    used instead of {\tt int **x} wherever possible.
+/** \class EST_IMatrix
+ *  @ingroup containerclasses
+ *  A matrix class for integers. `EST_IMatrix x` should be
+    used instead of `int **x` wherever possible.
 */
 class EST_IMatrix: public EST_TSimpleMatrix<int> {
 private:

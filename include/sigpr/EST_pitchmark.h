@@ -50,7 +50,8 @@
 #define DEF_PERIOD        0.01
 #define PM_END            -1.0
 
-/** @name Pitchmarking Functions
+/** @defgroup PitchmarkingFunctions Pitchmarking Functions
+   @ingroup FunctionsForGeneratingTracks
 
 Pitchmarking involves finding some pre-defined pitch related instant
 for every pitch period in the speech. At present, only functions for
@@ -58,7 +59,7 @@ analysing laryngograph waveforms are available - the much harder
 problem of doing this on actual speech has not been attempted.
 
  */
-//@{
+///@{
 
 /** Find pitchmarks in Laryngograph (lx) signal. 
 
@@ -71,20 +72,18 @@ smoothed differentiated signal, corresponding to peaks in the original
 are then chosen.
 
 @param lx laryngograph waveform
-@param op options, mainly for filter control:
-\begin{itemize}
-\item {\bf lx_low_frequency} low pass cut off for lx filtering : typical value {\tt 400}
-\item {\bf lx_low_order} order of low pass lx filter: typical value 19
-\item {\bf lx_high_frequency} high pass cut off for lx filtering: typical value 40
-\item {\bf lx_high_order} order of high pass lx filter: typical value 19
-\item {\bf median_order} order of high pass lx filter: typical value 19
-\end{itemize}
+@param op {options, mainly for filter control:
+  - **lx_low_frequency** low pass cut off for lx filtering : typical value `400`
+  - **lx_low_order** order of low pass lx filter: typical value 19
+  - **lx_high_frequency** high pass cut off for lx filtering: typical value 40
+  - **lx_high_order** order of high pass lx filter: typical value 19
+  - **median_order** order of high pass lx filter: typical value 19
+  }
 */
-
 EST_Track pitchmark(EST_Wave &lx, EST_Features &op);
 
 /** Find pitchmarks in Laryngograph (lx) signal. The function is the
-same as \Ref{pitchmark} but with more explicit control over
+same as \ref pitchmark but with more explicit control over
 the parameters.
 
 @param lx laryngograph waveform
@@ -95,7 +94,6 @@ the parameters.
 @param mo order of median smoother used to smoother differentiated lx  : typical value 19
 
 */
-
 EST_Track pitchmark(EST_Wave &lx, int lx_lf, int lx_lo, int lx_hf, 
 		    int lx_ho, int df_lf, int df_lo, int mo, int debug=0);
 
@@ -105,19 +103,17 @@ EST_Track pitchmark(EST_Wave &lx, int lx_lf, int lx_lo, int lx_hf,
 @param sig waveform
 @param pm pitchmark track which stores time positions of negative crossings
 */
-
 void neg_zero_cross_pick(EST_Wave &lx, EST_Track &pm);
 
 /** Produce a set of sensible pitchmarks. 
 
 Given a set of raw pitchmarks, this function makes sure no pitch
-period is shorter that {\tt min} seconds and no longer than {\tt max}
+period is shorter that `min` seconds and no longer than `max`
 seconds. Periods that are too short are eliminated. If a period is too
 long, extra pitchmarks are inserted whose period is {\it
-approximately} {\tt def} seconds in duration. The approximation is to
+approximately} `def` seconds in duration. The approximation is to
 ensure that the pitch period in the interval, D, is constant, and so
-the actual pitch period is given by \[T = D / floor(D/def)\] */
-
+the actual pitch period is given by \f[T = D / floor(D/def)\f] */
 void pm_fill(EST_Track &pm, float new_end, float max, float min, float def);
 
 /** Remove pitchmarks which are too close together. 
@@ -125,7 +121,6 @@ void pm_fill(EST_Track &pm, float new_end, float max, float min, float def);
 This doesn't work in a particularly sophisticated way, in that it
 removes a sequence of too close pitchmarks left to right, and doesn't
 attempt to find which ones in the sequence are actually spurious.  */
-
 void pm_min_check(EST_Track &pm, float min);
 
 
@@ -135,9 +130,6 @@ void pm_to_f0(EST_Track &pm, EST_Track &f0);
 void pm_to_f0(EST_Track &pm, EST_Track &fz, float shift);
 
 
-//@}
+///@}
 
 #endif /* __EST_PITCHMARK_H__ */
-
-
-//@}

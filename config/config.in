@@ -148,8 +148,17 @@ INCLUDE_MODULES += RXP
 ## Efence protected malloc library to catch memory errors
 # INCLUDE_MODULES += EFENCE
 
-## Dmalloc, another chekcing malloc library
+## Dmalloc, another checking malloc library
 # INCLUDE_MODULES += DMALLOC
+
+###################################################################
+## Documentation required tools
+## xsltproc (used for extracting a description of the parameters
+##           of the speech tools programs)
+XSLTPROC = xsltproc
+
+## Doxygen:
+DOXYGEN = doxygen
 
 ###################################################################
 ## Wrappers for selected EST Classes and functionality for

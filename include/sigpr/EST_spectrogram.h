@@ -39,13 +39,14 @@
 #include "EST_Track.h"
 #include "EST_Option.h"
 
-/**@name Spectrogram generation
-  * 
+/**@defgroup Spectrogramgeneration Spectrogram generation
+   @ingroup FunctionsForGeneratingTracks
+
   * @author Richard Caley <rjc@cstr.ed.ac.uk>
   * @version $Id: EST_spectrogram.h,v 1.2 2001/04/04 13:11:27 awb Exp $
   */
 
-//@{
+///@{
 
 /// Compute the power-spectrogram
 void raw_spectrogram(EST_Track &sp, EST_Wave &sig, float length, float shift,
@@ -57,7 +58,7 @@ void scale_spectrogram(EST_Track &s, float range, float b, float w);
 
 void make_spectrogram(EST_Wave &sig, EST_Track &sp, EST_Features &op);
 
-//@}
+///@}
 
 #endif
 

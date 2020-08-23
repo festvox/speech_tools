@@ -21,14 +21,16 @@ Specific documentation for each executable is given on separate pages:
 
   - @subpage ch_wave_manual
   - @subpage ch_track_manual
+  - @subpage ch_lab_manual
+  - @subpage ch_utt_manual
 
   - @subpage tilt_analysis_manual
   - @subpage tilt_synthesis_manual
 
-  - @subpage sigfv_manual
+  - @subpage sig2fv_manual
   - @subpage spectgen_manual
   - @subpage sigfilter_manual
-  - @subpage designfilter_manual
+  - @subpage design_filter_manual
   - @subpage pda_manual
   - @subpage pitchmark_manual
 
@@ -41,12 +43,13 @@ Specific documentation for each executable is given on separate pages:
   - @subpage na_record_manual
 
   - @subpage wagon_manual
+  - @subpage wagon_test_manual
   - @subpage ols_manual
   - @subpage ols_test_manual
 
   - @subpage wfst_build_manual
   - @subpage wfst_train_manual
-  - @subpage wfst_test_manual
+  - @subpage wfst_run_manual
 
   - @subpage scfg_make_manual
   - @subpage scfg_train_manual
@@ -57,4 +60,6 @@ Specific documentation for each executable is given on separate pages:
   - @subpage fringe_client_manual
   - @subpage bcat_manual
   - @subpage xml_parser_manual
+	
+  - @subpage align_manual
 

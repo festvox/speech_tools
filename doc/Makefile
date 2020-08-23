@@ -38,7 +38,15 @@
 ##                                                                       ##
 ##  After Sergio's updates, make doc runs again.  You will need to have  ##
 ##  doxygen, xsltproc and graphviz installed to run this                 ##
-##                                                                       ##
+##=======================================================================##
+##  Note that doxygen has a regression rendering formulas.               ##
+##  Doxygen versions from 2014 were working                              ##
+##  Doxygen 1.8.17 is known to fail rendering formulas                   ##
+##  Doxygen 1.8.19 is known to render formulas correctly                 ##
+##  Please update Doxygen if you see "error: /undefined in getenv"       ##
+##  when building the documentation, if you care about formulas being    ##
+##  properly rendered.                                                   ##
+##  Doxygen issue: https://github.com/doxygen/doxygen/issues/7290        ##
 ##=======================================================================##
 TOP=..
 DIRNAME=doc
@@ -63,6 +71,6 @@ LOCAL_CLEAN = doxygen
 
 doc:
 	(cd $(TOP)/doc/man; make all_dox)
-	doxygen $(TOP)/doc/DoxyFile
+	$(DOXYGEN) $(TOP)/doc/DoxyFile
 
 

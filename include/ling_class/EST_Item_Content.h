@@ -55,13 +55,13 @@ class EST_Item;
 /** A class for containing individual linguistic features and references
 to relations.
 
-This class contents the potentially shared part of an \Ref{EST_Item}.
+This class contents the potentially shared part of an \ref EST_Item .
 It contains a list of features allowing string names to be related to
 string, floats, ints and arbitrary objects.  It also contains a reference
-list to the \Ref{EST_Item}s indexed by the relation names.
+list to the \ref EST_Item s indexed by the relation names.
 
 This class should not normally be accessed by anyone other than the
-\Ref{EST_Item}.
+\ref EST_Item .
 
 */
 class EST_Item_Content {

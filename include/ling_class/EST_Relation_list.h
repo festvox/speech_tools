@@ -37,28 +37,28 @@
 #ifndef __EST_RELATION_LIST_H__
 #define __EST_RELATION_LIST_H__
 
-/** Given a node <parameter>l</parameter>, return true if
-    <parameter>c</parameter> after it in a list relation. */
+/** Given a node `l`, return true if
+    `c` after it in a list relation. */
 int in_list(const EST_Item *c, const  EST_Item *l);
 
 
-/** Add a item after node <parameter>n</parameter>, and return the new
-item. If <parameter>n</parameter> is the first item in the list, the 
+/** Add a item after node `n`, and return the new
+item. If `n` is the first item in the list, the 
 new item becomes the head of the list, otherwise it is inserted between
-<parameter>n</parameter> and it's previous current item.
-If <parameter>p</parameter> is 0, make a new node for the new
-item, otherwise add <parameter>p</parameter> to this relation as the
-next item in <parameter>n</parameter>'s relation.  */
+`n` and it's previous current item.
+If `p` is 0, make a new node for the new
+item, otherwise add `p` to this relation as the
+next item in `n`'s relation.  */
 
 EST_Item *add_after(const EST_Item *n, EST_Item *p=0);
 
-/** Add a item before node <parameter>n</parameter>, and return the new
-item. If <parameter>n</parameter> is the first item in the list, the 
+/** Add a item before node `n`, and return the new
+item. If `n` is the first item in the list, the 
 new item becomes the head of the list, otherwise it is inserted between
-<parameter>n</parameter> and it's previous current item.
-If <parameter>p</parameter> is 0, make a new node for the new
-item, otherwise add <parameter>p</parameter> to this relation as the
-previous item in <parameter>n</parameter>'s relation.  */
+`n` and it's previous current item.
+If `p` is 0, make a new node for the new
+item, otherwise add `p` to this relation as the
+previous item in `n`'s relation.  */
 
 EST_Item *add_before(const EST_Item *n, EST_Item *p=0);
 

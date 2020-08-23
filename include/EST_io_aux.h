@@ -45,6 +45,33 @@
 #include "EST_String.h"
 #include "EST_types.h"
 
+/** \defgroup utilityfunctionsforio Utility IO Function header file
+ */
+ 
+ 
+/** \file
+ *  \brief Utility IO Function header file.
+ *  \addtogroup utilityfunctionsforio
+ *  @{
+ *  \fn EST_String make_tmp_filename()
+ *  \brief Make a unique temporary filename
+ *  \fn EST_String stdin_to_file()
+ *  \brief Copy stdin to a file and return the name of that tmpfile
+ *  \fn int writable_file(char *filename)
+ *  \brief return true if this file is writeable
+ *  \fn int readable_file(char *filename)
+ *  \brief return true if this file is readable
+ *  \fn inline int delete_file(const EST_String &filename)
+ *  \brief OS independent way of removing a file
+ *  \fn EST_String uncompress_file_to_temporary(const EST_String &filename,const EST_String &prog_name)
+ *  \brief Uncompress file by calling program prog, and write it to new tempoary file. Return name of temporary file
+ *  \fn int compress_file_in_place(const EST_String &filename, const EST_String &prog_name)
+ *  \brief Uncompress file and over-write existing file with uncompressed version
+ *  \fn int compress_file(const EST_String &filename, const EST_String &new_filename, const EST_String &prog_name)
+ *  \brief compress file by calling program prog, writing result to new_filename 
+ *  @}
+ */
+
 EST_String make_tmp_filename();
 EST_String stdin_to_file();
 int writable_file(char *filename);

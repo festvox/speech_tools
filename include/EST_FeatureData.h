@@ -51,7 +51,8 @@
 typedef EST_TMatrix<EST_Val> EST_ValMatrix;
 typedef EST_TVector<EST_Val> EST_ValVector;
 
-/** A class for containing arbitrary multi-dimensional feature data.
+/** \class EST_FeatureSample
+    \brief A class for containing arbitrary multi-dimensional feature data.
 
 A number of fields are defined in the EST_FeatureData class, each of
 which represents a measurable quantity, such as height, age or
@@ -65,8 +66,6 @@ comparing fields, extracting given named or numbered fields, can
 converting appropriate fields to a EST_FMatrix.
 
 */
-
-
 class EST_FeatureSample : public EST_ValVector {
 private:
     bool p_sub_fd;
@@ -119,7 +118,21 @@ public:
 
 };
 
+/** \class EST_FeatureData
+    \brief A class for containing arbitrary multi-dimensional feature data.
 
+A number of fields are defined in the EST_FeatureData class, each of
+which represents a measurable quantity, such as height, age or
+gender. Any number of fields can be defined and each field can take a
+float, integer or string value. The class holds multiple instances of
+field values, representing samples taken from a population. 
+
+Several statistical training, testing and analysis programs use
+EST_FeatureData as input and output. Member functions exist for
+comparing fields, extracting given named or numbered fields, can 
+converting appropriate fields to a EST_FMatrix.
+
+*/
 class EST_FeatureData{
 private:
     bool p_sub_fd;

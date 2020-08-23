@@ -134,7 +134,3 @@ PROJECT_TEMPLATE_DIRS = include audio utils \
         ling_class speech_class sigpr stats grammar
 PROJECT_TEMPLATE_DBS  = $(TOP)
 
-# Places to look for documentation
-
-DOCXX_DIRS = $(TOP)/include $(TOP)/testsuite
-

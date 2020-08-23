@@ -43,17 +43,11 @@
 #include "EST_String.h"
 #include "EST_util_class.h"
 #include "EST_types.h"
+
+using namespace std;
+
 bool second_char_gt(const EST_UItem *uv1, const EST_UItem *uv2);
 
-/**@name EST_TList:example
-  * 
-  * some stuff about lists
-  *
-  * @see EST_TList
-  * @see EST_TKVL
-  * @see EST_Option
-  */
-//@{
 
 int main(void)
 {
@@ -64,14 +58,8 @@ int main(void)
     // EST_StrList is EST_TList<EST_String>.
     EST_StrList slist;  // decl
     EST_Litem *p; //decl
-
-    /**@name Inserting items into a list
-
-      There is no easy way to initialise a list so we'll just set it
-      from the strings array.
-      */
-
-    //@{ code
+    
+    //@ code
     // append adds items on to the end of a list
     for (unsigned int i1 = 0; i1 < sizeof(strings) /sizeof(strings[0]); i1++)
 	slist.append(strings[i1]);
@@ -86,27 +74,11 @@ int main(void)
 	{
 	    p = slist.insert_before(p,"hawk");
 	    p = slist.insert_after(p,"sparrow");
-	}
-
-    //@} code
+	} //@ endcode
 
 
-    /**@name Iteration over a list
 
-      A dummy pointer of type \Ref{EST_Litem} is used to iterate
-      through a list. This acts somewhat like the index in an array in
-      that it is used to access an item, in the list but does not
-      contain a value itself.
-      
-      Iteration is usually done in a for loop. Initialisation involves
-      setting the pointer to the head() function. Increments are done
-      by the next() function. At the end of the list, the pointer will
-      be set to null, and this can be used to check for the end.
-
-      Items in the list are accessed by passing the pointer is as the
-      argument to the function operator(), as in the following example.
-      */
-    //@{ code
+    //@ code
     cout << "[ List Accessed by LItem\n";
     // print out contents of array.
     for (p = slist.head(); p != 0; p = p->next())
@@ -120,17 +92,11 @@ int main(void)
     for (int i2 = 0; i2 < slist.length(); ++i2)
 	cout << "  " << slist.nth(i2) << "\n";
     cout << "]\n";
-    //@} code
+    //@ endcode
 
-    /**@name Accessing elements of a list
 
-      The normal way to access an item is to use the \Ref{EST_Litem}
-      in conjunction with the () operator. Other functions also exist,
-      eg. first(), last() and nth(). Const and non-const version of
-      each access function exist, allowing both reading and writing.
-      */
 
-    //@{ code
+    //@ code
     // Capital;ise all 'e's in all strings
     for (p = slist.head(); p != 0; p = p->next())
 	slist(p).gsub("e", "E");
@@ -150,28 +116,21 @@ int main(void)
 
     // All these can be used for overwriting existing members in the list.
     // To add new members use append(), prepend(), insert_before() or 
-    // insert_after() as shown in \Ref{Addition}
+    // insert_after() as shown in \ref Addition 
     
     slist.first() = "Swallow";
     slist.last() = "TurkEy";
     slist.nth(2) = "SEagull";
 
-    //@} code  
+    //@ endcode  
 
     cout << "\n[ List After Substitutions and Replacements\n";
     for (p = slist.head(); p != 0; p = p->next())
       cout << "  " << slist(p) << "\n";
     cout << "]\n";
 
-    /**@name Removing items from a list.
-       Removing items from lists is done by having the EST_Litem point
-       to a particular item, and then passing this pointer to the
-       remove function. This can be tricky as this leaves the EST_Litem
-       pointer pointing to a non-existent item. To get round this, the
-       remove() function returns a pointer to the previous item in the
-       list.
-      */
-    //@{ code
+
+    //@ code
 
     // In the following example, the item "eagle" is removed and a 
     // pointer to the previous item is returned. The for loop then
@@ -180,21 +139,18 @@ int main(void)
 
     for (p = slist.head(); p != 0; p = p->next())
       if (slist(p) == "EaglE")
-	p = slist.remove(p);
+	        p = slist.remove(p);
 
-    //@} code
+    //@ endcode
 
     cout << "\n[ List After Removing Eagle\n";
     for (p = slist.head(); p != 0; p = p->next())
       cout << "  " << slist(p) << "\n";
     cout << "]\n";
 
-    /**@name reverse the list.
-      */
-
-    //@{
+    //@ code
     slist.reverse();
-    //@}
+    //@ endcode
     
 
     cout << "\n[ List After Reverse\n";
@@ -202,17 +158,7 @@ int main(void)
       cout << "  " << slist(p) << "\n";
     cout << "]\n";
 
-    /**@name Sorting a list
-      * 
-      * A number of sort routines for lists are defined. The most useful
-      * are probably sort (a simple bubble sort, quick for small lists)
-      * and qsort (quick-sort, faster for long lists).
-      * 
-      * If the default collation order is not what you want you can pass
-      * a comparison operator to the sort routine.
-      */
-
-    //@{ code
+    //@ code
 
     // Sort into alphabetical order
     sort(slist);
@@ -229,16 +175,11 @@ int main(void)
    for(p=slist.head(); p ; p=p->next())
      cout << "  " << slist(p) << "\n";
    cout << "]\n";
-   //@} code
+   //@ endcode
  
 }
 
-/**@name Comparison Operation Used in Sort
-  * 
-  * Compares the second character of Strings.
-  */
-
-//@{ code
+//@ code
 bool second_char_gt(const EST_UItem *uv1, const EST_UItem *uv2)
 {
   const EST_TItem<EST_String> *val1 = (const EST_TItem<EST_String> *)uv1;
@@ -246,7 +187,7 @@ bool second_char_gt(const EST_UItem *uv1, const EST_UItem *uv2)
    
   return (bool)(val1->val(1) > val2->val(1));
 }
-//@} code
+//@ endcode
 
 //@}
 
@@ -266,3 +207,85 @@ bool second_char_gt(const EST_UItem *uv1, const EST_UItem *uv2)
 //template void qsort(EST_TList<EST_String> &a,
 //		   bool (*gt)(const EST_UItem *, const EST_UItem *));
 
+
+
+/**@page EST_TList-example EST_TList example
+   @brief Example of list class use. 
+   @dontinclude list_example.cc 
+   
+   @section insert Inserting items into a list
+   There is no easy way to initialise a list so we'll just set it
+   from the strings array.
+
+  @skipline //@ code
+  @until //@ endcode
+  
+  @section iteration Iteration over a list
+
+  A dummy pointer of type \ref EST_Litem  is used to iterate
+  through a list. This acts somewhat like the index in an array in
+  that it is used to access an item, in the list but does not
+  contain a value itself.
+  
+  Iteration is usually done in a for loop. Initialisation involves
+  setting the pointer to the head() function. Increments are done
+  by the next() function. At the end of the list, the pointer will
+  be set to null, and this can be used to check for the end.
+
+  Items in the list are accessed by passing the pointer is as the
+  argument to the function operator(), as in the following example.
+
+  @skipline //@ code
+  @until //@ endcode
+
+  @section accessing Accessing elements of a list
+
+  The normal way to access an item is to use the \ref EST_Litem 
+  in conjunction with the () operator. Other functions also exist,
+  eg. EST_TList::first(), EST_TList::last() and EST_TList::nth(). Const 
+  and non-const version of each access function exist, allowing 
+  both reading and writing.
+
+  @skipline //@ code
+  @until //@ endcode
+
+  @section removing Removing items from a list.
+  Removing items from lists is done by having the EST_Litem point
+  to a particular item, and then passing this pointer to the
+  remove function. This can be tricky as this leaves the EST_Litem
+  pointer pointing to a non-existent item. To get round this, the
+  EST_TList::remove() function returns a pointer to the previous 
+  item in the list.
+  
+  @skipline //@ code
+  @until //@ endcode
+
+  @section reverse Reverse a list
+
+  @skipline //@ code
+  @until //@ endcode
+
+  @section sort Sorting a list
+  
+  A number of sort routines for lists are defined. The most useful
+  are probably sort (a simple bubble sort, quick for small lists)
+  and qsort (quick-sort, faster for long lists).
+  
+  If the default collation order is not what you want you can pass
+  a comparison operator to the sort routine.
+
+  @skipline //@ code
+  @until //@ endcode
+
+  @subsection Comparison Operation Used in Sort
+  
+  Compares the second character of Strings.
+
+  @skipline //@ code
+  @until //@ endcode
+  
+  
+  @see EST_TList
+  @see EST_TKVL
+  @see EST_Option
+  */

@@ -48,9 +48,12 @@
 
 class EST_DVector;
 
-/** A matrix class for double precision floating point numbers. 
-EST_DMatrix x should be used instead of double **x wherever
-possible.*/
+/** \class EST_DMatrix
+ *  @ingroup containerclasses
+ * A matrix class for double precision floating point numbers. 
+EST_DMatrix x should be used instead of `double **x` wherever
+possible.
+*/
 class EST_DMatrix : public EST_TSimpleMatrix<double> {
 private:
 public:
@@ -77,7 +80,7 @@ public:
     /// Load from file in est format (binary/ascii defined in file itself)
     EST_read_status est_load(const EST_String &filename);
 
-    /// Copy 2-d array {\tt x} of size {\tt rows x cols} into matrix.
+    /// Copy 2-d array `x` of size `rows x cols` into matrix.
     void copyin(double **x, int rows, int cols);
 
     /// Add elements of 2 same sized matrices.
@@ -92,7 +95,7 @@ public:
     /// elementwise divide by scalar
     EST_DMatrix &operator/=(const double f); 
 
-    /// Multiply all elements of matrix by {\tt x}.
+    /// Multiply all elements of matrix by `x`.
     friend EST_DMatrix operator*(const EST_DMatrix &a, const double x);
 
     /// Multiply matrix by vector.
@@ -106,9 +109,11 @@ public:
 };
 
 
-/** A vector class for double precision floating point
-    numbers. {\tt EST_DVector x} should be used instead of 
-    {\tt float *x} wherever possible.
+/** \class EST_DVector
+ *  @ingroup containerclasses
+    \brief A vector class for double precision floating point
+    numbers. `EST_DVector x` should be used instead of 
+    `float *x` wherever possible.
 */
 class EST_DVector: public EST_TSimpleVector<double> {
 public:

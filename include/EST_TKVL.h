@@ -50,7 +50,9 @@ using namespace std;
 class EST_String;
 
 
-/** Templated Key-Value Item. Serves as the items in the list of the
+/** \class EST_TKVI
+ *  @ingroup containerclasses
+ *  \brief Templated Key-Value Item. Serves as the items in the list of the
 EST_TKVL class.  */
 template<class K, class V> class EST_TKVI {
  public:
@@ -66,21 +68,22 @@ template<class K, class V> class EST_TKVI {
 };
 
 
-/** Templated Key-Value list. Objects of type EST_TKVL contain lists which
-are accessed by a key of type {\bf K}, which returns a value of type
-{\bf V}. */
+/** \class EST_TKVL
+ *  @ingroup containerclasses
+ *  \brief Templated Key-Value list. Objects of type EST_TKVL contain lists which
+are accessed by a key of type `K`, which returns a value of type `V`. */
 template<class K, class V> class EST_TKVL {
  private:
     EST_Litem *find_pair_key(const K &key) const;
     EST_Litem *find_pair_val(const V &val) const;
  public:
     /**@name Constructor functions */
-    //@{
+    ///@{
     /// default constructor
     EST_TKVL() {;}
     /// copy constructor
     EST_TKVL(const EST_TKVL<K, V> &kv);
-    //@}
+    ///@}
 
     /// default value, returned when there is no such entry.
     static V *default_val;
@@ -103,7 +106,7 @@ template<class K, class V> class EST_TKVL {
     
     /**@name Access functions.
      */
-    //@{
+    ///@{
     /// return value according to key (const)
     const V &val(const K &rkey, bool m=0) const;
     /// return value according to key (non-const)
@@ -139,7 +142,7 @@ template<class K, class V> class EST_TKVL {
     /// remove key and val pair from list
     int remove_item(const K &rkey, int quiet = 0);
 
-    //@}
+    ///@}
     
     /// Returns true if key is present.
     const int present(const K &rkey) const;

@@ -133,10 +133,6 @@ GNUTEST = gnutest
 RM = /bin/rm
 
 ###########################################################################
-## Arguments for DOC++ for creating documentation
-
-DOCXX = doc++
-DOCXX_ARGS = -a -f -B banner.inc -M sane -D 'SYSTEM "$(EST_HOME)/doc/sane.dtd"'
 
 
 COMPILER_VERSION_COMMAND=true

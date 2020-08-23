@@ -38,24 +38,29 @@
 #include "sigpr/EST_Window.h"
 #include "EST_Track.h"
 #include "EST_Wave.h"
+#include "EST_Option.h"
 
 #define DEFAULT_WINDOW_NAME "hamming"
 #define DEFAULT_FRAME_FACTOR 2.0
 
 /* Note: some of these functions deliberately don't have
-   doc++ style comments, mainly because they are, or will be
+   doxygen style comments, mainly because they are, or will be
    superseded soon.
 */
 
-/**@name Functions for use with frame based processing
+/** @defgroup FunctionsForGeneratingTracks Functions for generating Tracks
+ */
 
-In the following functions, the input is a \Ref{EST_Wave} waveform,
-and the output is a (usually multi-channel) \Ref{EST_Track}.  The
+/**@defgroup Functionsforusewithframebasedprocessing Functions for use with frame based processing
+   @ingroup FunctionsForGeneratingTracks
+
+In the following functions, the input is a EST_Wave waveform,
+and the output is a (usually multi-channel) EST_Track.  The
 track must be set up appropriately before hand. This means the track
 must be resized accordingly with the correct numbers of frame and
 channels.
 
-The positions of the frames are found by examination of the {\bf time}
+The positions of the frames are found by examination of the **time**
 array in the EST_Track, which must be filled prior to the function
 call. The usual requirement is for fixed frame analysis, where each
 analysis frame is, say, 10ms after the previous one. 
@@ -65,53 +70,40 @@ analysis where the time shift is related to the local pitch period.
 
 */ 
 
-//@{
+///@{
 
 /** Produce a single set of coefficients from a waveform. The type of 
-  coefficient required is given in the argument <parameter>type</parameter>. 
-  Possible types are:
+  coefficient required is given in the argument `type`.
 
-<variablelist>
-
-<varlistentry><term>lpc</term><listitem>linear predictive coding</listitem></varlistentry>
-
-<varlistentry><term>cep</term><listitem>cepstrum coding from lpc coefficients</listitem></varlistentry>
-
-<varlistentry><term>melcep</term><listitem>Mel scale cepstrum coding via fbank</listitem></varlistentry>
-
-<varlistentry><term>fbank</term><listitem>Mel scale log filterbank analysis</listitem></varlistentry>
-
-<varlistentry><term>lsf</term><listitem>line spectral frequencies</listitem></varlistentry>
-
-<varlistentry><term>ref</term><listitem>Linear prediction reflection coefficients</listitem></varlistentry>
-
-<varlistentry><term>power</term><listitem></listitem></varlistentry>
-
-<varlistentry><term>f0</term><listitem>srpd algorithm</listitem></varlistentry>
-
-<varlistentry><term>energy</term><listitem>root mean square energy</listitem></varlistentry>
-
-</variablelist>
+  \param type { Possible types are:
+     - **lpc**: linear predictive coding
+     - **cep**: cepstrum coding from lpc coefficients
+     - **melcep**: Mel scale cepstrum coding via fbank
+     - **fbank**: Mel scale log filterbank analysis
+     - **lsf**: line spectral frequencies
+     - **ref**: Linear prediction reflection coefficients
+     - **power**:
+     - **f0**: srpd algorithm
+     - **energy**: root mean square energy
+   }
 
 The order of the analysis is calculated from the number of
-channels in <parameter>fv</parameter>.  The positions of the analysis
+channels in `fv`.  The positions of the analysis
 windows must be given by filling in the track's time array.
 
 This function windows the waveform at the intervals given by the track
-time array. The length of each window is <parameter>factor<parameter>
-* the local time shift. The windowing function is giveb by
-<parameter>wf</parameter>.
+time array. The length of each window is `factor * the local time shift`.
+The windowing function is given by `wf`.
 
-@param sig: input waveform
-@param fv: output coefficients. These have been pre-allocated and the
-       number of channels in a indicates the order of the analysis.
-@param type: the types of coefficients to be produced. "lpc", "cep" etc
-@param factor: the frame length factor, i.e. the analysis frame length
-       will be this times the local pitch period.
+  @param sig input waveform
+  @param fv {output coefficients. These have been pre-allocated and the
+       number of channels in a indicates the order of the analysis.}
+  @param type the types of coefficients to be produced. "lpc", "cep" etc
+  @param factor {the frame length factor, i.e. the analysis frame length
+         will be this times the local pitch period.}
 
-@param wf: function for windowing. See \Ref{Windowing mechanisms}
+  @param wf function for windowing. See Windowing mechanisms
 */
-
 void sig2coef(EST_Wave &sig, EST_Track &a, EST_String type, 
 	      float factor = 2.0, 
 	      EST_WindowFunc *wf = EST_Window::creator(DEFAULT_WINDOW_NAME));
@@ -127,7 +119,6 @@ void sig2coef(EST_Wave &sig, EST_Track &a, EST_String type,
 @param slist: list of types of coefficients required, from the set of
 possible types that sig2coef can take.
 */
-
 void sigpr_base(EST_Wave &sig, EST_Track &fv, EST_Features &op, 
 		const EST_StrList &slist);
 
@@ -138,13 +129,12 @@ void sigpr_base(EST_Wave &sig, EST_Track &fv, EST_Features &op,
 @param factor: the frame length factor, i.e. the analysis frame length
        will be this times the local pitch period.
 */
-
 void power(EST_Wave &sig, EST_Track &a, float factor);
 
 /** Calculate the rms energy for each frame of the waveform.
 
 This function calls
-\Ref{sig2energy}
+\ref sig2energy
 
 
 @param sig input waveform
@@ -153,14 +143,13 @@ This function calls
        will be this times the local pitch period.
 
 */
-
 void energy(EST_Wave &sig, EST_Track &a, float factor);
 
 
 /** Mel scale filter bank analysis. The Mel scale triangular filters
-are computed via an FFT (see \Ref{fastFFT}). This routine is required
-for Mel cepstral analysis (see \Ref{melcep}). The analysis of each
-frame is done by \Ref{sig2fbank}.
+are computed via an FFT (see \ref fastFFT). This routine is required
+for Mel cepstral analysis (see \ref melcep). The analysis of each
+frame is done by \ref sig2fbank.
 
 A typical filter bank analysis for speech recognition might use log
 energy outputs from 20 filters.
@@ -170,7 +159,7 @@ energy outputs from 20 filters.
        size of this track.
 @param factor: the frame length factor, i.e. the analysis frame length
        will be this times the local pitch period
-@param wf: function for windowing. See \Ref{Windowing mechanisms}
+@param wf: function for windowing. See \ref {Windowing mechanisms}
 @param up: whether the filterbank analysis should use
        power rather than energy.
 @param take_log: whether to take logs of the filter outputs
@@ -178,7 +167,6 @@ energy outputs from 20 filters.
 @see sig2fbank
 @see melcep
 */
-
 void fbank(EST_Wave &sig,
 	   EST_Track &fbank,
 	   const float factor,
@@ -188,8 +176,8 @@ void fbank(EST_Wave &sig,
 
 /** Mel scale cepstral analysis via filter bank analysis. Cepstral
 parameters are computed for each frame of speech. The analysis
-requires \Ref{fbank}. The cepstral analysis of the filterbank outputs
-is performed by \Ref{fbank2melcep}.
+requires \ref fbank . The cepstral analysis of the filterbank outputs
+is performed by \ref fbank2melcep .
 
 A typical Mel cepstral coefficient (MFCC) analysis for speech recognition
 might use 12 cepstral coefficients computed from a 20 channel filterbank.
@@ -201,8 +189,8 @@ might use 12 cepstral coefficients computed from a 20 channel filterbank.
        will be this times the local pitch period
 @param fbank_order: the number of Mel scale filters used for the analysis
 @param liftering_parameter:  for filtering in the cepstral domain
-       See \Ref{fbank2melcep}
-@param wf: function for windowing. See \Ref{Windowing mechanisms}
+       See \ref fbank2melcep
+@param wf: function for windowing. See \ref Windowing mechanisms
 @param include_c0: whether the zero'th cepstral coefficient is to be included
 @param up: whether the filterbank analysis should use
        power rather than energy.
@@ -210,7 +198,6 @@ might use 12 cepstral coefficients computed from a 20 channel filterbank.
 @see fbank
 @see fbank2melcep
 */
-
 void melcep(EST_Wave &sig, 
 	    EST_Track &mfcc_track, 
 	    float factor,
@@ -220,24 +207,25 @@ void melcep(EST_Wave &sig,
 	    const bool include_c0 = false,
 	    const bool up = false);
 
-//@}
+///@}
 
 
-/**@name Pitch/F0 Detection Algorithm functions
+/**@defgroup PitchF0DetectionAlgorithmfunctions Pitch/F0 Detection Algorithm functions
+   @ingroup FunctionsForGeneratingTracks
 
 These functions are used to produce a track of fundamental frequency
 (F0) against time of a waveform.
 */
 
-//@{   
+///@{
 
 
 /** Top level pitch (F0) detection algorithm. Returns a track
 containing evenly spaced frames of speech, each containing a F0 value
 for that point.
 
-At present, only the \Rref{srpd} pitch tracker is implemented, so
-this is always called regardless of what <parameter>method</parameter>
+At present, only the \ref srpd pitch tracker is implemented, so
+this is always called regardless of what `method`
 is set to.
 
 @param sig: input waveform
@@ -245,25 +233,22 @@ is set to.
 @param op: parameters for pitch tracker
 @param method: pda method to be used.
 */
-
-
 void pda(EST_Wave &sig, EST_Track &fz, EST_Features &op, EST_String method="");
 
 
 /** Top level intonation contour detection algorithm. Returns a track
-containing evenly spaced frames of speech, each containing a F0 for that point. {\tt icda} differs from \Ref{pda} in that the contour is
-smoothed, and unvoiced portions have interpolated F0
-values.
+containing evenly spaced frames of speech, each containing a F0 for that
+point. `icda` differs from \ref pda in that the contour is smoothed,
+and unvoiced portions have interpolated F0 values.
 
 @param sig: input waveform
 @param fz: output f0 contour
-@param speech: Interpolation is controlled by the <tt>speech</tt> track. When
+@param speech: {Interpolation is controlled by the `speech` track. When
 a point has a positive value in the speech track, it is a candidate
-for interpolation.  
+for interpolation.  }
 @param op: parameters for pitch tracker
 @param method: pda method to be used.
 */
-
 void icda(EST_Wave &sig, EST_Track &fz, EST_Track &speech, 
 	  EST_Option &op, EST_String method = "");
 
@@ -279,59 +264,52 @@ srpd is a pitch detection algorithm that produces a fundamental
 frequency contour from a speech waveform. At present only the super
 resolution pitch determination algorithm is implemented.  See (Medan,
 Yair, and Chazan, 1991) and (Bagshaw et al., 1993) for a detailed
-description of the algorithm.  </para><para>
+description of the algorithm.  
 
-Frames of data are read in from <parameter>sig</parameter> in
+Frames of data are read in from `sig` in
 chronological order such that each frame is shifted in time from its
-predecessor by <parameter>pda_frame_shift</parameter>. Each frame is
+predecessor by `pda_frame_shift`. Each frame is
 analysed in turn.
 
-</para><para> 
 
 The maximum and minimum signal amplitudes are initially found over the
 duration of two segments, each of length N_min samples. If the sum of
 their absolute values is below two times
-<parameter>noise_floor</parameter>, the frame is classified as
+noise_floor, the frame is classified as
 representing silence and no coefficients are calculated. Otherwise, a
 cross correlation coefficient is calculated for all n from a period in
-samples corresponding to <parameter>min_pitch
-</parameter> to a period in samples corresponding to
-<parameter>max_pitch</parameter>, in steps
-of <parameter>decimation_factor</parameter>. In calculating the
-coefficient only one in <parameter>decimation_factor</parameter>
+samples corresponding to `min_pitch`
+to a period in samples corresponding to
+`max_pitch`, in steps
+of `decimation_factor`. In calculating the
+coefficient only one in `decimation_factor`
 samples of the two segments are used. Such down-sampling permits rapid
 estimates of the coefficients to be calculated over the range 
 N_min <= n <= N_max. This results in a cross-correlation track for the
-frame being analysed.  </para><para>
+frame being analysed.
 
 Local maxima of the track with a coefficient value above a specified
 threshold form candidates for the fundamental period. The threshold is
-adaptive and dependent upon the values <parameter>v2uv_coeff_thresh
-</parameter>, <parameter>min_v2uv_coef_thresh </parameter>, and
-<parameter> v2uv_coef_thresh_rati_ratio</parameter>. If the previously
+adaptive and dependent upon the values `v2uv_coeff_thresh`,
+`min_v2uv_coef_thresh `, and `v2uv_coef_thresh_rati_ratio`. If the previously
 analysed frame was classified as unvoiced or silent (which is the
 initial state) then the threshold is set to
-<parameter>v2uv_coef_thresh</parameter>. Otherwise, the previous
+`v2uv_coef_thresh`. Otherwise, the previous
 frame was classified as being voiced, and the threshold is set equal
-to [\-r] <parameter>v2uv_coef_thresh_rati_ratio
-</parameter> times the cross-correlation coefficient
+to [\-r] `v2uv_coef_thresh_rati_ratio`
+times the cross-correlation coefficient
 value at the point of the previous fundamental period in the former
 coefficients track. This product is not permitted to drop below
-<parameter>v2uv_coef_thresh</parameter>.
-
-</para><para>
+`v2uv_coef_thresh`.
 
 If no candidates for the fundamental period are found, the frame is classified
 as being unvoiced. Otherwise, the candidates are further processed to identify
 the most likely true pitch period. During this additional processing, a
-threshold given by <parameter>anti_doubling_thres</parameter> is used.
+threshold given by `anti_doubling_thres` is used.
 
-</para><para>
-
-If the <parameter>peak_tracking</parameter> flag is set to true,
+If the `peak_tracking` flag is set to true,
 biasing is applied to the cross-correlation track as described in
-(Bagshaw et al., 1993).  </para><para> </para><para>
-
+(Bagshaw et al., 1993). 
 
 @param sig: input waveform
 @param op:  options regarding pitch tracking parameters
@@ -362,30 +340,30 @@ void smooth_phrase(EST_Track &c, EST_Track &speech, EST_Features &options,
 /** Smooth all the points in an F0 contour*/
 void smooth_portion(EST_Track &c, EST_Option &op);
 
-//@}
+///@}
 
 
-/**@name  Delta and Acceleration coefficients
+/**@defgroup DeltaandAccelerationcoefficients Delta and Acceleration coefficients
+   @ingroup FunctionsForGeneratingTracks
 
 Produce delta and acceleration coefficients from a set of coefficients
 or the waveform.
 */
 
-//@{
+///@{
 
 /** Produce a set of delta coefficients for a track
 
 The delta function is used to produce a set of coefficients which
 estimate the rate of change of a set of parameters. The output track
-<parameter>d<parameter> must be setup before hand, i.e. it must have
-the same number of frames and channels as <parameter>tr</parameter>.
+`d` must be setup before hand, i.e. it must have
+the same number of frames and channels as `tr`.
 
 @param tr: input track of base coefficients
 @param d: output track of delta coefficients. 
 @param regression_length: number of previous frames on which delta
        estimation is calculated on.
 */
-
 void delta(EST_Track &tr, EST_Track &d, int regression_length = 3);
 
 /** Produce multiple sets of delta coefficients from a waveform.
@@ -394,7 +372,7 @@ void delta(EST_Track &tr, EST_Track &d, int regression_length = 3);
   used when the base types of coefficients haven't been calculated.
   This function calls sig2coef to calculate the base types from which
   the deltas are calculated, and hence the requirements governing the
-  setup of <parameter>fv</parameter> for sig2coef also hold here.
+  setup of `fv` for sig2coef also hold here.
 
 @param sig: input waveform
 @param fv: output coefficients. These have been pre-allocated and the
@@ -403,7 +381,6 @@ void delta(EST_Track &tr, EST_Track &d, int regression_length = 3);
         frame shift etc.
 @param slist: list of types of delta coefficients required.
 */
-
 void sigpr_delta(EST_Wave &sig, EST_Track &fv, EST_Features &op, 
 		const EST_StrList &slist);
 
@@ -413,7 +390,7 @@ void sigpr_delta(EST_Wave &sig, EST_Track &fv, EST_Features &op,
   is used when the base types of coefficient haven't been calculated.
   This function calls sig2coef to calculate the base types from which
   the deltas are calculated, and hence the requirements governing the
-  setup of <parameter>fv</parameter> for sig2coef also hold here.
+  setup of `fv` for sig2coef also hold here.
 
 @param sig: input waveform
 @param fv: output coefficients. These have been pre-allocated and the
@@ -426,11 +403,10 @@ void sigpr_delta(EST_Wave &sig, EST_Track &fv, EST_Features &op,
 The delta function is used to produce a set of coefficients which
 estimate the rate of change of a set of parameters. 
 */
-
 void sigpr_acc(EST_Wave &sig, EST_Track &fv, EST_Features &op, 
 		const EST_StrList &slist);
 
-//@}
+///@}
 
 /* Convert a track containing coefficients of one type to a track
 containing coefficients of another.
@@ -440,10 +416,9 @@ containing coefficients of another.
 @param out_name name of desired output coefficients.
 @param in_name optional: often it is possible to determine the type of 
 the input coefficients from the channel names. If this is not possible or
-these names should be ignored, the {\tt in_type} parameter can be used.
+these names should be ignored, the `in_type` parameter can be used.
 
 */
-
 void convert_track(EST_Track &in_track, EST_Track &out_track,
 		   const EST_String &out_type, 
 		   const EST_String &in_type = "");

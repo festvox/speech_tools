@@ -57,11 +57,13 @@ extern const EST_String EST_Token_Default_PunctuationSymbols;
 ///
 extern const EST_String EST_Token_Default_PrePunctuationSymbols;
 
-/** This class is similar to \Ref{EST_String} but also maintains 
+/** \class EST_Token
+ *  @ingroup stringclasses
+    This class is similar to \ref EST_String but also maintains 
     the original punctuation and whitespace found around the 
     token.  
 
-    \Ref{EST_Token}'s primary use is with \Ref{EST_TokenStream} class 
+    \ref EST_Token 's primary use is with \ref EST_TokenStream class 
     which allows easy tokenizing of ascii files.  
 
     A token consists of four parts, any of which may be empty: a
@@ -90,7 +92,7 @@ class EST_Token {
     void init() {p_quoted=linenum=linepos=p_filepos=0;}
     
     /**@name Basic access to fields */
-    //@{
+    ///@{
     /// set token from a string
     void set_token(const EST_String &p) { pname = p; }
     ///
@@ -115,75 +117,77 @@ class EST_Token {
     const EST_String &prepunctuation() { return prepunc; }
 
     /**@name Access token as a string */
-    //@{
+    ///@{
     const EST_String &string() const { return String(); }
     /// Access token as a string
     const EST_String &S() const { return String(); }
     /// Access token as a string
     const EST_String &String() const { return pname; }
-    /// For automatic coercion to \Ref{EST_String}
+    /// For automatic coercion to \ref EST_String 
     operator EST_String() const { return String(); }
-    //@}
+    ///@}
 
     /**@name Access token as a int */
-    //@{
+    ///@{
     int Int(bool &valid) const { return String().Int(valid); }
     int Int() const { return String().Int(); }
     int I(bool &valid) const { return Int(valid); }
     int I() const { return Int(); }
     operator int() const { return Int(); }
-    //@}
+    ///@}
 
     /**@name Access token as a long */
-    //@{
+    ///@{
     long Long(bool &valid) const { return String().Long(valid); }
     long Long() const { return String().Long(); }
     long L(bool &valid) const { return Long(valid); }
     long L() const { return Long(); }
     operator long() const { return Long(); }
-    //@}
+    ///@}
 
     /**@name Access token as a float */
-    //@{
+    ///@{
     float Float(bool &valid) const { return String().Float(valid); }
     float Float() const { return String().Float(); }
     float F(bool &valid) const { return Float(valid); }
     float F() const { return Float(); }
     operator float() const { return Float(); }
-    //@}
+    ///@}
 
     /**@name Access token as a double */
-    //@{
+    ///@{
     double Double(bool &valid) const { return String().Double(valid); }
     double Double() const { return String().Double(); }
     double D(bool &valid) const { return Double(valid); }
     double D() const { return Double(); }
     operator double() const { return Double(); }
-    //@}
+    ///@}
 
-    //@}
-    //@{
+    ///@}
+
+    /**@name Quotation related methods */
+    ///@{
     /// Note that this token was quoted (or not)
     void set_quoted(int q) { p_quoted = q; }
     /// TRUE is token was quoted
     int quoted() const { return p_quoted; }
-    //@}
+    ///@}
     ///
     void set_row(int r) { linenum = r; }
     ///
     void set_col(int c) { linepos = c; }
-    /// Set file position in original \Ref{EST_TokenStream}
+    /// Set file position in original \ref EST_TokenStream
     void set_filepos(int c) { p_filepos = c; }
     /// Return lower case version of token name
     EST_String lstring() { return downcase(pname); }
     /// Return upper case version of token name
     EST_String ustring() { return upcase(pname); }
-    /// Line number in original \Ref{EST_TokenStream}.
+    /// Line number in original \ref EST_TokenStream.
     int row(void) const { return linenum; }
-    /// Line position in original \Ref{EST_TokenStream}.
+    /// Line position in original \ref EST_TokenStream.
     int col(void) const { return linepos; }
-    /// file position in original \Ref{EST_TokenStream}.
-    int filepos(void) const { return p_filepos; }
+    /// file position in original \ref EST_TokenStream.
+ int filepos(void) const { return p_filepos; }
 
     /// A string describing current position, suitable for error messages
     const EST_String pos_description() const;
@@ -207,13 +211,14 @@ class EST_Token {
 
 enum EST_tokenstream_type {tst_none, tst_file, tst_pipe, tst_string, tst_istream}; 
 
-/** A class that allows the reading of \Ref{EST_Token}s from a file
+/** \class EST_TokenStream
+    A class that allows the reading of \ref EST_Token from a file
     stream, pipe or string.  It automatically tokenizes a file based on
     user definable whitespace and punctuation.
 
     The definitions of whitespace and punctuation are user definable.
     Also support for single character symbols is included.  Single
-    character symbols {\em always} are treated as individual tokens
+    character symbols *always* are treated as individual tokens
     irrespective of their white space context.  Also a quote
     mode can be used to read uqoted tokens.
 
@@ -280,7 +285,7 @@ class EST_TokenStream{
         don't really want a copy anyway and meant to pass it as a reference.
         If you really need this (some sort of clever look ahead) I am not
         sure what he consequences really are (or how portable they are).
-        Pass the \Ref{EST_TokenStream} by reference instead.
+        Pass the \ref EST_TokenStream by reference instead.
     */
     EST_TokenStream(EST_TokenStream &s);
 
@@ -294,43 +299,43 @@ class EST_TokenStream{
     EST_TokenStream();
     /// will close file if appropriate for type
     ~EST_TokenStream();
-    //@{
-    /// open a \Ref{EST_TokenStream} for a file.
+    ///@{
+    /// open a \ref EST_TokenStream for a file.
     int open(const EST_String &filename);
-    /// open a \Ref{EST_TokenStream} for an already opened file
+    /// open a \ref EST_TokenStream for an already opened file
     int open(FILE *ofp, int close_when_finished);
-    /// open a \Ref{EST_TokenStream} for an already open istream
+    /// open a \ref EST_TokenStream for an already open istream
     int open(istream &newis);
-    /// open a \Ref{EST_TokenStream} for string rather than a file
+    /// open a \ref EST_TokenStream for string rather than a file
     int open_string(const EST_String &newbuffer);
     /// Close stream.
     void close(void);
-    //@}
+    ///@}
     /**@name stream access functions */
-    //@{
+    ///@{
     /// get next token in stream
     EST_TokenStream &get(EST_Token &t);
     /// get next token in stream
     EST_Token &get();
     /**@name  get the next token which must be the argument. */
-    //@{
+    ///@{
     EST_Token &must_get(EST_String expected, bool *ok);
     EST_Token &must_get(EST_String expected, bool &ok) 
 	{ return must_get(expected, &ok); }
     EST_Token &must_get(EST_String expected) 
 	{ return must_get(expected, (bool *)NULL); }
-    //@}
-    /// get up to {\tt s} in stream as a single token.
+    ///@}
+    /// get up to `s` in stream as a single token.
     EST_Token get_upto(const EST_String &s);
-    /// get up to {\tt s} in end of line as a single token.
+    /// get up to `s` in end of line as a single token.
     EST_Token get_upto_eoln(void);
     /// peek at next token
     EST_Token &peek(void);
     /// Reading binary data, (don't use peek() immediately beforehand)
     int fread(void *buff,int size,int nitems) EST_WARN_UNUSED_RESULT;
-    //@}
+    ///@}
     /**@name stream initialization functions */
-    //@{
+    ///@{
     /// set which characters are to be treated as whitespace
     void set_WhiteSpaceChars(const EST_String &ws) 
         { WhiteSpaceChars = ws; p_table_wrong=1;}
@@ -347,17 +352,17 @@ class EST_TokenStream{
     void set_quotes(char q, char e) { quotes = TRUE; quote = q; escape = e; p_table_wrong=1;}
     /// query quote mode
     int quoted_mode(void) { return quotes; }
-    //@}
+    ///@}
     /**@name miscellaneous */
-    //@{
-    /// returns line number of \Ref{EST_TokenStream}
+    ///@{
+    /// returns line number of \ref EST_TokenStream
     int linenum(void) const {return linepos;}
     /// end of file
     int eof()
        { return (eof_flag || ((!quotes) && (peek() == ""))); }
     /// end of line
     int eoln();
-    /// current file position in \Ref{EST_TokenStream}
+    /// current file position in \ref EST_TokenStream
     int filepos(void) const { return (type == tst_string) ? pos : p_filepos; }
     /// tell, synonym for filepos
     int tell(void) const { return filepos(); }

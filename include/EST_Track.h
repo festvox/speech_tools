@@ -143,15 +143,15 @@ public:
      */
     //@{
     
-    /** resize the track to have {\tt num_frames} and {\tt num_channels}.
-	if {\tt preserve} is set to 1, any existing values in the track
+    /** resize the track to have `num_frames` and `num_channels`.
+	if `preserve` is set to 1, any existing values in the track
 	are kept, up to the limits imposed by the new number of frames
 	and channels. If the new track size is bigger, new positions
 	are filled with 0 */
     void resize(int num_frames, int num_channels, bool preserve = 1);
 
-    /** resize the track to have {\tt num_frames} and {\tt num_channels}.
-	if {\tt preserve} is set to 1, any existing values in the track
+    /** resize the track to have `num_frames` and `num_channels`.
+	if `preserve` is set to 1, any existing values in the track
 	are kept, up to the limits imposed by the new number of frames
 	and channels. If the new track size is bigger, new positions
 	are filled with 0 */
@@ -162,7 +162,7 @@ public:
     void resize_aux(EST_StrList &map, bool preserve = 1);
 
     /** Change the number of channels while keeping the number of
-	frames the same.  if {\tt preserve} is set to 1, any existing
+	frames the same.  if `preserve` is set to 1, any existing
 	values in the track are kept, up to the limits imposed by the
 	new number of frames and channels. If the new track size is
 	bigger, new positions are filled with 0 */
@@ -170,7 +170,7 @@ public:
 	{ resize(EST_CURRENT, n, preserve); }
 
     /** Change the number of frames while keeping the number of
-	channels the same.  if {\tt preserve} is set to 1, any
+	channels the same.  if `preserve` is set to 1, any
 	existing values in the track are kept, up to the limits
 	imposed by the new number of frames and channels. If the new
 	track size is bigger, new positions are filled with 0 */
@@ -204,22 +204,22 @@ public:
      */
     //@{
 
-    /** make {\tt fv} a window to frame {\tt n} in the track. 
+    /** make `fv` a window to frame `n` in the track. 
      */
     void frame(EST_FVector &fv, int n, int startf=0, int nf=EST_ALL)
 	{ p_values.row(fv, n, startf, nf); }
 
-    /** make {\tt fv} a window to channel {\tt n} in the track. 
+    /** make `fv` a window to channel `n` in the track. 
      */
     void channel(EST_FVector &cv, int n, int startf=0, int nf=EST_ALL)
 	{ p_values.column(cv, n, startf, nf); }
 
-    /** make {\tt fv} a window to the named channel in the track. 
+    /** make `fv` a window to the named channel in the track. 
      */
     void channel(EST_FVector &cv, const char * name, int startf=0, 
 		 int nf=EST_ALL);
 
-    /** make {\tt st} refer to a portion of the track. No values
+    /** make `st` refer to a portion of the track. No values
 	are copied - an internal pointer in st is set to the specified
 	portion of the the track. After this, st behaves like a normal
 	track. Its first channel is the same as start_channel and its
@@ -235,7 +235,7 @@ public:
 	         int start_frame=0, int nframes=EST_ALL,
 		   int start_chan=0, int nchans=EST_ALL);
 
-    /** make {\tt st} refer to a portion of the track. No values
+    /** make `st` refer to a portion of the track. No values
 	are copied - an internal pointer in st is set to the specified
 	portion of the the track. After this, st behaves like a normal
 	track. Its first channel is the same as start_channel and its
@@ -252,7 +252,7 @@ public:
 		   const EST_String &start_chan_name,
 		   int nchans=EST_ALL);
 
-    /** make {\tt st} refer to a portion of the track. No values
+    /** make `st` refer to a portion of the track. No values
 	are copied - an internal pointer in st is set to the specified
 	portion of the the track. After this, st behaves like a normal
 	track. Its first channel is the same as start_channel and its
@@ -269,7 +269,7 @@ public:
 		   const EST_String &start_chan_name,
 		   const EST_String &end_chan_name);
 
-    /** make {\tt st} refer to a portion of the track. (const version)
+    /** make `st` refer to a portion of the track. (const version)
 	No values
 	are copied - an internal pointer in st is set to the specified
 	portion of the the track. After this, st behaves like a normal
@@ -288,7 +288,7 @@ public:
 	{ ((EST_Track *)this)->sub_track(st, start_frame, nframes, 
 					 start_chan, nchans); } 
 
-    /** Copy contiguous portion of track into {\tt st}. Unlike the
+    /** Copy contiguous portion of track into `st`. Unlike the
 	normal sub_track functions, this makes a completely new track.
 	values written into this will not affect the main track and it
 	can be resized.
@@ -306,21 +306,21 @@ public:
     void copy_sub_track_out( EST_Track &st, const EST_FVector& frame_times ) const;
     void copy_sub_track_out( EST_Track &st, const EST_IVector& frame_indices ) const;
 
-    /** copy channel {\tt n} into pre-allocated buffer buf */
+    /** copy channel `n` into pre-allocated buffer buf */
     void copy_channel_out(int n, float *buf, int offset=0, int num=EST_ALL)
 	const
 	{ p_values.copy_column(n, buf, offset, num); } 
 
-    /** copy channel {\tt n} into EST_FVector */
+    /** copy channel `n` into EST_FVector */
     void copy_channel_out(int n, EST_FVector &f, int offset=0, int num=EST_ALL)
 	const
 	{ p_values.copy_column(n, f, offset, num); } 
 
-    /** copy frame {\tt n} into pre-allocated buffer buf */
+    /** copy frame `n` into pre-allocated buffer buf */
     void copy_frame_out(int n, float *buf, int offset=0, int num=EST_ALL) 
 	const {p_values.copy_row(n, buf, offset, num); } 
 
-    /** copy frame {\tt n} into EST_FVector */
+    /** copy frame `n` into EST_FVector */
     void copy_frame_out(int n, EST_FVector &f, int offset=0, int num=EST_ALL)
         const {p_values.copy_row(n, f, offset, num); } 
 
@@ -365,26 +365,26 @@ public:
 
     //@{
 
-    /** Return the position of channel {\tt name} if it exists,
+    /** Return the position of channel `name` if it exists,
 	otherwise return -1.
     */
     int channel_position(const char *name, int offset=0) const;
 
-    /** Return the position of channel {\tt name} if it exists,
+    /** Return the position of channel `name` if it exists,
 	otherwise return -1.
     */
     int channel_position(EST_String name, int offset=0) const
 	{ return  channel_position((const char *)name, offset); }
 
 
-    /** Returns true if the track has a channel named {\tt name}, 
+    /** Returns true if the track has a channel named `name`, 
 	otherwise  false.
     */
 
     bool has_channel(const char *name) const
 	{ return channel_position(name) >=0; }
 
-    /** Returns true if the track has a channel named {\tt name}, 
+    /** Returns true if the track has a channel named `name`, 
 	otherwise  false.
     */
     bool has_channel(EST_String name) const 
@@ -437,11 +437,11 @@ public:
 
     /** return amplitude of time t, channel c. This can be used for
 	reading or writing to this point. By default the nearest frame
-	to this time is used. If {\tt interp} is set to {\tt
-	it_linear}, linear interpolation is performed between the two
+	to this time is used. If `interp` is set to `it_linear`,
+    linear interpolation is performed between the two
 	amplitudes of the two frames either side of the time point to
 	give an estimation of what the amplitude would have been at
-	time {\tt t}.  If {\tt interp} is set to {\tt it_linear_nz},
+	time `t`.  If `interp` is set to `it_linear_nz`,
 	interpolation is as above, unless the time requested is off
 	the end of a portion of track in which case the nearest
 	amplitude is returned.
@@ -480,15 +480,15 @@ public:
     /// return time of frame i in milli-seconds.
     float ms_t(int i) const		   { return p_times(i) * 1000.0; }
 
-    /** set frame times to regular intervals of time {\tt t}.
-	The {\tt start} parameter specifies the integer multiple of {\tt t} at
+    /** set frame times to regular intervals of time `t`.
+	The `start` parameter specifies the integer multiple of `t` at
 	which to start.  For example, setting this to 0 will start at time
-	0.0 (The default means the first time value = {\tt t}
+	0.0 (The default means the first time value = `t`
      */
     void fill_time( float t, int start=1 );
 
-    /** set frame times to regular intervals of time {\tt t}.
-	The {\tt start} parameter specifies the first time value.
+    /** set frame times to regular intervals of time `t`.
+	The `start` parameter specifies the first time value.
      */
     void fill_time( float t, float start );
 
@@ -496,7 +496,7 @@ public:
      */
     void fill_time( const EST_Track &t );
 
-    /** fill all amplitudes with value {\tt v} */
+    /** fill all amplitudes with value `v` */
     void fill(float v) { p_values.fill(v); }
 
     /** resample track at this frame shift, specified in seconds. 
@@ -567,7 +567,7 @@ public:
 
     //@{
 
-    /** Load a file called {\tt name} into the track. 
+    /** Load a file called `name` into the track. 
 	The load function attempts to
 	automatically determine which file type is being loaded from the
 	file's header. If no header is found, the function assumes the
@@ -575,12 +575,12 @@ public:
 	representing frames and columns channels. In this case, the
 	frame shift must be specified as an argument to this function.
         For those file formats which don't contain provision for specifying
-	an initial time (e.g. HTK, or ascii...), the {\tt startt} parameter
+	an initial time (e.g. HTK, or ascii...), the `startt` parameter
 	may be specified.
     */
     EST_read_status load(const EST_String name, float ishift = 0.0, float startt = 0.0);
 
-    /** Load character data from an already opened tokenstream {\tt ts} 
+    /** Load character data from an already opened tokenstream `ts` 
 	into the track. 
 	The load function attempts to
 	automatically determine which file type is being loaded from the
@@ -589,29 +589,29 @@ public:
 	representing frames and columns channels. In this case, the
 	frame shift must be specified as an argument to this function
         For those file formats which don't contain provision for specifying
-	an initial time (e.g. HTK, or ascii...), the {\tt startt} parameter
+	an initial time (e.g. HTK, or ascii...), the `startt` parameter
 	may be specified.
     */
     EST_read_status load(EST_TokenStream &ts, float ishift = 0.0, float startt = 0.0);
 
-    /** Load a file called {\tt name} of format {\tt type} 
+    /** Load a file called `name` of format `type` 
 	into the track. If no header is found, the function assumes the
 	file is ascii data, with a fixed frame shift, arranged with rows
 	representing frames and columns channels. In this case, the
 	frame shift must be specified as an argument to this function
         For those file formats which don't contain provision for specifying
-	an initial time (e.g. HTK, or ascii...), the {\tt startt} parameter
+	an initial time (e.g. HTK, or ascii...), the `startt` parameter
 	may be specified.
     */
     EST_read_status load(const EST_String name, const EST_String type, 
 			 float ishift = 0.0, float startt = 0.0 );
 
-    /** Save the track to a file {\tt name} of format {\tt type}. */
+    /** Save the track to a file `name` of format `type`. */
     EST_write_status save(const EST_String name, 
 			  const EST_String EST_filetype = "");
 
-    /** Save the track to a already opened file pointer{\tt FP} 
-	and write a file of format {\tt type}. */
+    /** Save the track to a already opened file pointer `fp` 
+	and write a file of format `type`. */
     EST_write_status save(FILE *fp,
 			  const EST_String EST_filetype = "");
 

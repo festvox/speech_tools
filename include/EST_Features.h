@@ -54,11 +54,12 @@ typedef EST_Val (*EST_Item_featfunc)(class EST_Item *);
 EST_Val est_val(const EST_Item_featfunc f);
 
 
-/** A class for containing feature structures which can hold atomic
+/** @class EST_Features
+    @ingroup estlingclasses
+
+A class for containing feature structures which can hold atomic
 values (int, float, string) or other feature structures.
 */
-
-
 class EST_Features {
  protected:
     EST_TKVL<EST_String, EST_Val> *features;
@@ -79,13 +80,13 @@ class EST_Features {
        name is a dot separated path of concatenated attributes
        (e.g. "df.poa.alveolar").  
     */
-    //@{
+    ///@{
     /** Look up directly without decomposing name as path (just simple feature)
      */
     const EST_Val &val(const char *name) const;
 
     /** Look up directly without decomposing name as path (just simple feature),
-	returning <parameter>def</parameter> if not found
+	returning `def` if not found
     */
     const EST_Val &val(const char *name, const EST_Val &def) const;
 
@@ -94,7 +95,7 @@ class EST_Features {
     const EST_Val &val_path(const EST_String &path) const;
 
     /** Look up feature name, which may be simple feature or path,
-	returning <parameter>def</parameter> if not found
+	returning `def` if not found
      */
     const EST_Val &val_path(const EST_String &path, const EST_Val &def) const;
 
@@ -104,7 +105,7 @@ class EST_Features {
        {return val_path(path);}
 
     /** Look up feature name, which may be simple feature or path,
-	returning <parameter>def</parameter> if not found
+	returning `def` if not found
      */
     const EST_Val &operator() (const EST_String &path, const EST_Val &def) const 
        {return val_path(path, def);}
@@ -115,11 +116,11 @@ class EST_Features {
        { return val_path(path); }
 
     /** Look up feature name, which may be simple feature or path,
-	returning <parameter>def</parameter> if not found
+	returning `def` if not found
      */
     const EST_Val &f(const EST_String &path, const EST_Val &def) const
        { return val_path(path,def); }
-    //@}
+    ///@}
 
     /**@name Access functions which return types. 
        These functions cast
@@ -128,7 +129,7 @@ class EST_Features {
        simple feature or a path, in which case their name is a dot
        separated string of concatenated attributes
        (e.g. "df.poa.alveolar").  */
-    //@{
+    ///@{
 
     /** Look up feature name, which may be simple feature or path, and return
 	as a float */
@@ -136,7 +137,7 @@ class EST_Features {
        {return val_path(path).Float(); }
 
     /** Look up feature name, which may be simple feature or path, and
-	return as a float, returning <parameter>def</parameter> if not
+	return as a float, returning `def` if not
 	found */
     const float F(const EST_String &path, float def) const
        {return val_path(path, def).Float(); }
@@ -147,7 +148,7 @@ class EST_Features {
        {return val_path(path).Int(); }
 
     /** Look up feature name, which may be simple feature or path, and
-	return as an int, returning <parameter>def</parameter> if not
+	return as an int, returning `def` if not
 	found */
     const int I(const EST_String &path, int def) const
        {return val_path(path, def).Int(); }
@@ -158,7 +159,7 @@ class EST_Features {
        {return val_path(path).string(); }
 
     /** Look up feature name, which may be simple feature or path, and
-	return as a EST_String, returning <parameter>def</parameter> if not
+	return as a EST_String, returning `def` if not
 	found */
 
     const EST_String S(const EST_String &path, const EST_String &def) const
@@ -170,78 +171,78 @@ class EST_Features {
        {return *feats(val_path(path));}
 
     /** Look up feature name, which may be simple feature or path, and
-	return as a EST_Features, returning <parameter>def</parameter> if not
+	return as a EST_Features, returning `def` if not
 	found */
     EST_Features &A(const EST_String &path, EST_Features &def) const;
 
-    //@}
+    ///@}
 
     /**@name Setting features
      */
-    //@{
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>ival</parameter>
+    ///@{
+    /** Add a new feature or set an existing feature `name`
+	to value `ival`
     */
     void set(const EST_String &name, int ival)
 	{ EST_Val pv(ival); set_path(name, pv);}
 
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>fval</parameter>
+    /** Add a new feature or set an existing feature `name`
+	to value `fval`
     */
     void set(const EST_String &name, float fval)
 	{ EST_Val pv(fval); set_path(name, pv); }
 
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>dval</parameter>
+    /** Add a new feature or set an existing feature `name`
+	to value `dval`
     */
     void set(const EST_String &name, double dval)
 	{ EST_Val pv((float)dval); set_path(name, pv); }
 
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>sval</parameter>
+    /** Add a new feature or set an existing feature `name`
+	to value `sval`
     */
     void set(const EST_String &name, const EST_String &sval)
 	{ EST_Val pv(sval); set_path(name, pv); }
 
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>cval</parameter>
+    /** Add a new feature or set an existing feature `name`
+	to value `cval`
     */
     void set(const EST_String &name, const char *cval)
 	{ EST_Val pv(cval); set_path(name, pv); }
 
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>val<parameter>.  <parameter>Name<parameter> must be
+    /** Add a new feature or set an existing feature `name`
+	to value `val`.  `Name` must be
 	not be a path.
     */
     void set_val(const EST_String &name, const EST_Val &sval)
 	{ features->add_item(name,sval); }
 
-    /** Add a new feature or set an existing feature <parameter>name<parameter>
-	to value <parameter>val<parameter>, where <parameter>name<parameter>
+    /** Add a new feature or set an existing feature `name`
+	to value `val`, where `name`
 	is a path.
     */
     void set_path(const EST_String &name, const EST_Val &sval);
 
     /** Add a new feature feature or set an existing feature
-	<parameter>name<parameter> to value <parameter>f</parameter>, which
+	`name` to value `f`, which
 	is the named of a registered feature function.
     */
     void set_function(const EST_String &name, const EST_String &f);
 
     /** Add a new feature or set an existing feature
-	<parameter>name<parameter> to value <parameter>f</parameter>,
+	`name` to value `f`,
 	which itself is a EST_Features.  The information in
-	<parameter>f</parameter> is copied into the features.  */
+	`f` is copied into the features.  */
     void set(const EST_String &name, EST_Features &f)
 	{ EST_Features *ff = new EST_Features(f);
 	    set_path(name, est_val(ff)); }
 
-    //@}
+    ///@}
 
     /**@name Utility functions
      */
 
-    //@{
+    ///@{
     /** remove the named feature */
     void remove(const EST_String &name)
     { features->remove_item(name,1); }
@@ -260,7 +261,7 @@ class EST_Features {
     /** Print Features */
     friend ostream& operator << (ostream &s, const EST_Features &f)
         { f.save(s); return s; }
-    //@}
+    ///@}
 
 
     // Iteration
@@ -298,16 +299,16 @@ public:
     /**@name Iteration
      */
 
-    //@{
+    ///@{
     typedef EST_TKVI<EST_String, EST_Val> Entry;
     typedef EST_TStructIterator< EST_Features, IPointer, Entry> Entries;
     typedef EST_TRwStructIterator< EST_Features, IPointer, Entry> RwEntries;
-    //@}
+    ///@}
 
     /**@name File I/O
      */
 
-    //@{
+    ///@{
     /// load features from already opened EST_TokenStream
     EST_read_status load(EST_TokenStream &ts);
     /// load features from sexpression, contained in already opened EST_TokenStream 
@@ -317,7 +318,7 @@ public:
     /// save features as s-expression in already opened ostream
     EST_write_status save_sexpr(ostream &outf) const;
 
-    //@}
+    ///@}
 };
 
 inline bool operator == (const EST_Features &a,const EST_Features &b) 

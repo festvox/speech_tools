@@ -45,7 +45,9 @@
 
 class EST_StringTrie;
 
-/** An internal class for \Ref{EST_StringTrie} used to hold represent the
+/** \class EST_TrieNode
+ *  @ingroup containerclasses
+ *  An internal class for \ref EST_StringTrie used to hold represent the
     node in an string index tree.
 
     This basically represents a 128-branching node (on for each character)
@@ -68,13 +70,15 @@ class EST_TrieNode {
     ~EST_TrieNode();
     /// Find the contents for given string, 0 if no current contents
     void *lookup(const unsigned char *key) const;
-    /// add {\tt item} for {\tt key} overwriting previous contents
+    /// add `item` for `key` overwriting previous contents
     void add(const unsigned char *key,void *item);
     /// copy all entries in trie node into trie
     void copy_into(EST_StringTrie &trie, const EST_String &path) const;
 };
 
-/** A string tree index class for indexing arbitrary objects by 
+/** \class EST_StringTrie
+ *  @ingroup containerclasses
+ *  \brief A string tree index class for indexing arbitrary objects by 
     strings of characters.
 
     Note this only deals with 7 but characters, and can only hold
@@ -92,13 +96,13 @@ class EST_StringTrie {
     ~EST_StringTrie();
     ///
     void copy(const EST_StringTrie &trie);
-    /// Find contents index by {\tt key}, 0 if there is not contents
+    /// Find contents index by `key`, 0 if there is not contents
     void *lookup(const EST_String &key) const;
-    /// Add {\tt item} indexed by {\tt key}, overwriting previous contents
+    /// Add `item` indexed by `key`, overwriting previous contents
     void add(const EST_String &key,void *item);
     /// Delete the tree
     void clear(void);
-    /// Delete the tree, apply {\tt deletenote} function to each {\tt contents}
+    /// Delete the tree, apply `deletenote` function to each `contents`
     void clear(void (*deletenode)(void *n));
 
     ///

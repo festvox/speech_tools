@@ -45,7 +45,55 @@
 #include "EST_types.h"
 #include "EST_rw_status.h"
 
+/** \defgroup utilityfunctionsforstrings Utility functions for strings
+ */
+ 
+ 
+/** \file
+ *  \brief Utility EST_String Functions header file.
+ *  \addtogroup utilityfunctionsforstrings
+ *  @{
+ *  \fn void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep="")
+ *  \brief Convert a EST_String to a EST_StrList by separating tokens in s delimited by the separator sep. By default, the string is assumed to be delimited by whitespace.
+ *  \param s String to be split.
+ *  \param l StringList the separated tokens will be stored.
+ *  \param sep Token delimiter. By default, whitespace is used. 
+ *  
+ *  \fn void BracketStringtoStrList(EST_String s, EST_StrList &l, EST_String sep="")
+ *  \brief Convert a EST_String enclosed in a single set of brackets to a EST_StrList by separating tokens in s delimited by the separator sep. By default, the string is assumed to be delimited by whitespace.
+ *  \fn EST_read_status load_StrList(EST_String filename, EST_StrList &l)
+ *  \brief Load tokens from a file and return them in a EST_StrList
+ *  \fn EST_write_status save_StrList(EST_String filename, EST_StrList &l, EST_String style="words")
+ *  \brief Save tokens from a EST_StrList. If style is set to "lines" each item is stored on a separate line, otherwise each item is separated by a single space.
+ *  \fn void strip_quotes(EST_String &s, const EST_String quote_char="\"")
+ *  \brief remove quotes from a string
+ *  \fn EST_String itoString(int n)
+ *  \brief Make a EST_String object from an integer
+ *  \fn EST_String ftoString(float n, int pres=3, int width=0, int l=0)
+ *  \brief Make a EST_String object from an float, with variable precision
+ *  \fn int Stringtoi(EST_String s)
+ *  \brief Make an int from a EST_String. EST_String equivalent of atoi()
+ *  \fn int StrListtoIList(EST_StrList &s, EST_IList &il)
+ *  \brief Convert a list of strings to a list of integers
+ *  \fn int StrListtoFList(EST_StrList &s, EST_FList &il)
+ *  \brief Convert a list of strings to a list of floats
+ *  \fn void StrList_to_StrVector(EST_StrList &l, EST_StrVector &v)
+ *  \brief Convert a list of strings to a vector of strings
+ *  \fn void StrVector_to_StrList(EST_StrVector &v,EST_StrList &l)
+ *  \brief Convert a vector of strings to a list of strings
+ *  \fn int  StrVector_index(const EST_StrVector &v,const EST_String &s)
+ *  \brief Search the vector and return the position of the first occurance of string s in the vector
+ *  \fn int strlist_member(const EST_StrList &l,const EST_String &s)
+ *  \brief Return true if s is in list l
+ *  \fn int strlist_index(const EST_StrList &l,const EST_String &s)
+ *  \brief Search the vector and return the position of the first occurance of string s in the list
+ *  \fn EST_String basename(EST_String full, EST_String ext="")
+ *  \brief This acts like the bourne shell basename command. By default, it strips any leading path from a string. If ext is defined, it strips any suffix matching this string.
+ *  @}
+ */
+
 void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep="");
+
 void BracketStringtoStrList(EST_String s, EST_StrList &l, EST_String sep="");
 
 EST_read_status load_StrList(EST_String filename, EST_StrList &l);

@@ -51,19 +51,16 @@ class EST_Utterance;
 
 class EST_Relation_Iterator;
 
-/** Relations are a container class for EST_Items. Three types of
+/** @class EST_Relation
+    @ingroup estlingclasses
+
+Relations are a container class for EST_Item. Three types of
 relation structure are supported:
 
-<variablelist>
-
-<varlistentry><term>Linear lists</term><listitem></listitem></varlistentry>
-<varlistentry><term>Trees</term><listitem></listitem></varlistentry>
-<varlistentry><term>Multi-linear structures</term><listitem> as used
-in autosegmental phonology etc</listitem></varlistentry>
-
-</variablelist>
+  - Linear lists
+  - Trees
+  - Multi-linear structures as used in autosegmental phonology etc
 */
-
 class EST_Relation
 {
     EST_String p_name;
@@ -110,12 +107,10 @@ class EST_Relation
     /** Clear the relation of items */
     void clear();
 
-    /** Return the <link linkend="est-utterance">EST_Utterance</link>
-	to which this relation belongs */
+    /** Return the EST_Utterance to which this relation belongs */
     EST_Utterance *utt(void) { return p_utt; }
 
-    /** Set the <link linkend="est-utterance">EST_Utterance</link>
-	to which this relation belongs */
+    /** Set the EST_Utterance to which this relation belongs */
     void set_utt(EST_Utterance *u) { p_utt = u; }
 
     /** Return the name of the relation */
@@ -144,11 +139,11 @@ class EST_Relation
     /** return true if relation does not contain any items */
     int empty() const { return p_head == 0; }
 
-    /** remove EST_Item <parameter>item</parameter> from relation */
+    /** remove EST_Item `item` from relation */
     void remove_item(EST_Item *item);
 
     /** remove all occurrences of feature 
-	<parameter>name</parameter> from relation's items
+	`name` from relation's items
     */
     void remove_item_feature(const EST_String &name);
 

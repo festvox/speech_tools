@@ -31,7 +31,7 @@
  ##                                                                       ##
  ###########################################################################
  ##                                                                       ##
- ##                    Makfile for script directory                       ##
+ ##                    Makefile for script directory                       ##
  ## --------------------------------------------------------------------- ##
  ##                 Author: Richard Caley (rjc@cstr.ed.ac.uk)             ##
  ##                   Date: June 1997                                     ##
@@ -40,12 +40,9 @@
 
 TOP=..
 DIRNAME=scripts
-SCRIPTS= example_to_doc++.prl resynth.sh pm.prl\
+SCRIPTS= resynth.sh pm.prl\
 	 make_wagon_desc.sh raw_to_xgraph.prl \
-	est_examples.sh est_gdb.sh est_program.sh \
-	cxx_to_docbook.prl \
-	build_docbook_index.prl \
-	tex_to_images.prl
+	est_examples.sh est_gdb.sh est_program.sh
 FILES = Makefile shared_setup_sh shared_setup_prl shared_script $(SCRIPTS)
 INSTALL = 
 ALL = $(SCRIPTS)
