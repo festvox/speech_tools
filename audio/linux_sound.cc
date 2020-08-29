@@ -460,12 +460,6 @@ static int audio_bps(cst_audiofmt fmt)
     return 0;
 }
 
-static inline void print_pcm_state(snd_pcm_t *handle, char *msg)
-{
-  fprintf(stderr, "PCM state at %s = %s\n", msg,
-		  snd_pcm_state_name(snd_pcm_state(handle)));
-}
-
 cst_audiodev *audio_open_alsa(int sps, int channels, cst_audiofmt fmt)
 {
   cst_audiodev *ad;
