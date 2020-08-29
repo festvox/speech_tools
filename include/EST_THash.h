@@ -272,6 +272,8 @@ public:
 
 };
 
+template<class K, class V> V EST_THash<K,V>::Dummy_Value;
+
 /** \class EST_TStringHash
   * \brief A specialised hash table for when the key is an EST_String.
   *

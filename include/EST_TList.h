@@ -90,6 +90,10 @@ public:
 	    { init();};
 };
 
+template<class T> EST_TItem<T> *EST_TItem<T>::s_free;
+template<class T> unsigned int EST_TItem<T>::s_nfree;
+
+
 // pretty name
 
 /** \typedef EST_Litem
