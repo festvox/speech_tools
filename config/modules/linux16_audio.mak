@@ -50,13 +50,6 @@ ifeq ($(LINUXAUDIO),alsa)
    PROJECT_LIBRARY_SYSLIBS_estbase += -lasound
 endif
 
-ifeq ($(LINUXAUDIO),pulseaudio)
-   AUDIO_DEFINES += -DSUPPORT_PULSEAUDIO
-   MODULE_LIBS += -lpulse-simple -lpulse
-
-   PROJECT_LIBRARY_SYSLIBS_estbase += -lpulse-simple -lpulse
-endif
-
 ifeq ($(LINUXAUDIO),none)
    AUDIO_DEFINES += -DSUPPORT_VOXWARE
 endif

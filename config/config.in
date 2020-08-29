@@ -82,6 +82,9 @@ OPTIMISE_sigpr = 3
 ## Elightenment Sound Demon, for KDE etc.
 # INCLUDE_MODULES += ESD_AUDIO
 
+## PulseAudio sound server. Write PULSE_AUDIO to include it.
+INCLUDE_MODULES += @PULSE_AUDIO@
+
 ## Native audio for your platform (sun, linux, freebsd, irix, macosx, windows)
 INCLUDE_MODULES += NATIVE_AUDIO
 

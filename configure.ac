@@ -109,6 +109,21 @@ AC_CHECK_HEADER(alsa/asoundlib.h,
               [LINUXAUDIO="alsa"])
 AC_SUBST(LINUXAUDIO)
 
+AC_ARG_WITH([pulseaudio],
+  [AS_HELP_STRING([--with-pulseaudio],
+  [Compile PulseAudio audio module @<:@default=no@:>@])],
+  [],
+  [with_pulseaudio=no])
+
+
+PULSE_AUDIO=
+AS_IF([test "x$with_pulseaudio" != xno],
+      [PULSE_AUDIO="PULSE_AUDIO"],
+      []
+)
+
+AC_SUBST(PULSE_AUDIO)
+
 OMP_OPTS=
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <omp.h>]], [[ int j=1;]])],[OMP_OPTS="-fopenmp"],[])
 AC_SUBST(OMP_OPTS)
