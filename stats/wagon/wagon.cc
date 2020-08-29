@@ -88,7 +88,7 @@ static float test_tree_vector(WNode &tree,WDataSet &dataset,ostream *output);
 static float test_tree_trajectory(WNode &tree,WDataSet &dataset,ostream *output);
 static float test_tree_ols(WNode &tree,WDataSet &dataset,ostream *output);
 static int wagon_split(int margin,WNode &node);
-static WQuestion find_best_question(WVectorVector &dset);
+static void find_best_question(WVectorVector &dset, WQuestion &best_ques);
 static void construct_binary_ques(int feat,WQuestion &test_ques);
 static float construct_float_ques(int feat,WQuestion &ques,WVectorVector &ds);
 static float construct_class_ques(int feat,WQuestion &ques,WVectorVector &ds);
@@ -727,7 +727,7 @@ static int wagon_split(int margin, WNode &node)
     if (wgn_max_questions < 1)
         return FALSE;
         
-    q = find_best_question(node.get_data());
+    find_best_question(node.get_data(), q);
 
 /*    printf("q.score() %f impurity %f\n",
 	   q.get_score(),
@@ -819,12 +819,13 @@ static float wgn_random_number(float x)
 }
 
 #ifdef OMP_WAGON
-static WQuestion find_best_question(WVectorVector &dset)
+static void find_best_question(WVectorVector &dset,
+                               WQuestion &best_ques)
 {
     //  Ask all possible questions and find the best one
     int i;
     float bscore,tscore;
-    WQuestion test_ques, best_ques;
+    WQuestion test_ques;
     WQuestion** questions=new WQuestion*[wgn_dataset.width()];
     float* scores = new float[wgn_dataset.width()];
     bscore = tscore = WGN_HUGE_VAL;
@@ -870,7 +871,7 @@ static WQuestion find_best_question(WVectorVector &dset)
     {
 	if (scores[i] < bscore)
 	{
-	    memcpy(&best_ques,questions[i],sizeof(*questions[i]));
+	    best_ques = *questions[i];
 	    best_ques.set_score(scores[i]);
 	    bscore = scores[i];
 	}
@@ -878,16 +879,17 @@ static WQuestion find_best_question(WVectorVector &dset)
     }
     delete [] questions;
     delete [] scores;
-    return best_ques;
+    return;
 }
 #else
 // No OMP parallelism
-static WQuestion find_best_question(WVectorVector &dset)
+static void find_best_question(WVectorVector &dset,
+                               WQuestion &best_ques)
 {
     //  Ask all possible questions and find the best one
     int i;
     float bscore,tscore;
-    WQuestion test_ques, best_ques;
+    WQuestion test_ques;
 
     bscore = tscore = WGN_HUGE_VAL;
     best_ques.set_score(bscore);
@@ -928,7 +930,7 @@ static WQuestion find_best_question(WVectorVector &dset)
 	}
     }
 
-    return best_ques;
+    return;
 }
 #endif
 
