@@ -810,7 +810,12 @@ void wgn_find_split(WQuestion &q,WVectorVector &ds,
 static float wgn_random_number(float x)
 {
     // Returns random number between 0 and x
-    return (((float)random())/RAND_MAX)*x;
+    /* This is not a good approach for generating random
+     * numbers. The conversion of RAND_MAX from int to float
+     * implies a loss of precision. C++-11 has std::uniform_real_distribution
+     * that provides a cleaner solution. Consider adopting c++-11
+     */
+    return (((float)random())/(float)RAND_MAX)*x;
 }
 
 #ifdef OMP_WAGON
