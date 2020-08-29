@@ -114,16 +114,16 @@ class EST_Relation
     void set_utt(EST_Utterance *u) { p_utt = u; }
 
     /** Return the name of the relation */
-    const EST_String &name() const { return (this == 0) ? EST_String::Empty : p_name; }
+    const EST_String &name() const { return p_name; }
 
     /** Return the head (first) item of the relation */
-    EST_Item *head() const {return (this == 0) ? 0 : p_head;}
+    EST_Item *head() const {return p_head;}
 
     /** Return the root item of the relation */
     EST_Item *root() const {return head();}
 
     /** Return the tail (last) item of the relation */
-    EST_Item *tail() const {return (this == 0) ? 0 : p_tail;}
+    EST_Item *tail() const {return p_tail;}
 
     // This have been replaced by Relation_Tree functions
     EST_Item *first() const { return head(); }
