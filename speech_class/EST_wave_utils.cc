@@ -53,7 +53,6 @@
 #include "EST_error.h"
 
 static short st_ulaw_to_short(unsigned char ulawbyte);
-static short st_alaw_to_short(unsigned char alawbyte);
 static unsigned char st_short_to_ulaw(short sample);
 static unsigned char st_short_to_alaw(short sample);
 

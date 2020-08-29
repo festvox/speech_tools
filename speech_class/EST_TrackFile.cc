@@ -375,12 +375,13 @@ EST_read_status EST_TrackFile::load_est(const EST_String filename,
 	return r;
 }
 
-static float get_float(EST_TokenStream &ts,int swap)
+static EST_read_status get_float(EST_TokenStream &ts,int swap, float *f)
 {
-    float f;
-    ts.fread(&f,4,1);
-    if (swap) swapfloat(&f);
-    return f;
+    if (ts.fread(f,4,1) != 1) {
+      return misc_read_error;
+    }
+    if (swap) swapfloat(f);
+    return format_ok;
 }
 
 EST_read_status EST_TrackFile::load_est_ts(EST_TokenStream &ts,
@@ -481,7 +482,12 @@ EST_read_status EST_TrackFile::load_est_ts(EST_TokenStream &ts,
 	      	return misc_read_error;
 	}
 	else
-	    tr.t(i) = get_float(ts,swap);
+	{
+		EST_read_status err;
+		err = get_float(ts, swap, &(tr.t(i)));
+		if (err != format_ok)
+			return err;
+	}
 
 	// Read Breaks
 	if (breaks)
@@ -496,7 +502,12 @@ EST_read_status EST_TrackFile::load_est_ts(EST_TokenStream &ts,
 	    }
 	    else
 	    {
-		if (get_float(ts,swap) == 0.0)
+		EST_read_status err;
+		float tmp;
+		err = get_float(ts, swap, &tmp);
+		if (err != format_ok)
+			return err;
+		if (tmp == 0.0)
 		    tr.set_break(i);
 		else
 		    tr.set_value(i);
@@ -526,7 +537,9 @@ EST_read_status EST_TrackFile::load_est_ts(EST_TokenStream &ts,
 	  }
 	}
 	else{
-	  ts.fread( frame, sizeof(float), num_channels );
+	  if (ts.fread( frame, sizeof(float), num_channels ) != num_channels) {
+		return misc_read_error;
+	  }
 	  if( swap )
 	    for( j=0; j<num_channels; ++j ){
 	      swapfloat( &frame[j] );

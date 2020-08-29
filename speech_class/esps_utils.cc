@@ -1050,7 +1050,7 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	hdr->field_name[0] = wstrdup("samples");
 	fseek(fd,hdr->hdr_size,SEEK_SET);
 	/* In this cases its just in the header as a float */
-	sd_sample_rate = *((float *)(void *)&fhdr.fil4[0]);
+	memcpy(&sd_sample_rate, &fhdr.fil4[0], sizeof(float));
 	add_fea_d(hdr,"record_freq",0,(double)sd_sample_rate);
 	*uhdr = hdr;
 	return format_ok;
@@ -1215,11 +1215,13 @@ enum EST_write_status write_esps_hdr(esps_hdr hdr,FILE *fd)
     fhdr.thirteen = 13;      /* must be for luck */
     fhdr.sdr_size = 0;
     fhdr.magic = ESPS_MAGIC;
-    strncpy(fhdr.date,ctime(&tx),26);
+    strncpy(fhdr.date,ctime(&tx),25);
+    fhdr.date[25] = 0;
     sprintf(fhdr.version,"1.91");  /* that's what all the others have */
     sprintf(fhdr.prog,"EDST");
     sprintf(fhdr.vers,"0.1");
-    strncpy(fhdr.progcompdate,ctime(&tx),26);
+    strncpy(fhdr.progcompdate,ctime(&tx),25);
+    fhdr.progcompdate[25] = 0;
     fhdr.num_samples = hdr->num_records;
     fhdr.filler = 0;
     /* in each record */
