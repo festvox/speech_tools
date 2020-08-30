@@ -198,7 +198,7 @@ void EST_Item::unref_all()
 
 const EST_String &EST_Item::relation_name() const
 { 
-    return ((this == 0) || (p_relation == 0)) ? 
+    return (p_relation == 0) ? 
 	EST_String::Empty : p_relation->name();
 }
 

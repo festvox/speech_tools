@@ -62,20 +62,7 @@ template<class T> EST_TItem<T> *EST_TItem<T>::make(const T &val)
 
 template<class T> void EST_TItem<T>::release(EST_TItem<T> *it)
 {
-    if (0) // (s_nfree < s_maxFree)
-    {
-      // Destroy the value in case it holds resources.
-      it->EST_TItem<T>::~EST_TItem();
-
-      // I suppose it's a bit weird to use 'n' after calling the destructor.
-      it->n=s_free;
-      s_free=it;
-      s_nfree++;
-    }
-  else
-  {
-      delete it;
-  }
+  delete it;
 }
 
 template<class T> void EST_TList<T>::copy_items(const EST_TList<T> &l)

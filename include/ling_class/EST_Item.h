@@ -315,7 +315,7 @@ protected:
 
     /// The relation of this particular item
     EST_Relation *relation(void) const
-       { return (this == 0) ? 0 : p_relation; }
+       { return p_relation; }
 
     /// True if li is the same item ignoring its relation viewpoint
       int same_item(const EST_Item *li) const

@@ -175,7 +175,7 @@ STATIC char *regbranch(int *flagp);
 STATIC char *regpiece(int *flagp);
 STATIC char *regatom(int *flagp);
 STATIC char *regnode(char op);
-STATIC char *regnext(register char *p);
+STATIC char *regnext(char *p);
 STATIC void regc(char b);
 STATIC void reginsert(char op, char *opnd);
 STATIC void regtail(char *p, char *val);

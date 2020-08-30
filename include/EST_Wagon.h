@@ -113,7 +113,12 @@ class WQuestion {
     EST_IList operandl;
     float score;
   public:
-    WQuestion() {;}
+    WQuestion() {
+        this->yes = 0;
+        this->no = 0;
+        this->score = WGN_HUGE_VAL;
+        this->op = wnop_equal;
+        this->feature_pos = 0;}
     WQuestion(const WQuestion &s) 
        { feature_pos=s.feature_pos;
          op=s.op; yes=s.yes; no=s.no; operand1=s.operand1;
@@ -162,7 +167,7 @@ class WImpurity {
     float score;
     int l,width;
 
-    WImpurity() { t=wnim_unset; a.reset(); trajectory=0; l=0; width=0; data=0;}
+    WImpurity() { t=wnim_unset; a.reset(); trajectory=0; l=0; width=0; data=0; score=WGN_HUGE_VAL;}
     ~WImpurity();
     WImpurity(const WVectorVector &ds);
     void copy(const WImpurity &s) 
@@ -205,7 +210,12 @@ class WDlist {
     int p_samples;
     WDlist *next;
   public:
-    WDlist() { next=0; }
+    WDlist() { 
+		next=0; 
+		p_score = WGN_HUGE_VAL;
+		p_freq = 0;
+		p_samples = 0;
+		}
     ~WDlist() { if (next != 0) delete next; }
     void set_score(float s) { p_score = s; }
     void set_question(const WQuestion &q) { p_question = q; }
