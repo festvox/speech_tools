@@ -103,14 +103,16 @@ endif
  ###########################################################################
 
 lib%.so : lib%.a
-	@echo Make Shared Library $*
-	@if [ ! -d shared_space ] ; then mkdir shared_space ; else $(RM) -f shared_space/*.o ; fi
-	@(cd shared_space ; $(AR) x ../$< ) 
-	@echo Link Shared Library $*
-	if [ -n "$(PROJECT_LIBRARY_NEEDS_SYSLIBS_$*)" ] ; then libs='$(JAVA_PROJECT_LIBS)' ; fi ;\
-	$(subst XXX,$@.$(PROJECT_LIBRARY_VERSION_$*),$(MAKE_SHARED_LIB)) shared_space/*.o $(PROJECT_LIBRARY_USES_$*:%=-L. -l%) $$libs
-	@$(RM) -f shared_space/*.o $@
-	@ln -s $@.$(PROJECT_LIBRARY_VERSION_$*) $@
+	echo Make Shared Library $*
+	if [ ! -d shared_space ] ; then mkdir shared_space ; else $(RM) -f shared_space/*.o ; fi
+	(cd shared_space ; $(AR) x ../$< )
+	echo Link Shared Library $*
+	$(subst YYY,$@.$(PROJECT_LIBRARY_VERSION_$*),\
+		$(subst XXX,$@.$(PROJECT_VERSION),$(MAKE_SHARED_LIB))) \
+		shared_space/*.o $(PROJECT_LIBRARY_USES_$*:%=-L. -l%) $(LIBS_BEFORE_MODULES) $(PROJECT_LIBRARY_SYSLIBS_$*) $(LIBS_AFTER_MODULES)
+	$(RM) -f shared_space/*.o $@
+	-ln -sf $@.$(PROJECT_VERSION) $@.$(PROJECT_LIBRARY_VERSION_$*)
+	-ln -sf $@.$(PROJECT_LIBRARY_VERSION_$*) $@
 
  ###########################################################################
  ##                                                                       ##

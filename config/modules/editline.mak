@@ -45,6 +45,8 @@ MOD_DESC_EDITLINE=Use editline for command line editing and history
 IO_DEFINES   += -DSUPPORT_EDITLINE $(MODULE_EDITLINE_OPTIONS:%=-DEDITLINE_%)
 MODULE_LIBS  += $(TERMCAPLIB)
 
+PROJECT_LIBRARY_SYSLIBS_estools += $(TERMCAPLIB)
+
 ifeq ($(DIRNAME),siod)
     CSRCS := $(CSRCS) el_complete.c editline.c el_sys_unix.c
 endif

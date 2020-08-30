@@ -624,6 +624,8 @@ LIBOBJS
 OMP_DEFS
 OMP_OPTS
 LINUXAUDIO
+DEBUG
+SHARED
 COMPILERTYPE
 TERMCAPLIB
 EGREP
@@ -708,7 +710,9 @@ CCC
 CC
 CFLAGS
 CPP
-COMPILERTYPE'
+COMPILERTYPE
+SHARED
+DEBUG'
 
 
 # Initialize some variables set by options.
@@ -1343,6 +1347,10 @@ Some influential environment variables:
               compiler profile to use from config/compilers. This is used to
               set compiler flags on libraries and source file dependency
               resolution
+  SHARED      SHARED=0 does not build shared libraries. SHARED=1 builds static
+              libraries. SHARED=2 builds shared libraries.
+  DEBUG       DEBUG=0 does not append debug flags. DEBUG=1 appends debug
+              flags. Flags can also be passed using CFLAGS
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4270,6 +4278,15 @@ if test "x${COMPILERTYPE}" = "x"; then
 fi
 
 
+
+if test "x${SHARED}" = "x"; then
+    SHARED=0
+fi
+
+
+if test "x${DEBUG}" = "x"; then
+    DEBUG=0
+fi
 
 LINUXAUDIO=none
 ac_fn_c_check_header_mongrel "$LINENO" "alsa/asoundlib.h" "ac_cv_header_alsa_asoundlib_h" "$ac_includes_default"

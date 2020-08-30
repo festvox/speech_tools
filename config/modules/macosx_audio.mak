@@ -14,3 +14,6 @@ MOD_DESC_MACOSX_AUDIO=CoreAudio audio module for MacOS X systems
 AUDIO_DEFINES += -DSUPPORT_MACOSX_AUDIO
 
 MODULE_LIBS += -framework CoreAudio -framework AudioUnit -framework AudioToolbox -framework Cocoa
+
+PROJECT_LIBRARY_SYSLIBS_estbase += -framework CoreAudio -framework AudioUnit -framework AudioToolbox -framework Cocoa
+

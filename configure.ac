@@ -90,8 +90,19 @@ dnl results, set COMPILERTYPE to basename $CC.
 if test "x${COMPILERTYPE}" = "x"; then
     COMPILERTYPE=`basename $CC`
 fi
-
 AC_SUBST(COMPILERTYPE)
+
+AC_ARG_VAR(SHARED, [SHARED=0 does not build shared libraries. SHARED=1 builds
+ static libraries. SHARED=2 builds shared libraries.])
+if test "x${SHARED}" = "x"; then
+    SHARED=0
+fi
+
+AC_ARG_VAR(DEBUG, [DEBUG=0 does not append debug flags. DEBUG=1 appends debug
+ flags. Flags can also be passed using CFLAGS])
+if test "x${DEBUG}" = "x"; then
+    DEBUG=0
+fi
 
 LINUXAUDIO=none
 AC_CHECK_HEADER(alsa/asoundlib.h,

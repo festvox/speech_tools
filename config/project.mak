@@ -41,7 +41,10 @@
 
 PROJECT_NAME = Edinburgh Speech Tools Library
 PROJECT_PREFIX = EST
-PROJECT_VERSION = 2.5.1
+PROJECT_MAJOR_VERSION = 2
+PROJECT_MINOR_VERSION = 5
+PROJECT_PATCH_VERSION = 1
+PROJECT_VERSION = $(PROJECT_MAJOR_VERSION).$(PROJECT_MINOR_VERSION).$(PROJECT_PATCH_VERSION)
 PROJECT_DATE = July 2020
 PROJECT_STATE = current
 
@@ -99,15 +102,32 @@ PROJECT_LIBRARY_DIR_estbase = $(TOP)/lib
 PROJECT_LIBRARY_DIR_eststring = $(TOP)/lib
 PROJECT_LIBRARY_DIR_estjava = $(TOP)/lib
 
+PROJECT_LIBRARY_USES_eststring = 
 PROJECT_LIBRARY_USES_estbase = eststring
-
+PROJECT_LIBRARY_USES_estools = estbase eststring
 PROJECT_LIBRARY_USES_estjava = estbase eststring
 
-PROJECT_LIBRARY_VERSION_estools = $(PROJECT_VERSION).1
-PROJECT_LIBRARY_VERSION_estbase = $(PROJECT_VERSION).1
-PROJECT_LIBRARY_VERSION_eststring = 1.2
-PROJECT_LIBRARY_VERSION_estjava = $(PROJECT_VERSION).1
 
+# The soname needs to be changed when: 
+# - The behavior of a function changes so that it no longer meets its original specification 
+# - Exported data items change (exception: adding optional items to the ends of structures
+#   is okay, as long as those structures are only allocated within the library).
+# - An exported function is removed.
+# - The interface of an exported function changes.
+#
+# Since every MAJOR.MINOR release may make changes to any of the speech
+# tools libraries in those ways, it makes sense to include in the soname MAJOR.MINOR
+# version information.
+# https://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
+PROJECT_LIBRARY_VERSION_estools = $(PROJECT_MAJOR_VERSION).$(PROJECT_MINOR_VERSION)
+PROJECT_LIBRARY_VERSION_estbase = $(PROJECT_MAJOR_VERSION).$(PROJECT_MINOR_VERSION)
+PROJECT_LIBRARY_VERSION_eststring = $(PROJECT_MAJOR_VERSION).$(PROJECT_MINOR_VERSION)
+PROJECT_LIBRARY_VERSION_estjava = $(PROJECT_MAJOR_VERSION).$(PROJECT_MINOR_VERSION)
+
+PROJECT_LIBRARY_SYSLIBS_estools = 
+PROJECT_LIBRARY_SYSLIBS_estbase = 
+PROJECT_LIBRARY_SYSLIBS_eststring = 
+PROJECT_LIBRARY_SYSLIBS_estjava = 
 PROJECT_LIBRARY_NEEDS_SYSLIBS_estjava=1
 
 PROJECT_DEFAULT_LIBRARY = estools

@@ -47,4 +47,6 @@ AUDIO_INCLUDES += -I$(ESD_INCLUDE)
 MODULE_LIBS += -L$(ESD_LIB) -lesd -laudiofile
 MODULE_EXTRA_LIBS += -L$(X11_LIB) -lX11 -lXt
 
+PROJECT_LIBRARY_SYSLIBS_estbase += -L$(ESD_LIB) -lesd -laudiofile
+
 
