@@ -58,7 +58,6 @@ fi
 echo ' ###########################################################################'
 echo ' ## This file is created automatically from your config file.'
 echo ' ## Do not hand edit.'
-echo ' ## Created:'`date`
 echo ' ###########################################################################'
 
 echo ''
