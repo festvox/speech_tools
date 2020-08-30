@@ -39,11 +39,8 @@ DIRNAME=config/systems
 
 SYSTEMS =					\
 	Linux.mak				\
-	RedHatLinux.mak				\
-	DebianGNULinux.mak			\
 	alpha_Linux.mak				\
 	alpha_OSF1V4.0.mak			\
-	alpha_RedHatLinux.mak			\
 	hp9000_HP-UX.mak			\
 	hp9000_HP-UXB.10.mak			\
 	ip_IRIX.mak				\
@@ -70,16 +67,6 @@ SYSTEMS =					\
 	ix86_FreeBSD3.3.mak			\
 	ix86_FreeBSD4.0.mak			\
 	ix86_OS22.mak				\
-	ix86_RedHatLinux4.0.mak			\
-	ix86_RedHatLinux4.1.mak			\
-	ix86_RedHatLinux4.2.mak			\
-	ix86_RedHatLinux5.0.mak			\
-	ix86_RedHatLinux5.1.mak			\
-	ix86_RedHatLinux5.2.mak			\
-	ix86_RedHatLinux6.0.mak			\
-	ix86_RedHatLinux6.1.mak			\
-	ix86_RedHatLinux6.2.mak			\
-	ix86_RedHatLinux7.0.mak			\
 	ix86_SunOS5.5.mak			\
 	ix86_SunOS5.6.mak			\
 	ix86_SunOS5.7.mak			\
@@ -95,9 +82,7 @@ SYSTEMS =					\
 	sparc_SunOS5.9.mak			\
 	sparc_SunOS5.mak			\
 	sparc_unknown.mak			\
-	unknown_DebianGNULinux.mak		\
 	unknown_Linux.mak			\
-	unknown_RedHatLinux.mak			\
         power_macintosh_Darwin.mak              \
 	unknown_unknown.mak			\
 	x86_64_Darwin.mak

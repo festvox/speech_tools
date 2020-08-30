@@ -31,11 +31,13 @@
  ##                                                                       ##
  ###########################################################################
  ##                                                                       ##
- ##                 Author: David Huggins-Daines <dhd@debian.org>         ##
+ ##                 Author: Sergio Oller <sergioller@gmail.com>           ##
+ ##                   Date: Sun Mar 30 2014                               ##
  ## --------------------------------------------------------------------  ##
- ## Settings for generic/unknown Debian GNU/Linux systems                 ##
+ ## Settings for clang. Fortunately clang is very compatible with gcc :-) ##
  ##                                                                       ##
  ###########################################################################
 
-include $(EST)/config/systems/Linux.mak
-include $(EST)/config/systems/DebianGNULinux.mak
+include $(EST)/config/compilers/gcc_defaults.mak
+COMPILER_DESC_clang= clang compiler
+

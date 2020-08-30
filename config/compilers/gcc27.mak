@@ -46,9 +46,6 @@ ifndef GCC27
     GCC27 = gcc
 endif
 
-CC= $(GCC27)
-CXX = $(GCC27)
-
 
 
 

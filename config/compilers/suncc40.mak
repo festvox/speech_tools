@@ -48,8 +48,6 @@ ifndef SUNCC40_CC
     SUNCC40_CC=/opt/SUNWspro/bin/cc
 endif
 
-CC= $(SUNCC40_CC)
-CXX = $(SUNCC40_CXX)
 
 MATH_LIBRARY= -L/lib -lm
 

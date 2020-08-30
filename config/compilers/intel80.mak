@@ -38,9 +38,6 @@
  ##                                                                       ##
  ###########################################################################
 
-CC=icc
-CXX=icpc
-
 COMPILER_DESC=Intel 8.0
 COMPILER_VERSION_COMMAND=$(CXX) -v 2>&1 | tail -1 | sed -e 's/^Version.//'
 
@@ -91,7 +88,7 @@ WARN_CXXFLAGS  +=
 
 
 MAKE_DEPEND_C = $(CC) -MM $(INCLUDES) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
-MAKE_DEPEND_CXX = $(CC) -MM $(INCLUDES) $(WARN_CXXFLAGS) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
+MAKE_DEPEND_CXX = $(CXX) -MM $(INCLUDES) $(WARN_CXXFLAGS) $(TEMPLATES) $(TEMPLATE_SPECIFIC)
 
 COMPILERLIBS= $(COMPILER_LIBS_DIR:%=-L%) 
 

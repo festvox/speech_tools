@@ -38,8 +38,8 @@
  ##                                                                       ##
  ###########################################################################
 
-CC = cc
-CXX = CC 
+#CC = cc
+#CXX = CC 
 
 COMPILER_DESC=Sun CC
 COMPILER_VERSION_COMMAND=$(CXX) -V 2>&1 | sed -e '/CC: /{s///;q;}'
