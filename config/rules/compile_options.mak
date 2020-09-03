@@ -145,7 +145,6 @@ else
     CXXDLFLAGS   += $(SHARED_CXXFLAGS)
 endif
 
-
 ifneq ($(WARN),0)
     CFLAGS    += $(WARN_CCFLAGS)
     CXXFLAGS  += $(WARN_CXXFLAGS)
