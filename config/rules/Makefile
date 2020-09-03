@@ -42,7 +42,7 @@ TOP=../..
 RULESETS = compile_options.mak defaults.mak library.mak make_depend.mak \
 	rcs.mak rules.mak targets.mak modules.mak \
 	config_errors.mak visual_c.mak c.mak java.mak \
-	bin_process.mak install.mak top_level.mak \
+	bin_process.mak install.mak top_level.mak doc.mak \
 	common_make_rules.mak test_make_rules.mak cvs.mak \
 	build_dir.mak
 
