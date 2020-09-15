@@ -869,72 +869,6 @@ int record_linux_wave(EST_Wave &inwave, EST_Option &al)
 
 #else
 
-#ifdef SUPPORT_PULSEAUDIO
-#include <pulse/simple.h>
-
-int freebsd16_supported = FALSE;
-int linux16_supported = TRUE;
-
-static const char *aud_sys_name = "PULSEAUDIO";
-
-#define AUDIOBUFFSIZE 256
-// #define AUDIOBUFFSIZE 20480
-
-int play_linux_wave(EST_Wave &inwave, EST_Option &al)
-{
-    pa_sample_spec *ss;
-    pa_simple *s;
-    short *waveform;
-    int num_samples;
-    int err=0, i, r;
-
-    ss = walloc(pa_sample_spec,1);
-    ss->rate = inwave.sample_rate();
-    ss->channels = inwave.num_channels();
-
-    if (EST_BIG_ENDIAN)
-        ss->format = PA_SAMPLE_S16BE;
-    else
-        ss->format = PA_SAMPLE_S16LE;
-    
-    s = pa_simple_new(
-                    NULL,      /* use default server */
-                    "festival",
-                    PA_STREAM_PLAYBACK,
-                    NULL,      /* use default device */
-                    "Speech",
-                    ss,
-                    NULL,      /* default channel map */
-                    NULL,      /* default buffering attributes */
-                    &err);
-    if (err < 0)
-        return NULL;
-
-    waveform = inwave.values().memory();
-    num_samples = inwave.num_samples();
-
-    for (i=0; i < num_samples; i += AUDIOBUFFSIZE/2)
-    {
-        if (i + AUDIOBUFFSIZE/2 < num_samples)
-            pa_simple_write(s,&waveform[i],(size_t)AUDIOBUFFSIZE,&err);
-        else
-            pa_simple_write(s,&waveform[i],(size_t)(num_samples-i)*2,&err);
-    }
-
-    pa_simple_drain(s,&err);
-    pa_simple_free(s);
-    wfree(ss);
-
-    return 1;
-}
-
-int record_linux_wave(EST_Wave &inwave, EST_Option &al)
-{
-    return -1;
-}
-
-#else /* not supported */
-
 int freebsd16_supported = FALSE;
 int linux16_supported = FALSE;
 
@@ -954,6 +888,5 @@ int record_linux_wave(EST_Wave &inwave, EST_Option &al)
 }
 
 #endif /* ALSA */
-#endif /* PULSEAUDIO */
 #endif /* VOXWARE */
 

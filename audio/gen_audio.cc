@@ -81,6 +81,8 @@ int play_wave(EST_Wave &inwave, EST_Option &al)
     {
 	if (nas_supported)
 	    protocol = "netaudio";  // the default protocol
+	else if (pulse_supported)
+	    protocol = "pulseaudio";
 	else if (esd_supported)
 	    protocol = "esdaudio";
 	else if (sun16_supported)
@@ -112,6 +114,8 @@ int play_wave(EST_Wave &inwave, EST_Option &al)
 
     if (upcase(protocol) == "NETAUDIO")
 	return play_nas_wave(*toplay,al);
+    else if (upcase(protocol) == "PULSEAUDIO")
+	return play_pulse_wave(*toplay,al);
     else if (upcase(protocol) == "ESDAUDIO")
 	return play_esd_wave(*toplay,al);
     else if (upcase(protocol) == "SUNAUDIO")
@@ -246,6 +250,8 @@ EST_String options_supported_audio(void)
     audios += " audio_command";
     if (nas_supported)
 	audios += " netaudio";
+    else if (pulse_supported)
+	audios += " pulseaudio";
     else if (esd_supported)
 	audios += " esdaudio";
     if (sun16_supported)
@@ -288,6 +294,8 @@ int record_wave(EST_Wave &wave, EST_Option &al)
     {
 	if (nas_supported)
 	    protocol = "netaudio";  // the default protocol
+	else if (pulse_supported)
+	    protocol = "pulseaudio";  // the default protocol
 	else if (esd_supported)
 	    protocol = "esdaudio";  // the default protocol
 	else if (sun16_supported)
@@ -308,6 +316,8 @@ int record_wave(EST_Wave &wave, EST_Option &al)
 
     if (upcase(protocol) == "NETAUDIO")
 	return record_nas_wave(wave,al);
+    else if (upcase(protocol) == "PULSEAUDIO")
+        return record_pulse_wave(wave,al);
     else if (upcase(protocol) == "ESDAUDIO")
         return record_esd_wave(wave,al);
     else if (upcase(protocol) == "SUN16AUDIO")
