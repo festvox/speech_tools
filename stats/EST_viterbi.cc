@@ -78,6 +78,7 @@ EST_Viterbi_Decoder::EST_Viterbi_Decoder(uclist_f_t a, unpath_f_t b)
     debug = FALSE;
     trace = FALSE;
     big_is_good = TRUE;  // for probabilities it is
+    timeline = 0;
 }
 
 EST_Viterbi_Decoder::EST_Viterbi_Decoder(uclist_f_t a, unpath_f_t b, int s)
@@ -98,6 +99,7 @@ EST_Viterbi_Decoder::EST_Viterbi_Decoder(uclist_f_t a, unpath_f_t b, int s)
     debug = FALSE;
     trace = FALSE;
     big_is_good = TRUE;  // for probabilities it is
+    timeline = 0;
 }
 
 EST_Viterbi_Decoder::~EST_Viterbi_Decoder()

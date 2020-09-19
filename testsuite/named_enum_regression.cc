@@ -66,10 +66,10 @@ void print_3(void) { cout << "333\n"; }
 
 
 Start_TValuedEnum(Colour, PrintFn, FnColourMap)
-  { c_unknown, {print_q}},
-  { c_red, {print_1, print_3}},
-  { c_blue, {print_2}},
-  { c_unknown, {NULL}}
+  { c_unknown, {print_q},0},
+  { c_red, {print_1, print_3},0},
+  { c_blue, {print_2},0},
+  { c_unknown, {NULL},0}
 End_TValuedEnum(Colour, PrintFn, FnColourMap)
 
 int main(void)

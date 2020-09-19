@@ -59,7 +59,7 @@
 class EST_VTCandidate {
   private:
   public:
-    EST_VTCandidate() {score=0.0; next=0; s=0; }
+    EST_VTCandidate() {score=0.0; next=0; s=0; pos=0; }
     ~EST_VTCandidate() {if (next != 0) delete next;}
     float score;
     EST_Val name;
@@ -78,7 +78,7 @@ class EST_VTCandidate {
 class EST_VTPath {
   private:
   public:
-    EST_VTPath() {score=0.0; from=0; next=0; c=0;}
+    EST_VTPath() {score=0.0; from=0; next=0; c=0; state=0;}
     ~EST_VTPath() {if (next != 0) delete next;}
     double score;   /* cumulative score for path */
     int state;

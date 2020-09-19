@@ -363,7 +363,14 @@ protected:
 			  void *params, const int level);
 public:
 
-    EST_Ngrammar() {default_values();}
+    EST_Ngrammar()
+    {
+		default_values();
+		p_order = -1;
+		p_number_of_sentences = 0;
+		backoff_representation = 0;
+		backoff_discount = 0;
+    }
 
     EST_Ngrammar(int o, representation_t r, 
 		 const EST_StrList &wordlist)

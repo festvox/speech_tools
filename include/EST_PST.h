@@ -61,7 +61,7 @@ public:
 //    EST_StringTrie nodes;
 //    EST_TKVL <EST_String, EST_PredictionSuffixTree_tree_node *> nodes;
     EST_Features nodes;
-    EST_PredictionSuffixTree_tree_node() {p_level=0;}
+    EST_PredictionSuffixTree_tree_node() {p_level=0; state=0;}
     ~EST_PredictionSuffixTree_tree_node();
     void clear(void);
     const EST_String &get_path(void) const {return path;}

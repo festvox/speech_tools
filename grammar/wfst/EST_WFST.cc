@@ -127,6 +127,8 @@ EST_WFST::EST_WFST()
 {
     p_num_states = 0;
     init(0);
+    p_start_state = 0;
+    current_tag = 0;
 }
 
 void EST_WFST::copy(const EST_WFST &wfst)

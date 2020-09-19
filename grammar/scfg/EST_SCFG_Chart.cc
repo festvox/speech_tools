@@ -45,6 +45,10 @@
 
 EST_SCFG_Chart_Edge::EST_SCFG_Chart_Edge()
 {
+    p_d1 = 0;
+    p_d2 = 0;
+    p_pos = 0;
+    p_prob = 0;
 }
 
 EST_SCFG_Chart_Edge::EST_SCFG_Chart_Edge(double prob,

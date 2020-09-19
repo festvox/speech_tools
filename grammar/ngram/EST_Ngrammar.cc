@@ -124,6 +124,7 @@ void EST_BackoffNgrammarState::clear()
 void EST_BackoffNgrammarState::init()
 {
     backoff_weight=0;
+    p_level = -1; /* It better be sanely initialized somewhere else */
     p_pdf.init();
 }
 

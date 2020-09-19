@@ -43,7 +43,9 @@
 
 Lattice::Lattice()
 {
-    tf=NULL;
+    tf=0;
+    qmap_error_margin = 0;
+    e_move_symbol_index = 0;
 }
 
 

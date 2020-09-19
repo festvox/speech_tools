@@ -90,6 +90,7 @@ class WDataSet : public WVectorList {
     EST_IVector p_ignore;
     EST_StrVector p_name;
   public:
+    WDataSet(): WVectorList() { dlength = 0;};
     void load_description(const EST_String& descfname,LISP ignores);
     void ignore_non_numbers();
 

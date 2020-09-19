@@ -76,7 +76,7 @@ void EST_TSimpleMatrix<T>::copy(const EST_TSimpleMatrix<T> &a)
 }
 
 template<class T> 
-EST_TSimpleMatrix<T>::EST_TSimpleMatrix(const EST_TSimpleMatrix<T> &in)
+EST_TSimpleMatrix<T>::EST_TSimpleMatrix(const EST_TSimpleMatrix<T> &in) : EST_TMatrix<T>(in)
 {
     copy(in);
 }

@@ -99,7 +99,7 @@ public:
   typedef EST_TIterator<Container, IPointer, Entry> Iter;
 
   /// Create an iterator not associated with any specific container.
-  EST_TIterator() {cont=NULL;}
+  EST_TIterator() {cont=NULL; pos=0;}
 
   /// Create an iterator ready to run over the given container.
   EST_TIterator(const Container &over)

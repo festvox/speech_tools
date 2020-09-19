@@ -208,7 +208,7 @@ static EST_TValuedEnumDefinition<EST_WindowType, const char *, Info> window_name
 				{Hanning,	"Hanning window"}},
   { wf_hamming,		{"hamming", "ham"},			
 				{Hamming,	"Hamming window"}},
-  { wf_none,		{ NULL }},
+  { wf_none,		{ NULL }, {NULL, NULL}},
 };
 
 static EST_TNamedEnumI<EST_WindowType, Info> map(window_names);

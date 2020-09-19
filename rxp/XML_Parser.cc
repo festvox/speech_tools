@@ -248,6 +248,9 @@ XML_Parser::XML_Parser(XML_Parser_Class &pc,
 		       Entity ent,
 		       void *d)
 {
+  p_track_context = 0;
+  p_track_contents = 0;
+  current_bit = 0;
   pclass=&pc;
   source=s;
   initial_entity=ent;
