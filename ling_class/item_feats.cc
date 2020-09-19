@@ -109,10 +109,13 @@ void val_delete_featfunc(void *v)
     (void)v;
 }
 
+/* Sergio Oller: Comment it out: unused. Did you mean *v1 = *v2? */
+#if 0
 void val_copy_featfunc(void *v1,void *v2)
 {
     v1 = v2;
 }
+#endif
 
 EST_Val est_val(const EST_Item_featfunc f)
 {
