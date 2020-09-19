@@ -135,6 +135,9 @@ char *default_base_url(void)
 	    *p = '/';
     }
     url = Malloc(6 + strlen(buf) + 2);
+    if (url == NULL) {
+        return NULL;
+    }
     sprintf(url, "file:/%s/", buf);
 
 #else
@@ -152,6 +155,9 @@ char *default_base_url(void)
 	    *p = 0;
     }
     url = Malloc(6 + strlen(buf) + 2);
+    if (url == NULL) {
+        return NULL;
+    }
     sprintf(url, "file:/%s/", buf);
 
 #else
@@ -159,6 +165,9 @@ char *default_base_url(void)
     /* Unix: translate /a/b to file:/a/b/ */
 
     url = Malloc(5 + strlen(buf) + 2);
+    if (url == NULL) {
+        return NULL;
+    }
     sprintf(url, "file:%s/", buf);
 
 #endif

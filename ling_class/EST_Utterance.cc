@@ -494,7 +494,10 @@ EST_read_status EST_Utterance::load(EST_TokenStream &ts)
 	if (l_fun == NULL)
 	    continue;
 
-	ts.seek(pos);
+	if (ts.seek(pos) != 0) {
+		cerr << "load utterance: read error." << endl;
+		return misc_read_error;
+	}
 
 	stat = (*l_fun)(ts, *this, max_id);
 	

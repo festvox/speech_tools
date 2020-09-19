@@ -168,7 +168,10 @@ static int play_socket_wave(EST_Wave &inwave, EST_Option &al)
     
     // Because the client may receive many different types of file
     // I send WV\n to it before the file itself
-    send(fd,"WV\n",3,0);
+    if (send(fd,"WV\n",3,0) != 3) {
+		cerr << "Socket: Error sending 'WV\\n' to the client" << endl;
+		return -1;
+	}
     socket_send_file(fd,tmpfile);
     unlink(tmpfile);
 

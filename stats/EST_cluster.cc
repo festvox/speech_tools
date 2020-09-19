@@ -340,7 +340,7 @@ EST_FVector sort_matrix(EST_FMatrix &m)
     EST_FVector vsort(n_vals);
     for (i = 0; i < n_vals; ++i)
 	vsort[i] = v[i];
-    
+    delete[] v;
     return vsort;
 }
 

@@ -385,6 +385,7 @@ STATIC void TTYinfo()
     if (tgetent(buff, term) < 0) {
        TTYwidth = SCREEN_WIDTH;
        TTYrows = SCREEN_ROWS;
+       wfree(buff2);
        return;
     }
     backspace = (ECHAR *)tgetstr("le", &bp);
@@ -1105,6 +1106,7 @@ STATIC STATUS h_risearch()
     s = do_insert_hist((ECHAR *)hist);
     if (patend != 0)
 	for (i=strlen((char *)H.Lines[lpos]); i>cpos; i--) s = bk_char();
+    wfree(pat);
     if (c != ESC)
 	return emacs(c);
     else

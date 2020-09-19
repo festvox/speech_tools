@@ -126,8 +126,8 @@ void smooth_portion(EST_Track &c, EST_Features &op)
 	    c.a(i) = a[i];
 	}
     }
-
-    delete a;
+    delete ms;
+    delete[] a;
 }
 
 static void interp(const EST_Track &c, const EST_Track &speech, int fill,

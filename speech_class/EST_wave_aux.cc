@@ -114,6 +114,7 @@ void extract_channels(EST_Wave &single, const EST_Wave &multi,
 	multi.copy_channel(channel, buf);
 	single.set_channel(i, buf);
     }
+    delete[] buf;
 }
 
 int wave_extract_channel(EST_Wave &single, const EST_Wave &multi, int channel)

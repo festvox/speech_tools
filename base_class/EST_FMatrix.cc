@@ -495,6 +495,7 @@ EST_read_status EST_FMatrix::est_load(const EST_String &filename)
 	{
 	    cerr << "EST_FMatrix: binload: short file in \""  
 		<< filename << "\"" << endl;
+	    wfree(buff);
 	    return misc_read_error;
 	}
 	if (swap)

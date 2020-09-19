@@ -195,6 +195,7 @@ static EST_read_status load_all_contents(EST_TokenStream &ts,
 	{
 	    cerr << "utt_load: " << ts.pos_description() << 
 		" Item name not a number: " << Sid << endl;
+	    delete si;
 	    return misc_read_error;
 	}
 	if (id >= sitems.length())
@@ -232,7 +233,10 @@ static EST_read_status load_relations(EST_TokenStream &ts,
 	EST_Relation *r = new EST_Relation;
 
 	if (r->load(ts,sitems) != format_ok)
+        {
+            delete r;
 	    return misc_read_error;
+        }
 
 	r->set_utt(&utt);
 	utt.relations.set_val(r->name(),est_val(r));
