@@ -324,10 +324,6 @@ public:
 
 };
 
-template<class T> T * EST_TVector<T>::error_return;
-template<class T> const T * EST_TVector<T>::def_val;
-
-
 /// assignment operator: fill track with values in list `s`.
 
 // This appears unuset and potentially causes a namespace clashes with std::set
