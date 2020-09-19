@@ -469,21 +469,21 @@ EST_VTCandidate *EST_Viterbi_Decoder::add_cand_prune(EST_VTCandidate *newcand,
     EST_VTCandidate *pp;
     int numcands;
     
-    if (allcands == 0)
+    if (allcands == NULL)
 	numcands = 0;
     else
 	numcands = allcands->pos;
     
     if ((cand_width == 0) ||	// Add if no candbeam restrictions or
 	(numcands < cand_width) || //        candbeam not filled  or
-	(betterthan(newcand->score,allcands->score))) //this better than best
+	(allcands == NULL || betterthan(newcand->score,allcands->score))) //this better than best
     {
 	EST_VTCandidate **l = &newlist;
 	EST_VTCandidate *a;
 	
 	for (a=newlist;		/* scary */ ; a=a->next)
 	{
-	    if ((a == 0) || (betterthan(a->score,newcand->score)))
+	    if ((a == NULL) || (betterthan(a->score,newcand->score)))
 	    {			// Add new path here 
 		newcand->next = a;
 		*l = newcand;
