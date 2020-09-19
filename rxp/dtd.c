@@ -38,7 +38,7 @@ const char8 *DefaultTypeName[DT_enum_count] = {
     "#required",
     "bogus1",
     "#implied",
-    "bogus2"
+    "bogus2",
     "none",
     "#fixed",
 };
