@@ -223,7 +223,7 @@ EST_read_status EST_TrackFile::load_ssff_ts(EST_TokenStream &ts, EST_Track &tr, 
     return format_ok;
 }
 
-EST_write_status EST_TrackFile::save_ssff(const EST_String filename, EST_Track tr)
+EST_write_status EST_TrackFile::save_ssff(const EST_String filename, EST_Track& tr)
 {
     FILE *fd;
     EST_write_status r;
@@ -241,7 +241,7 @@ EST_write_status EST_TrackFile::save_ssff(const EST_String filename, EST_Track t
 
 }
 
-EST_write_status EST_TrackFile::save_ssff_ts(FILE *fp, EST_Track tr)
+EST_write_status EST_TrackFile::save_ssff_ts(FILE *fp, EST_Track& tr)
 {
     int i,j;
     int need_prob_voice = 0;

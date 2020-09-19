@@ -208,7 +208,7 @@ float label_distance2(EST_Item &ref, EST_Item &test)
     return (s + e) / duration(&ref);
 }
 
-int lowest_pos(EST_FMatrix &m, int j)
+int lowest_pos(const EST_FMatrix &m, int j)
 {
     float val = 1000.0;
     int i, pos=0;
@@ -334,7 +334,7 @@ int major_matrix_deletions(EST_FMatrix &m, EST_Relation &ref_lab)
     return (m.num_columns() - n);
 }
 
-int lowest_pos(float *m, int n)
+int lowest_pos(float const * const m, int n)
 {
     float val = 1000.0;
     int i, pos=0;

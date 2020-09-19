@@ -46,7 +46,7 @@ void set_parameters(EST_Features &a_list, EST_Option &al);
 void option_override(EST_Features &op, EST_Option al, 
 		     const EST_String &option, const EST_String &arg);
 
-static int save_pm(EST_String filename, EST_Track fz);
+static int save_pm(EST_String filename, const EST_Track& fz);
 
 /** @name <command>pda</command> <emphasis>Pitch Detection Algorithm</emphasis>
     @id pda-manual
@@ -210,7 +210,7 @@ void set_parameters(EST_Features &op, EST_Option &al)
 */
 
 
-static int save_pm(EST_String filename, EST_Track fz)
+static int save_pm(EST_String filename,const EST_Track& fz)
 {
     ostream *outf;
     float position, period;
