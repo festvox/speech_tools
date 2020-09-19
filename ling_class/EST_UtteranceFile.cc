@@ -255,9 +255,9 @@ EST_write_status EST_UtteranceFile::save_est_ascii(ostream &outf,const EST_Utter
 {
     EST_write_status v = write_ok;
     
-    outf.precision(8);
-    outf.setf(ios::fixed, ios::floatfield);
-    outf.width(8);
+    std::streamsize oldprecision = outf.precision(8);
+    std::ios_base::fmtflags oldsetf = outf.setf(ios::fixed, ios::floatfield);
+    std::streamsize oldwidth = outf.width(8);
     
     outf << "EST_File utterance\n"; // EST header identifier.
     outf << "DataType ascii\n";
@@ -286,6 +286,12 @@ EST_write_status EST_UtteranceFile::save_est_ascii(ostream &outf,const EST_Utter
     outf << "End_of_Relations\n";
 
     outf << "End_of_Utterance\n";
+
+    outf.precision(oldprecision);
+    outf.setf(oldsetf);
+    outf.width(oldwidth);
+
+
     return write_ok;
 }
 

@@ -153,9 +153,9 @@ EST_write_status save_esps_label(ostream *outf,
     for (ptr = s.head(); ptr != 0; ptr = inext(ptr))
     {
 	*outf << "\t";
-	outf->precision(5);
-	outf->setf(ios::scientific, ios::floatfield);
-	outf->width(8);
+	std::streamsize oldprecision = outf->precision(5);
+	std::ios_base::fmtflags oldsetf = outf->setf(ios::scientific, ios::floatfield);
+	std::streamsize oldwidth = outf->width(8);
 	//	outf->fill('0');
 	if (s.f("timing_style","0") == "event")
 	    *outf << ptr->F("time",0);
@@ -177,6 +177,11 @@ EST_write_status save_esps_label(ostream *outf,
 	    f2.save(*outf);
 	}
 	*outf << endl;
+
+	outf->precision(oldprecision);
+	outf->setf(oldsetf);
+	outf->width(oldwidth);
+
     }
     
     return write_ok;
