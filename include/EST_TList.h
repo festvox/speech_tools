@@ -167,7 +167,7 @@ template <class T> class EST_TList : public EST_UList
     T &last()					
 	    { return item(tail()); };
 
-  /// return const reference to item in list pointed to by {\tt ptr}
+  /// return const reference to item in list pointed to by `ptr`
     const T  &operator () (const EST_Litem *ptr) const
 	    { return item(ptr); };
   /// return non-const reference to item in list pointed to by `ptr`

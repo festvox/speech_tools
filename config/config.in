@@ -33,7 +33,7 @@ SYSTEM_TYPE=$(MACHINETYPE)_$(OSTYPE)$(OSREV)
 ###########################################################################
 ## Compiler.
 ## The definitions are in compilers/$(COMPILER).mak
-## Examples: gcc suncc egcs gcc28
+## Examples: gcc clang suncc egcs gcc28
 
 COMPILER=@COMPILERTYPE@
 

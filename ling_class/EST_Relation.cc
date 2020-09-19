@@ -105,7 +105,7 @@ EST_Item *EST_Relation::append(EST_Item *si)
 
 EST_Item *EST_Relation::append()
 {
-    return append(0);
+    return append(NULL);
 }
 
 EST_Item *EST_Relation::prepend()

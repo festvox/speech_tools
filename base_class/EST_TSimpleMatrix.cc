@@ -44,8 +44,8 @@
 #include "EST_TVector.h"
 #include <fstream>
 #include <iostream>
-#include "EST_cutils.h"
 #include <cstring>
+#include "EST_cutils.h"
 
 using std::memcpy;
 

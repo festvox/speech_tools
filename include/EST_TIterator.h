@@ -186,7 +186,7 @@ public:
   /// Return the current position
 
   unsigned int n() const { return pos; }
-  //@}
+  ///@}
 
   friend class EST_TStructIterator <Container, IPointer, Entry>;
   friend class EST_TRwIterator <Container, IPointer, Entry>;

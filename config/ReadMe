@@ -183,7 +183,7 @@ CONFIG_LIBS =
 It may help to know why this configuration system is how it is.
 
 Most of the pieces of software distributed in source form via the
-internet and similar channels are simpel tools. The aim of people
+internet and similar channels are simple tools. The aim of people
 getting them is to have a working system as quickly and easily as
 possible. For such systems having a configuration script which when
 run works out some combination of options and so on which will let the

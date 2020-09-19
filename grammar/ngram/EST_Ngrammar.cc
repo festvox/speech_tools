@@ -214,9 +214,9 @@ bool EST_BackoffNgrammarState::accumulate(const EST_IVector &words,
 	s = get_child(words(words.n()-1-p_level));
 	if (s==NULL)
 	    // have to extend the tree
-	    s = add_child(p_pdf.get_discrete(),words);
+	    add_child(p_pdf.get_discrete(),words);
 
-	// get pointer again in case we built more than one level
+	// get pointer
 	s = get_child(words(words.n()-1-p_level));
 	if (s==NULL)
 	{
@@ -2520,11 +2520,6 @@ const double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
 	return bo_wt * backoff_probability(new_ngram,trace);
     }
     
-    // should never reach here !
-    // but gcc thinks it does
-    cerr << "oops !";
-    return -1;
-    
 }
 
 
@@ -2593,12 +2588,6 @@ EST_Ngrammar::backoff_reverse_probability_sub(const EST_StrVector &words,
 	//cerr << "backed off(" << bo_wt << ") ";
 	return bo_wt * backoff_reverse_probability_sub(new_ngram,root);
     }
-    
-    // should never reach here !
-    // but gcc thinks it does
-    cerr << "oops !";
-    return -1;
-    
 }
 
 const double 

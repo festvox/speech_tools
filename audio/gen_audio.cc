@@ -298,9 +298,9 @@ int record_wave(EST_Wave &wave, EST_Option &al)
 	if (nas_supported)
 	    protocol = "netaudio";  // the default protocol
 	else if (pulse_supported)
-	    protocol = "pulseaudio";  // the default protocol
+	    protocol = "pulseaudio";
 	else if (esd_supported)
-	    protocol = "esdaudio";  // the default protocol
+	    protocol = "esdaudio";
 	else if (sun16_supported)
 	    protocol = "sun16audio";
 	else if (freebsd16_supported)

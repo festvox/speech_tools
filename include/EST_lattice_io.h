@@ -40,13 +40,11 @@
 #ifndef __EST_LATTICE_IO_H__
 #define __EST_LATTICE_IO_H__
 
-#include <String.h>
-#include <ostream.h>
-#include "sp_common_types.h"
-#include "wp_grammar.h"
+#include "EST_String.h"
+#include <iostream>
 #include "EST_lattice.h"
 
-bool save(Lattice &lattice,String filename);
+bool save(Lattice &lattice, EST_String filename);
 
 #endif
 

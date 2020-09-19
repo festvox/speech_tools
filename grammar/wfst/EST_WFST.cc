@@ -454,6 +454,7 @@ EST_read_status EST_WFST::load_binary(FILE *fd,
 				      int num_states,
 				      int swap)
 {
+    (void)hinfo;
     EST_read_status r;
     int i,j, s;
     int num_trans, state_type;

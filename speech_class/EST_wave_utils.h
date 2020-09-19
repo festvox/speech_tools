@@ -41,7 +41,7 @@
 #ifndef __EST_WAVE_UTILS_H__
 #define __EST_WAVE_UTILS_H__
 
-#include <stdio.h>
+#include <cstdio>
 #include "EST_cutils.h"
 #include "EST_rw_status.h"
 #include "EST_WaveFile.h"

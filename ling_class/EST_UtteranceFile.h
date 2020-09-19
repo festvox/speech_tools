@@ -53,7 +53,7 @@ typedef enum EST_UtteranceFileType{
   uff_est_ascii=uff_est,
   uff_xlabel,
   uff_genxml,
-  uff_apml,
+  uff_apml
 } EST_UtteranceFileType;
 
 
