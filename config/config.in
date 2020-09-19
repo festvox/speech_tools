@@ -56,12 +56,14 @@ CONFIGURATION =
 ##
 ## OPTIMISE=4 will turn off DEBUG
 
-OPTIMISE=3
-WARN=1
+OPTIMISE=@OPTIMISE@
+# WARN either 0 or 1. See ./configure --help0
+WARN=@WARN@
 # VERBOSE=1
 # DEBUG either 0 or 1. See ./configure --help
 DEBUG=@DEBUG@
-# PROFILE=gprof
+# Leave blank (default). Use PROFILE=gprof, PROFILE=gcov to create a profiled build.
+PROFILE=@PROFILE@
 # SHARED one of 0 or 1 or 2. See ./configure --help
 SHARED=@SHARED@
 
@@ -78,8 +80,8 @@ OPTIMISE_sigpr = 3
 ## various audio devices are supported directly but you can always
 ## specify a program to play files in a desired format.
 
-## NCD's network audio system.
-# INCLUDE_MODULES += NAS_AUDIO
+## NCD's network audio system. Write NAS_AUDIO to include it.
+INCLUDE_MODULES += @NAS_AUDIO@
 
 ## Elightenment Sound Demon, for KDE etc.
 # INCLUDE_MODULES += ESD_AUDIO
