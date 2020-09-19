@@ -51,7 +51,7 @@ ifeq ($(DIRNAME),java)
     VERSION_DIRS += cpp_version 
 endif
 
-ifndef SHARED
+ifeq ($(strip $(SHARED)),0)
 .config_error:: FORCE
 	@echo "+--------------------------------------------------"
 	@echo "| Must compile SHARED to include Java support."

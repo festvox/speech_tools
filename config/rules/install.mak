@@ -45,7 +45,7 @@ PROJECT_TOP_PATH := $(shell (cd $(TOP); pwd))
 
 S = _static
 ifdef SHARED
-ifneq ($(SHARED),0)
+ifneq ($(strip $(SHARED)),0)
 	S = _shared 
 endif
 endif
