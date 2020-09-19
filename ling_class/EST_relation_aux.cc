@@ -85,9 +85,10 @@ void quantize(EST_Relation &a, float q)
 int edit_labels(EST_Relation &a, EST_String sedfile)
 {
     EST_Item *a_ptr;
-    char command[100], name[100], newname[100], sf[100];
+    EST_String command;
+    const char *commandptr;
+    char newname[100];
     FILE *fp;
-    strcpy(sf, sedfile);
     EST_String file1, file2;
     file1 = make_tmp_filename();
     file2 = make_tmp_filename();
@@ -101,19 +102,15 @@ int edit_labels(EST_Relation &a, EST_String sedfile)
     }
     for (a_ptr = a.head(); a_ptr != 0; a_ptr = inext(a_ptr))
     {
-	strcpy(name,  a_ptr->name());
-	fprintf(fp, "%s\n", name);
+	fprintf(fp, "%s\n", (const char*) a_ptr->name());
     }
     fclose(fp);
-    strcpy(command, "cat ");
-    strcat(command, file1);
-    strcat(command, " | sed -f ");
-    strcat(command, sedfile);
-    strcat(command, " > ");
-    strcat(command, file2);
 
-    printf("command: %s\n", command);
-    if (system(command) == -1)
+    command = "cat \"" + file1 + "\" | sed -f \"" + sedfile + "\" > " + file2;
+
+    commandptr = (const char*) command;
+    printf("command: %s\n", commandptr);
+    if (system(commandptr) != 0)
         return -1;
 
     fp = fopen(file2, "rb");
