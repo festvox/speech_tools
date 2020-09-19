@@ -330,6 +330,7 @@ static void load_symbols(EST_StrList &syms,const EST_String &filename)
 {
     //  Load symbol list for file
 
-    load_StrList(filename,syms);
+    if (load_StrList(filename,syms) != format_ok)
+        exit(-1);
 
 }	
