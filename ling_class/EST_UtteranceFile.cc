@@ -195,6 +195,7 @@ static EST_read_status load_all_contents(EST_TokenStream &ts,
 	{
 	    cerr << "utt_load: " << ts.pos_description() << 
 		" Item name not a number: " << Sid << endl;
+	    delete si;
 	    return misc_read_error;
 	}
 	if (id >= sitems.length())
@@ -232,7 +233,10 @@ static EST_read_status load_relations(EST_TokenStream &ts,
 	EST_Relation *r = new EST_Relation;
 
 	if (r->load(ts,sitems) != format_ok)
+        {
+            delete r;
 	    return misc_read_error;
+        }
 
 	r->set_utt(&utt);
 	utt.relations.set_val(r->name(),est_val(r));
@@ -251,9 +255,9 @@ EST_write_status EST_UtteranceFile::save_est_ascii(ostream &outf,const EST_Utter
 {
     EST_write_status v = write_ok;
     
-    outf.precision(8);
-    outf.setf(ios::fixed, ios::floatfield);
-    outf.width(8);
+    std::streamsize oldprecision = outf.precision(8);
+    std::ios_base::fmtflags oldsetf = outf.setf(ios::fixed, ios::floatfield);
+    std::streamsize oldwidth = outf.width(8);
     
     outf << "EST_File utterance\n"; // EST header identifier.
     outf << "DataType ascii\n";
@@ -282,6 +286,12 @@ EST_write_status EST_UtteranceFile::save_est_ascii(ostream &outf,const EST_Utter
     outf << "End_of_Relations\n";
 
     outf << "End_of_Utterance\n";
+
+    outf.precision(oldprecision);
+    outf.setf(oldsetf);
+    outf.width(oldwidth);
+
+
     return write_ok;
 }
 

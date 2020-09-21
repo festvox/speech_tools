@@ -38,8 +38,8 @@
 /*=======================================================================*/
 
 #include <cstdlib>
-#include <stdio.h>
-#include <fstream.h>
+#include <cstdio>
+#include <fstream>
 #include "EST.h"
 #include "EST_Handleable.h"
 #include "EST_THandle.h"

@@ -377,7 +377,7 @@ static void print_results(EST_Relation &wstream)
     EST_Item *s;
     float pscore;
     EST_String predict;
-    FILE *fd;
+    FILE *fd = NULL;
 
     if (out_file == "-")
 	fd = stdout;
@@ -394,7 +394,7 @@ static void print_results(EST_Relation &wstream)
 	fprintf(fd,"%s %f\n",(const char *)predict,pscore);
     }
 
-    if (out_file != "")
+    if (fd != stdout)
 	fclose(fd);
 
 }

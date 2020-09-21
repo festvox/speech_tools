@@ -162,6 +162,17 @@ void EST_TokenStream::default_values()
     PunctuationSymbols = EST_String::Empty;
     build_table();
     close_at_end=TRUE;
+    
+    /* Avoid leaving uninitialized members */
+    fp = 0;
+    is = 0;
+    fd = 0;
+    buffer = 0;
+    buffer_length = 0;
+    pos = 0;
+    peeked_char = 0;
+    quote = 0;
+    escape = 0;
 }
 
 EST_TokenStream::~EST_TokenStream()

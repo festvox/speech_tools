@@ -80,6 +80,12 @@ public:
   /// The value
   V v;
 
+  /// A constructor:
+  EST_Hash_Pair() {
+	  k=K();
+	  v=V();
+	  next=0;
+  }
 private:
   /// Pointer used to chain entries into buckets.
   EST_Hash_Pair<K,V> *next;
@@ -175,9 +181,16 @@ protected:
     * pointer into the bucket.
     */
     // struct IPointer{  unsigned int b; EST_Hash_Pair<K, V> *p; };
-    struct IPointer_s{  unsigned int b; EST_Hash_Pair<K, V> *p; };
+    class IPointer{
+      public:
+      unsigned int b;
+      EST_Hash_Pair<K, V> *p;
+      IPointer() {
+        b = 0;
+        p = 0;
+      };
+    };
 
-    typedef struct IPointer_s IPointer;
 
   /// Shift to point at something.
   void skip_blank(IPointer &ip) const 
@@ -228,9 +241,16 @@ protected:
   /** A position in the table is given by a bucket number and a
     * pointer into the bucket.
     */
-  struct IPointer_k_s {  unsigned int b; EST_Hash_Pair<K, V> *p; };
+  class IPointer_k {
+    public:
+    unsigned int b;
+    EST_Hash_Pair<K, V> *p;
+    IPointer_k() {
+      b=0;
+      p=0;
+    };
+  };
 
-  typedef struct IPointer_k_s IPointer_k;
 
   /// Shift to point at something.
   void skip_blank(IPointer_k &ip) const 
@@ -272,7 +292,6 @@ public:
 
 };
 
-template<class K, class V> V EST_THash<K,V>::Dummy_Value;
 
 /** \class EST_TStringHash
   * \brief A specialised hash table for when the key is an EST_String.

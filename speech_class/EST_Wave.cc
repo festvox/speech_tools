@@ -65,7 +65,7 @@ EST_Wave::EST_Wave()
     default_vals();
 }
 
-EST_Wave::EST_Wave(const EST_Wave &w)
+EST_Wave::EST_Wave(const EST_Wave &w) : EST_Featured(w)
 {
     default_vals();
     copy(w);
@@ -219,7 +219,10 @@ EST_read_status EST_Wave::load(EST_TokenStream &ts,
 	if (l_fun == NULL)
 	    continue;
 
-	ts.seek(pos);
+	if (ts.seek(pos) != 0) {
+            stat = read_error;
+            break;
+        }
 	stat = (*l_fun)(ts, *this, 
 			rate, st_short, EST_NATIVE_BO, 1,
 			offset, length);

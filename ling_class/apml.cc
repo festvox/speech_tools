@@ -311,6 +311,7 @@ void Apml_Parser_Class::pcdata(XML_Parser_Class &c,
 	    const char *chars)
 {
   (void)c; 
+  (void)p;
   
  Parse_State *state = (Parse_State *)data;
  EST_String strings[255];

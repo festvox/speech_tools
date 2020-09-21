@@ -83,10 +83,10 @@ extern EST_TNamedEnum<Colour> ColourMap;
 
 Start_TNamedEnum(Colour, ColourMap)
 //  enum element         list of names
-  { c_unknown,		{"kinda brownish"}},
-  { c_red,		{"red", "scarlet"}},
-  { c_blue,		{"blue", "navy", "sad"}},
-  { c_unknown,		{NULL}} // looking up unknown names gives c_unknown
+  { c_unknown,		{"kinda brownish"},0},
+  { c_red,		{"red", "scarlet"},0},
+  { c_blue,		{"blue", "navy", "sad"},0},
+  { c_unknown,		{NULL},0} // looking up unknown names gives c_unknown
 				// looking up unknown enum values gives NULL
 End_TNamedEnum(Colour, ColourMap)
 
@@ -96,10 +96,10 @@ End_TNamedEnum(Colour, ColourMap)
 
 Start_TNamedEnum(Colour, SpanishColourMap)
 //  enum element         list of names
-  { c_unknown,		{"no conocido"}},
-  { c_red,		{"rojo", "escarlata", "sangre"}},
-  { c_blue,		{"azul", "piscina", "mar", "cielo"}},
-  { c_unknown,		{NULL}} 
+  { c_unknown,		{"no conocido"},0},
+  { c_red,		{"rojo", "escarlata", "sangre"},0},
+  { c_blue,		{"azul", "piscina", "mar", "cielo"},0},
+  { c_unknown,		{NULL},0} 
 End_TNamedEnum(Colour, SpanishColourMap)
 
 // ------- Alternative including extra information ---------------
@@ -123,7 +123,7 @@ Start_TNamedEnumI(Colour, colour_info,  RGBColourMap)
   { c_unknown,	{"kinda grey"},			{0x7f, 0x7f, 0x7f}},
   { c_red,	{"red", "scarlet"},		{0xff, 0, 0}},
   { c_blue,	{"blue", "navy", "sad"},	{0, 0, 0xff}},
-  { c_unknown,	{NULL}}
+  { c_unknown,	{NULL},{0,0,0}}
 End_TNamedEnumI(Colour, colour_info,  RGBColourMap)
 
 

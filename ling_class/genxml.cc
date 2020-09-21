@@ -91,7 +91,16 @@ public:
     EST_TStringHash<EST_Item_Content *> contents;
 
     
-    GenXML_Parse_State()  : contents(100) {}
+    GenXML_Parse_State()  : contents(100) {
+      depth = 0;
+      open_depth = 0;
+      rel_start_depth = 0;
+      linear = false;
+      utt = 0;
+      rel = 0;
+      parent = 0;
+      current = 0;
+      }
   };
 
 class GenXML_Parser_Class : public XML_Parser_Class

@@ -261,9 +261,10 @@ float hanning (int *counter, float valin, float valhan[], float win_coeff[],
 	for (i = 0; i < par->window_length; i++)
 	    if (valhan[i] == par->breaker)
 		k++;
-	if (!k)
+	if (!k) {
 	    for (i = 0; i < par->window_length; i++)
 		valout += valhan[i] * win_coeff[i];
+	}
 	else if (k <= par->window_length / 2 && par->extrapolate) {
 	    mk_window_coeffs (par->window_length - k, weight);
 	    for (i = 0, j = 0; i < par->window_length; i++)

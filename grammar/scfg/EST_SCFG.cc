@@ -44,6 +44,7 @@
 EST_SCFG_Rule::EST_SCFG_Rule(double prob,int p, int m)
 { 
     set_rule(prob,p,m); 
+    p_daughter2 = 0;
 }
 
 EST_SCFG_Rule::EST_SCFG_Rule(double prob,int p, int q, int r)
@@ -72,6 +73,7 @@ EST_SCFG::EST_SCFG()
 {
     p_prob_B=0;
     p_prob_U=0;
+    p_distinguished_symbol = 0;
 }
 
 EST_SCFG::EST_SCFG(LISP rs)

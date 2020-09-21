@@ -61,7 +61,9 @@ main(int argc, const char *argv[])
   if (argc != 2)
     return 1;
 
-  file.open(argv[1]);
+  if (file.open(argv[1]) != 0) {
+    return -1;
+  }
   file.set_WhiteSpaceChars("");
   file.set_SingleCharSymbols("\n");
   file.set_PunctuationSymbols("");

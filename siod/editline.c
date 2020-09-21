@@ -385,6 +385,7 @@ STATIC void TTYinfo()
     if (tgetent(buff, term) < 0) {
        TTYwidth = SCREEN_WIDTH;
        TTYrows = SCREEN_ROWS;
+       wfree(buff2);
        return;
     }
     backspace = (ECHAR *)tgetstr("le", &bp);
@@ -1105,6 +1106,7 @@ STATIC STATUS h_risearch()
     s = do_insert_hist((ECHAR *)hist);
     if (patend != 0)
 	for (i=strlen((char *)H.Lines[lpos]); i>cpos; i--) s = bk_char();
+    wfree(pat);
     if (c != ESC)
 	return emacs(c);
     else
@@ -1326,8 +1328,9 @@ void read_history(const char *history_file)
     {
 	ungetc(c,fd);
 	for (i=0; ((c=getc(fd)) != '\n') && (c != EOF); i++)
-	    if (i < 2047)
+	    if (i < 2046)
 		buff[i] = c;
+        i = (i >= 2047 ? 2047 : i);
 	buff[i] = '\0';
 	add_history(buff);
     }

@@ -43,7 +43,9 @@
 
 Lattice::Lattice()
 {
-    tf=NULL;
+    tf=0;
+    qmap_error_margin = 0;
+    e_move_symbol_index = 0;
 }
 
 
@@ -927,6 +929,7 @@ Lattice::minimise()
 
     if(!build_distinguished_state_table(dst)){
 	cerr << "Couldn't build distinguished state table" << endl;
+	delete[] dst;
 	return false;
     }
 

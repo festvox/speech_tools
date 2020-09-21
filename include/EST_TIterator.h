@@ -99,7 +99,7 @@ public:
   typedef EST_TIterator<Container, IPointer, Entry> Iter;
 
   /// Create an iterator not associated with any specific container.
-  EST_TIterator() {cont=NULL;}
+  EST_TIterator() {cont=NULL; pos=0;}
 
   /// Create an iterator ready to run over the given container.
   EST_TIterator(const Container &over)
@@ -186,7 +186,7 @@ public:
   /// Return the current position
 
   unsigned int n() const { return pos; }
-  //@}
+  ///@}
 
   friend class EST_TStructIterator <Container, IPointer, Entry>;
   friend class EST_TRwIterator <Container, IPointer, Entry>;

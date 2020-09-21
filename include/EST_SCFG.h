@@ -129,7 +129,7 @@ class EST_SCFG_Rule {
     double p_prob;
   public:
     ///
-    EST_SCFG_Rule() {p_type=est_scfg_unset; p_prob=0;
+    EST_SCFG_Rule() {p_type=est_scfg_unset; p_prob=0; p_mother=0;
         p_daughter2 = 0; p_daughter1 = 0;}
     ///
     EST_SCFG_Rule(const EST_SCFG_Rule &r) 

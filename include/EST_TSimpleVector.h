@@ -65,7 +65,11 @@ public:
     EST_TSimpleVector(int n): EST_TVector<T>(n) {}; 
     /// memory constructor
     EST_TSimpleVector(int n, T* memory, int offset=0, 
-		      int free_when_destroyed=0): EST_TVector<T>(n,memory) {}; 
+		      int free_when_destroyed=0): EST_TVector<T>(n,memory)
+    {
+        (void) offset;
+        (void) free_when_destroyed;
+    }; 
 
     /// resize vector
     void resize(int n, int set=1); 

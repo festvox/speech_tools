@@ -161,7 +161,7 @@ $ design_filter -o filter.coefficients filter.freq_response
 </para>
 <para>
 where filter.freq_response is the above file, and filter.coefficients
-is the output file which can be used by \Ref{sigfilter}.
+is the output file which can be used by \ref sigfilter .
 </para>
 
 */

@@ -60,7 +60,7 @@
 #include <cstdlib>
 #include "EST_unix.h"
 #include <cstring>
-#include <time.h>
+#include <ctime>
 #include "EST_wave_utils.h"
 #include "esps_utils.h"
 

@@ -50,6 +50,7 @@
 #define Instantiate_THash_T_IT_IP(KEY, VAL, TAG, IP, IPK) \
 	typedef EST_THash< KEY, VAL > HASH_ ## TAG ## _t; \
 	typedef EST_Hash_Pair< KEY, VAL > HASHPAIR_ ## TAG ## _t; \
+        template VAL EST_THash< KEY,VAL >::Dummy_Value; \
 	Instantiate_TStructIterator_T(HASH_ ## TAG ## _t, HASH_ ## TAG ## _t:: IP, HASHPAIR_ ## TAG ## _t, HASH_ ## TAG ## _itt) \
 	Instantiate_TIterator_T(HASH_ ## TAG ## _t, HASH_ ## TAG ## _t:: IP, HASHPAIR_ ## TAG ## _t, HASH_ ## TAG ## _itt) \
 	Instantiate_TIterator_T(HASH_ ## TAG ## _t, HASH_ ## TAG ## _t:: IPK, KEY, HASH_ ## TAG ## _itt)

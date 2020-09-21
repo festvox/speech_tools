@@ -292,12 +292,17 @@ load_ngram_cstr_bin(const EST_String filename, EST_Ngrammar &n)
     if ((ifd=fopen(filename,"rb")) == NULL)
 	return misc_read_error;
     if (fread(&magic,sizeof(int),1,ifd) != 1)
+    {
+        cerr << "Could not read integer from " << filename << endl;
+        fclose(ifd);
 	return misc_read_error;
-    
+    }
     if (SWAPINT(magic) == EST_NGRAMBIN_MAGIC)
 	swap = TRUE;
-    else if (magic != EST_NGRAMBIN_MAGIC)
+    else if (magic != EST_NGRAMBIN_MAGIC) {
+		fclose(ifd);
 	return wrong_format;
+    }
     if (ts.open(ifd, FALSE) == -1)
 	return misc_read_error;
     
@@ -355,6 +360,7 @@ load_ngram_cstr_bin(const EST_String filename, EST_Ngrammar &n)
 	cerr << "EST_Ngrammar::load_ngram_cstr_bin format does not have expected number of entries" << endl;
 	ts.close();
 	fclose(ifd);
+	delete[] dd;
 	return misc_read_error;
     }
     if (swap)
@@ -367,6 +373,7 @@ load_ngram_cstr_bin(const EST_String filename, EST_Ngrammar &n)
 	    cerr << "EST_Ngrammar::load_ngram_cstr_bin unexpected end of frequency data" << endl;
 	    ts.close();
 	    fclose(ifd);
+	    delete[] dd;
 	    return misc_read_error;	
 	}
 	for (k=n.p_states[i].pdf().item_start();

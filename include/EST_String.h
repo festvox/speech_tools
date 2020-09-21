@@ -39,6 +39,7 @@ class EST_Regex;
 
 #define EST_Regex_max_subexpressions 10
 
+#include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <climits>
@@ -47,7 +48,6 @@ using namespace std;
 #include "EST_strcasecmp.h"
 #include "EST_bool.h"
 
-extern "C" void abort(void);
 
 /** @class EST_String
   * @ingroup stringclasses

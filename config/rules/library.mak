@@ -54,7 +54,7 @@ endif
 # if we requested a shared library, build it
 
 ifdef SHARED
-ifneq ($(SHARED),0)
+ifneq ($(strip $(SHARED)),0)
 ifndef MAKE_SHARED_LIB
 .config_error:: FORCE
 	@echo "+-----------------------------------------------------"
@@ -63,7 +63,7 @@ ifndef MAKE_SHARED_LIB
 	@exit 1
 endif
 
-ifeq ($(SHARED),2)
+ifeq ($(strip $(SHARED)),2)
     PROJECT_SHARED_LIBRARIES:=$(PROJECT_ALL_LIBRARIES)
 endif
 
@@ -149,7 +149,7 @@ lib%.so : lib%.a
 	done
 	@echo
 	@echo
-ifdef SHARED
+ifneq ($(strip $(SHARED)),0)
 ifneq (,$(PROJECT_SHARED_LIBRARIES))
 	@$(ECHO_N) "Install shared libraries '$(PROJECT_SHARED_LIBRARIES)':"
 	@for l in $(PROJECT_SHARED_LIBRARIES:%=lib%.so) ;\

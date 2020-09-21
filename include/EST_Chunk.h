@@ -55,7 +55,7 @@ using namespace std;
 
 /* #define __INCLUDE_CHUNK_WARNINGS__ (1) */
 
-#if defined(__INCULDE_CHUNK_WARNINGS__)
+#if defined(__INCLUDE_CHUNK_WARNINGS__)
 #    define CHUNK_WARN(WHAT) do { cerr << "chunk: " <<WHAT << "\n";} while (0)
 #else
 #    define CHUNK_WARN(WHAT) // empty

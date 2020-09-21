@@ -44,8 +44,8 @@
 #include "EST_TVector.h"
 #include <fstream>
 #include <iostream>
-#include "EST_cutils.h"
 #include <cstring>
+#include "EST_cutils.h"
 
 using std::memcpy;
 
@@ -76,7 +76,7 @@ void EST_TSimpleMatrix<T>::copy(const EST_TSimpleMatrix<T> &a)
 }
 
 template<class T> 
-EST_TSimpleMatrix<T>::EST_TSimpleMatrix(const EST_TSimpleMatrix<T> &in)
+EST_TSimpleMatrix<T>::EST_TSimpleMatrix(const EST_TSimpleMatrix<T> &in) : EST_TMatrix<T>(in)
 {
     copy(in);
 }

@@ -90,9 +90,6 @@ public:
 	    { init();};
 };
 
-template<class T> EST_TItem<T> *EST_TItem<T>::s_free;
-template<class T> unsigned int EST_TItem<T>::s_nfree;
-
 
 // pretty name
 
@@ -167,7 +164,7 @@ template <class T> class EST_TList : public EST_UList
     T &last()					
 	    { return item(tail()); };
 
-  /// return const reference to item in list pointed to by {\tt ptr}
+  /// return const reference to item in list pointed to by `ptr`
     const T  &operator () (const EST_Litem *ptr) const
 	    { return item(ptr); };
   /// return non-const reference to item in list pointed to by `ptr`
@@ -252,7 +249,11 @@ template <class T> class EST_TList : public EST_UList
   // Iteration support
 
 protected:
-  struct IPointer {  EST_Litem *p; };
+  class IPointer {
+    public:
+    EST_Litem *p;
+    IPointer() {p=NULL;}
+  };
 
   void point_to_first(IPointer &ip) const { ip.p = head(); }
   void move_pointer_forwards(IPointer &ip) const { ip.p = ip.p->next(); }

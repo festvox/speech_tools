@@ -38,7 +38,7 @@ const char8 *DefaultTypeName[DT_enum_count] = {
     "#required",
     "bogus1",
     "#implied",
-    "bogus2"
+    "bogus2",
     "none",
     "#fixed",
 };
@@ -187,8 +187,10 @@ Entity NewExternalEntityN(const Char *name, int namelen, const char8 *publicid,
 
     if(!(e = Malloc(sizeof(*e))))
 	return 0;
-    if(name && !(name = Strndup(name, namelen)))
+    if(name && !(name = Strndup(name, namelen))) {
+	    Free(e);
 	    return 0;
+    }
 
     e->type = ET_external;
     if ((name == 0) || (strcmp(name,"") == 0))
@@ -223,9 +225,13 @@ Entity NewInternalEntityN(const Char *name, int namelen,
 
     if(!(e = Malloc(sizeof(*e))))
 	return 0;
-    if(name)
-	if(!(name = Strndup(name, namelen)))
+
+    if(name) {
+        if(!(name = Strndup(name, namelen))) {
+            Free(e);
 	    return 0;
+        }
+    }
 
     e->type = ET_internal;
     e->name = name;

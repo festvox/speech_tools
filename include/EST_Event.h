@@ -46,7 +46,7 @@
 #ifndef __Event_H__
 #define __Event_H__
 
-#include <EST_String.h>
+#include "EST_String.h"
 
 #ifndef FALSE
 #       define  FALSE   (0)

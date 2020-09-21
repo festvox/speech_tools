@@ -86,7 +86,7 @@ EST_String sigpr_options_supported(void)
 	"    power\n"
 	"    f0\n"
 	"    energy: root mean square energy\n";
-};
+}
 
 
 

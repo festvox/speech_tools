@@ -37,9 +37,6 @@ AC_CONFIG_SRCDIR([include/EST.h])
 AC_CANONICAL_TARGET
 AC_PROG_CXX
 AC_PROG_CC
-if test "x$GCC" = "xyes"; then
-	CFLAGS="$CFLAGS -Wall"
-fi
 AC_PROG_RANLIB
 AC_CHECK_TOOL(AR, ar)
 
@@ -104,10 +101,35 @@ if test "x${DEBUG}" = "x"; then
     DEBUG=0
 fi
 
+AC_ARG_VAR(OPTIMISE, [Choose optimization level from 0 to 4. Default 3. Level 4 disables debug. ])
+if test "x${OPTIMISE}" = "x"; then
+    OPTIMISE=3
+fi
+AC_SUBST(OPTIMISE)
+
+AC_ARG_VAR(WARN, [ Enable warning flags (WARN=1) or disable them (WARN=0) ])
+if test "x${WARN}" = "x"; then
+    WARN=1
+fi
+AC_SUBST(WARN)
+
+AC_ARG_VAR(PROFILE, [ Enable a profiled build (e.g. PROFILE=gprof, PROFILE=gcov) ])
+if test "x${PROFILE}" = "x"; then
+    PROFILE=
+fi
+AC_SUBST(PROFILE)
+
 LINUXAUDIO=none
 AC_CHECK_HEADER(alsa/asoundlib.h,
               [LINUXAUDIO="alsa"])
 AC_SUBST(LINUXAUDIO)
+
+AC_ARG_WITH([nas_audio],
+            [AS_HELP_STRING([--with-nas_audio],
+              [enable NCD's network audio system])],
+            [NAS_AUDIO=NAS_AUDIO],
+            [NAS_AUDIO=])
+AC_SUBST(NAS_AUDIO)
 
 AC_ARG_WITH([pulseaudio],
   [AS_HELP_STRING([--with-pulseaudio],

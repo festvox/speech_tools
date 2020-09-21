@@ -624,7 +624,11 @@ LIBOBJS
 OMP_DEFS
 OMP_OPTS
 PULSE_AUDIO
+NAS_AUDIO
 LINUXAUDIO
+PROFILE
+WARN
+OPTIMISE
 DEBUG
 SHARED
 COMPILERTYPE
@@ -698,6 +702,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+with_nas_audio
 with_pulseaudio
 '
       ac_precious_vars='build_alias
@@ -714,7 +719,10 @@ CFLAGS
 CPP
 COMPILERTYPE
 SHARED
-DEBUG'
+DEBUG
+OPTIMISE
+WARN
+PROFILE'
 
 
 # Initialize some variables set by options.
@@ -1337,6 +1345,7 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-nas_audio        enable NCD's network audio system
   --with-pulseaudio       Compile PulseAudio audio module [default=no]
 
 Some influential environment variables:
@@ -1358,6 +1367,10 @@ Some influential environment variables:
               libraries. SHARED=2 builds shared libraries.
   DEBUG       DEBUG=0 does not append debug flags. DEBUG=1 appends debug
               flags. Flags can also be passed using CFLAGS
+  OPTIMISE    Choose optimization level from 0 to 4. Default 3. Level 4
+              disables debug.
+  WARN        Enable warning flags (WARN=1) or disable them (WARN=0)
+  PROFILE     Enable a profiled build (e.g. PROFILE=gprof, PROFILE=gcov)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -3296,9 +3309,6 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
-if test "x$GCC" = "xyes"; then
-	CFLAGS="$CFLAGS -Wall"
-fi
 if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}ranlib", so it can be a program name with args.
 set dummy ${ac_tool_prefix}ranlib; ac_word=$2
@@ -4295,12 +4305,40 @@ if test "x${DEBUG}" = "x"; then
     DEBUG=0
 fi
 
+
+if test "x${OPTIMISE}" = "x"; then
+    OPTIMISE=3
+fi
+
+
+
+if test "x${WARN}" = "x"; then
+    WARN=1
+fi
+
+
+
+if test "x${PROFILE}" = "x"; then
+    PROFILE=
+fi
+
+
 LINUXAUDIO=none
 ac_fn_c_check_header_mongrel "$LINENO" "alsa/asoundlib.h" "ac_cv_header_alsa_asoundlib_h" "$ac_includes_default"
 if test "x$ac_cv_header_alsa_asoundlib_h" = xyes; then :
   LINUXAUDIO="alsa"
 fi
 
+
+
+
+
+# Check whether --with-nas_audio was given.
+if test "${with_nas_audio+set}" = set; then :
+  withval=$with_nas_audio; NAS_AUDIO=NAS_AUDIO
+else
+  NAS_AUDIO=
+fi
 
 
 

@@ -59,7 +59,13 @@ public:
 
     EST_THash<EST_String, EST_Item_Content *> contents;
 
-    Parse_State() : contents(100) {}
+    Parse_State() : contents(100) {
+      depth = 0;
+      utt = 0;
+      rel = 0;
+      parent = 0;
+      current = 0;
+    }
   };
 
 class Sole_Parser_Class : public XML_Parser_Class

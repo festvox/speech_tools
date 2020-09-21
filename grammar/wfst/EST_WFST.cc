@@ -127,6 +127,8 @@ EST_WFST::EST_WFST()
 {
     p_num_states = 0;
     init(0);
+    p_start_state = 0;
+    current_tag = 0;
 }
 
 void EST_WFST::copy(const EST_WFST &wfst)
@@ -452,6 +454,7 @@ EST_read_status EST_WFST::load_binary(FILE *fd,
 				      int num_states,
 				      int swap)
 {
+    (void)hinfo;
     EST_read_status r;
     int i,j, s;
     int num_trans, state_type;

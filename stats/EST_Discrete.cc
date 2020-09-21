@@ -97,6 +97,7 @@ bool EST_Discrete::init(const EST_StrList &vocab)
 	{
 	    cerr << "EST_Discrete : found repeated item '";
 	    cerr << vocab(w) << "' in vocab list !" << endl;
+            delete tmp;
 	    return false;
 	}
 

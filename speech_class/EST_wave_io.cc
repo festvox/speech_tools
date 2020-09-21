@@ -178,6 +178,7 @@ enum EST_read_status load_wave_nist(EST_TokenStream &ts, short **data, int
     int current_pos;
 
     current_pos = ts.tell();
+
     if (ts.fread(header,NIST_HDR_SIZE,1) != 1)
 	return wrong_format;
 
