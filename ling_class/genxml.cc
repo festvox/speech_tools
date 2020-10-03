@@ -44,15 +44,11 @@
 #include "EST_TDeque.h"
 #include "EST_THash.h"
 #include "EST_error.h"
+#include "EST_cutils.h"
 #include "genxml.h"
 #include "rxp/XML_Parser.h"
 
 #include "ling_class_init.h"
-
-#if defined(ESTLIBDIRC)
-#    define __STRINGIZE(X) #X
-#    define ESTLIBDIR __STRINGIZE(ESTLIBDIRC)
-#endif
 
 
 static EST_Regex simpleIDRegex("[^#]*#id(\\([-a-z0-9]+\\))");
@@ -157,13 +153,13 @@ void EST_GenXML::class_init(void)
 
   pclass = new GenXML_Parser_Class();
 #ifdef DEBUGGING
-  printf("Register estlib in genxml %s\n",  ESTLIBDIR "/\\1.dtd");
+  printf("Register estlib in genxml %s\n", (const char*) EST_String::cat(est_libdir, "/\\1.dtd"));
 #endif
   
   pclass->register_id("//CSTR EST//DTD \\(.*\\)//[A-Z]*",
-		      ESTLIBDIR "/\\1.dtd");
+		      EST_String::cat(est_libdir, "/\\1.dtd"));
   pclass->register_id("//CSTR EST//ENTITIES \\(.*\\)//[A-Z]*",
-		      ESTLIBDIR "/\\1.ent");
+		      EST_String::cat(est_libdir, "/\\1.ent"));
 }
 
 void EST_GenXML::register_id(const EST_String pattern, 
