@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     parse_command_line(argc, argv, 
        EST_String("Usage:   "
-       "ch_utt  <input file> -o <output file> <options>\n"
+       "ch_utt  [input file] -o [output file] [options]\n"
        "Summary: change/copy utterance file\n"
        "use \"-\" to make input and output files stdin/out\n"
        "-h               Options help\n"
