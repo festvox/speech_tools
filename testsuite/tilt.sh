@@ -31,12 +31,12 @@
 ##  THIS SOFTWARE.                                                       ##
 ##                                                                       ##
 ###########################################################################
-PDA=$TOP/bin/pda
-TILT_ANALYSIS=$TOP/bin/tilt_analysis
-TILT_SYNTHESIS=$TOP/bin/tilt_synthesis
-CH_TRACK=$TOP/bin/ch_track
+PDA=${PDA:-$TOP/bin/pda}
+TILT_ANALYSIS=${TILT_ANALYSIS:-$TOP/bin/tilt_analysis}
+TILT_SYNTHESIS=${TILT_SYNTHESIS:-$TOP/bin/tilt_synthesis}
+CH_TRACK=${CH_TRACK:-$TOP/bin/ch_track}
 
-DATA=$TOP/lib/example_data
+DATA=${DATA:-$TOP/lib/example_data}
 
 tilt_test () {
 
@@ -64,7 +64,7 @@ tilt_test () {
 echo >$OUTPUT
 
 echo Tilt Test no Longer run >>$OUTPUT
-
+#mkdir -p tmp
 #tilt_test 2>&1 >> $OUTPUT
 
 exit 0

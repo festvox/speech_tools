@@ -32,8 +32,8 @@
 ##                                                                       ##
 ###########################################################################
 
-CH_WAVE=$TOP/bin/ch_wave
-BCAT=$TOP/bin/bcat
+CH_WAVE=${CH_WAVE:-$TOP/bin/ch_wave}
+BCAT=${BCAT:-$TOP/bin/bcat}
 
 test_conversion () {
 	type=$1
@@ -194,6 +194,7 @@ test_info ()
 
 echo >$OUTPUT
 
+mkdir -p tmp
 test_conversion esps 2>&1 >> $OUTPUT
 test_conversion snd 2>&1 >> $OUTPUT
 test_conversion riff 2>&1 >> $OUTPUT
