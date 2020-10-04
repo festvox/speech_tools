@@ -41,7 +41,7 @@ TOP=../..
 DIRNAME=doc/man
 
 PROGRAMS = align bcat ch_lab ch_track ch_utt ch_wave design_filter \
-           dp fringe_client na_play na_record ngram_build ngram_test \
+           dp na_play na_record ngram_build ngram_test \
            ols ols_test pda pitchmark scfg_make scfg_parse scfg_test \
            scfg_train sig2fv sigfilter siod spectgen tilt_analysis \
            tilt_synthesis viterbi wagon wagon_test wfst_build wfst_run \

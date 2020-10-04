@@ -57,7 +57,6 @@ Specific documentation for each executable is given on separate pages:
   - @subpage scfg_test_manual
 
   - @subpage siod_manual
-  - @subpage fringe_client_manual
   - @subpage bcat_manual
   - @subpage xml_parser_manual
 	
