@@ -61,7 +61,13 @@ LOCAL_CLEAN = $(DOXFILES)
 -include $(TOP)/config/common_make_rules
 
 %_man.dox: %_man.dox.body
-	LD_LIBRARY_PATH=$(TOP)/lib XSLTPROC=$(XSLTPROC) ./create_dox.sh $(TOP)/main/$* $@.body || exit 1
+	LD_LIBRARY_PATH=$(TOP)/lib ./create_dox.sh \
+	  $(TOP)/main/$* \
+	  $@.body \
+	  . \
+	  . \
+	  $(XSLTPROC) \
+	  $(NAWK) || exit 1
 
 all_dox: $(DOXFILES)
 
