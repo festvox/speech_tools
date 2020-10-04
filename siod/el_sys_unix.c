@@ -41,6 +41,7 @@
 **
 **  Unix system-dependant routines for editline library.
 */
+#define _POSIX_C_SOURCE 200809L
 #include "editline.h"
 
 #include <unistd.h>

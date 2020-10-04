@@ -12,6 +12,7 @@
 /* WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.       */
 /*                                                                       */
 /*************************************************************************/
+#define _POSIX_C_SOURCE 200809L
 #ifdef FOR_LT
 
 #include "lt-defs.h"
@@ -547,7 +548,7 @@ static FILE16 *http_open(const char *url,
     addr.sin_family = AF_INET;
     /* If we were really enthusiastic, we would try all the host's addresses */
     memcpy(&addr.sin_addr, hostent->h_addr_list[0], hostent->h_length);
-    addr.sin_port = htons((u_short)(port == -1 ? 80 : port));
+    addr.sin_port = htons((uint16_t)(port == -1 ? 80 : port));
 
     /* Connect */
 
