@@ -229,7 +229,7 @@ extern char	*tgetstr();
 extern int	tgetent();
 extern int	tgetnum();
 #endif	/* defined(USE_TERMCAP) */
-
+
 /*
 **  TTY input/output functions.
 */
@@ -428,7 +428,7 @@ STATIC void TTYinfo()
 	TTYrows = SCREEN_ROWS;
     }
 }
-
+
 
 /*
 **  Print an array of words in columns.
@@ -745,7 +745,6 @@ STATIC STATUS insert_string(ECHAR *p)
 
     return Point == End ? CSstay : CSmove;
 }
-
 
 STATIC ECHAR *next_hist()
 {
@@ -1405,7 +1404,7 @@ add_history(p)
 #endif	/* defined(UNIQUE_HISTORY) */
     hist_add((ECHAR *)p);
 }
-
+
 
 STATIC STATUS beg_line()
 {
