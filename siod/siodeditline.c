@@ -194,7 +194,7 @@ int siod_el_getc(FILE *f)
 	el_pos = 0;
     }
     if ((el_line==NULL) ||
-	(strlen(el_line) <= el_pos))
+	((long int) strlen(el_line) <= el_pos))
 	el_pos = -1;
     if (el_line==NULL)
 	c = EOF;
