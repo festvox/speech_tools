@@ -44,6 +44,8 @@
 #include "EST_Token.h"
 #include "EST_Wagon.h"
 
+using namespace std;
+
 int wagon_ask_question(LISP question, LISP value)
 {
     const char *str_oper = wgn_ques_oper_str(question);

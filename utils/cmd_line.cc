@@ -50,6 +50,8 @@
 #include "EST_Pathname.h"
 #include "EST_Features.h"
 
+using namespace std;
+
 // This is reset by the command line options functions to argv[0]
 EST_String est_progname = "ESTtools";
 

@@ -42,6 +42,8 @@
 #include <cstdio>
 #include "EST_viterbi.h"
 
+using namespace std;
+
 static void init_paths_array(EST_VTPoint *n,int num_states);
 static void debug_output_1(EST_VTPoint *p,EST_VTCandidate *c, 
 			   EST_VTPath *np, int i);

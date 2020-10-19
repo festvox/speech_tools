@@ -50,6 +50,7 @@
 
 #include "EST_THash.h"
 
+using namespace std;
 
 EST_FeatureData::EST_FeatureData()
 {

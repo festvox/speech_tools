@@ -45,6 +45,8 @@
 #include "ling_class/EST_Item_Content.h"
 #include "ling_class/EST_item_aux.h"
 
+using namespace std;
+
 EST_Val ff_duration(EST_Item *s)
 {
     if (iprev(s))

@@ -72,6 +72,8 @@
 #include "srpd.h"
 #include "EST_cutils.h"
 #include "EST_Wave.h"
+using namespace std;
+
 
 #ifndef MAXSHORT
 #define MAXSHORT 32767

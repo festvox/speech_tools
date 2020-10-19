@@ -39,6 +39,8 @@
 #ifndef __ESPS_IO_H__
 #define __ESPS_IO_H__
 
+#include <cstdio>
+#include "EST_TrackFile.h"
 #define ESPS_MAGIC 27162
 struct ESPS_PREAMBLE {
     int machine_code;   /* the machine that generated this (4 is sun) */

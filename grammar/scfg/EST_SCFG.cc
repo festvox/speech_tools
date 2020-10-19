@@ -41,6 +41,8 @@
 #include "EST_Pathname.h"
 #include "EST_SCFG.h"
 
+using namespace std;
+
 EST_SCFG_Rule::EST_SCFG_Rule(double prob,int p, int m)
 { 
     set_rule(prob,p,m); 

@@ -43,7 +43,7 @@
 
 #include <iostream>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 #include "EST_rw_status.h"
 #include "EST_TVector.h"

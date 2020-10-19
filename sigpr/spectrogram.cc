@@ -48,6 +48,7 @@
 #include "sigpr/EST_spectrogram.h"
 #include "sigpr/EST_misc_sigpr.h"
 
+using namespace std;
 
 void make_spectrogram(EST_Wave &sig, EST_Track &sp, EST_Features &op)
 {

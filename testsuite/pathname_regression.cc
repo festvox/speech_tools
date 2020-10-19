@@ -41,6 +41,8 @@
 #include <cstdlib>
 #include "EST_Pathname.h"
 
+using namespace std;
+
 int main(void)
 {
 

@@ -47,7 +47,7 @@
 #include "EST_TVector.h"
 #include "EST_THash.h"
 #include "siod.h"
-#define wfst_error_msg(WMESS) (cerr << WMESS << endl,siod_error())
+#define wfst_error_msg(WMESS) (std::cerr << WMESS << std::endl,siod_error())
 
 #define WFST_ERROR_STATE -1
 

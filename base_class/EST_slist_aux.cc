@@ -50,6 +50,8 @@
 #include "EST_cutils.h"
 #include "EST_Token.h"
 
+using namespace std;
+
 int StrListtoFList(EST_StrList &s, EST_FList &f)
 {
     EST_Litem *p;

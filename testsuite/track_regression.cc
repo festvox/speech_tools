@@ -44,6 +44,8 @@
 #include "EST_TrackMap.h"
 #include "EST_Track.h"
 
+using namespace std;
+
 void dump_track(EST_Track &tr, EST_String comment)
 {
   printf("[ Track %s\n", (const char *)comment);

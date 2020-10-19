@@ -45,6 +45,8 @@
 #include "sigpr/EST_Window.h"
 #include "EST_error.h"
 
+using namespace std;
+
 // there are multiple possible styles of this because of different
 // possibilities of where to change the filter coefficients.
 

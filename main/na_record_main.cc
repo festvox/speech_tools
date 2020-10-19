@@ -81,6 +81,7 @@ currently doesn't support NAS audio in.
 
 //@}
 
+using namespace std;
 
 int main (int argc, char *argv[])
 {

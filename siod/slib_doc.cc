@@ -14,6 +14,9 @@
 #include "siodp.h"
 #include "siodeditline.h"
 
+using std::cerr;
+using std::endl;
+
 void setdoc(LISP name,LISP doc)
 {
     /* Set documentation string for name */

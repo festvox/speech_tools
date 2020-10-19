@@ -46,6 +46,8 @@
 #include "EST_sigpr.h"
 #include "EST_wave_aux.h"
 
+using namespace std;
+
 void inv_filter_ola(EST_Wave &sig, EST_Track &lpc, EST_Wave &res);
 void frame_filter(EST_Wave &sig, EST_Track &lpc, EST_Wave &res);
 void inv_lpc_filter_ola(EST_Wave &in_sig, EST_Track &lpc, EST_Wave &out_sig);

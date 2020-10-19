@@ -47,7 +47,7 @@
 
 #include <iostream>
 
-using namespace std;
+using namespace std; // FIXME: Remove form header
 
 #include "instantiate/EST_TIteratorI.h"
 

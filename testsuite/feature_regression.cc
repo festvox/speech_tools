@@ -34,6 +34,8 @@
 #include "EST_unix.h"
 #include "EST_ling_class.h"
 
+using namespace std;
+
 
 /** @name Feature and Val Classes Example Code
   */

@@ -51,6 +51,8 @@
 #include "EST_cutils.h"
 #include "EST_Token.h"
 
+using namespace std;
+
 EST_String make_tmp_filename()
 {
     // returns tmp filename

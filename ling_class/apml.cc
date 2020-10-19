@@ -44,6 +44,8 @@
 #include "apml.h"
 #include "rxp/XML_Parser.h"
 
+using namespace std;
+
 static EST_Regex simpleIDRegex(".*#id(w\\([0-9]+\\))");
 static EST_Regex rangeIDRegex(".*#id(w\\([0-9]+\\)).*id(w\\([0-9]+\\))");
 static EST_Regex RXpunc("[\\.,\\?\\!\"]+");

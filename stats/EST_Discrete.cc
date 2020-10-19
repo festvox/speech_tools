@@ -45,6 +45,8 @@
 #include "EST_String.h"
 #include "EST_simplestats.h"
 
+using namespace std;
+
 static void Discrete_val_delete_funct(void *d) { delete (int *)d; }
 
 EST_Discrete::~EST_Discrete() 

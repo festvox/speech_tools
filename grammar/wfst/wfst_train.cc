@@ -48,6 +48,8 @@
 #include "EST_Token.h"
 #include "EST_simplestats.h"
 
+using namespace std;
+
 VAL_REGISTER_TYPE_NODEL(trans,EST_WFST_Transition)
 SIOD_REGISTER_CLASS(trans,EST_WFST_Transition)
 VAL_REGISTER_CLASS(pdf,EST_DiscreteProbDistribution)

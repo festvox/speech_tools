@@ -64,6 +64,8 @@
 #include "EST_wave_utils.h"
 #include "esps_utils.h"
 
+using namespace std;
+
 /* First you must realise there is in fact a number of very similar but */
 /* subtly different header formats that appear on ESPS files.           */
 /* ESPS_FEA and ESPS_SD (others for filters, spectrograms, etc)         */

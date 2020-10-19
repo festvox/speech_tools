@@ -46,6 +46,8 @@
 #include "EST_Features.h"
 #include "EST_error.h"
 
+using namespace std;
+
 static int match_rf_point(EST_Track &fz, int b_start, int b_stop, 
 			  int e_start, int e_stop, 
 			  int &mi, int &mj);

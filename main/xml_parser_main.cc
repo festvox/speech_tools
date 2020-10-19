@@ -47,6 +47,8 @@
 #include "EST_cmd_line_options.h"
 #include "rxp/XML_Parser.h"
 
+using namespace std;
+
 struct Parse_State
   {
   int depth;

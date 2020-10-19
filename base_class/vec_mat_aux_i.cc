@@ -44,6 +44,8 @@
 #include "EST_math.h"
 #include <time.h>
 
+using namespace std;
+
 int matrix_max(const EST_IMatrix &a)
 {
     int i, j;

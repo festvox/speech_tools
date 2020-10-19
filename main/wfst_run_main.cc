@@ -60,6 +60,7 @@ static int wfst_run_main(int argc, char **argv);
 //@{
 
 //@synopsis
+using namespace std;
 
 /**
 This program runs a WFST on some given data.  It works in either

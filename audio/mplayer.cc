@@ -44,6 +44,8 @@
 #include "EST_io_aux.h"
 #include "EST_Pathname.h"
 
+using namespace std;
+
 #ifdef SUPPORT_MPLAYER
 
 int mplayer_supported = TRUE;

@@ -40,6 +40,8 @@
 
 #include "EST_sigpr.h"
 
+using namespace std;
+
 /**@name sig2fv:example
   * 
   * Some examples of track manipulations.

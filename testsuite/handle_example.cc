@@ -48,6 +48,9 @@
 #include "EST_TBox.h"
 #include "EST_String.h"
 
+using namespace std;
+
+
 /**@name EST_THandle:example
   * 
   * Example of using the THandle reference counted pointer type.

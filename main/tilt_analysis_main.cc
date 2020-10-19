@@ -44,6 +44,9 @@
 #include "ling_class/EST_relation_aux.h"
 #include "EST_string_aux.h"
 
+using namespace std;
+
+
 #define SIL_NAMES "sil !ENTER !EXIT"
 #define EVENT_NAMES "a rb arb m mrb"
 

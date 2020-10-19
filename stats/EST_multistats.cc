@@ -39,6 +39,8 @@
 #include <cmath>
 #include "EST_multistats.h"
 
+using namespace std;
+
 float mean(EST_FVector &v)
 {
   int i;

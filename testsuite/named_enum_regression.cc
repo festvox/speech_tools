@@ -42,6 +42,8 @@
 #include "EST_TNamedEnum.h"
 #include "EST_String.h"
 
+using namespace std;
+
 #    define InfoType const char *
 
 typedef enum { c_red=1, c_blue=2, c_green=3, c_unknown=666} Colour;

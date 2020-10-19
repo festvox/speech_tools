@@ -66,11 +66,11 @@ struct stats_accumulator_FW
 typedef EST_TBox<stats_accumulator_FW> Boxed_stats_accumulator_FW;
 typedef EST_THandle<Boxed_stats_accumulator_FW,stats_accumulator_FW> refcounted_stats_accumulator_FW_P;
 
-ostream& operator <<(ostream &s, const refcounted_stats_accumulator_FW_P &);
+std::ostream& operator <<(std::ostream &s, const refcounted_stats_accumulator_FW_P &);
 
 typedef EST_TBox<stats_accumulator_HV> Boxed_stats_accumulator_HV;
 typedef EST_THandle<Boxed_stats_accumulator_HV,stats_accumulator_HV> refcounted_stats_accumulator_HV_P;
-ostream& operator <<(ostream &s, const refcounted_stats_accumulator_HV_P &);
+std::ostream& operator <<(std::ostream &s, const refcounted_stats_accumulator_HV_P &);
 
 /// an accumulator to be owned by every model
 /// - the underlying HV or FW accumulators are shared via
@@ -81,16 +81,16 @@ struct stats_accumulator
     refcounted_stats_accumulator_FW_P fw;
 };
 
-ostream& operator <<(ostream &s, const stats_accumulator_FW &);
-ostream& operator <<(ostream &s, const stats_accumulator_HV &);
+std::ostream& operator <<(std::ostream &s, const stats_accumulator_FW &);
+std::ostream& operator <<(std::ostream &s, const stats_accumulator_HV &);
 
 
 
 typedef EST_TBox<EST_DMatrix> Boxed_EST_DMatrix;
 typedef EST_THandle<Boxed_EST_DMatrix,EST_DMatrix> refcounted_EST_DMatrixP;
 
-ostream& operator <<(ostream &s, const Boxed_EST_DMatrix &);
-ostream& operator <<(ostream &s, const refcounted_EST_DMatrixP &);
+std::ostream& operator <<(std::ostream &s, const Boxed_EST_DMatrix &);
+std::ostream& operator <<(std::ostream &s, const refcounted_EST_DMatrixP &);
 
 //int operator ==(const Boxed_EST_DMatrix &a, 
 //		const Boxed_EST_DMatrix &b);
@@ -105,7 +105,7 @@ typedef EST_THandle<Boxed_EST_DVector,EST_DVector> refcounted_EST_DVectorP;
 int operator ==(const refcounted_EST_DVectorP &, 
 		const refcounted_EST_DVectorP &);
 
-ostream& operator <<(ostream &s, const refcounted_EST_DVectorP &);
+std::ostream& operator <<(std::ostream &s, const refcounted_EST_DVectorP &);
 
 
 

@@ -50,6 +50,8 @@
 #include "EST_cutils.h"
 #include "EST_error.h"
 
+using namespace std;
+
 const EST_String EST_Token_Default_WhiteSpaceChars = " \t\n\r";
 const EST_String EST_Token_Default_SingleCharSymbols = "(){}[]";
 const EST_String EST_Token_Default_PrePunctuationSymbols = "\"'`({[";
@@ -246,7 +248,7 @@ int EST_TokenStream::open(FILE *ofp, int close_when_finished)
     return 0;
 }
 
-int EST_TokenStream::open(istream &newis)
+int EST_TokenStream::open(std::istream &newis)
 {
     // absorb already open istream 
     if (type != tst_none)

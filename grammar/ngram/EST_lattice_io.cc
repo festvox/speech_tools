@@ -44,6 +44,8 @@
 #include "EST_Token.h"
 #include "EST_StringTrie.h"
 
+using namespace std;
+
 bool save(Lattice &lattice, EST_String filename)
 {
     ostream *outf;

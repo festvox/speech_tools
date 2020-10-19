@@ -49,6 +49,8 @@
 #include "EST_Wagon.h"
 #include "EST_cmd_line.h"
 
+using namespace std;
+
 enum wn_strategy_type {wn_decision_list, wn_decision_tree};
 
 static wn_strategy_type wagon_type = wn_decision_tree;

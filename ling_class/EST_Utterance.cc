@@ -46,6 +46,8 @@
 #include "EST_UtteranceFile.h"
 #include "EST_string_aux.h"
 
+using namespace std;
+
 const EST_String DEF_FILE_TYPE = "est_ascii";
 
 static void clear_up_sisilist(EST_TKVL<EST_Item_Content *,EST_Item *> &s);

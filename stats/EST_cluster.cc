@@ -45,6 +45,8 @@
 #include "EST_string_aux.h"
 #include <cfloat>
 
+using namespace std;
+
 int fn_cluster(EST_FMatrix &m, EST_CBK &cbk, float d);
 int nn_cluster(EST_FMatrix &m, EST_CBK &cbk, float d);
 int nn_cluster2(EST_FMatrix &m, EST_CBK &cbk, float d);

@@ -47,6 +47,8 @@
 #include "EST_TKVL.h"
 #include "EST_THash.h"
 
+using namespace std;
+
 Declare_TList_T(EST_WFST_MultiState *,EST_WFST_MultiStateP)
 
   // Declare_KVL(int, EST_IList)

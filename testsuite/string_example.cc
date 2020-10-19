@@ -37,6 +37,8 @@
 #include <iostream>
 #include <cstdio>
 
+using namespace std;
+
 int main()
 {
     EST_String example("hello world");

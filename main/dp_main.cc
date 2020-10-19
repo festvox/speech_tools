@@ -42,6 +42,8 @@
 #include <cmath>
 #include "EST.h"
 
+using namespace std;
+
 EST_read_status load_TList_of_StrVector(EST_TList<EST_StrVector> &w,
 					const EST_String &filename,
 					const int vec_len);
