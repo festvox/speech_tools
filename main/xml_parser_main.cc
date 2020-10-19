@@ -97,41 +97,6 @@ protected:
 		void *data);
 };
 
-/** @name <command>xml_parser</command>
-    @id xml_parser_manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
-   <command>xml_parser</command> is a simple program giving access to
-   the <productname>RXP</productname> &xml; parser. It parses an input
-   file and prints the results out in a simple indented format. It's
-   main use is as a development tool, to check that files intended for
-   input to an &xml; application, for instance &festival;, parse as
-   you expect.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
-
 
 
 int main(int argc, char *argv[])

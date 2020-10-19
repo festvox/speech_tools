@@ -65,33 +65,7 @@ static void load_sentence(EST_Utterance &u, const EST_String &relname,
 static void load_sentence(EST_Utterance &u, const EST_String &relname,
 			  EST_String &relval);
 
-/** @name <command>align</command> <emphasis>align stream with reference stream</emphasis>
-    @id align-manual
-  * @toc
- */
 
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 int main(int argc, char **argv)
 {
 

@@ -50,43 +50,6 @@ using namespace std;
 
 void set_options(EST_Features &op, EST_Option &al);
 
-/** @name <command>spectgen</command> <emphasis>Make spectrograms</emphasis>
-  * @id spectgen-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-spectgen is used to create spectrograms, which are 3d plots of
-amplitude against time and frequency. Spectgen takes a waveform and
-produces a track, where each channel represents one frequency bin. 
-
-By default spectgen produces a "wide-band" spectrogram, that is one
-with high time resolution and low frequency resolution. "Narrow-band"
-spectrograms can be produced by using the -shift and -length options.
-
-Typical values for -shift and -length are:
-
-
-
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char *argv[])

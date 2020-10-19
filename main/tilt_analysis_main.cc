@@ -64,39 +64,10 @@ void option_override(EST_Features &op, EST_Option al,
 
 
 
-/** @name <command>tilt_analysis</command> <emphasis>Produce tilt descriptions from F0 contours</emphasis>
- * @id tilt_analysis-manual
- * @toc
- */
 
-//@{
 
 void extract_channels(EST_Wave &single, const EST_Wave &multi,  EST_IList &ch_list);
 
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-tilt_analysis produces a Tilt or RFC analysis of a F0 contour, given a set
-label file containing a set of approximate intonational event boundaries.
-
-A detailed description of the Tilt intonation model can be found in the
-<link linkend="tilt-overview">Tilt model overview</link> section.
-
-*/
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 
@@ -210,97 +181,6 @@ int main(int argc, char *argv[])
     ev.save(out_file);
 }
 
-/** @name Input Intonation Files
-
-A label file containing approximate intonational event boundaries must
-be given as input. A typical file in xlabel format is shown below:
-</para>
-<para>
-<screen>
-    0.290  146 sil
-    0.480  146 c
-    0.620  146 a
-    0.760  146 c
-    0.960  146 a
-    1.480  146 c
-    1.680  146 a
-    1.790  146 sil
-</screen>
-</para>
-<para>
-The set of intonational events can be given on the command line with
-the -event_names option. The default set is "a rb arb m mrb" and so
-the above example would not need the -event_names option. The label
-"c" (connection) is to separate events, in effect giving each event a
-start time as well as a end time. The silence labels are important
-also: they specify where phrases should start and end.
-*/
-
-//@{
-//@}
-
-/** @name Input F0  Files
-
-tilt_analysis can operate on all the F0 file types supported by the
-EST library. Tilt analysis can only operate on smooth and continuous
-F0 contours.(i.e. F0 values must be defined during unvoiced
-regons). If the input contour is not in this format, use the -smooth
-option. The -w1 and -w2 options can be used to control the amount of
-smoothing. The smoothed version of the input contour can be examined
-by saving it using the -sf0 option.
-
-*/
-
-//@{
-//@}
-
-/** @name Output Intonation Files
-
-The output will be a label file containing the tilt parameters for the
-events in feature format. An example, in xlabel format, is shown below:
-</para>
-<para>
-<screen>
-intonation_style tilt
-#
-0.29 26     phrase_start ; ev.f0 115.234 ; time 0.29 ; 
-0.53 26     a ; int_event 1 ; ev.f0 118.171 ; time 0.53 ; tilt.amp 21.8602 ; 
-              tilt.dur 0.26 ; tilt.tilt -0.163727 ; 
-0.77 26     a ; int_event 1 ; ev.f0 112.694 ; time 0.77 ; tilt.amp 27.0315 ; 
-              tilt.dur 0.32 ; tilt.tilt -0.446791 ; 
-1.53 26     a ; int_event 1 ; ev.f0 100.83 ; time 1.53 ; tilt.amp 7.507 ; 
-              tilt.dur 0.22 ; tilt.tilt -0.296317 ; 
-1.79 26     phrase_end ; ev.f0 92.9785 ; time 1.79 ; 
-</screen>
-</para>
-<para>
-The -rfc option will make a file containing the RFC parameters instead:
-</para>
-<para>
-<screen>
-intonation_style rfc
-#
-0.29 26     phrase_start ; ev.f0 115.234 ; time 0.29 ; 
-0.53 26     a ; ev.f0 118.171 ; rfc.rise_amp 8.19178 ; rfc.rise_dur 0.12 ; 
-               rfc.fall_amp -13.6684 ; rfc.fall_dur 0.14 ; time 0.53 ;
- 0.77 26     a ; ev.f0 112.694 ; rfc.rise_amp 6.50673 ; rfc.rise_dur 0.1 ;
-                rfc.fall_amp -20.5248 ; rfc.fall_dur 0.22 ; time 0.77 ; 
-1.53 26     a ; ev.f0 100.83 ; rfc.rise_amp 1.55832 ; rfc.rise_dur 0.11 ; 
-                rfc.fall_amp -6.09238 ; rfc.fall_dur 0.11 ; time 1.53 ; 
-1.79 26     phrase_end ; ev.f0 92.9785 ; time 1.79 ; 
-</screen>
-</para>
-<para>
-The feature in the header, "intonation_style tilt" or
-"intonation_style rfc" is needed for the tilt_synthesis program to
-work.
-
-*/
-
-//@{
-//@}
-
-//@}
 
 
 void override_rfc_params(EST_Features &rfc, EST_Option &al)

@@ -54,38 +54,6 @@ static EST_String outfile = "-";
 
 static int scfg_test_main(int argc, char **argv);
 
-/** @name <command>scfg_test</command> <emphasis>Test the output of a parser</emphasis>
-    @id scfg-make-manual
-  * @toc
- */
-
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
-This program applies a stochastic context free grammar to a given
-corpus and reports the parsing accuracy and cross bracketing
-accuracy of the grammar with respect to the grammar.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char **argv)

@@ -48,38 +48,11 @@
 int win_record_wave(EST_Wave &wave,  EST_Option &al);
 #endif
 
-/** @name <command>na_record</command> <emphasis>Audio file recording</emphasis>
-    @id na-record-manual
-  * @toc
- */
-
-//@{
 
 
-/**@name Synopsis
-  */
-//@{
 
-//@synopsis
 
-/**
 
-na_record records wavefors from an audio device.  It only supports
-recording for N seconds (default is 10).  Specifying the frequency
-defines the recording frequency (if supported by the hardware).  This
-currently doesn't support NAS audio in.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 using namespace std;
 

@@ -107,72 +107,6 @@ int take_logs = FALSE;
 int num_obs = 1;
 
 
-
-
-/** @name  <command>viterbi</command> <emphasis>Combine n-gram model and likelihoods to estimate posterior probabilities</emphasis>
-  * @id viterbi-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-viterbi is a simple time-synchronous Viterbi decoder. It finds the
-most likely sequence of items drawn from a fixed vocabulary, given
-frame-by-frame observation probabilities for each item in that
-vocabulary, and a ngram grammar. Possible uses include:
-
-<itemizedlist>
-<listitem><para>Simple speech recogniser back end</para></listitem>
-</itemizedlist>
-
-viterbi can optionally use two sets of frame-by-frame observation
-probabilities in a weighted-sum fashion. Also, the ngram language model
-is not restricted to the conventional sliding window type in which the
-previous n-1 items are the ngram context. Items in the ngram context
-at each frame may be given. In this case, the user must provide a file
-containing the ngram context: one (n-1) tuple per line. To include
-items from the partial Viterbi path so far (i.e. found at recognition
-time, not given) the special notation <-N> is used where N indicates
-the distance back to the item required. For example <-1> would
-indicate the item on the partial Viterbi path at the last frame. See
-\Ref{Examples}.
-
-<formalpara>
-<para><title>Pruning</title></para>
-
-<para>
-Three types of pruning are available to reduce the size of the search
-space and therefore speed up the search:
-
-<itemizedlist>
-<listitem><para>Observation pruning</para></listitem>
-<listitem><para>Top-N pruning at each frame</para></listitem>
-<listitem><para>Fixed width beam pruning</para></listitem>
-</itemizedlist>
-
-</para>
-</formalpara>
-
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-
-//@}
-
 int main(int argc, char **argv)
 {
     EST_StrList files;
@@ -837,26 +771,3 @@ static void top_n_candidates(EST_VTCandidate* &all_c)
 }
 
 
-/**@name Examples
-
-Example 'given' file (items f and g are in the vocabulary), the ngram
-is a 4-gram.
-
-<para>
-<screen>
-<-2> g g
-<-1> g f
-<-1> f g
-<-2> g g
-<-3> g g
-<-1> g f
-</screen>
-</para>
-
-*/
-//@{
-//@}
-
-
-
-//@}

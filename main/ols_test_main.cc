@@ -51,33 +51,6 @@ using namespace std;
 static int ols_test_main(int argc, char **argv);
 static void load_ols_data(EST_FMatrix &X, EST_FMatrix &Y, WDataSet &d);
 
-/** @name <command>ols_test</command> <emphasis>Test linear regression model</emphasis>
-    @id ols-test-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
-
 
 int main(int argc, char **argv)
 {

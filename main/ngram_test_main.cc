@@ -41,78 +41,9 @@
 
 using namespace std;
 
-/** @name <command>ngram_test</command> <emphasis> Test n-gram language model </emphasis>
-    @id ngram_test_manual
-  * @toc
- */
-
-//@{
 
 
-/**@name Synopsis
-  */
-//@{
 
-//@synopsis
-
-/**
-ngram_test is for testing ngram models generated from
-<link linkend=ngram-build-manual>ngram_build</link>.
-
-<formalpara> <para> <title> How do we test an ngram model ?  </title>
-</para>
-
-<para> ngram_test will compute the entropy (or perplexity, see below)
-of some test data, given an ngram model. The entropy gives a measure
-of how likely the ngram model is to have generated the test
-data. Entropy is defined (for a sliding-window type ngram) as:
-
-\[H = -\frac{1}{Q} \sum_{i=1}^{Q} log P(w_i | w_{i-1}, w_{i-2},... w_{i-N+1}) \]
-
-where \(Q\) is the number of words of test data and \(N\) is the order
-of the ngram model. Perplexity is a more intuitive mease, defined as:
-
-\[B = 2^H \]
-
-The perplexity of an ngram model with vocabulary size V will be
-between 1 and V. Low perplexity indicates a more predictable language,
-and in speech recognition, a models with low perplexity on test data
-(i.e. data NOT used to estimate the model in the first place)
-typically give better accuracy recognition than models with higher 
-perplexity (this is not guaranteed, however).
-
-test_ngram works with non-sliding-window type models when the input
-format is <parameter>ngram_per_line</parameter>.
-
-</para>
-</formalpara>
-
-<formalpara>
-<para><title>Input data format</title></para>
-<para> The data input format options are the same as
-<link linkend=ngram-build-manual>ngram_build</link>, as is the treatment of sentence start/end using
-special tags. 
-</para>
-<para>
-
-Note: To get meaningful entropy/perplexity figures, it is recommended that
-you use the same data input format in both
-<link linkend=ngram-build-manual>ngram_build</link> and <link linkend=ngram-test-manual>ngram_test</link>, and the treatment of
-sentence start/end should be the same.
-</para>
-</formalpara>
-
-
-@see ngram_build */
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char **argv)

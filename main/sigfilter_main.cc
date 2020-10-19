@@ -55,34 +55,6 @@ void inv_lpc_filter_ola(EST_Wave &in_sig, EST_Track &lpc, EST_Wave &out_sig);
 void FIR_double_filter(EST_Wave &in_sig, EST_Wave &out_sig, 
 		       const EST_FVector &numerator);
 
-/** @name <command>sigfilter</command> <emphasis>Filter waveforms</emphasis>
-  * @id sigfilter-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-<command>sigfilter</command> filters an input waveform and produces a 
-output waveform.
-
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-//@}
 
 int main (int argc, char *argv[])
 {

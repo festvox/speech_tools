@@ -50,40 +50,6 @@ using namespace std;
 static void siod_lisp_vars(void);
 static void siod_load_default_files(void);
 
-/** @name <command>siod</command> <emphasis>Scheme Interpreter</emphasis>
-    @id siod-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
- 
-   <command>siod</command> is a command line interface to the
-   <productname>Scheme In One Defun</productname> Scheme interpreter,
-   as modified by CSTR for use in &theEST;. It is essentially &festival;
-   without the speech synthesis code.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
-
-
 int main(int argc, char **argv)
 {
     EST_Option al;
