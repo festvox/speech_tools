@@ -81,11 +81,11 @@ public:
     bool init(const EST_StrList &vocab);
 
     /// The number of members in the discrete
-    const int length(void) const { return namevector.length(); }
+    int length(void) const { return namevector.length(); }
     /** The int assigned to the given name, if it doesn't exists p\_def\_val
         is returned (which is -1 by default)
     */
-    const int index(const EST_String &n) const { 
+    int index(const EST_String &n) const { 
 	int *i;
 	return (((i=(int*)nametrie.lookup(n)) != NULL) ? *i : p_def_val);
     };
@@ -119,7 +119,7 @@ class Discretes {
   public:
     Discretes() {max=50;next_free=0;discretes=new EST_Discrete*[max];}
     ~Discretes();
-    const int def(const EST_StrList &members);
+    int def(const EST_StrList &members);
     EST_Discrete &discrete(const int t) const {return *discretes[t-10];}
     EST_Discrete &operator [] (const int t) const {return *discretes[t-10];}
 };

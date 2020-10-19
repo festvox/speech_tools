@@ -155,7 +155,7 @@ static void init_paths_array(EST_VTPoint *n,int num_states)
 	n->st_paths[j] = 0;
 }
 
-const int EST_Viterbi_Decoder::betterthan(const float a,const float b) const
+int EST_Viterbi_Decoder::betterthan(const float a,const float b) const
 {
     // Some thing big is better, others want it to be as small as possible
     // this just tells you if a is better than b by checking the variable

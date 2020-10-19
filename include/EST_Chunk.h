@@ -219,7 +219,7 @@ class EST_ChunkPtr {
     });
 
 
-    const char operator [] (int i) const { return ptr->memory[i]; };
+    char operator [] (int i) const { return ptr->memory[i]; };
     char &operator () (int i) CII({ 
       if (ptr->count>1) 
 	{

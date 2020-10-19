@@ -157,7 +157,7 @@ Discretes::~Discretes()
     delete [] discretes;
 }
 
-const int Discretes::def(const EST_StrList &vocab)
+int Discretes::def(const EST_StrList &vocab)
 {
     //  Define discrete, increasing the size of the table if need be
     int i,pos;

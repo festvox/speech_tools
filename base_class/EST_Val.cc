@@ -101,7 +101,7 @@ EST_Val &EST_Val::operator=(const EST_Val &c)
     return *this;
 }
 
-const int EST_Val::to_int(void) const
+int EST_Val::to_int(void) const
 {
     // coerce this to an int
     if (t==val_float)
@@ -112,7 +112,7 @@ const int EST_Val::to_int(void) const
 	return v.ival;  // just for completeness
 }
 
-const float EST_Val::to_flt(void) const
+float EST_Val::to_flt(void) const
 {
     // coerce this to a float
     if (t==val_int)

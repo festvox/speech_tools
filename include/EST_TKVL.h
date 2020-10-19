@@ -96,7 +96,7 @@ template<class K, class V> class EST_TKVL {
     EST_TList< EST_TKVI<K,V> > list;	
 
     /// number of key value pairs in list
-    const int length() const {return list.length();} 
+    int length() const {return list.length();}
 
     /// Return First key value pair in list
     EST_Litem * head() const {return list.head();};
@@ -145,7 +145,7 @@ template<class K, class V> class EST_TKVL {
     ///@}
     
     /// Returns true if key is present.
-    const int present(const K &rkey) const;
+    int present(const K &rkey) const;
 
     /// apply function to each pair
     void map(void (*func)(K&, V&));

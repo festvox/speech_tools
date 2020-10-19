@@ -133,24 +133,24 @@ class EST_Features {
 
     /** Look up feature name, which may be simple feature or path, and return
 	as a float */
-    const float F(const EST_String &path) const
+    float F(const EST_String &path) const
        {return val_path(path).Float(); }
 
     /** Look up feature name, which may be simple feature or path, and
 	return as a float, returning `def` if not
 	found */
-    const float F(const EST_String &path, float def) const
+    float F(const EST_String &path, float def) const
        {return val_path(path, def).Float(); }
 
     /** Look up feature name, which may be simple feature or path, and return
 	as an int */
-    const int I(const EST_String &path) const
+    int I(const EST_String &path) const
        {return val_path(path).Int(); }
 
     /** Look up feature name, which may be simple feature or path, and
 	return as an int, returning `def` if not
 	found */
-    const int I(const EST_String &path, int def) const
+    int I(const EST_String &path, int def) const
        {return val_path(path, def).Int(); }
 
     /** Look up feature name, which may be simple feature or path, and return

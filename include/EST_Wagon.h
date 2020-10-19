@@ -134,13 +134,13 @@ class WQuestion {
     void set_no(const int &n) {no=n;}
     int get_yes(void) const {return yes;}
     int get_no(void) const {return no;}
-    const int get_fp(void) const {return feature_pos;}
-    const wn_oper get_op(void) const {return op;}
+    int get_fp(void) const {return feature_pos;}
+    wn_oper get_op(void) const {return op;}
     const EST_Val get_operand1(void) const {return operand1;}
     const EST_IList &get_operandl(void) const {return operandl;}
-    const float get_score(void) const {return score;}
+    float get_score(void) const {return score;}
     void set_score(const float &f) {score=f;}
-    const int ask(const WVector &w) const;
+    int ask(const WVector &w) const;
     friend ostream& operator<<(ostream& s, const WQuestion &q);
 };
 

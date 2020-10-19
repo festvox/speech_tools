@@ -82,8 +82,8 @@ class EST_Val {
       EST_Contents *pval;} v;
     // * may have a string name as well as a value
     EST_String sval;
-    const int to_int() const;
-    const float to_flt() const;
+    int to_int() const;
+    float to_flt() const;
     const EST_String &to_str() const;
   public:
     /**@name Constructor and Destructor functions
@@ -129,23 +129,23 @@ class EST_Val {
     ///@{
 
     /** returns the type that the val is currently holding */
-    const val_type type(void) const 
+    val_type type(void) const 
 	{return t;}
     
     /** returns the value, cast as an int */
-    const int Int(void) const 
+    int Int(void) const 
 	{if (t==val_int) return v.ival; return to_int();}
 
     /** returns the value, cast as an int */
-    const int I(void) const 
+    int I(void) const 
 	{ return Int(); }
 
     /** returns the value, cast as a float */
-    const float Float(void) const 
+    float Float(void) const 
 	{if (t==val_float) return v.fval; return to_flt();}
 
     /** returns the value, cast as a float */
-    const float F(void) const 
+    float F(void) const 
 	{ return Float(); }
 
     /** returns the value, cast as a string */

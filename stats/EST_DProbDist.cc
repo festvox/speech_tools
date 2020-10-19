@@ -55,7 +55,7 @@ using namespace std;
 /* On 64bit architectures this is a issue so we need have some macros    */
 /* to help us here.                                                      */
 
-const int est_64to32(void *c)
+int est_64to32(void *c)
 {   /* this returns the bottom end of the pointer as an unsigned int */
     /* I believe this is a safe way to do it, we check the bits in the */
     /* 64 bit int and multiply them out in the 32 bit one              */

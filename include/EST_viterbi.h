@@ -157,7 +157,7 @@ class EST_Viterbi_Decoder {
     void vit_add_path(EST_VTPoint *p, EST_VTPath *np);
     void vit_add_paths(EST_VTPoint *p, EST_VTPath *np);
     EST_VTPath *find_best_end() const;
-    const int betterthan(const float a,const float b) const;
+    int betterthan(const float a,const float b) const;
     void prune_initialize(EST_VTPoint *p,
 			  double &best_score, double &best_candidate_score,
 			  double &score_cutoff, double &candidate_cutoff,

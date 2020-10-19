@@ -344,7 +344,7 @@ bool EST_BackoffNgrammarState::ngram_exists(const EST_StrVector &words,
       return false;
 }
 
-const EST_BackoffNgrammarState *const
+const EST_BackoffNgrammarState *
 EST_BackoffNgrammarState::get_state(const EST_StrVector &words) const
 {
     EST_BackoffNgrammarState *s;
@@ -393,7 +393,7 @@ void EST_BackoffNgrammarState::zap()
 }
 
 
-const double EST_BackoffNgrammarState::get_backoff_weight(const EST_StrVector &words) const
+double EST_BackoffNgrammarState::get_backoff_weight(const EST_StrVector &words) const
 {
     EST_BackoffNgrammarState *s;
     if (words.n()-1-p_level >= 0)
@@ -987,7 +987,7 @@ bool EST_Ngrammar::ngram_exists(const EST_StrVector &words, const double thresho
 }
 
 
-const double EST_Ngrammar::get_backoff_weight(const EST_StrVector &words) const
+double EST_Ngrammar::get_backoff_weight(const EST_StrVector &words) const
 {
     if(p_representation == EST_Ngrammar::backoff)
 	return backoff_representation->get_backoff_weight(words);
@@ -2384,7 +2384,7 @@ EST_Ngrammar::backoff_prob_dist(const EST_StrVector &words) const
     return *p;
 }
 
-const double EST_Ngrammar::get_backoff_discount(const int order, const double freq) const
+double EST_Ngrammar::get_backoff_discount(const int order, const double freq) const
 {
     if(order > p_order)
     {
@@ -2399,7 +2399,7 @@ const double EST_Ngrammar::get_backoff_discount(const int order, const double fr
 	return 0;
 }
 
-const double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
+double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
 					       const bool trace) const
 {
     const EST_BackoffNgrammarState *state;
@@ -2515,7 +2515,7 @@ const double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
 }
 
 
-const double 
+double 
 EST_Ngrammar::backoff_reverse_probability_sub(const EST_StrVector &words,
 					      const EST_BackoffNgrammarState *root) const
 {
@@ -2582,7 +2582,7 @@ EST_Ngrammar::backoff_reverse_probability_sub(const EST_StrVector &words,
     }
 }
 
-const double 
+double 
 EST_Ngrammar::backoff_reverse_probability(const EST_StrVector &words) const
 {
     

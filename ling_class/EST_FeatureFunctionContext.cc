@@ -144,7 +144,7 @@ bool EST_FeatureFunctionContext::package_included(const EST_String name) const
   return get_package(name) != NULL;
 }
 
-const EST_Item_featfunc EST_FeatureFunctionContext::get_featfunc(const EST_String name, 
+EST_Item_featfunc EST_FeatureFunctionContext::get_featfunc(const EST_String name, 
 							   int must)
 {
   int pos, len;
@@ -189,7 +189,7 @@ const EST_Item_featfunc EST_FeatureFunctionContext::get_featfunc(const EST_Strin
   return NULL;
 }
 
-const EST_Item_featfunc EST_FeatureFunctionContext::get_featfunc(const EST_String pname,
+EST_Item_featfunc EST_FeatureFunctionContext::get_featfunc(const EST_String pname,
 							   const EST_String name, 
 							   int must)
 {

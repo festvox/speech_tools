@@ -50,7 +50,7 @@
 
 typedef EST_Val (*EST_Item_featfunc)(EST_Item *s);
 extern val_type val_type_featfunc;
-const EST_Item_featfunc featfunc(const EST_Val &v);
+EST_Item_featfunc featfunc(const EST_Val &v);
 EST_Val est_val(const EST_Item_featfunc f);
 
 class EST_Relation;
@@ -132,11 +132,11 @@ protected:
     ///@{
     /** return the value of the feature `name` 
 	cast as a float */
-    const float F(const EST_String &name) const {return f(name).Float();}
+    float F(const EST_String &name) const {return f(name).Float();}
 
     /** return the value of the feature `name` cast 
 	as a float, returning `def` if not found.*/
-    const float F(const EST_String &name,float def) const 
+    float F(const EST_String &name,float def) const 
 	{return f(name,def).Float();}
 
     /** return the value of the feature `name` 
@@ -152,11 +152,11 @@ protected:
 
     /** return the value of the feature `name` 
 	cast as a int */
-    const int I(const EST_String &name) const {return f(name).Int();}
+    int I(const EST_String &name) const {return f(name).Int();}
 
     /** return the value of the feature `name` cast as a int 
 	returning `def` if not found.*/
-    const int I(const EST_String &name, int def) const
+    int I(const EST_String &name, int def) const
        {return f(name, def).Int();}
 
     /** return the value of the feature `name` 
@@ -422,7 +422,7 @@ void evaluate(EST_Item *a,EST_Features &f);
 void EST_register_feature_function_package(const char *name, void (*init_fn)(EST_FeatureFunctionPackage &p));
 
 void register_featfunc(const EST_String &name, const EST_Item_featfunc func);
-const EST_Item_featfunc get_featfunc(const EST_String &name,int must=0);
+EST_Item_featfunc get_featfunc(const EST_String &name,int must=0);
 EST_String get_featname(const EST_Item_featfunc func);
 
 #define	EST_register_feature_functions(PACKAGE) \
