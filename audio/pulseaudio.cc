@@ -51,6 +51,7 @@ int pulse_supported = TRUE;
 
 int play_pulse_wave(EST_Wave &inwave, EST_Option &al)
 {
+    (void) al;
     pa_sample_spec *ss;
     pa_simple *s;
     short *waveform;
@@ -96,6 +97,8 @@ int play_pulse_wave(EST_Wave &inwave, EST_Option &al)
 
 int record_pulse_wave(EST_Wave &inwave, EST_Option &al)
 {
+    (void) inwave;
+    (void) al;
     return -1;
 }
 
