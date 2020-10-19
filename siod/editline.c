@@ -1392,8 +1392,7 @@ char *readline(CONST char *prompt)
 }
 
 void
-add_history(p)
-    char	*p;
+add_history(char *p)
 {
     if (p == NULL || *p == '\0')
 	return;

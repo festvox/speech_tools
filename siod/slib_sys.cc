@@ -12,7 +12,7 @@
 #include "siod.h"
 #include "siodp.h"
 
-#ifdef unix
+#ifdef __unix__
 #include <sys/time.h>
 #include <unistd.h>
 static long siod_time_base;
@@ -96,7 +96,7 @@ LISP siod_time()
 void init_subrs_sys(void)
 {
 
-#ifdef unix
+#ifdef __unix__
     struct timeval tv;
     struct timezone tz;
 

@@ -83,13 +83,7 @@ struct gc_protected
 void NNEWCELL (LISP *_into,long _type);
 #endif
 
-#ifdef THINK_C
-extern int ipoll_counter;
-void full_interrupt_poll(int *counter);
-#define INTERRUPT_CHECK() if (--ipoll_counter < 0) full_interrupt_poll(&ipoll_counter)
-#else
 #define INTERRUPT_CHECK()
-#endif
 
 extern char *stack_limit_ptr;
 
