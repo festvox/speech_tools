@@ -65,14 +65,6 @@ using namespace std;
 */
 #include <windows.h>
 
-/* This is no longer required
-extern "C" {
-WINBOOL STDCALL PlaySoundA(LPCSTR  pszSound, HMODULE hmod, DWORD fdwSound);
-};
-
-#define PlaySound PlaySoundA
-*/
-
 #endif 
 
 int win32audio_supported = TRUE;
