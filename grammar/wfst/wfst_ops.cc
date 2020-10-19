@@ -88,7 +88,7 @@ Declare_TList_T(EST_WFST_MultiState *,EST_WFST_MultiStateP)
 	template class EST_TItem< TLIST_KVI_int_EST_IList_t_VAL >; 
 	template const char *error_name(EST_TList< KVI_int_EST_IList_t > val); 
 
-        Instantiate_TIterator_T( EST_TList<KVI_int_EST_IList_t>, EST_TList<KVI_int_EST_IList_t>::IPointer, KVI_int_EST_IList_t, TList_KVI_int_EST_IList_t_itt);
+        Instantiate_TIterator_T( EST_TList<KVI_int_EST_IList_t>, EST_TList<KVI_int_EST_IList_t>::IPointer, KVI_int_EST_IList_t, TList_KVI_int_EST_IList_t_itt)
 
 
 #endif

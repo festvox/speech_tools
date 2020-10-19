@@ -430,7 +430,7 @@ EST_read_status EST_UtteranceFile::load_apml(EST_TokenStream &ts,
   if ((stream=ts.filedescriptor())==NULL)
     return read_error;
 
-  long pos=ftell(stream);
+  long int pos=ftell(stream);
 
   {
   char buf[80];
@@ -448,7 +448,10 @@ EST_read_status EST_UtteranceFile::load_apml(EST_TokenStream &ts,
     return read_format_error;
   }
 
-  fseek(stream, pos, 0);
+  if (fseek(stream, pos, 0) != 0) {
+      cerr << "Error reading DOCTYPE apml header" << endl;
+	  return read_error;
+  }
 
   EST_read_status stat = apml_read(stream, ts.filename(),u, max_id);
 
@@ -470,7 +473,7 @@ EST_read_status EST_UtteranceFile::load_genxml(EST_TokenStream &ts,
   if ((stream=ts.filedescriptor())==NULL)
     return read_error;
 
-  long pos=ftell(stream);
+  long int pos=ftell(stream);
 
   {
   char buf[80];

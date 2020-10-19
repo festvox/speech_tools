@@ -93,7 +93,7 @@ class EST_bracketed_string {
        { return ((this == &a)); }
     ///
     friend ostream& operator << (ostream &s, const EST_bracketed_string &a)
-       { (void)a; s << "[a bracketed string]" << endl; return s; }
+       { (void)a; s << "[a bracketed string]" << std::endl; return s; }
 
 };
 

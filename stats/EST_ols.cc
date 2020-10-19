@@ -297,7 +297,10 @@ int ols_test(const EST_FMatrix &real,
     double v1,v2,v3;
 
     if (real.num_rows() != predicted.num_rows())
+    {
+        correlation = 0;
 	return FALSE;  // can't do this
+    }
 
     for (i=0; i < real.num_rows(); i++)
     {

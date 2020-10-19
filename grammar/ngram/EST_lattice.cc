@@ -1651,7 +1651,7 @@ Lattice::accepts(EST_TList<symbol_t*> &string)
 
 
 float
-Lattice::viterbi_transduce(EST_TList<EST_String> &input,
+Lattice::viterbi_transduce(EST_StrList &input,
 			   EST_TList<Arc*> &path,
 			   EST_Litem *current_symbol,
 			   Node *start_node)

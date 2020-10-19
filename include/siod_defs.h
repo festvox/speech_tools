@@ -17,6 +17,8 @@
 #ifndef __EST_SIOD_DEFS_H__
 #define __EST_SIOD_DEFS_H__
 
+#include "EST_Val.h"
+
 /* This states the default heap size is effective unset */
 /* The size if no heap is specified by a command argument, the */
 /* value of the environment variable SIODHEAPSIZE will be used */

@@ -95,7 +95,10 @@ EST_read_status read_est_header(EST_TokenStream &ts, EST_Features &hinfo,
     if ((ts.fread(magic_number,sizeof(char),8) != 8) ||
 	(strncmp(magic_number,"EST_File",8) != 0))
     {
-	ts.seek(pos);
+	if (ts.seek(pos) != 0) {
+		cerr << "Data seek error: Could not set TokenStream to the original position" << endl;
+		return wrong_format;
+	}
 	return wrong_format;
     }
 
@@ -151,7 +154,10 @@ EST_read_status read_est_header(EST_TokenStream &ts, EST_Option &hinfo,
     if ((ts.fread(magic_number,sizeof(char),8) != 8) ||
 	(strncmp(magic_number,"EST_File",8) != 0))
     {
-	ts.seek(pos);
+		if (ts.seek(pos) != 0) {
+			cerr << "Data seek error: Could not set the TokenStream to the original position" << endl;
+			return wrong_format;
+		}
 	return wrong_format;
     }
 

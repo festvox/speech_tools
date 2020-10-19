@@ -115,7 +115,12 @@ int socket_send_file(SOCKET_FD fd,const EST_String &filename)
     // This guarantees the binary transfer without any other
     // signals eof etc
 #ifndef WIN32
-    FILE *ffd = fdopen(dup(fd),"wb");   // use some buffering
+    SOCKET_FD dupfd = dup(fd);
+    if (dupfd < 0) {
+		cerr << "Error opening file" << endl;
+		return -1;
+	}
+    FILE *ffd = fdopen(dupfd,"wb");   // use some buffering
 #endif
     FILE *infd;
     int k,c;
@@ -124,6 +129,10 @@ int socket_send_file(SOCKET_FD fd,const EST_String &filename)
     {
 	cerr << "socket_send_file: can't find file \"" <<
 	    filename << "\"\n";
+#ifndef WIN32
+	fflush(ffd);
+	fclose(ffd);
+#endif
 	return -1;
     }
 

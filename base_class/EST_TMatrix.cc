@@ -546,8 +546,8 @@ void EST_TMatrix<T>::row(EST_TVector<T> &rv, int r, int start_c, int len)
   rv.p_num_columns = len;
   rv.p_offset = this->p_offset + start_c*this->p_column_step + r*p_row_step;
   rv.p_memory = this->p_memory - this->p_offset + rv.p_offset;
-//  cout << "mrow: mem: " << rv.p_memory << " (" << (int)rv.p_memory << ")\n";
-//  cout << "mrow: ofset: " << rv.p_offset << " (" << (int)rv.p_offset << ")\n";
+//  std::cout << "mrow: mem: " << rv.p_memory << " (" << (int)rv.p_memory << ")\n";
+//  std::cout << "mrow: ofset: " << rv.p_offset << " (" << (int)rv.p_offset << ")\n";
 
   rv.p_column_step=this->p_column_step;
 }
@@ -568,8 +568,8 @@ void EST_TMatrix<T>::column(EST_TVector<T> &cv, int c, int start_r, int len)
   cv.p_num_columns = len;
   cv.p_offset = this->p_offset + c*this->p_column_step + start_r*p_row_step;
   cv.p_memory = this->p_memory - this->p_offset + cv.p_offset;
-//  cout << "mcol: mem: " << cv.p_memory << " (" << (int)cv.p_memory << ")\n";
-//  cout << "mcol: offset: " << cv.p_offset << " (" << (int)cv.p_offset << ")\n";
+//  std::cout << "mcol: mem: " << cv.p_memory << " (" << (int)cv.p_memory << ")\n";
+//  std::cout << "mcol: offset: " << cv.p_offset << " (" << (int)cv.p_offset << ")\n";
 
   cv.p_column_step=p_row_step;
 }

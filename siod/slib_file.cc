@@ -227,6 +227,7 @@ static LISP fd_to_scheme_file(int fd,
   sym->storage_as.c_file.f = (FILE *)NULL;
   sym->storage_as.c_file.name = (char *)NULL;
 
+  if (name == NULL) name = "";
   if (fd != fileno(stderr))
       open_files = cons(sym,open_files);
   sym->storage_as.c_file.name = (char *) must_malloc(strlen(name)+1);

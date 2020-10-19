@@ -40,6 +40,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <stddef.h>
 #include <sys/types.h>
 #include "EST_unix.h"
 #include <string.h>

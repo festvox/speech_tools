@@ -620,7 +620,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 #endif
 
     }
-  else
+  else {}
     ; // Skip
 
 }

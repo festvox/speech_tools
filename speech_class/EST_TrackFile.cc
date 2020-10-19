@@ -36,11 +36,11 @@
 /*                   File I/O functions for EST_Track class              */
 /*                                                                       */
 /*=======================================================================*/
-#include <fstream>
-#include <iostream>
 #include <cstdlib>
 #include <cmath>
-#include <time.h>
+#include <ctime>
+#include <fstream>
+#include <iostream>
 #include "EST_unix.h"
 #include "EST_types.h"
 #include "EST_Track.h"

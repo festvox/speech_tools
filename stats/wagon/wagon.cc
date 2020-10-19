@@ -651,6 +651,7 @@ static float test_tree_float(WNode &tree,WDataSet &dataset,ostream *output)
 
 static float test_tree_ols(WNode &tree,WDataSet &dataset,ostream *output)
 {
+    (void) tree;
     // Test tree against data to get summary of results OLS
     EST_Litem *p;
     //    WNode *leaf;

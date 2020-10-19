@@ -38,6 +38,7 @@
  /*                                                                      */
  /************************************************************************/
 
+#include "EST_TVector.h"
 #include "EST_TMatrix.h"
 #include "EST_TSimpleMatrix.h"
 
@@ -70,10 +71,10 @@ EST_write_status save(const EST_String &filename, const EST_TMatrix<float> &a)
 	{
 	    *outf << a(i,j) << "\t";
 	}
-	*outf << endl;
+	*outf << std::endl;
     }
     
-    if (outf != &cout)
+    if (outf != &std::cout)
 	delete outf;
     return write_ok;
 }

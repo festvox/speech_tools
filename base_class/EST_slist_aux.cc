@@ -104,7 +104,6 @@ void StringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep)
 
     ts.open_string(s);
 
-    (void)sep;
     if (sep != "")  // default is standard white space
 	ts.set_WhiteSpaceChars(sep);
     ts.set_SingleCharSymbols(";");

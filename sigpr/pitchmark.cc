@@ -41,7 +41,7 @@
 written in matlab.
 */
 
-#include "stdlib.h"
+#include "cstdlib"
 #include "sigpr/EST_filter.h"
 #include "sigpr/EST_pitchmark.h"
 #include "ling_class/EST_Relation.h"

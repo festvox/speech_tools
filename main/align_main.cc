@@ -152,8 +152,12 @@ static void nisttool_align(EST_Option &al)
     int total,ins,del,sub,correct;
     int s_total,s_ins,s_del,s_sub,s_correct;
 
-    rts.open(reffile);
-    hts.open(hypofile);
+    if (rts.open(reffile) != 0) {
+        exit(-1);
+    }
+    if (hts.open(hypofile) != 0) {
+        exit(-1);
+    }
     s_total=s_ins=s_del=s_sub=s_correct=0;
 
     while (!rts.eof())

@@ -139,6 +139,7 @@ LISP equal(LISP a,LISP b)
  loop:
  INTERRUPT_CHECK();
  if EQ(a,b) return(truth);
+ if (a==NULL || b == NULL) return(NIL);
  atype = TYPE(a);
  if (atype != TYPE(b)) return(NIL);
  switch(atype)
@@ -162,7 +163,7 @@ LISP equal(LISP a,LISP b)
       return(NIL);
     default:
       p = get_user_type_hooks(atype);
-      if (p->equal)
+      if (p && p->equal)
 	return((*p->equal)(a,b));
       else if (p)  /* a user type */
 	  return ((USERVAL(a) == USERVAL(b)) ? truth : NIL);

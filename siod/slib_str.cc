@@ -43,8 +43,12 @@ LISP cstrcons(const char *data)
  flag = no_interrupt(1);
  s = cons(NIL,NIL);
  s->type = tc_string;
- s->storage_as.string.data = (char *)(void *)data;
+ s->storage_as.string.data = const_cast<char*>(data);
+ if (data == 0) {
+      s->storage_as.string.dim = 0;
+ } else {
  s->storage_as.string.dim = strlen(data);
+ }
  no_interrupt(flag);
  return(s);}
 

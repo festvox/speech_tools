@@ -66,6 +66,8 @@ void array_smoother (float *p_array, int arraylen, struct Ms_Op *ms)
     float medbuf1[MAX_LEN], medbuf2[MAX_LEN];
     float hanbuf1[MAX_LEN], hanbuf2[MAX_LEN], win_coeffs[MAX_LEN];
     float medval1, medval2, hanval1, hanval2, zatn;
+    bool newms = false; /* if ms has to be deleted, then true */
+
 
     inarray = new float[arraylen];
     for (i = 0; i < arraylen; ++i)
@@ -75,6 +77,7 @@ void array_smoother (float *p_array, int arraylen, struct Ms_Op *ms)
     { 
 	ms = new Ms_Op;
 	default_ms_op(ms);
+	newms = true;
     }
 
     mk_window_coeffs (ms->window_length, win_coeffs);
@@ -192,7 +195,8 @@ void array_smoother (float *p_array, int arraylen, struct Ms_Op *ms)
 	for (i = 0; i < delay / 2; i++)
 	    p_array[out++] = ms->breaker;
 
-    delete inarray;
+    if (newms) delete ms;
+    delete[] inarray;
 }
 
 float median (int *counter, float valin, float valbuf[], int lmed, int mmed)

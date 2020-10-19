@@ -39,6 +39,7 @@
 /*                                                                       */
 /*=======================================================================*/
 #include <cstdlib>
+#include <iostream>
 #include "EST_unix.h"
 #include "EST_String.h"
 #include "EST_io_aux.h"

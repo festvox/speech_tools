@@ -91,9 +91,9 @@ class EST_String {
 #define __GRIPE_FATAL__ (1)
 
 #if __GRIPE_FATAL__
-#    define gripe(WHAT) (cerr<< ("oops! " WHAT "\n"),abort())
+#    define gripe(WHAT) (std::cerr<< ("oops! " WHAT "\n"),abort())
 #else
-#    define gripe(WHAT) (cerr<< ("oops! " WHAT "\n"))
+#    define gripe(WHAT) (std::cerr<< ("oops! " WHAT "\n"))
 #endif
 
 #if __STRING_ARG_GRIPE__

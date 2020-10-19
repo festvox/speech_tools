@@ -1206,7 +1206,7 @@ int operator == (const EST_String &a, const EST_String &b)
 	return 0;
     else 
 	return a.size == b.size && a(0) == b(0) && memcmp(a.str(),b.str(),a.size)==0;
-};
+}
 
 EST_String EST_String::Number(int i, int b)
 {

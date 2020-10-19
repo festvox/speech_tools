@@ -666,6 +666,7 @@ EST_read_status EST_FVector::est_load(const EST_String &filename)
         {
 	    cerr << "EST_FVector: binload: short file in \""  
 		 << filename << "\"" << endl;
+	    wfree(buff);
 	    return misc_read_error;
         }
 	if (swap)
