@@ -1344,6 +1344,7 @@ void read_history(const char *history_file)
 void
 rl_reset_terminal(char *p)
 {
+ (void)p;
 }
 
 void

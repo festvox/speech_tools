@@ -1654,7 +1654,7 @@ static LISP lreadr(struct gen_readio *f)
        repl_prompt = last_prompt;
        return rval;
     case ')':
-      err("unexpected close paren",NIL);
+      return(err("unexpected close paren",NIL));
     case '\'':
       return(cons(sym_quote,cons(lreadr(f),NIL)));
     case '`':

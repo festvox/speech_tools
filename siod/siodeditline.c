@@ -259,6 +259,7 @@ static char **command_completion (char *text,int start,int end)
 
 static int possible_commandp(char *text, int start, int end)
 {
+    (void) end;
     /* If non-white space previous to this is a left paren */
     /* signal we are looking for a function name           */
     int t;
@@ -276,6 +277,7 @@ static int possible_commandp(char *text, int start, int end)
 
 static int possible_variablep(char *text, int start, int end)
 {
+    (void) end;
     /* Almost negative of above but if previous symbol is a quote */
     /* let the file completion stuff do it                        */
     int t;

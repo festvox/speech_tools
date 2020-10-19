@@ -486,7 +486,7 @@ static LISP fast_read(LISP table)
           return(rintern(tkbuffer));
       }
       else
-	err("failed to write array",NIL);
+	return(err("failed to write array",NIL));
     default:
       p = get_user_type_hooks(c);
       if (p->fast_read)
