@@ -886,14 +886,14 @@ int play_linux_wave(EST_Wave &inwave, EST_Option &al)
 {
     (void)inwave;
     (void)al;
-    cerr << "MacOS X audio support not compiled." << endl;
+    cerr << "ALSA audio support not compiled." << endl;
     return -1;
 }
 int record_linux_wave(EST_Wave &inwave, EST_Option &al)
 {
     (void)inwave;
     (void)al;
-    cerr << "MacOS X audio support not compiled." << endl;
+    cerr << "ALSA audio support not compiled." << endl;
     return -1;
 }
 
