@@ -1527,8 +1527,10 @@ void set_type_hooks(long type,
  p->equal = equal;
 }
 
-int f_getc(FILE *f)
-{long iflag;
+int f_getc(void *arg)
+{
+ FILE *f = (FILE *) arg;
+ long iflag;
  int c;
  iflag = no_interrupt(1);
  c = getc(f);
@@ -1540,8 +1542,11 @@ int f_getc(FILE *f)
  no_interrupt(iflag);
  return(c);}
 
-void f_ungetc(int c, FILE *f)
-{ungetc(c,f);}
+void f_ungetc(int c, void *arg)
+{
+  FILE *f = (FILE *) arg;
+  ungetc(c,f);
+}
 
 #ifdef WIN32
 int winsock_unget_buffer;
@@ -1596,15 +1601,15 @@ LISP lreadf(FILE *f)
 {struct gen_readio s;
  if ((f == stdin) && (isatty(0)) && (siod_interactive))
  {   /* readline (if selected) stuff -- only works with a terminal */
-     s.getc_fcn = (int (*)(char *))siod_fancy_getc;
-     s.ungetc_fcn = (void (*)(int, char *))siod_fancy_ungetc;
-     s.cb_argument = (char *) f;
+     s.getc_fcn = siod_fancy_getc;
+     s.ungetc_fcn = siod_fancy_ungetc;
+     s.cb_argument = f;
  }
  else  /* normal stuff */
  {
-     s.getc_fcn = (int (*)(char *))f_getc;
-     s.ungetc_fcn = (void (*)(int, char *))f_ungetc;
-     s.cb_argument = (char *) f;
+     s.getc_fcn = f_getc;
+     s.ungetc_fcn = f_ungetc;
+     s.cb_argument = f;
  }
  return(readtl(&s));}
 
@@ -1614,13 +1619,13 @@ LISP lreadwinsock(void)
 	struct gen_readio s;
 	s.getc_fcn = (int (*)(char *))f_getc_winsock;
 	s.ungetc_fcn = (void (*)(int, char *))f_ungetc_winsock;
-	s.cb_argument = (char *) siod_server_socket;
+	s.cb_argument = siod_server_socket;
 	return(readtl(&s));}
 #endif
 
 LISP readtl(struct gen_readio *f)
 {int c;
- c = flush_ws(f,(char *)NULL);
+ c = flush_ws(f,NULL);
  if (c == EOF) return(eof_val);
  UNGETC_FCN(c,f);
  return(lreadr(f));}

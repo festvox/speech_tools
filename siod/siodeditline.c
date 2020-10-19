@@ -63,8 +63,9 @@ extern char *repl_prompt;
 int el_no_echo;
 int editline_histsize;
 
-int siod_el_getc(FILE *f)
+int siod_el_getc(void *f)
 {
+    (void) f;
     int c;
 
     if (el_pos == -1)
@@ -82,8 +83,9 @@ int siod_el_getc(FILE *f)
     return c;
 }
 
-void siod_el_ungetc(int c, FILE *f)
+void siod_el_ungetc(int c, void *arg)
 {
+    FILE *f = (FILE *) arg;
     ungetc(c,f);
 }
 
@@ -179,8 +181,9 @@ void siod_el_init(void)
     el_bind_key_in_metamap('m',siod_manual);
 }
 
-int siod_el_getc(FILE *f)
+int siod_el_getc(void *f)
 {
+    (void) f;
     int c;
 
     if (el_pos == -1)
@@ -209,8 +212,10 @@ int siod_el_getc(FILE *f)
     return c;
 }
 
-void siod_el_ungetc(int c, FILE *f)
+void siod_el_ungetc(int c, void *f)
 {
+    (void) f;
+    (void) c;
     if (el_pos > 0)
 	el_pos--;
     else

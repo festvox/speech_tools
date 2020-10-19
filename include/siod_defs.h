@@ -181,9 +181,9 @@ typedef LISP (*SUBR_FUNC)(void);
 #define MKPTR(x) (siod_make_ptr((void *)x))
 
 struct gen_readio
-{int (*getc_fcn)(char *);
- void (*ungetc_fcn)(int, char *);
- char *cb_argument;};
+{int (*getc_fcn)(void *);
+ void (*ungetc_fcn)(int, void *);
+ void *cb_argument;};
 
 #define GETC_FCN(x) (*((*x).getc_fcn))((*x).cb_argument)
 #define UNGETC_FCN(c,x) (*((*x).ungetc_fcn))(c,(*x).cb_argument)

@@ -46,8 +46,9 @@ extern "C"
 {
 #endif
 
-int siod_el_getc(FILE *f);
-void siod_el_ungetc(int c, FILE *f);
+#include <stdio.h>
+int siod_el_getc(void *f);
+void siod_el_ungetc(int c, void *f);
 void siod_el_init(void);
 char **siod_variable_generator(char *text,int length);
 char **siod_command_generator(char *text,int length);

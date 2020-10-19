@@ -48,15 +48,18 @@ LISP cstrcons(const char *data)
  no_interrupt(flag);
  return(s);}
 
-static int rfs_getc(unsigned char **p)
-{int i;
+static int rfs_getc(void *arg)
+{
+ unsigned char **p = (unsigned char **) arg;
+ int i;
  i = **p;
  if (!i) return(EOF);
  *p = *p + 1;
  return(i);}
 
-static void rfs_ungetc(unsigned char c,unsigned char **p)
+static void rfs_ungetc(int c, void *arg)
 {(void)c;
+ unsigned char **p = (unsigned char **) arg;
  *p = *p - 1;}
 
 LISP read_from_lstring(LISP x)
@@ -68,9 +71,9 @@ LISP read_from_string(const char *string)
  struct gen_readio s;
  q = wstrdup(string);
  p = q;
- s.getc_fcn = (int (*)(char *))rfs_getc;
- s.ungetc_fcn = (void (*)(int, char *))rfs_ungetc;
- s.cb_argument = (char *) &p;
+ s.getc_fcn = rfs_getc;
+ s.ungetc_fcn = rfs_ungetc;
+ s.cb_argument = &p;
  r = readtl(&s);
  wfree(q);
  return r;

@@ -12,9 +12,10 @@ Declarations which are private to SLIB.C internals.
 #define __SIODP_H__
 
 #include "io.h"
+#include "siod.h"
 
-typedef int (*repl_getc_fn)(FILE *);
-typedef void (*repl_ungetc_fn)(int,FILE *);
+typedef int (*repl_getc_fn)(void *);
+typedef void (*repl_ungetc_fn)(int,void *);
 
 /* Will get to editline functions if supported */
 extern repl_getc_fn siod_fancy_getc;
@@ -128,8 +129,8 @@ void gc_mark(LISP ptr);
 LISP newcell(long type);
 
 void put_st(const char *st);
-int f_getc(FILE *f);
-void f_ungetc(int c, FILE *f);
+int f_getc(void *f);
+void f_ungetc(int c, void *f);
 long no_interrupt(long n);
 LISP readtl(struct gen_readio *f);
 long repl_driver(long want_sigint,long want_init,struct repl_hooks *);
