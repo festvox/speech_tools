@@ -113,11 +113,11 @@ EST_Pathname EST_Pathname::construct(EST_Pathname dir,
   return EST_Pathname::construct(dir, filename);
 }
 
-EST_TList<EST_String> EST_Pathname::entries(int check_for_directories) const
+EST_StrList EST_Pathname::entries(int check_for_directories) const
 {
   WIN32_FIND_DATA find_data;
   HANDLE handle;
-  EST_TList<EST_String> list;
+  EST_StrList list;
   EST_Pathname pattern(this->as_directory() + EST_Pathname("*"));
 
   handle = FindFirstFile(pattern, &find_data);

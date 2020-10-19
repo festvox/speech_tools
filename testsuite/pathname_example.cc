@@ -86,7 +86,7 @@ int main(void)
   EST_Pathname data(DATA);
 
   // getting the contents of a directory...
-  EST_TList<EST_String> contents(data.entries());
+  EST_StrList contents(data.entries());
 
   sort(contents);
 

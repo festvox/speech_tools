@@ -35,6 +35,7 @@
 #define __EST_PATHNAME_H__
 
 #include "EST_String.h"
+#include "EST_types.h"
 #include "EST_TList.h"
 
 /** Class representing pathnames. Makes common filename manipulations 
@@ -69,7 +70,7 @@ public:
   int is_dirname(void) const;
   inline int is_filename(void) const {return !is_dirname(); };
 
-  EST_TList<EST_String> entries(int check_for_directories = 1) const;
+  EST_StrList entries(int check_for_directories = 1) const;
 
   static EST_Pathname append(EST_Pathname directory, EST_Pathname addition);
 

@@ -169,7 +169,7 @@ static EST_Item_Content *get_contents(Parse_State *state, EST_String id)
 }
 
 static void extract_ids(XML_Attribute_List &attributes, 
-			EST_TList<EST_String> &ids)
+			EST_StrList &ids)
 {
   EST_String val;
   static int count;
@@ -272,7 +272,7 @@ void Sole_Parser_Class::element_open(XML_Parser_Class &c,
         || strcmp(name, "wordlist")==0
         || strcmp(name, "w")==0)
     {
-        EST_TList<EST_String> ids;
+      EST_StrList ids;
         extract_ids(attributes, ids);
 
         EST_Litem *idp = ids.head();

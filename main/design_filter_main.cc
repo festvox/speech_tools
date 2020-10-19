@@ -52,7 +52,7 @@ int main (int argc, char *argv[])
     EST_FVector fresponse, filter;
     EST_String in_file("-"), out_file("-"), op_file(""), test;
     EST_Option al;
-    EST_TList<EST_String> files;
+    EST_StrList files;
     int forder;
 
     parse_command_line

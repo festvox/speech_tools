@@ -243,7 +243,7 @@ static EST_String make_new_id(const char *root)
 
 
 static void extract_ids(XML_Attribute_List &attributes, 
-			EST_TList<EST_String> &ids)
+			EST_StrList &ids)
 {
   EST_String val;
   if (attributes.present("id"))
@@ -514,7 +514,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
       state->depth_stack.push(state->open_depth);
       state->open_depth=state->depth;
 
-      EST_TList<EST_String> ids;
+      EST_StrList ids;
 
       if (state->id == EST_String::Empty)
 	{

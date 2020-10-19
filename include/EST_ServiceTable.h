@@ -120,7 +120,7 @@ public:
   /// List the table to given stream
   static void list(ostream &s, const EST_String type);
   /// Return a list of server names.
-  static void names(EST_TList<EST_String> &names, const EST_String type="");
+  static void names(EST_StrList &names, const EST_String type="");
 
   ///@}
 

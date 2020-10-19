@@ -170,7 +170,7 @@ public:
 
     // traversing functions
     bool accepts(EST_TList<symbol_t*> &string);
-    float viterbi_transduce(EST_TList<EST_String> &input,
+    float viterbi_transduce(EST_StrList &input,
 			    EST_TList<Arc*> &path,
 			    EST_Litem *current_symbol = NULL,
 			    Node *start_node = NULL);

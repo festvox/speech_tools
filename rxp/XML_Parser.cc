@@ -37,6 +37,7 @@
  /*                                                                       */
  /*************************************************************************/
 
+#include "EST_types.h"
 #include "EST_error.h"
 #include "XML_Parser.h"
 #include "rxp.h"
@@ -50,7 +51,7 @@ void XML_Parser_Class::register_id(EST_Regex id_pattern, EST_String directory)
   known_ids.add_item(id_pattern, directory);
 }
 
-void XML_Parser_Class::registered_ids(EST_TList<EST_String> &list)
+void XML_Parser_Class::registered_ids(EST_StrList &list)
 {
   EST_Litem *p;
 

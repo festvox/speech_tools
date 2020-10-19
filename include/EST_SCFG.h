@@ -43,6 +43,7 @@
 #include "EST_simplestats.h"
 #include "EST_rw_status.h"
 #include "EST_TList.h"
+#include "EST_types.h"
 #include "siod.h"
 
 /** \class EST_bracketed_string

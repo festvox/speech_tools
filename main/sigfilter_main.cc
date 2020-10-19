@@ -61,7 +61,7 @@ int main (int argc, char *argv[])
     EST_Wave sig, fsig;
     EST_String in_file("-"), out_file("-"), op_file(""), test;
     EST_Option al;
-    EST_TList<EST_String> files;
+    EST_StrList files;
     EST_Track filter;
 
     parse_command_line

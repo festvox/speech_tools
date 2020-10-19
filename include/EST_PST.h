@@ -110,7 +110,7 @@ public:
     EST_PredictionSuffixTree();
     EST_PredictionSuffixTree(const int order) {init(order);}
     EST_PredictionSuffixTree(const EST_String filename);
-    EST_PredictionSuffixTree(const EST_TList<EST_String> &vocab,int order=2);
+    EST_PredictionSuffixTree(const EST_StrList &vocab,int order=2);
     ~EST_PredictionSuffixTree(); 
     void clear(void);
     void init(const int order);
