@@ -253,6 +253,7 @@ int play_os2audio_wave(EST_Wave &inwave, EST_Option &al)
 
 # include "EST_Wave.h"
 # include "EST_Option.h"
+# include <iostream>
 
 int os2audio_supported = FALSE;
 
