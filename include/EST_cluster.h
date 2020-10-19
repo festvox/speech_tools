@@ -40,8 +40,9 @@
 #define __Cluster_H__
 
 #include "EST_util_class.h"
+#include "EST_types.h"
 
-int load_names(EST_String file, EST_TList<EST_String> &names);
+int load_names(EST_String file, EST_StrList &names);
 
 float lowestval(EST_FMatrix &m, EST_TList<int> &a, EST_TList<int> &b);
 float highestval(EST_FMatrix &m, EST_TList<int> &a, EST_TList<int> &b);
@@ -53,14 +54,14 @@ void merge(EST_TList<int> cbk[], int i, int j);
 
 typedef EST_TList<EST_TList<int> > EST_CBK;
 
-EST_String print_codebook(EST_CBK &cbk, float d, EST_TList<EST_String> &names);
-EST_String print_codebook(EST_CBK &cbk, float d);
+EST_String print_codebook(const EST_CBK &cbk, float d, const EST_StrList &names);
+EST_String print_codebook(const EST_CBK &cbk, float d);
 int cluster(EST_FMatrix &m, EST_CBK &cbk, float d);
 void init_cluster(EST_CBK &cbk, int n);
 //EST_FVector sortvals(EST_FMatrix &m);
 
-int cluster(EST_FMatrix &m, EST_CBK &cbk, EST_TList<EST_String> &ans, EST_String method,
-		    EST_TList<EST_String> &x);
+int cluster(EST_FMatrix &m, EST_CBK &cbk, EST_StrList &ans, EST_String method,
+		    EST_StrList &x);
 
 EST_FVector sort_matrix(EST_FMatrix &m);
 

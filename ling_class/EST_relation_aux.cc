@@ -48,9 +48,9 @@
 #include "EST_Option.h"
 #include "EST_Token.h"
 
-static int is_in_class(const EST_String &name, EST_StrList &s);
 using namespace std;
 
+static int is_in_class(const EST_String &name, const EST_StrList &s);
 
 bool dp_match(const EST_Relation &lexical,
 	      const EST_Relation &surface,
@@ -84,7 +84,7 @@ void quantize(EST_Relation &a, float q)
 
 // edit labels using a sed file to do the editing
 
-int edit_labels(EST_Relation &a, EST_String sedfile)
+int edit_labels(EST_Relation &a, const EST_String &sedfile)
 {
     EST_Item *a_ptr;
     EST_String command;
@@ -184,7 +184,7 @@ void change_label(EST_Relation &seg, const EST_StrList &oname,
 		a_ptr->set_name(nname);
 }
 
-static int is_in_class(const EST_String &name, EST_StrList &s)
+static int is_in_class(const EST_String &name, const EST_StrList &s)
 {
     EST_Litem *p;
 
@@ -195,7 +195,7 @@ static int is_in_class(const EST_String &name, EST_StrList &s)
     return FALSE;
 }
 
-int check_vocab(EST_Relation &a, EST_StrList &vocab)
+int check_vocab(EST_Relation &a, const EST_StrList &vocab)
 {
     EST_Item *s;
     for (s = a.head(); s; s = inext(s))

@@ -66,8 +66,8 @@ void init_cluster(EST_CBK &cbk, int n)
     }
 }
 
-int cluster(EST_FMatrix &m, EST_CBK &cbk, EST_TList<EST_String> &ans, EST_String method, 
-		    EST_TList<EST_String> &names)
+int cluster(EST_FMatrix &m, EST_CBK &cbk, EST_StrList &ans, const EST_String &method, 
+		    const EST_StrList &names)
 {
     float dist;
     while (cbk.length() > 1)
@@ -79,7 +79,7 @@ int cluster(EST_FMatrix &m, EST_CBK &cbk, EST_TList<EST_String> &ans, EST_String
 }
 
 // return true if list l contains integer n
-int contains(EST_TList<int> &l, int n)
+int contains(const EST_IList &l, int n)
 {
     EST_Litem *p;
 
@@ -346,7 +346,7 @@ EST_FVector sort_matrix(EST_FMatrix &m)
     return vsort;
 }
 
-EST_String print_codebook(EST_CBK &cbk, float d, EST_TList<EST_String> &names)
+EST_String print_codebook(const EST_CBK &cbk, float d, const EST_StrList &names)
 {
     EST_Litem *pi;
     EST_Litem *pj;
@@ -514,7 +514,7 @@ void merge(EST_TList<int> cbk[], int i, int j)
     cbk[j].clear();
 }
 
-int load_names(EST_String file, EST_TList<EST_String> &names)
+int load_names(const EST_String &file, EST_StrList &names)
 {
     char inbuf[1000];
     EST_String tmpstr;

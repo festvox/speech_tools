@@ -52,7 +52,7 @@
 
 using namespace std;
 
-int StrListtoFList(EST_StrList &s, EST_FList &f)
+int StrListtoFList(const EST_StrList &s, EST_FList &f)
 {
     EST_Litem *p;
 
@@ -90,14 +90,14 @@ int StrListtoIList(EST_StrList &s, EST_IList &il)
 
 // read string list eclosed in brackets. Simply a place holder for
 // future use with more complicate lists.
-void BracketStringtoStrList(EST_String s, EST_StrList &l, EST_String sep)
+void BracketStringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep)
 {
     s.gsub("(", "");
     s.gsub(")", "");
     StringtoStrList(s, l, sep);
 }
     
-void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep)
+void StringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep)
 {
     EST_TokenStream ts;
     EST_String tmp;
@@ -119,13 +119,13 @@ void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep)
     return;
 }
     
-void StrListtoString(EST_StrList &l, EST_String &s, EST_String sep)
+void StrListtoString(EST_StrList &l, EST_String &s, const EST_String &sep)
 {
     for (EST_Litem *p = l.head(); p; p = p->next())
 	s += l(p) + sep;
 }
     
-EST_read_status load_StrList(EST_String filename, EST_StrList &l)
+EST_read_status load_StrList(const EST_String &filename, EST_StrList &l)
 {
     EST_TokenStream ts;
     EST_String s;
@@ -145,8 +145,8 @@ EST_read_status load_StrList(EST_String filename, EST_StrList &l)
     return format_ok;
 }
 
-EST_write_status save_StrList(EST_String filename, EST_StrList &l, 
-			      EST_String style)
+EST_write_status save_StrList(const EST_String &filename, const EST_StrList &l, 
+			      const EST_String &style)
 {
     ostream *outf;
     EST_Litem *p;

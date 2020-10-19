@@ -155,7 +155,7 @@ public:
 	are kept, up to the limits imposed by the new number of frames
 	and channels. If the new track size is bigger, new positions
 	are filled with 0 */
-    void resize(int num_frames, EST_StrList &map, bool preserve = 1);
+    void resize(int num_frames, const EST_StrList &map, bool preserve = 1);
 
     /** resize the track's auxiliary channels.
      */

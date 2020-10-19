@@ -632,7 +632,7 @@ static void pad_ends(EST_Relation &s, float length)
 }
 
 EST_read_status read_RelationList(EST_RelationList &plist, 
-				  EST_StrList &files, EST_Option &al)
+				  const EST_StrList &files, EST_Option &al)
 {
     EST_Litem *p, *plp;
     

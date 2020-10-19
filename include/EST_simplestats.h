@@ -222,7 +222,7 @@ public:
     /// Create with copying from an existing distribution.
     EST_DiscreteProbDistribution(const EST_DiscreteProbDistribution &b);
     /// Create with given vocabulary
-    EST_DiscreteProbDistribution(const EST_TList<EST_String> &vocab)
+    EST_DiscreteProbDistribution(const EST_StrList &vocab)
           {init(); (void)init(vocab);}
     /// Create using given \ref EST_Discrete  class as the vocabulary
     EST_DiscreteProbDistribution(const EST_Discrete *d) {init(); init(d);}

@@ -115,7 +115,7 @@ LISP err(const char *message, const char *s);
 LISP errswitch(void);
 
 void siod_list_to_strlist(LISP l, EST_StrList &a);
-LISP siod_strlist_to_list(EST_StrList &a);
+LISP siod_strlist_to_list(const EST_StrList &a);
 void siod_tidy_up();
 LISP siod_quit(void);
 const char *siod_version(void);

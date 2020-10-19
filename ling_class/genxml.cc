@@ -530,7 +530,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 	  break;
 	case 1:
 	  {
-	    EST_String id = ids.first();
+	    const EST_String &id = ids.first();
 
 	    if (id==EST_String::Empty)
 	      XML_Parser_Class::error(c, p, data, EST_String("Element With No Id"));

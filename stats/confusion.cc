@@ -43,7 +43,7 @@
 
 using namespace std;
 
-int nth(EST_String name, EST_TList<EST_String> &lex)
+int nth(const EST_String &name, const EST_StrList &lex)
 {
     EST_Litem *p;
     int i;
@@ -56,7 +56,7 @@ int nth(EST_String name, EST_TList<EST_String> &lex)
     return -1;
 }
 
-EST_FMatrix confusion(EST_StrStr_KVL &list, EST_StrList &lex)
+EST_FMatrix confusion(const EST_StrStr_KVL &list, const EST_StrList &lex)
 {
     EST_FMatrix a(lex.length(), lex.length());
     EST_Litem *p;

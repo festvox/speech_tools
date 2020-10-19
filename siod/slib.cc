@@ -87,6 +87,7 @@ Cambridge, MA 02138
 
 #include "EST_cutils.h"
 #include "siod.h"
+#include "siod_defs.h"
 #include "siodp.h"
 
 #ifdef WIN32

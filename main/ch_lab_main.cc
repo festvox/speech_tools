@@ -43,8 +43,8 @@
 #include "EST_cmd_line.h"
 #include "EST_string_aux.h"
 
-int check_vocab(EST_Relation &a, EST_StrList &vocab);
 using namespace std;
+int check_vocab(EST_Relation &a, const EST_StrList &vocab);
 
 
 int main(int argc, char *argv[])
