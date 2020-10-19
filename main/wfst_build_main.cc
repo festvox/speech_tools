@@ -72,6 +72,7 @@ static int wfst_build_main(int argc, char **argv);
 /**@name Synopsis
   */
 //@{
+using namespace std;
 
 //@synopsis
 

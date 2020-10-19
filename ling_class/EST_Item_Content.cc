@@ -45,6 +45,8 @@
 #include "ling_class/EST_Item.h"
 #include "EST_error.h"
 
+using namespace std;
+
 void EST_Item_Content::copy(const EST_Item_Content &x)
 {
     f = x.f;

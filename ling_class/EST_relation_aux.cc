@@ -49,6 +49,8 @@
 #include "EST_Token.h"
 
 static int is_in_class(const EST_String &name, EST_StrList &s);
+using namespace std;
+
 
 bool dp_match(const EST_Relation &lexical,
 	      const EST_Relation &surface,

@@ -48,6 +48,8 @@
 #include "ling_class/EST_Relation.h"
 #include "ling_class/EST_item_aux.h"
 
+using namespace std;
+
 static int wave_subwave(EST_Wave &subsig,EST_Wave &sig, 
 			float offset, float length);
 

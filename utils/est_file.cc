@@ -43,6 +43,8 @@
 #include "EST_Option.h"
 #include "EST_Features.h"
 
+using namespace std;
+
 static EST_TValuedEnumDefinition<EST_EstFileType, const char *, NO_INFO> 
 estfile_names[] =
 {

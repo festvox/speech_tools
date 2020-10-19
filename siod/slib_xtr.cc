@@ -18,6 +18,8 @@ Array-hacking code moved to another source file.
 #include "siod.h"
 #include "siodp.h"
 
+using namespace std;
+
 static LISP bashnum = NIL;
 
 static LISP array_gc_relocate(LISP ptr)

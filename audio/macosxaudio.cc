@@ -45,6 +45,8 @@
 #include "EST_Option.h"
 #include "audioP.h"
 
+using namespace std;
+
 #if defined (SUPPORT_MACOSX_AUDIO)
 
 #include <CoreServices/CoreServices.h>

@@ -44,6 +44,8 @@
 #include "EST_THash.h"
 #include "EST_String.h"
 
+using namespace std;
+
 // a very boring thing to do to a pair, see map below
 
 static void look_at(EST_String &s, int &l)

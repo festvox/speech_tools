@@ -42,6 +42,8 @@
 #include "EST_math.h"
 #include "EST_unix.h"
 
+using namespace std;
+
 bool polynomial_fit(EST_DVector &x, EST_DVector &y, 
 		    EST_DVector &co_effs, int order)
 {

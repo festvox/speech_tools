@@ -48,6 +48,8 @@
 #include "EST_SCFG.h"
 #include "siod.h"
 
+using namespace std;
+
 EST_String outfile = "-";
 EST_String domain = "nlogp";
 EST_String values = "equal";

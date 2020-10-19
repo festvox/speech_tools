@@ -45,6 +45,8 @@
 #include <cstring>
 #include "EST_Chunk.h"
 
+using namespace std;
+
 EST_Chunk::EST_Chunk ()
 {
   count = 0;

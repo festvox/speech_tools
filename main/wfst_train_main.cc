@@ -45,6 +45,8 @@
 #include "EST_simplestats.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 LISP load_string_data(EST_WFST &wfst,EST_String &filename);
 void wfst_train(EST_WFST &wfst, LISP data);
 

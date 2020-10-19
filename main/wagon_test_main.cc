@@ -47,6 +47,8 @@
 #include "EST_Token.h"
 #include "EST_cmd_line.h"
 
+using namespace std;
+
 static int wagon_test_main(int argc, char **argv);
 static LISP find_feature_value(const char *feature, 
 			       LISP vector, LISP description);

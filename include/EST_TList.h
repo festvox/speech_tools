@@ -234,7 +234,7 @@ template <class T> class EST_TList : public EST_UList
     EST_TList<T> &operator +=(const EST_TList<T> &a);
 
   /// print list
-    friend ostream& operator << (ostream &st, EST_TList<T> const &list) {
+    friend std::ostream& operator << (std::ostream &st, EST_TList<T> const &list) {
         EST_Litem *ptr; 
         for (ptr = list.head(); ptr != 0; ptr = ptr->next()) 
             st << list.item(ptr) << " "; 

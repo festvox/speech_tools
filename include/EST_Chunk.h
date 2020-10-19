@@ -46,7 +46,7 @@
 #define HAVE_WALLOC_H (1)
 
 #include <iostream>
-using namespace std;
+using namespace std; // FIXME: To be removed
 #include <climits>
 #include <sys/types.h>
 

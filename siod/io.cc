@@ -53,6 +53,8 @@
 #include "siodp.h"
 #include "io.h"
 
+using std::cout;
+
 EST_Regex RxURL("\\([a-z]+\\)://?\\([^/:]+\\)\\(:\\([0-9]+\\)\\)?\\(.*\\)");
 EST_Regex RxFILEURL("file:.*");
 static EST_Regex ipnum("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");

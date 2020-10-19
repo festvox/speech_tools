@@ -46,6 +46,7 @@
 #include "EST_wave_aux.h"
 #include "EST.h"
 
+using namespace std;
 #define sgn(x) (x>0?1:x?-1:0)
 
 void wave_extract_channel(EST_Wave &single, const EST_Wave &multi,  EST_IList &ch_list);

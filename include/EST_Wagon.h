@@ -55,7 +55,7 @@
 #include "omp.h"
 #endif
 
-#define wagon_error(WMESS) (cerr << WMESS << endl,exit(-1))
+#define wagon_error(WMESS) (std::cerr << WMESS << std::endl,exit(-1))
 
 // I get floating point exceptions of Alphas when I do any comparisons
 // with HUGE_VAL or FLT_MAX so I'll make my own

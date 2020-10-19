@@ -41,8 +41,9 @@
 #define __EST_TOKEN_H__
 
 #include <cstdio>
+#include <istream>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 #include "EST_String.h"
 #include "EST_common.h"
@@ -193,7 +194,7 @@ class EST_Token {
     const EST_String pos_description() const;
 
     ///
-    friend ostream& operator << (ostream& s, const EST_Token &p);
+    friend std::ostream& operator << (std::ostream& s, const EST_Token &p);
     
     ///
     EST_Token & operator = (const EST_Token &a);
@@ -246,7 +247,7 @@ class EST_TokenStream{
     EST_String PrePunctuationSymbols;
     EST_String Origin;
     FILE *fp;
-    istream *is;
+    std::istream *is;
     int fd;
     char *buffer;
     int buffer_length;
@@ -305,7 +306,7 @@ class EST_TokenStream{
     /// open a \ref EST_TokenStream for an already opened file
     int open(FILE *ofp, int close_when_finished);
     /// open a \ref EST_TokenStream for an already open istream
-    int open(istream &newis);
+    int open(std::istream &newis);
     /// open a \ref EST_TokenStream for string rather than a file
     int open_string(const EST_String &newbuffer);
     /// Close stream.
@@ -382,8 +383,8 @@ class EST_TokenStream{
     ///
     EST_TokenStream & operator >>(EST_String &p);
     ///
-    friend ostream& operator <<(ostream& s, EST_TokenStream &p);
-    //@}
+    friend std::ostream& operator <<(std::ostream& s, EST_TokenStream &p);
+    ///@}
 };
 
 /** Quote a string with given quotes and escape character

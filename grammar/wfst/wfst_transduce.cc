@@ -40,6 +40,8 @@
 #include <iostream>
 #include "EST_WFST.h"
 
+using namespace std;
+
 /** An internal class in transduction of WFSTs holding intermediate
     state information.
 */

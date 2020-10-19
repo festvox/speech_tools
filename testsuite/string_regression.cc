@@ -36,6 +36,8 @@
 #include "EST_String.h"
 #include <iostream>
 
+using namespace std;
+
 int main()
 
 {

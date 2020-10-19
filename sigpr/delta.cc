@@ -40,6 +40,9 @@
 #include <cstdlib>
 #include "EST_Track.h"
 #include "EST_Wave.h"
+
+using namespace std;
+
 # define MAX_DELTA_ORDER 2
 /// max. number of points on which the delta co-eff is based
 # define MAX_REGRESSION_LENGTH 4

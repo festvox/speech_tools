@@ -46,6 +46,8 @@
 #include "EST.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 static int align_main(int argc, char **argv);
 static void nisttool_align(EST_Option &al);
 static void string_align(EST_Option &al);

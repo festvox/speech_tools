@@ -56,6 +56,8 @@
 #include "EST_WaveFile.h"
 #include "EST_wave_utils.h"
 
+using namespace std;
+
 // size of locally allocated buffer. If more channels than this we have to
 // call new
 

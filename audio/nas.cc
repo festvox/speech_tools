@@ -47,6 +47,9 @@
 #include "audioP.h"
 #include "EST_io_aux.h"
 
+using namespace std;
+
+
 #ifdef SUPPORT_NAS
 #include <audio/audiolib.h>
 #include <audio/soundlib.h>

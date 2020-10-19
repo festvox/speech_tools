@@ -49,6 +49,8 @@
 #include "EST_types.h"
 #include "EST_string_aux.h"
 
+using namespace std;
+
 void sigpr_acc(EST_Wave &sig, EST_Track &fv, EST_Features &op, 
 		const EST_StrList &slist);
 

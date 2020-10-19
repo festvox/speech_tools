@@ -48,6 +48,8 @@
 #include "EST_SCFG.h"
 #include "siod.h"
 
+using namespace std;
+
 static EST_String outfile = "-";
 
 static int scfg_test_main(int argc, char **argv);

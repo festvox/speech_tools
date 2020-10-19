@@ -44,6 +44,8 @@
 #include "EST_cutils.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 static LISP lts_find_feasible_pairs(LISP rules);
 static LISP make_fp(LISP in, LISP out);
 static LISP find_outs(LISP rule);

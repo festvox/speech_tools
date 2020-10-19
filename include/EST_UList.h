@@ -43,7 +43,7 @@
 
 #include <iostream>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 #include "EST_common.h"
 #include "EST_String.h"

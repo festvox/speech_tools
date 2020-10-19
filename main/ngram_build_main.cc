@@ -42,6 +42,7 @@
 #include "EST_Ngrammar.h"
 #include "EST_Pathname.h"
 
+using namespace std;
 
 
 /** @name <command>ngram_build</command> <emphasis>Train n-gram language model</emphasis>

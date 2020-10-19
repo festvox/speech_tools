@@ -41,6 +41,8 @@
 #include <cstdlib>
 #include "EST_Token.h"
 
+using namespace std;
+
 static void binary_read_test();
 
 static void find_tokens(EST_TokenStream &ts)

@@ -43,6 +43,8 @@
 #include "EST_String.h"
 #include "EST_Token.h"
 
+using namespace std;
+
 void EST_Features::set_function(const EST_String &name, 
 			        const EST_String &funcname)
 {

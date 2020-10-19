@@ -45,6 +45,8 @@
 #include "EST_TNamedEnum.h"
 #include "EST_math.h"
 
+using namespace std;
+
 //static inline int irint(float f) { return (int)(f+0.5); }
 //static inline int irint(double f) { return (int)(f+0.5); }
 static inline int min(int a, int b) { return (a<b)?a:b; }

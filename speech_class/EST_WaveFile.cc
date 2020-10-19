@@ -46,6 +46,8 @@
 #include <cstdio>
 #include <cmath>
 
+using namespace std;
+
 void extract(EST_Wave &sig, EST_Option &al);
 
 typedef 

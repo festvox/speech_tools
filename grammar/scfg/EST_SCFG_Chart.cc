@@ -43,6 +43,8 @@
 #include "EST_SCFG.h"
 #include "EST_SCFG_Chart.h"
 
+using namespace std;
+
 EST_SCFG_Chart_Edge::EST_SCFG_Chart_Edge()
 {
     p_d1 = 0;

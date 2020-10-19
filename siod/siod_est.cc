@@ -61,6 +61,8 @@ Instantiate_TStringHash(LISP)
 
 #endif
 
+using namespace std;
+
 // To make garbage collection easy the following functions offer an index
 // of arbitrary objects to LISP cells.  You can use this to return the
 // same LISP cell for the same object.  This is used for utterance

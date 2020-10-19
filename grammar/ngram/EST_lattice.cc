@@ -41,6 +41,8 @@
 #include <fstream>
 #include <cstdlib>
 
+using namespace std;
+
 Lattice::Lattice()
 {
     tf=0;

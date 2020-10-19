@@ -93,6 +93,8 @@ Cambridge, MA 02138
 #include "winsock2.h"
 #endif
 
+using namespace std;
+
 static int restricted_function_call(LISP l);
 static long repl(struct repl_hooks *h);
 static void gc_mark_and_sweep(void);

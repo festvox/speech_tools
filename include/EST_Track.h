@@ -681,7 +681,7 @@ public:
     EST_Track& operator = (const EST_Track& a);
     EST_Track& operator+=(const EST_Track &a); // add to existing track
     EST_Track& operator|=(const EST_Track &a); // add to existing track in parallel
-    friend ostream& operator << (ostream& s, const EST_Track &tr);
+    friend std::ostream& operator << (std::ostream& s, const EST_Track &tr);
 
     // Default constructor
     EST_Track(int num_frames, EST_TrackMap &map);

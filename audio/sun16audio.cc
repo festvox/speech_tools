@@ -56,6 +56,8 @@
 #include "EST_io_aux.h"
 #include "EST_unix.h"
 
+using namespace std;
+
 #ifdef SUPPORT_SUN16
 #include <sys/filio.h>
 #if defined(__svr4__) || defined(SYSV) || defined(SVR4)

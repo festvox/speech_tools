@@ -47,6 +47,8 @@
 #include "ling_class/EST_Utterance.h"
 #include "EST_UtteranceFile.h"
 
+using namespace std;
+
 static EST_read_status load_all_contents(EST_TokenStream &ts,
 //					 EST_THash<int,EST_Val> &sitems,
 					 EST_TVector < EST_Item_Content * > &sitems,

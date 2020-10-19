@@ -45,6 +45,7 @@
 #include "EST_speech_class.h"
 #include "sigpr/EST_pitchmark.h"
 
+using namespace std;
 
 void set_options(EST_Features &op, EST_Option &al);
 

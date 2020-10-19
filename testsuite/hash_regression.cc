@@ -45,6 +45,8 @@
 #include "EST_Token.h"
 #include "EST_THash.h"
 
+using namespace std;
+
 #define LINE_LENGTH 1000
 
 EST_Regex RX_Word("[A-Z]?[a-z]+\\('[a-z]+\\)?");

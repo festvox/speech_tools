@@ -43,6 +43,8 @@
 #include "EST.h"
 #include "EST_kalman.h"
 
+using namespace std;
+
 static bool kalman_filter_param_check(EST_FVector &x,
 				      EST_FMatrix &P,
 				      EST_FMatrix &Q,

@@ -59,6 +59,8 @@
 #include "EST_String.h"
 #include "EST_Regex.h"
 
+using namespace std;
+
 #ifdef sun
 #ifndef __svr4__
 /* SunOS */

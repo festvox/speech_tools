@@ -43,6 +43,8 @@
 #include "EST_ling_class.h"
 #include "EST_cmd_line.h"
 
+using namespace std;
+
 int main(int argc, char *argv[])
 {
     EST_String out_file, ext;

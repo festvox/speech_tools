@@ -47,6 +47,8 @@
 #include "siod.h"
 #include "siodp.h"
 
+using namespace std;
+
 static int format_string(LISP fd,const char *formatstr, const char *str);
 static int format_lisp(LISP fd,const char *formatstr, LISP a);
 static int format_int(LISP fd,const char *formatstr, int i);

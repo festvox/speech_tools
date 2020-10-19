@@ -46,6 +46,7 @@
 #include "EST_Wagon.h"
 #include "EST_math.h"
 
+using namespace std;
 
 EST_Val WNode::predict(const WVector &d)
 {

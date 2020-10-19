@@ -43,6 +43,8 @@
 #include "EST_String.h"
 #include "EST_io_aux.h"
 
+using namespace std;
+
 // The following key is used when stuffing files down a socket.
 // This key in when received denotes the end of file.  Any occurrence
 // of key in the file with have X inserted in it, and the receiving end
