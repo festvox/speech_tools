@@ -95,7 +95,6 @@ bool save(Lattice &lattice, EST_String filename)
 	else
 	    *outf << "# Arcs" << endl;
 
-	ncount=0;
 	acount=0;
 
 	for (n_ptr = lattice.nodes.head(); n_ptr != 0; n_ptr = n_ptr->next()){
