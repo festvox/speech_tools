@@ -321,10 +321,11 @@ void grow_chunk(EST_ChunkPtr &cp, EST_Chunk::EST_chunk_size newsize)
 {
   if (!cp.ptr || cp.ptr->size < newsize)
     {
-      if (cp.ptr)
-	cp_make_updatable(cp);
       EST_Chunk *newchunk = new(newsize) EST_Chunk;
-      memcpy(newchunk->memory, cp.ptr->memory, cp.ptr->size);
+      if (cp.ptr) {
+	cp_make_updatable(cp);
+	memcpy(newchunk->memory, cp.ptr->memory, cp.ptr->size);
+      }
       cp = newchunk;
     }
 }
@@ -333,10 +334,11 @@ void grow_chunk(EST_ChunkPtr &cp, EST_Chunk::EST_chunk_size inuse, EST_Chunk::ES
 {
   if (!cp.ptr || cp.ptr->size < newsize)
     {
-      if (cp.ptr)
-	cp_make_updatable(cp, inuse);
       EST_Chunk *newchunk = new(newsize) EST_Chunk;
-      memcpy(newchunk->memory, cp.ptr->memory, inuse);
+      if (cp.ptr) {
+	cp_make_updatable(cp, inuse);
+	memcpy(newchunk->memory, cp.ptr->memory, inuse);
+      }
       cp = newchunk;
     }
 }
