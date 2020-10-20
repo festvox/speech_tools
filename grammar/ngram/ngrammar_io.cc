@@ -669,8 +669,10 @@ save_ngram_arpa(const EST_String filename, EST_Ngrammar &n)
     
     if (filename == "-")
 	ost = &cout;
-    else
-	ost = new ofstream(filename);
+    else {
+        ofstream ost2(filename); 
+	ost = &ost2;
+    }
     
     if (!(*ost))
 	return write_fail;
@@ -728,9 +730,6 @@ save_ngram_arpa(const EST_String filename, EST_Ngrammar &n)
     }
     
     *ost << "\\end\\" << endl;
-    
-    if (ost != &cout)
-	delete ost;
     
     return write_ok;
 }
