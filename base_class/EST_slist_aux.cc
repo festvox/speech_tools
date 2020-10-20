@@ -177,7 +177,8 @@ EST_write_status save_StrList(const EST_String &filename, const EST_StrList &l,
 	return misc_write_error;
     }
 
-    delete outf;
+    if (outf != &cout)
+	delete outf;
 
     return write_ok;
 }
