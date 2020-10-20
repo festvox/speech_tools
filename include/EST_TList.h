@@ -277,6 +277,14 @@ bool operator==(const EST_TList<T> &a, const EST_TList<T> &b)
     return EST_UList::operator_eq(a, b, EST_TSortable<T>::items_eq); 
 }
 
+
+template<class T> 
+bool operator!=(const EST_TList<T> &a, const EST_TList<T> &b)
+{ 
+    return !(a==b); 
+}
+
+
 template<class T> 
 int index(EST_TList<T> &l, T& val, bool (*eq)(const EST_UItem *, const EST_UItem *) = NULL)
 { 
