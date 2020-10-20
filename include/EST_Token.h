@@ -85,8 +85,10 @@ class EST_Token {
     int p_quoted;
 
   public:
-    ///
+    /// Constructor
     EST_Token() {init();}
+    /// Copy constructor
+    EST_Token(const EST_Token&);
     ///
     EST_Token(const EST_String p) {init(); pname = p; }
     ///

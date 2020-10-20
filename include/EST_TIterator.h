@@ -107,6 +107,10 @@ public:
   EST_TIterator(const Container &over)
     { begin(over); }
 
+  /// Copy constructor
+  EST_TIterator(const EST_TIterator &orig)
+    { cont=orig.cont; pos=orig.pos; pointer=orig.pointer;}
+
   /// Copy an iterator by assignment
   Iter &operator = (const Iter &orig)
     { cont=orig.cont; pos=orig.pos; pointer=orig.pointer; return *this;}

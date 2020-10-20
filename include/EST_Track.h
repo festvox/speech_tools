@@ -748,6 +748,12 @@ protected:
     EST_Track *frame; int i; 
     IPointer_f();
     IPointer_f(const IPointer_f &p);
+    IPointer_f & operator = (const IPointer_f &p) {
+        if (this != &p) {
+            frame=new EST_Track(*(p.frame));
+        }
+        return *this;
+    }
     ~IPointer_f();
   };
 

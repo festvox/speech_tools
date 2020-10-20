@@ -127,6 +127,18 @@ class WQuestion {
     ~WQuestion() {;}
     WQuestion(int fp, wn_oper o,EST_Val a)
        { feature_pos=fp; op=o; operand1=a; }
+    WQuestion& operator = (const WQuestion &o) {
+      if (this != &o) {
+        this->yes = o.yes;
+        this->no = o.no;
+        this->score = o.score;
+        this->op = o.op;
+        this->feature_pos = o.feature_pos;
+        this->operand1 = o.operand1;
+        this->operandl = o.operandl;
+      }
+      return *this;
+    }
     void set_fp(const int &fp) {feature_pos=fp;}
     void set_oper(const wn_oper &o) {op=o;}
     void set_operand1(const EST_Val &a) {operand1 = a;}

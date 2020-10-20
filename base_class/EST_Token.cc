@@ -92,9 +92,7 @@ ostream& operator<<(ostream& s, const EST_Token &p)
     return s;
 }
 
-
-EST_Token &EST_Token::operator = (const EST_Token &a)
-{
+EST_Token::EST_Token(const EST_Token &a) {
     linenum = a.linenum;
     linepos = a.linepos;
     p_filepos = a.p_filepos;
@@ -103,6 +101,20 @@ EST_Token &EST_Token::operator = (const EST_Token &a)
     prepunc = a.prepunc;
     pname = a.pname;
     punc = a.punc;
+}
+
+EST_Token &EST_Token::operator = (const EST_Token &a)
+{
+    if (this != &a) {
+      linenum = a.linenum;
+      linepos = a.linepos;
+      p_filepos = a.p_filepos;
+      p_quoted = a.p_quoted;
+      space = a.space;
+      prepunc = a.prepunc;
+      pname = a.pname;
+      punc = a.punc;
+    }
     return *this;
 }
 

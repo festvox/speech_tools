@@ -136,6 +136,12 @@ class EST_SCFG_Rule {
     EST_SCFG_Rule(const EST_SCFG_Rule &r) 
       {p_mother = r.p_mother; p_daughter1 = r.p_daughter1;
        p_daughter2 = r.p_daughter2; p_type=r.p_type; p_prob = r.p_prob;}
+
+    /// Assignment operator
+    EST_SCFG_Rule& operator=(const EST_SCFG_Rule &r)
+      {p_mother = r.p_mother; p_daughter1 = r.p_daughter1;
+       p_daughter2 = r.p_daughter2; p_type=r.p_type; p_prob = r.p_prob; return *this;}
+
     /// Create a unary rule.
     EST_SCFG_Rule(double prob,int p,int m);
     /// Create a binary rule.
