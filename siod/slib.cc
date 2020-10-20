@@ -761,11 +761,11 @@ LISP rintern(const char *name)
 LISP intern(LISP name)
 {return(rintern(get_c_string(name)));}
 
-LISP subrcons(long type, const char *name, SUBR_FUNC f)
+LISP subrcons(long type, const char *name, void(*f)(void))
 {LISP z;
  NEWCELL(z,type);
  (*z).storage_as.subr.name = name;
- (*z).storage_as.subr0.f = f;
+ (*z).storage_as.subr0.f = (SUBR_FUNC) f;
  return(z);}
 
 LISP closure(LISP env,LISP code)
@@ -904,30 +904,30 @@ void init_storage(int init_heap_size)
  stack_limit_ptr = STACK_LIMIT(stack_start_ptr,stack_size);
 }
 
-void init_subr(const char *name, long type, SUBR_FUNC fcn)
+void init_subr(const char *name, long type, void(*fcn)(void))
 {setvar(cintern(name),subrcons(type,name,fcn),NIL);}
-void init_subr(const char *name, long type, SUBR_FUNC fcn,const char *doc)
+void init_subr(const char *name, long type, void(*fcn)(void),const char *doc)
 {LISP lname = cintern(name);
  setvar(lname,subrcons(type,name,fcn),NIL);
  setdoc(lname,cstrcons(doc));}
 
 /* New versions requiring documentation strings */
 void init_subr_0(const char *name, LISP (*fcn)(void),const char *doc)
-{init_subr(name,tc_subr_0,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_0,(void(*)(void))fcn,doc);}
 void init_subr_1(const char *name, LISP (*fcn)(LISP),const char *doc)
-{init_subr(name,tc_subr_1,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_1,(void(*)(void))fcn,doc);}
 void init_subr_2(const char *name, LISP (*fcn)(LISP,LISP),const char *doc)
-{init_subr(name,tc_subr_2,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_2,(void(*)(void))fcn,doc);}
 void init_subr_3(const char *name, LISP (*fcn)(LISP,LISP,LISP),const char *doc)
-{init_subr(name,tc_subr_3,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_3,(void(*)(void))fcn,doc);}
 void init_subr_4(const char *name, LISP (*fcn)(LISP,LISP,LISP,LISP),const char *doc)
-{init_subr(name,tc_subr_4,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_4,(void(*)(void))fcn,doc);}
 void init_lsubr(const char *name, LISP (*fcn)(LISP),const char *doc)
-{init_subr(name,tc_lsubr,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_lsubr,(void(*)(void))fcn,doc);}
 void init_fsubr(const char *name, LISP (*fcn)(LISP,LISP),const char *doc)
-{init_subr(name,tc_fsubr,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_fsubr,(void(*)(void))fcn,doc);}
 void init_msubr(const char *name, LISP (*fcn)(LISP *,LISP *),const char *doc)
-{init_subr(name,tc_msubr,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_msubr,(void(*)(void))fcn,doc);}
 
 struct user_type_hooks *get_user_type_hooks(long type)
 {long n;

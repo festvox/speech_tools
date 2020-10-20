@@ -38,7 +38,7 @@ LISP strintern(const char *data);
 LISP strcons(long length,const char *data);
 LISP cstrcons(const char *data);
 
-void init_subr(const char *name, long type, SUBR_FUNC fcn, const char *doc);
+void init_subr(const char *name, long type, void(*fcn)(void), const char *doc);
 void init_subr_0(const char *name, LISP (*fcn)(void), const char *doc);
 void init_subr_1(const char *name, LISP (*fcn)(LISP), const char *doc);
 void init_subr_2(const char *name, LISP (*fcn)(LISP,LISP), const char *doc);
