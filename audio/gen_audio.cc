@@ -365,7 +365,7 @@ static int record_sunau_wave(EST_Wave &wave, EST_Option &al)
     num_samples = (int)(8000*al.fval("-time"));
     ulawwave = walloc(unsigned char,num_samples);
     
-    for (r=i=0; i < num_samples; i+= r)
+    for (i=0; i < num_samples; i+= r)
     {
 	if (num_samples > i+AUDIOBUFFSIZE)
 	    n = AUDIOBUFFSIZE;
