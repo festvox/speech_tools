@@ -683,7 +683,6 @@ static int match_rf_point(EST_Track &fz, int b_start, int b_stop,
     }
     
     f_shift = fz.shift();
-    duration = 0.0;
     
     for (i = b_start; i < b_stop; ++i)
 	for (j = e_start; j < e_stop; ++j)

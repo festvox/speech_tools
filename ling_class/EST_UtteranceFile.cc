@@ -188,8 +188,6 @@ static EST_read_status load_all_contents(EST_TokenStream &ts,
 
 	si->relations.add_item("__READ__", est_val((EST_Item *)NULL), 1);
 
-	id = 0;
-
 	Sid = ts.get().string();
 
 	id = Sid.Int(ok);
