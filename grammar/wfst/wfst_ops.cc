@@ -227,19 +227,22 @@ void EST_WFST::determinize(const EST_WFST &ndwfst)
 		    ns = add_state(ndwfst.ms_type(nms));
 		    nms->set_name(ns);
 		    multistate_agenda.append(nms);  
+		    // Add new transition to current state
+		    p_states[current->name()]
+		        ->add_transition(nms->weight(),
+					 nms->name(),
+					 i,o);
 		}
 		else
 		{
 		    nms->set_name(new_name);
+		    // Add new transition to current state
+		    p_states[current->name()]
+		        ->add_transition(nms->weight(),
+					 nms->name(),
+					 i,o);
 		    delete nms;
-		}
-
-		// Add new transition to current state
-		p_states[current->name()]
-		    ->add_transition(nms->weight(),
-				     nms->name(),
-				     i,o);
-		
+		}		
 	    }
 	}
 	delete current;
@@ -425,16 +428,18 @@ void EST_WFST::intersection(wfst_list &wl)
 		    ns = add_state(intersect_state_type(wl,nms));
 		    nms->set_name(ns);
 		    multistate_agenda.append(nms);  
+		    // Add new transition to current state
+		    p_states[current->name()]
+			->add_transition(nms->weight(),nms->name(),i,o);
 		}
 		else  // already seen this state, and is already named
 		{
 		    nms->set_name(new_name);
+		    // Add new transition to current state
+		    p_states[current->name()]
+			->add_transition(nms->weight(),nms->name(),i,o);
 		    delete nms;
 		}
-
-		// Add new transition to current state
-		p_states[current->name()]
-		    ->add_transition(nms->weight(),nms->name(),i,o);
 	    }
 	}
 	delete current;
