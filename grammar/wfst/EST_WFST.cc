@@ -538,7 +538,7 @@ EST_read_status EST_WFST::load(const EST_String &filename)
     ts.open(fd,FALSE);
     ts.set_quotes('"','\\');
 
-    if (((r = read_est_header(ts, hinfo, ascii, t)) != format_ok) ||
+    if ((read_est_header(ts, hinfo, ascii, t) != format_ok) ||
 	(t != est_file_fst))
     {
 	cerr << "WFST load: not a WFST file \"" << filename << "\"" <<endl;
