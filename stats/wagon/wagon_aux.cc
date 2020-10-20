@@ -848,7 +848,7 @@ float WImpurity::ols_impurity()
     ols_test(Y,pred,cor,rmse);
     best_score = cor;
 
-    printf("Impurity OLS X(%d,%d) Y(%d,%d) %f, %f, %f\n",
+    printf("Impurity OLS X(%ld,%ld) Y(%ld,%ld) %f, %f, %f\n",
              X.num_rows(),X.num_columns(),Y.num_rows(),Y.num_columns(),
              rmse,cor,
              1-best_score);

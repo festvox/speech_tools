@@ -208,7 +208,7 @@ int strlist_index(const EST_StrList &l,const EST_String &s)
 
 void StrList_to_StrVector(EST_StrList &l, EST_StrVector &v)
 {
-    int len,i;
+    size_t len,i;
 
     len = l.length();
     v.resize(len);
@@ -222,9 +222,8 @@ void StrList_to_StrVector(EST_StrList &l, EST_StrVector &v)
 
 void StrVector_to_StrList(EST_StrVector &v, EST_StrList &l)
 {
-    int i;
     l.clear();
-    for (i=0;i<v.length();i++)
+    for (std::ptrdiff_t i=0;i<v.length();++i)
       l.append(v[i]);
 }
 

@@ -307,9 +307,9 @@ void multiply(const EST_DMatrix &a, const EST_DMatrix &b, EST_DMatrix &ab)
 	}
 }
 
-void EST_DMatrix::copyin(double **inx, int rows, int cols)
+void EST_DMatrix::copyin(double **inx, std::ptrdiff_t rows, std::ptrdiff_t cols)
 {
-    int i, j;
+    std::ptrdiff_t i, j;
 
     resize(rows, cols);
 
@@ -384,8 +384,8 @@ EST_write_status EST_DMatrix::est_save(const EST_String &filename,
     else
 	fprintf(fd,"DataType ascii\n");
 
-    fprintf(fd,"rows %d\n",num_rows());
-    fprintf(fd,"columns %d\n",num_columns());
+    fprintf(fd,"rows %ld\n",num_rows());
+    fprintf(fd,"columns %ld\n",num_columns());
 
     fprintf(fd,"EST_Header_End\n");
 
@@ -791,7 +791,7 @@ EST_write_status EST_DVector::est_save(const EST_String &filename,
     else
 	fprintf(fd,"DataType ascii\n");
 
-    fprintf(fd,"length %d\n",length());
+    fprintf(fd,"length %ld\n",length());
     fprintf(fd,"EST_Header_End\n");
 
     if (type == "est_binary")

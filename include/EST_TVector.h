@@ -37,13 +37,15 @@
 /*                                                                       */
 /*=======================================================================*/
 
-#ifndef __EST_TVector_H__
-#define __EST_TVector_H__
+#ifndef EST_TVector_H__
+#define EST_TVector_H__
 
+#include <cstddef>
 #include <iostream>
 using namespace std; // FIXME: To be removed
 #include "EST_bool.h"
 #include "EST_rw_status.h"
+#include "../base_class/EST_matrix_support.h"
 
 #include "instantiate/EST_TVectorI.h"
 
@@ -55,8 +57,8 @@ class EST_String;
   * meaning `current size' or `all the rest'
   */
 
-extern const int EST_CURRENT;
-extern const int EST_ALL;
+extern std::ptrdiff_t const EST_CURRENT;
+extern std::ptrdiff_t const EST_ALL;
 
 /* When set bounds checks (safe but slow) are done on vector access */
 #ifndef TVECTOR_BOUNDS_CHECKING
@@ -68,22 +70,6 @@ extern const int EST_ALL;
 #else
 #define A_CHECK a_no_check
 #endif
-
-#define INLINE inline
-
-/* This doesn't work as I thought so I have disabled it for now.
- */
-
-#if defined(__GNUC__) && 0
-#    define fast_a_v_gcc(C) \
-	( *((T *)\
-	      (((char (*) [sizeof(T)*p_column_step])p_memory) + (C))\
-	      ))
-#    define fast_a_v_x(C) (fast_a_v_gcc(C))
-#else
-#    define fast_a_v_x(C) (fast_a_v(C))
-#endif
-
 
 /** @class EST_TVector
  *  @brief Template vector
@@ -110,7 +96,7 @@ extern const int EST_ALL;
 
      @code{.cpp}
      EST_FVector x(10);
-     int i;
+     std::ptrdiff_t i;
 
      for (i=0; i < x.length(); ++i)
         x[i] = sqrt((float)i);
@@ -130,8 +116,8 @@ extern const int EST_ALL;
      #include "../base_class/EST_Tvectlist.cc"
        
      template class EST_TVector<FooBar>;
-     template ostream& operator << 
-          (ostream &st, const EST_TVector<FooBar> &v);
+     template std::ostream& operator << 
+          (std::ostream &st, const EST_TVector<FooBar> &v);
      @endcode
 
      The EST library already has template vector instantiations for
@@ -141,61 +127,75 @@ extern const int EST_ALL;
      `float`s, `doubles`s and \ref EST_String  respectively.
 
   * @see matrix_example */
-template <class T> 
-class EST_TVector 
+template <class T>
+class EST_TVector
 {
+public:
+  using value_type = T;
+  /* The memory management in this class could allow for negative indexing.
+   * This class was using int for indexing.
+   * The STL may use unsigned types for indexing, we won't.
+   */
+  using size_type = std::ptrdiff_t;
+  using difference_type = std::ptrdiff_t;
+  using reference = value_type &;
+  using const_reference = const value_type &;
+  using pointer = value_type *;
+  using const_pointer = const value_type *;
   // protected:
 public:
   /** Pointer to the start of the vector. 
     * The start of allocated memory is p_memory-p_offset.
     */
-  T *p_memory; 
+  pointer p_memory; 
 
   /// Visible shape
-  unsigned int p_num_columns;
+  size_type p_num_columns;
 
   /// How to access the memory
-  unsigned int p_offset;
-  unsigned int p_column_step;
+  difference_type p_offset;
+  size_type p_column_step;
   
   bool p_sub_matrix;
 
   
   /// The memory access rule, in one place for easy reference
-  INLINE unsigned int vcell_pos(unsigned int c,
-			        unsigned int cs) const
-    {return cs==1?c:c*cs;}
+  inline difference_type vcell_pos(difference_type c,
+                                   size_type cs) const
+    {return cs == 1 ? c : c * cs;}
 
-  INLINE unsigned int vcell_pos(unsigned int c) const
+  inline difference_type vcell_pos(difference_type c) const
     {
       return vcell_pos(c, 
 		      p_column_step);
     }
 
-  INLINE unsigned int vcell_pos_1(unsigned int c) const
+  inline difference_type vcell_pos_1(difference_type c) const
     {
       return c;
     }
 
   /// quick method for returning \(x[n]\)
-  INLINE const T &fast_a_v(int c) const { return p_memory[vcell_pos(c)]; }
+  inline const_reference fast_a_v(difference_type c) const { return p_memory[vcell_pos(c)]; }
 
-  INLINE T &fast_a_v(int c) { return p_memory[vcell_pos(c)]; }
+  inline reference fast_a_v(difference_type c) { return p_memory[vcell_pos(c)]; }
 
-  INLINE const T &fast_a_1(int c) const { return p_memory[vcell_pos_1(c)]; }
-  INLINE T &fast_a_1(int c) { return p_memory[vcell_pos_1(c)]; }
+  inline const_reference fast_a_1(difference_type c) const { return p_memory[vcell_pos_1(c)]; }
+  inline reference fast_a_1(difference_type c) { return p_memory[vcell_pos_1(c)]; }
 
   /// Get and set values from array
-  void set_values(const T *data, int step, int start_c, int num_c);
-  void get_values(T *data, int step, int start_c, int num_c) const;
-    
+  void set_values(const_pointer data, difference_type step, size_type start_c,
+                  size_type num_c);
+  void get_values(pointer data, difference_type step, size_type start_c,
+                  size_type num_c) const;
+
   /// private copy function, called from all other copying functions.
   void copy(const EST_TVector<T> &a); 
   /// just copy data, no resizing, no size check.
   void copy_data(const EST_TVector<T> &a); 
 
   /// resize the memory and reset the bounds, but don't set values.
-  void just_resize(int new_cols, T** old_vals);
+  void just_resize(size_type new_cols, pointer *old_vals);
 
   /// sets data and length to default values (0 in both cases).
   void default_vals();
@@ -208,128 +208,127 @@ public:
   EST_TVector(const EST_TVector<T> &v); 
 
   /// "size" constructor - make vector of size n.
-  EST_TVector(int n); 
+  EST_TVector(size_type n);
 
   /// construct from memory supplied by caller
-  EST_TVector(int, 
-	      T *memory, int offset=0, int free_when_destroyed=0);
+  EST_TVector(size_type n,
+	      pointer memory, difference_type offset=0, bool free_when_destroyed=false);
 
   /// destructor.
   ~EST_TVector();
 
   /// default value, used for filling matrix after resizing
-  static const T *def_val;
+  static const_pointer def_val;
 
   /** A reference to this variable is returned if you try and access
-    * beyond the bounds of the matrix. The value is undefined, but you
-    * can check for the reference you get having the same address as
-    * this variable to test for an error.
-    */
-  static T *error_return;
+   * beyond the bounds of the matrix. The value is undefined, but you
+   * can check for the reference you get having the same address as
+   * this variable to test for an error.
+   */
+  static pointer error_return;
 
   /** resize vector. If `set=1`, then the current values in
       the vector are preserved up to the new length `n`. If the
       new length exceeds the old length, the rest of the vector is
       filled with the `def_val`
   */
-  void resize(int n, int set=1); 
+  void resize(size_type n, bool set = true);
 
   /** For when you absolutely have to have access to the memory.
-    */
-  const T * memory() const { return p_memory; }
-  T * memory(){ return p_memory; }
+   */
+  const_pointer memory() const { return p_memory; }
+  pointer memory() { return p_memory; }
 
   /**@name Access
-    * Basic access methods for vectors.
-    */
+   * Basic access methods for vectors.
+   */
   ///@{
 
   /// number of items in vector.
-  INLINE int num_columns() const {return p_num_columns;}
+  inline size_type num_columns() const { return p_num_columns; }
   /// number of items in vector.
-  INLINE int length() const {return num_columns();}
+  inline size_type length() const { return num_columns(); }
   /// number of items in vector.
-  INLINE int n() const {return num_columns();}
+  inline size_type n() const { return num_columns(); }
 
   /// read-only const access operator: without bounds checking
-  INLINE const T &a_no_check(int n) const { return fast_a_v_x(n); }
+  inline const_reference a_no_check(difference_type n) const { return fast_a_v(n); }
   /// read/write non-const access operator: without bounds checking
-  INLINE T &a_no_check(int n) { return fast_a_v_x(n); }
+  inline reference a_no_check(difference_type n) { return fast_a_v(n); }
   /// read-only const access operator: without bounds checking
-  INLINE const T &a_no_check_1(int n) const { return fast_a_1(n); }
+  inline const_reference a_no_check_1(difference_type n) const { return fast_a_1(n); }
   /// read/write non-const access operator: without bounds checking
-  INLINE T &a_no_check_1(int n) { return fast_a_1(n); }
+  inline reference a_no_check_1(difference_type n) { return fast_a_1(n); }
 
   // #define pp_a_no_check(V,N) (pp_fast_a(V,N))
 
   /// read-only const access operator: with bounds checking
-  const T &a_check(int n) const;
+  const_reference a_check(difference_type n) const;
   /// read/write non-const access operator: with bounds checking
-  T &a_check(int n);
+  reference a_check(difference_type n);
 
-  const T &a(int n) const { return A_CHECK(n); }
-  T &a(int n) { return A_CHECK(n); }
+  const_reference a(difference_type n) const { return A_CHECK(n); }
+  reference a(difference_type n) { return A_CHECK(n); }
 
   /// read-only const access operator: return reference to nth member
-  const T &operator () (int n) const {return A_CHECK(n);}
+  const_reference operator()(difference_type n) const { return A_CHECK(n); }
 
   // PT
   // /// non const access operator: return reference to nth member
-  //  T &operator () (int n) const {return a(n);}
+  //  T &operator () (std::ptrdiff_t n) const {return a(n);}
 
   /// read/write non const access operator: return reference to nth member
-  T &operator [] (int n) { return A_CHECK(n); }
+  reference operator[](difference_type n) { return A_CHECK(n); }
 
   //@}
 
-  void set_memory(T *buffer, int offset, int columns,
-		  int free_when_destroyed=0);
+  void set_memory(pointer buffer, difference_type offset, size_type columns,
+                  bool free_when_destroyed = false);
 
   /// assignment operator
   EST_TVector &operator=(const EST_TVector &s);
 
   /// Fill entire array will value `v`.
-  void fill(const T &v);
+  void fill(const_reference v);
 
   /// Fill vector with default value
   void empty() { fill(*def_val); }
 
   /// is true if vectors are equal size and all elements are equal.
-  int operator == (const EST_TVector &v) const;
+  bool operator==(const EST_TVector &v) const { return !((*this) != v); }
   /// is true if vectors are not equal size or a single elements isn't equal.
-  int operator != (const EST_TVector &v) const
-    { return ! ((*this) == v); }
+  bool operator!=(const EST_TVector &v) const;
 
   /// Copy data in and out. Subclassed by SimpleVector for speed.
 
-  void copy_section(T* dest, int offset=0, int num=-1) const;
-  void set_section(const T* src, int offset=0, int num=-1);
+  void copy_section(pointer dest, difference_type offset = 0,
+                    difference_type num = -1) const;
+  void set_section(const_pointer src, difference_type offset = 0,
+                   difference_type num = -1);
 
   /// Create a sub vector.
-  void sub_vector(EST_TVector<T> &sv, int start_c=0, int len=-1);
+  void sub_vector(EST_TVector<T> &sv, difference_type start_c = 0,
+                  difference_type len = -1);
   /// print out vector.
-    friend ostream& operator << (ostream &st, const EST_TVector<T> &m)
-    {
-        int i; 
-        for (i = 0; i < m.n(); ++i) 
-            st << m(i) << " "; 
-        st << endl; 
-        return st;
-    }
+  friend std::ostream &operator<<(std::ostream &st, const EST_TVector<T> &m) {
+    for (difference_type i = 0; i < m.n(); ++i)
+      st << m(i) << " ";
+    st << std::endl;
+    return st;
+  }
 
   /// Matrix must be friend to set up subvectors
   friend class EST_TMatrix<T>;
 
   void integrity() const;
-
 };
 
 /// assignment operator: fill track with values in list `s`.
 
 // This appears unuset and potentially causes a namespace clashes with std::set
-// is sparrowhawk is used. 
+// is sparrowhawk is used.
 //   template<class T>
 //     extern EST_TVector<T> &set(EST_TVector<T> &v, const EST_TList<T> &s);
 
 #undef A_CHECK
-#endif
+#endif //EST_TVector_H__

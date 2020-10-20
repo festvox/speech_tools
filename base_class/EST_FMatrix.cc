@@ -37,6 +37,7 @@
 /*                                                                       */
 /*=======================================================================*/
 
+#include <cstddef>
 #include <cstdlib>
 #include <cstdio>
 #include <fstream>
@@ -325,9 +326,9 @@ void multiply(const EST_FMatrix &a, const EST_FMatrix &b, EST_FMatrix &ab)
 	}
 }
 
-void EST_FMatrix::copyin(float **inx, int rows, int cols)
+void EST_FMatrix::copyin(float **inx, std::ptrdiff_t rows, std::ptrdiff_t cols)
 {
-    int i, j;
+    std::ptrdiff_t i, j;
 
     resize(rows, cols);
 
@@ -401,8 +402,8 @@ EST_write_status EST_FMatrix::est_save(const EST_String &filename,
     else
 	fprintf(fd,"DataType ascii\n");
 
-    fprintf(fd,"rows %d\n",num_rows());
-    fprintf(fd,"columns %d\n",num_columns());
+    fprintf(fd,"rows %ld\n",num_rows());
+    fprintf(fd,"columns %ld\n",num_columns());
 
     fprintf(fd,"EST_Header_End\n");
 
@@ -894,7 +895,7 @@ EST_write_status EST_FVector::est_save(const EST_String &filename,
     else
 	fprintf(fd,"DataType ascii\n");
 
-    fprintf(fd,"length %d\n",length());
+    fprintf(fd,"length %ld\n",length());
     fprintf(fd,"EST_Header_End\n");
 
     if (type == "est_binary")

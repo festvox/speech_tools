@@ -105,7 +105,7 @@ void EST_Chunk::operator -- ()
 }
 #endif
 
-void *EST_Chunk::operator new (size_t size, int bytes)
+void *EST_Chunk::operator new (size_t size, size_t bytes)
 {
 
   if (bytes > MAX_CHUNK_SIZE)
@@ -236,14 +236,14 @@ char &EST_ChunkPtr::operator () (int i) {
  /*                                                                      */
  /************************************************************************/
 
-EST_ChunkPtr chunk_allocate(int bytes)
+EST_ChunkPtr chunk_allocate(size_t bytes)
 {
   EST_Chunk *cp = new(bytes) EST_Chunk;
 
   return (EST_ChunkPtr)cp;
 }
 
-EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len)
+EST_ChunkPtr chunk_allocate(size_t bytes, const char *initial, size_t initial_len)
 {
   if (initial_len >= bytes)
     {
@@ -260,7 +260,7 @@ EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len)
   return (EST_ChunkPtr)cp;
 }
 
-EST_ChunkPtr chunk_allocate(int bytes, const EST_ChunkPtr &initial, int initial_start, int initial_len)
+EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t initial_start, size_t initial_len)
 {
   if (initial_len >= bytes)
     {

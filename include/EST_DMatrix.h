@@ -58,16 +58,11 @@ possible.
 class EST_DMatrix : public EST_TSimpleMatrix<double> {
 private:
 public:
-    /// size constructor
-    EST_DMatrix(int m, int n):EST_TSimpleMatrix<double>(m, n)  {}
-    /// copy constructor
-    EST_DMatrix(const EST_DMatrix &a):EST_TSimpleMatrix<double>(a)  {}
+    using EST_TSimpleMatrix<double>::EST_TSimpleMatrix;
 
     static EST_String default_file_type;
-    /// CHECK  - what does this do???
+    /// Creates a matrix of the same size as a. if b == 0, fills it with 0.0
     EST_DMatrix(const EST_DMatrix &a, int b);
-    /// default constructor
-    EST_DMatrix():EST_TSimpleMatrix<double>()  {}
 
     /// Save in file (ascii or binary)
     EST_write_status save(const EST_String &filename,
@@ -82,7 +77,7 @@ public:
     EST_read_status est_load(const EST_String &filename);
 
     /// Copy 2-d array `x` of size `rows x cols` into matrix.
-    void copyin(double **x, int rows, int cols);
+    void copyin(double **x, std::ptrdiff_t rows, std::ptrdiff_t cols);
 
     /// Add elements of 2 same sized matrices.
     EST_DMatrix &operator+=(const EST_DMatrix &a);
@@ -118,12 +113,7 @@ public:
 */
 class EST_DVector: public EST_TSimpleVector<double> {
 public:
-    /// Size constructor.
-    EST_DVector(int n): EST_TSimpleVector<double>(n) {}
-    /// Copy constructor.
-    EST_DVector(const EST_DVector &a): EST_TSimpleVector<double>(a) {}
-    /// Default constructor.
-    EST_DVector(): EST_TSimpleVector<double>() {}
+    using EST_TSimpleVector<double>::EST_TSimpleVector;
 
     /// elementwise multiply
     EST_DVector &operator*=(const EST_DVector &s); 

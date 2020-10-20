@@ -43,10 +43,10 @@
 #include "EST_matrix_support.h"
 #include "EST_bool.h"
 
-const int EST_CURRENT=-1;
-const int EST_ALL=-1;
 using namespace std;
 
+const std::ptrdiff_t EST_CURRENT=-1;
+const std::ptrdiff_t EST_ALL=-1;
 
 bool EST_matrix_bounds_check(int r,
 			     int c,

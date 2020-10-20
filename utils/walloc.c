@@ -53,7 +53,7 @@
 /* use the debug malloc in flite */
 #include "cst_alloc.h"
 
-void *safe_walloc(int size)
+void *safe_walloc(size_t size)
 {
     return cst_safe_alloc(size);
 }
@@ -83,7 +83,7 @@ void debug_memory_summary(void)
 }
 
 #else
-void *safe_walloc(int size)
+void *safe_walloc(size_t size)
 {
     char *p;
     
@@ -97,7 +97,7 @@ void *safe_walloc(int size)
 
     if (p == NULL)
     {
-	fprintf(stderr,"WALLOC: failed to malloc %d bytes\n",size);
+	fprintf(stderr,"WALLOC: failed to malloc %ld bytes\n",size);
 	exit(-1);  /* I'd rather not do this but this is the only safe */
 	           /* thing to do */
     }
@@ -105,7 +105,7 @@ void *safe_walloc(int size)
     return p;
 }
 
-void *safe_wrealloc(void *ptr, int size)
+void *safe_wrealloc(void *ptr, size_t size)
 {
     char *p;
 
@@ -121,7 +121,7 @@ void *safe_wrealloc(void *ptr, int size)
 
     if ((p == NULL) && (size != 0))
     {
-	fprintf(stderr,"WREALLOC: failed to malloc %d bytes\n",size);
+	fprintf(stderr,"WREALLOC: failed to malloc %ld bytes\n",size);
 	exit(-1);  /* I'd rather not do this but this is the only safe */
 	           /* thing to do */
     }
@@ -129,7 +129,7 @@ void *safe_wrealloc(void *ptr, int size)
     return p;
 }
 
-void *safe_wcalloc(int size)
+void *safe_wcalloc(size_t size)
 {
     char *p = safe_walloc(size);
 

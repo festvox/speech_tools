@@ -38,13 +38,12 @@
  /*                                                                       */
  /*************************************************************************/
 
-
-#include <iostream>
-#include <fstream>
 #include "EST_TVector.h"
-#include "EST_matrix_support.h"
 #include "EST_cutils.h"
 #include "EST_error.h"
+#include "EST_matrix_support.h"
+#include <fstream>
+#include <iostream>
 
 template<class T>
 void EST_TVector<T>::default_vals()
@@ -64,7 +63,7 @@ EST_TVector<T>::EST_TVector()
 }
 
 template<class T>
-EST_TVector<T>::EST_TVector(int n)
+EST_TVector<T>::EST_TVector(size_type n)
 {
     default_vals();
     resize(n);
@@ -78,8 +77,8 @@ EST_TVector<T>::EST_TVector(const EST_TVector<T> &in)
 }
 
 template<class T>
-EST_TVector<T>::EST_TVector(int n,
-			    T *memory, int offset, int free_when_destroyed)
+EST_TVector<T>::EST_TVector(size_type n, pointer memory, difference_type offset,
+                            bool free_when_destroyed)
 {
   default_vals();
 
@@ -102,16 +101,14 @@ EST_TVector<T>::~EST_TVector()
 
 
 template<class T>
-void  EST_TVector<T>::fill(const T &v)
-{
-    for (int i = 0; i < num_columns(); ++i)
+void EST_TVector<T>::fill(const_reference v) {
+    for (difference_type i = 0; i < num_columns(); ++i)
 	fast_a_v(i) = v;
 }
 
 template<class T>
-void EST_TVector<T>::set_memory(T *buffer, int offset, int columns, 
-				int free_when_destroyed)
-{
+void EST_TVector<T>::set_memory(pointer buffer, difference_type offset,
+				size_type columns, bool free_when_destroyed) {
   if (p_memory != NULL && !p_sub_matrix)
     delete [] (p_memory-p_offset);
   
@@ -123,23 +120,20 @@ void EST_TVector<T>::set_memory(T *buffer, int offset, int columns,
 }
 
 template<class T>
-void EST_TVector<T>::set_values(const T *data, 
-				 int step,
-				 int start_c, 
-				 int num_c)
-{
-  for(int i=0, c=start_c, p=0; i<num_c; i++, c++, p+=step)
+void EST_TVector<T>::set_values(const_pointer data, difference_type step,
+				 size_type start_c, size_type num_c) {
+  for (difference_type i=0, c=start_c, p=0; i<num_c; i++, c++, p+=step)
     a_no_check(c) = data[p];
 }
 
 
 template<class T>
-void EST_TVector<T>::get_values(T *data, 
-				 int step,
-				 int start_c, 
-				 int num_c) const
+void EST_TVector<T>::get_values(pointer data,
+				 difference_type step,
+				 size_type start_c,
+				 size_type num_c) const
 {
-  for(int i=0, c=start_c, p=0; i<num_c; i++, c++, p+=step)
+  for (difference_type i=0, c=start_c, p=0; i<num_c; i++, c++, p+=step)
    data[p] = a_no_check(c);
 }
 
@@ -153,18 +147,16 @@ void EST_TVector<T>::copy_data(const EST_TVector<T> &a)
 template<class T>
 void EST_TVector<T>::copy(const EST_TVector<T> &a)
 {
-    resize(a.n(), FALSE);
+    resize(a.n(), false);
     copy_data(a);
 }
 
 template<class T>
-void EST_TVector<T>::just_resize(int new_cols, T** old_vals)
+void EST_TVector<T>::just_resize(size_type new_cols, pointer *old_vals)
 {
-  T *new_m;
-  
-  if (num_columns() != new_cols || p_memory == NULL )
-    {
-      if (p_sub_matrix)
+  pointer new_m;
+  if (num_columns() != new_cols || p_memory == NULL ) {
+    if (p_sub_matrix)
 	EST_error("Attempt to resize Sub-Vector");
 
       if (new_cols < 0)
@@ -193,19 +185,18 @@ void EST_TVector<T>::just_resize(int new_cols, T** old_vals)
 
 
 template<class T>
-void EST_TVector<T>::resize(int new_cols, int set)
-{
-  int i;
-  T * old_vals = p_memory;
-  int old_cols = num_columns();
-  int old_offset = p_offset;
-  int old_column_step = p_column_step;
+void EST_TVector<T>::resize(size_type new_cols, bool set) {
+  difference_type i;
+  pointer old_vals = p_memory;
+  size_type old_cols = num_columns();
+  difference_type old_offset = p_offset;
+  size_type old_column_step = p_column_step;
 
   just_resize(new_cols, &old_vals);
 
   if (set)
     {
-      int copy_c = 0;
+      size_type copy_c = 0;
 
       if (!old_vals)
 	copy_c=0;
@@ -237,7 +228,7 @@ EST_TVector<T> &EST_TVector<T>::operator=(const EST_TVector<T> &in)
 }
 
 template<class T>
-T &EST_TVector<T>::a_check(int n)
+T &EST_TVector<T>::a_check(difference_type n)
 {
   if (!EST_vector_bounds_check(n, num_columns(), FALSE))
     return *error_return;
@@ -246,29 +237,26 @@ T &EST_TVector<T>::a_check(int n)
 }
 
 template<class T>
-const T &EST_TVector<T>::a_check(int n) const
+const T &EST_TVector<T>::a_check(difference_type n) const
 {
-  return ((EST_TVector<T> *)this)->a(n);
+  return this->a(n);
 }
 
 template<class T>
-int EST_TVector<T>::operator == (const EST_TVector<T> &v) const
+bool EST_TVector<T>::operator != (const EST_TVector<T> &v) const
 {
-    if (num_columns() != v.num_columns())
-	return 0;
+  if (num_columns() != v.num_columns())
+	return true;
 
-    for(int i=0; i<num_columns() ; i++)
-    {
-      if (fast_a_v(i) == v.fast_a_v(i))
-          continue;
-      else
-          return 0;
-    }
-    return 1;
+  for(difference_type i=0; i<num_columns(); i++) {
+    if (fast_a_v(i) != v.fast_a_v(i))
+      return true;
+  }
+  return false;
 }
 
 template<class T>
-void EST_TVector<T>::copy_section(T* dest, int offset, int num) const
+void EST_TVector<T>::copy_section(pointer dest, difference_type offset, difference_type num) const
 {
   if (num<0)
     num = num_columns()-offset;
@@ -277,26 +265,27 @@ void EST_TVector<T>::copy_section(T* dest, int offset, int num) const
     return;
   
 
-  for(int i=0; i<num; i++)
+  for(difference_type i=0; i<num; i++)
     dest[i] = a_no_check(offset+i);
 }
 
 template<class T>
-void EST_TVector<T>::set_section(const T* src, int offset, int num)
+void EST_TVector<T>::set_section(const_pointer src, difference_type offset,
+				 difference_type num)
 {
   if (num<0)
     num = num_columns()-offset;
 
   if (!EST_vector_bounds_check(num+offset-1, num_columns(), FALSE))
     return;
-  
-  for(int i=0; i<num; i++)
+
+  for(difference_type i=0; i<num; i++)
     a_no_check(offset+i) = src[i];
 }
 
 template<class T>
 void EST_TVector<T>::sub_vector(EST_TVector<T> &sv,
-				int start_c, int len)
+				difference_type start_c, difference_type len)
 {
   if (len < 0)
     len = num_columns()-start_c;
@@ -304,7 +293,7 @@ void EST_TVector<T>::sub_vector(EST_TVector<T> &sv,
   if (sv.p_memory != NULL && ! sv.p_sub_matrix)
     delete [] (sv.p_memory - sv.p_offset);
 
-  sv.p_sub_matrix = TRUE;
+  sv.p_sub_matrix = true;
   sv.p_offset = p_offset + start_c*p_column_step;
   sv.p_memory = p_memory - p_offset + sv.p_offset;
   sv.p_column_step=p_column_step;

@@ -647,9 +647,9 @@ public:
 
 }; 
 
-EST_ChunkPtr chunk_allocate(int bytes);
-EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len);
-EST_ChunkPtr chunk_allocate(int bytes, const EST_ChunkPtr &initial, int initial_start, int initial_len);
+EST_ChunkPtr chunk_allocate(size_t bytes);
+EST_ChunkPtr chunk_allocate(size_t bytes, const char *initial, size_t initial_len);
+EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t initial_start, size_t initial_len);
 
 int operator == (const char *a, const EST_String &b);
 int operator == (const EST_String &a, const EST_String &b);

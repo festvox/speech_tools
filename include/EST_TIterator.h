@@ -89,7 +89,7 @@ protected:
   Container *cont;
 
   /// Position in the structure. May or may not be useful.
-  unsigned int pos;
+  std::size_t pos;
 
   /** Structure defined by the container class which contains the
     * current state of the iteration.

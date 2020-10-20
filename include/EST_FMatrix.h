@@ -59,16 +59,11 @@ class EST_FVector;
 class EST_FMatrix : public EST_TSimpleMatrix<float> {
 private:
 public:
-    /// size constructor
-    EST_FMatrix(int m, int n):EST_TSimpleMatrix<float>(m, n)  {}
-    /// copy constructor
-    EST_FMatrix(const EST_FMatrix &a):EST_TSimpleMatrix<float>(a)  {}
+    using EST_TSimpleMatrix<float>::EST_TSimpleMatrix;
 
     static EST_String default_file_type;
-    /// CHECK  - what does this do???
+    /// Creates a matrix of the same size as a. if b == 0, fills it with 0.0
     EST_FMatrix(const EST_FMatrix &a, int b);
-    /// default constructor
-    EST_FMatrix():EST_TSimpleMatrix<float>()  {}
 
     /// Save in file (ascii or binary)
     EST_write_status save(const EST_String &filename,
@@ -83,7 +78,7 @@ public:
     EST_read_status est_load(const EST_String &filename);
 
     /// Copy 2-d array `x` of size `rows x cols` into matrix.
-    void copyin(float **x, int rows, int cols);
+    void copyin(float **x, std::ptrdiff_t rows, std::ptrdiff_t cols);
 
     /// Add elements of 2 same sized matrices.
     EST_FMatrix &operator+=(const EST_FMatrix &a);
@@ -118,12 +113,7 @@ public:
 */
 class EST_FVector: public EST_TSimpleVector<float> {
 public:
-    /// Size constructor.
-    EST_FVector(int n): EST_TSimpleVector<float>(n) {}
-    /// Copy constructor.
-    EST_FVector(const EST_FVector &a): EST_TSimpleVector<float>(a) {}
-    /// Default constructor.
-    EST_FVector(): EST_TSimpleVector<float>() {}
+    using EST_TSimpleVector<float>::EST_TSimpleVector;
 
     /// elementwise multiply
     EST_FVector &operator*=(const EST_FVector &s); 
