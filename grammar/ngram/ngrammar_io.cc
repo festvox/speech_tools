@@ -683,7 +683,7 @@ save_ngram_arpa(const EST_String filename, EST_Ngrammar &n)
     
     *ost << "\\data\\" << endl;
     
-    double *count = new double;
+    double count;
     
     if (n.representation() == EST_Ngrammar::backoff)
     {
@@ -692,12 +692,12 @@ save_ngram_arpa(const EST_String filename, EST_Ngrammar &n)
 	    EST_StrVector ngram(o);
 	    for(i=0;i<o;i++)
 		ngram[i] = "";
-	    *count =0;
+	    count = 0;
 	    
 	    // this is a deeply silly way to count them,
 	    // we could traverse the tree directly !
-	    n.iterate(ngram,&count_ngram_arpa_sub,(void*)count);
-	    *ost << "ngram " << o << "=" << *count << endl;
+	    n.iterate(ngram,&count_ngram_arpa_sub, &count);
+	    *ost << "ngram " << o << "=" << count << endl;
 	}
 	
 	for(o=1;o<=n.order();o++)
@@ -716,9 +716,9 @@ save_ngram_arpa(const EST_String filename, EST_Ngrammar &n)
 	EST_StrVector ngram(n.order());
 	for(i=0;i<n.order();i++)
 	    ngram[i] = "";
-	*count =0;
-	n.iterate(ngram,&count_ngram_arpa_sub,(void*)count);
-	*ost << "ngram " << n.order() << "=" << *count << endl;
+	count =0;
+	n.iterate(ngram,&count_ngram_arpa_sub, &count);
+	*ost << "ngram " << n.order() << "=" << count << endl;
 	
 	*ost << endl;
 	*ost << "\\" << n.order() << "-grams:" << endl;
