@@ -206,12 +206,12 @@ EST_read_status EST_GenXML::read_xml(FILE *file,
   return read_ok;
 }
 
-static void ensure_relation(GenXML_Parse_State *state, EST_String name)
+static void ensure_relation(GenXML_Parse_State &state, EST_String name)
 {
-  if (state->rel!=NULL && name == state->relName)
+  if (state.rel!=NULL && name == state.relName)
 	return;
 
-  state->rel = state->utt->create_relation(state->relName=name);
+  state.rel = state.utt->create_relation(state.relName=name);
 }
 
 static EST_Item_Content *get_contents(GenXML_Parse_State *state, EST_String id)
@@ -493,7 +493,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 
       EST_String relationType = attributes.val("estRelationTypeAttr");
 
-      ensure_relation(state, relName);
+      ensure_relation(*state, relName);
       state->rel_start_depth=state->depth;
       state->linear=(attributes.val(relationType) == "linear"||
 		     attributes.val(relationType) == "list");
@@ -510,7 +510,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
       printf("push depth=%d name=%s ig=%s\n", state->depth, name, (const char *)ig);
 #endif
       if (val != EST_String::Empty)
-	ensure_relation(state, val);
+	ensure_relation(*state, val);
 
       state->depth_stack.push(state->open_depth);
       state->open_depth=state->depth;
