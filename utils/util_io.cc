@@ -152,15 +152,12 @@ EST_String ftoString(float n, int pres, int width, int right_justify)
 {
     (void)right_justify;
     EST_String val;
-    char tmp[1000];
-    char spec[10];
-    strcpy(spec, "%");
+    char tmp[10000];
+    char spec[100];
     if (width != 0)
-	strcat(spec, itoString(width));
-    strcat(spec, ".");
-    strcat(spec, itoString(pres));
-    strcat(spec, "f");
-    
+        sprintf(spec, "%%%d.%df", width, pres);
+    else
+        sprintf(spec, "%%.%df", pres);
     sprintf(tmp, spec, n);
     val = tmp;
     return val;

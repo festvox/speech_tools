@@ -184,7 +184,7 @@ EST_Item *item_jump(EST_Item *from, const EST_String &to)
 {
   // This function jumps around standard festival relation structures.
   // Designed to be fast rather than anything else.
-  // Behaviour is undefined for non standard structures.
+  // Returns a null pointer for non standard structures.
   // Gives the first of non-unique items.
 
   int f=0,t=0;
@@ -227,6 +227,8 @@ EST_Item *item_jump(EST_Item *from, const EST_String &to)
     case 4:
       // IntEvent
         return(idown(iup(from->as_relation("SylStructure"))->as_relation("Intonation"))->as_relation("IntEvent"));
+    default:
+      return nullptr;
     }
 
   case 2:
@@ -241,6 +243,8 @@ EST_Item *item_jump(EST_Item *from, const EST_String &to)
       // IntEvent
     case 4:
         return(idown(from->as_relation("Intonation"))->as_relation("IntEvent"));
+    default:
+      return nullptr;
     }
 
   case 3:
@@ -254,6 +258,8 @@ EST_Item *item_jump(EST_Item *from, const EST_String &to)
         return(idown(from->as_relation("SylStructure"))->as_relation("Syllable"));
     case 4:
         return(idown(idown(from->as_relation("SylStructure"))->as_relation("Intonation"))->as_relation("IntEvent"));
+    default:
+      return nullptr;
     }
 
   case 4:
@@ -268,10 +274,12 @@ EST_Item *item_jump(EST_Item *from, const EST_String &to)
     case 3:
       // Word
         return(iup(iup(from->as_relation("Intonation"))->as_relation("SylStructure"))->as_relation("Word"));
+    default:
+      return nullptr;
     }
+  default:
+  return nullptr;
   }
-
-  return NULL;
 }
 
 

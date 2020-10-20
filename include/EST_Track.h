@@ -745,7 +745,8 @@ public:
 protected:
   class IPointer_f { 
   public:
-    EST_Track *frame; int i; 
+    EST_Track *frame;
+    int i; 
     IPointer_f();
     IPointer_f(const IPointer_f &p);
     IPointer_f & operator = (const IPointer_f &p) {

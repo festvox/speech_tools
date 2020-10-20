@@ -124,8 +124,11 @@ int edit_labels(EST_Relation &a, const EST_String &sedfile)
     }
     for (a_ptr = a.head(); a_ptr != 0; a_ptr = inext(a_ptr))
     {
-	if (fscanf(fp, "%s", newname) < 1)
+        if (fscanf(fp, "%99s", newname) != 1)
+        {
+            cerr << "Error reading newname from file" << endl;
             break;
+        }
 //	cout << "oldname: " << a_ptr->name() << " newname: " << newname << endl;
 	a_ptr->set_name(newname);
     }

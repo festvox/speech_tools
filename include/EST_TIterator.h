@@ -101,7 +101,7 @@ public:
   typedef EST_TIterator<Container, IPointer, Entry> Iter;
 
   /// Create an iterator not associated with any specific container.
-  EST_TIterator() {cont=NULL; pos=0;}
+  EST_TIterator() {cont=nullptr; pos=0;}
 
   /// Create an iterator ready to run over the given container.
   EST_TIterator(const Container &over)
@@ -212,7 +212,7 @@ public:
   typedef EST_TStructIterator<Container, IPointer, Entry> Iter;
 
   /// Create an iterator not associated with any specific container.
-  EST_TStructIterator() {this->cont=NULL;}
+  EST_TStructIterator() {this->cont=nullptr;}
 
   /// Copy an iterator by assignment
   Iter &operator = (const EST_TIterator<Container, IPointer, Entry> &orig)
@@ -242,7 +242,7 @@ public:
   typedef EST_TRwIterator<Container, IPointer, Entry> Iter;
 
   /// Create an iterator not associated with any specific container.
-  EST_TRwIterator() {this->cont=NULL;}
+  EST_TRwIterator() {this->cont=nullptr;}
 
   /// Copy an iterator by assignment
   Iter &operator = (const EST_TIterator<Container, IPointer, Entry> &orig)
@@ -292,7 +292,7 @@ public:
   typedef EST_TRwStructIterator<Container, IPointer, Entry> Iter;
 
   /// Create an iterator not associated with any specific container.
-  EST_TRwStructIterator() {this->cont=NULL;}
+  EST_TRwStructIterator() {this->cont=nullptr;}
 
   /// Copy an iterator by assignment
   Iter &operator = (const EST_TIterator<Container, IPointer, Entry> &orig)

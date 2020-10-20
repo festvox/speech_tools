@@ -953,15 +953,15 @@ int main(int argc, char **argv)
 {
     short s=3;
     int n, c;
-    char16 S[] = {'w', 'o', 'r', 'l', 'd', ' ', '£' & 0xff, 0xd841, 0xdc42, 0};
+    char16 S[] = {'w', 'o', 'r', 'l', 'd', ' ', '\xA3' & 0xff, 0xd841, 0xdc42, 0};
 
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
 
     return 0;
