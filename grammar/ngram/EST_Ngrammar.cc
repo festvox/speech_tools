@@ -650,7 +650,7 @@ bool EST_Ngrammar::init_vocab(const EST_StrList &word_list)
     pred_vocab = vocab;	// same thing in this case
     vocab_pdf.init(pred_vocab);
     
-    return (bool)(vocab != NULL);
+    return true;
 }
 
 bool EST_Ngrammar::init_vocab(const EST_StrList &word_list,
@@ -664,7 +664,7 @@ bool EST_Ngrammar::init_vocab(const EST_StrList &word_list,
 	return false;
     vocab_pdf.init(pred_vocab);
     
-    return (bool)(vocab != NULL);
+    return true;
 }
 
 bool EST_Ngrammar::check_vocab(const EST_StrList &word_list)
