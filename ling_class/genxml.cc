@@ -138,7 +138,7 @@ protected:
 		     XML_Parser &p,
 		     void *data,
 		     const char *instruction);
-  virtual void error(XML_Parser_Class &c,
+  virtual void error [[noreturn]] (XML_Parser_Class &c,
 		XML_Parser &p,
 		void *data);
 };
