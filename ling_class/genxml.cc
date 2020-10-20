@@ -50,6 +50,7 @@
 
 #include "ling_class_init.h"
 
+extern template class EST_THash<EST_String, EST_String>;
 
 static EST_Regex simpleIDRegex("[^#]*#id(\\([-a-z0-9]+\\))");
 static EST_Regex rangeIDRegex("[^#]*#id(\\([a-z]*\\)\\([0-9]*\\)\\(-\\([0-9]+\\)\\)*).*id(\\([a-z]*\\)\\([0-9]*\\)\\(-\\([0-9]+\\)\\)*)");

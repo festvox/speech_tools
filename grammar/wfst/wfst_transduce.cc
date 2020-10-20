@@ -42,6 +42,9 @@
 
 using namespace std;
 
+extern template class EST_TItem<int>;
+extern template class EST_TItem<EST_String>;
+
 /** An internal class in transduction of WFSTs holding intermediate
     state information.
 */

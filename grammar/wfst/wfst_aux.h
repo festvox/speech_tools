@@ -43,6 +43,10 @@
 #include "EST_TKVL.h"
 #include "EST_types.h"
 
+extern template class EST_TItem<int>;
+extern template class EST_TItem<EST_WFST>;
+extern template class EST_TItem<EST_String>;
+
 // Used in minimization
 
 class wfst_marks {

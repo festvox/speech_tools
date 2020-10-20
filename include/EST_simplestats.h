@@ -47,6 +47,8 @@
 #include "EST_TKVL.h"
 #include "EST_types.h"
 
+extern template class EST_TVector<double>;
+
 typedef size_t int_iter; 
 
 /** A class for managing mapping string names to integers and back again,

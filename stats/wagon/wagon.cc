@@ -53,6 +53,10 @@
 #include "EST_math.h"
 
 using namespace std;
+extern template class EST_TVector<float>;
+extern template class EST_TItem<int>;
+extern template class EST_TItem<float>;
+extern template class EST_TItem<EST_String>;
 
 Discretes wgn_discretes;
 

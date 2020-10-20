@@ -51,6 +51,8 @@
 
 #include "EST_TVector.h"
 
+extern template class EST_TItem<EST_String>;
+
 Declare_TList_T(EST_WFST_Transition *, EST_WFST_TransitionP)
 Declare_TVector_Base_T(EST_WFST_State *, NULL, NULL, EST_WFST_StateP)
 

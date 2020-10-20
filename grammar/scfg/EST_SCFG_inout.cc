@@ -59,9 +59,11 @@ template <> EST_bracketed_string *EST_TVector<EST_bracketed_string>::error_retur
 
 
 #if defined(INSTANTIATE_TEMPLATES)
+
 #include "../base_class/EST_TVector.cc"
 
 template class EST_TVector<EST_bracketed_string>;
+extern template class EST_TVector<double>;
 #endif
 
 using namespace std;

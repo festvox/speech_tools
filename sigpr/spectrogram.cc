@@ -49,6 +49,7 @@
 #include "sigpr/EST_misc_sigpr.h"
 
 using namespace std;
+extern template class EST_TVector<float>;
 
 void make_spectrogram(EST_Wave &sig, EST_Track &sp, EST_Features &op)
 {

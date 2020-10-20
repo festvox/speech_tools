@@ -61,6 +61,7 @@ Declare_KVL_T(EST_Item_Content *, EST_Item *, KVL_ICP_IP)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
+extern template class EST_TItem < EST_TKVI < EST_String, EST_Val> >;
 #include "../base_class/EST_TList.cc"
 #include "../base_class/EST_TKVL.cc"
 

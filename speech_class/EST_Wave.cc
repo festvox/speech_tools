@@ -54,6 +54,7 @@
 #include "waveP.h"
 
 using namespace std;
+extern template class EST_TVector<short>;
 #define sgn(x) (x>0?1:x?-1:0)
 
 const EST_String DEF_FILE_TYPE = "riff";

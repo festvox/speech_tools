@@ -46,6 +46,8 @@
 
 using namespace std;
 
+extern template class EST_THash<EST_String, int>;
+
 // a very boring thing to do to a pair, see map below
 
 static void look_at(EST_String &s, int &l)

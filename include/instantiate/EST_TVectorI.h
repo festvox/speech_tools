@@ -47,9 +47,7 @@
 // Instantiation Macros
 
 #define Instantiate_TVector_T_MIN(TYPE,TAG) \
-	template class EST_TVector< TYPE >; \
-        template TYPE * EST_TVector< TYPE >::error_return; \
-        template TYPE const * EST_TVector< TYPE >::def_val;
+	template class EST_TVector< TYPE >;
 
 
 #define Instantiate_TVector_T(TYPE,TAG) \

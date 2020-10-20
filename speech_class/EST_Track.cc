@@ -48,6 +48,8 @@
 #include "EST_error.h"
 
 using namespace std;
+extern template class EST_TVector<float>;
+extern template class EST_TVector<EST_Val>;
 
 const int EST_Track::default_sample_rate=16000; // occasionally needed for xmg files
 const float EST_Track::default_frame_shift=0.005; // default frame spacing.

@@ -47,6 +47,7 @@ Declare_TSimpleMatrix(float)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
+extern template class EST_TVector<float>;
 #include "../base_class/EST_TSimpleMatrix.cc"
 #include "../base_class/EST_TMatrix.cc"
 
