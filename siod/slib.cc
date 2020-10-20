@@ -85,6 +85,7 @@ Cambridge, MA 02138
 
 #include "EST_unix.h"
 
+#include "EST_common.h"
 #include "EST_cutils.h"
 #include "siod.h"
 #include "siod_defs.h"
@@ -989,16 +990,27 @@ LISP gc_relocate(LISP x)
        if (FLONMPNAME(x) != NULL)
 	   wfree(FLONMPNAME(x));    /* free the print name */
        FLONMPNAME(x) = NULL;
+       EST_SWITCH_FALLTHROUGH;
     case tc_cons:
+       EST_SWITCH_FALLTHROUGH;
     case tc_symbol:
+       EST_SWITCH_FALLTHROUGH;
     case tc_closure:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_0:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_1:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_2:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_3:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_4:
+       EST_SWITCH_FALLTHROUGH;
     case tc_lsubr:
+       EST_SWITCH_FALLTHROUGH;
     case tc_fsubr:
+       EST_SWITCH_FALLTHROUGH;
     case tc_msubr:
       if ((nw = heap) >= heap_end) gc_fatal_error();
       heap = nw+1;
@@ -1493,6 +1505,7 @@ LISP leval(LISP x,LISP qenv)
 	     else 
 		 goto loop;}
 	   err("bad function",tmp);}
+     EST_SWITCH_FALLTHROUGH;
     default:
         siod_backtrace = cdr(siod_backtrace);
         return(x);}}

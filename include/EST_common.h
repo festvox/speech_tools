@@ -52,6 +52,25 @@
 #endif
 
 #ifdef __cplusplus
+  // On c++17 and later, we have a standard fallthrough attribute
+  // The EST_SWITCH_FALLTHROUGH macro won't be needed once we require
+  // that version.
+  #if __cplusplus >= 201703L
+    #define EST_SWITCH_FALLTHROUGH [[fallthrough]]
+  #elif __cplusplus >= 201103L
+    #if defined(__GNUC__)
+      #define EST_SWITCH_FALLTHROUGH [[gnu::fallthrough]]
+    #elif defined(__CLANG__)
+      #define EST_SWITCH_FALLTHROUGH [[clang::fallthrough]]
+    #else
+      #define EST_SWITCH_FALLTHROUGH 
+    #endif
+  #else
+    #error We require at least c++11
+  #endif
+#endif
+
+#ifdef __cplusplus
 extern "C" {
 #endif
 
