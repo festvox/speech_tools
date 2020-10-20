@@ -53,6 +53,7 @@ class wfst_tstate {
     int state;
     EST_IList outs;
     float score;
+    wfst_tstate() : state(0), score(0.0f) {};
 };
 
 ostream &operator << (ostream &s, const wfst_tstate &state)
