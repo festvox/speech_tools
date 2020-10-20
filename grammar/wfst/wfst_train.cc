@@ -47,6 +47,7 @@
 #include "wfst_aux.h"
 #include "EST_Token.h"
 #include "EST_simplestats.h"
+#include <memory>
 
 using namespace std;
 
@@ -55,7 +56,7 @@ SIOD_REGISTER_CLASS(trans,EST_WFST_Transition)
 VAL_REGISTER_CLASS(pdf,EST_DiscreteProbDistribution)
 SIOD_REGISTER_CLASS(pdf,EST_DiscreteProbDistribution)
 
-static LISP *find_state_usage(EST_WFST &wfst, LISP data);
+static std::unique_ptr <LISP[]> find_state_usage(EST_WFST &wfst, LISP data);
 static double entropy(const EST_WFST_State *s);
 static LISP *find_state_entropies(const EST_WFST &wfst, LISP *data);
 EST_WFST_Transition *find_best_trans_split(EST_WFST &wfst,
@@ -121,10 +122,10 @@ LISP load_string_data(EST_WFST &wfst,EST_String &filename)
     return reverse(ss);
 }
 
-static LISP *find_state_usage(EST_WFST &wfst, LISP data)
+static std::unique_ptr <LISP[]> find_state_usage(EST_WFST &wfst, LISP data)
 {
     // Builds list of states, and which data points the represent
-    LISP *state_data = new LISP[wfst.num_states()];
+    std::unique_ptr <LISP[]> state_data(new LISP[wfst.num_states()]);
     static LISP ddd = NIL;
     int s,i,id;
     LISP d,w;
@@ -187,7 +188,7 @@ static double entropy(const EST_WFST_State *s)
 
 void wfst_train(EST_WFST &wfst, LISP data)
 {
-    LISP *state_data;
+    std::unique_ptr <LISP[]> state_data;
     LISP *state_entropies;
     LISP best_trans_list = NIL;
     int c=0,i, max_entropy_state;
@@ -199,7 +200,7 @@ void wfst_train(EST_WFST &wfst, LISP data)
 	state_data = find_state_usage(wfst,data);
 
 	/* find entropy for each state (sorted) */
-	state_entropies = find_state_entropies(wfst,state_data);
+	state_entropies = find_state_entropies(wfst,state_data.get());
 
 	max_entropy_state = -1;
 	for (i=0; i < wfst.num_states(); i++)
@@ -209,9 +210,9 @@ void wfst_train(EST_WFST &wfst, LISP data)
 //	    printf("trying %d %g\n",max_entropy_state,me);
 
 //	    best_trans = find_best_trans_split(wfst,max_entropy_state,
-//					       state_data);
+//					       state_data.get());
 	    best_trans_list = find_best_split(wfst,max_entropy_state,
-					      state_data);
+					      state_data.get());
 	    if (best_trans_list != NIL)
 		break;
 //	    else
@@ -254,7 +255,6 @@ void wfst_train(EST_WFST &wfst, LISP data)
 	    wfst.save(chkpntname+bbb+".wfst");
 	}
 
-	delete [] state_data;
 	user_gc(NIL);
     }
 }
