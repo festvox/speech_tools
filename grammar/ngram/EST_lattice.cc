@@ -1605,6 +1605,10 @@ Lattice::build_transition_function()
     int num_nodes = nodes.length();
     int num_symbols = alphabet.n();
 
+    if (num_nodes <= 0) {
+        cerr << "No nodes, no transition function" << endl;
+        return true;
+    }
     if(tf != NULL)
 	cerr << "Warning : discarding existing transition function" << endl;
 

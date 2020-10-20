@@ -371,6 +371,7 @@ static int wagon_main(int argc, char **argv)
     {
 	*wgn_coutput << *tree;
 	summary_results(*tree,wgn_coutput);
+	delete tree;
     }
 
     if (wgn_coutput != &cout)

@@ -129,10 +129,10 @@ class EST_SCFG_Rule {
     est_scfg_rtype p_type;
     double p_prob;
   public:
-    ///
+    /// Default constructor
     EST_SCFG_Rule() {p_type=est_scfg_unset; p_prob=0; p_mother=0;
         p_daughter2 = 0; p_daughter1 = 0;}
-    ///
+    /// Copy constructor
     EST_SCFG_Rule(const EST_SCFG_Rule &r) 
       {p_mother = r.p_mother; p_daughter1 = r.p_daughter1;
        p_daughter2 = r.p_daughter2; p_type=r.p_type; p_prob = r.p_prob;}

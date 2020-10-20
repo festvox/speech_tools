@@ -40,9 +40,10 @@
 
 class EST_Track;
 
-#ifndef __Track_H__
-#define __Track_H__
+#ifndef Track_H__
+#define Track_H__
 
+#include <cstdlib>
 #include "EST_FMatrix.h"
 #include "EST_types.h"
 #include "EST_TrackMap.h"
@@ -770,4 +771,4 @@ public:
 typedef EST_TList<EST_Track> EST_TrackList;
 
 
-#endif /* __Track_H__ */
+#endif /* Track_H__ */

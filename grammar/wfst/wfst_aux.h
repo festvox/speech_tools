@@ -37,8 +37,11 @@
 /* Some internal classes for Weighted Finite State Transducers           */
 /*                                                                       */
 /*=======================================================================*/
-#ifndef __WFST_AUX_H__
-#define __WFST_AUX_H__
+#ifndef WFST_AUX_H__
+#define WFST_AUX_H__
+
+#include "EST_TKVL.h"
+#include "EST_types.h"
 
 // Used in minimization
 

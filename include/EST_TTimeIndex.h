@@ -36,6 +36,7 @@
 #define __EST_TTIMEINDEX_H__
 
 #include <iostream>
+#include "EST_TVector.h"
 
 /** @class EST_TTI_Entry
   * A time index for a container. The container defines how to get an

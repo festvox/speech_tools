@@ -41,6 +41,9 @@
 #ifndef __EST_KALMAN_H__
 #define __EST_KALMAN_H__
 
+#include "EST_TVector.h"
+#include "EST_FMatrix.h"
+
 bool kalman_filter(EST_FVector &x_state,
 		   EST_FMatrix &P_estimate_error_covariance,
 		   EST_FMatrix &Q_process_noise_covariance,

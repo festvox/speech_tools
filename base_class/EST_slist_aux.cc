@@ -215,7 +215,7 @@ void StrList_to_StrVector(EST_StrList &l, EST_StrVector &v)
 
     //EST_TBI *p;
     EST_Litem *p;
-    for (p = l.head(),i=0; p != 0; p = p->next(),i++)
+    for (p = l.head(),i=0; p != 0; p = p->next(),++i)
 	v[i] = l(p);
 }
 
@@ -232,7 +232,7 @@ void StrVector_to_StrList(EST_StrVector &v, EST_StrList &l)
 int StrVector_index(const EST_StrVector &v,const EST_String &s)
 {
     int i;
-    for(i=0;i<v.length();i++)
+    for(i=0;i<v.length();++i)
 	if(v(i) == s)
 	    return i;
 

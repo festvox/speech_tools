@@ -314,11 +314,9 @@ void EST_TVector<T>::sub_vector(EST_TVector<T> &sv,
 template<class T>
 void EST_TVector<T>::integrity() const
 {
-  cout << "integrity: p_memory=" << p_memory << endl;
+  std::cout << "integrity: p_memory=" << p_memory << std::endl;
   if(p_memory == (T *)0x00080102) 
     {
-      cout << "fatal value!!!\n";
+    std::cout << "fatal value!!!\n";
     }
 }
-
-

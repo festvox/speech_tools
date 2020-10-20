@@ -112,6 +112,7 @@ EST_String stdin_to_file()
 	if (fwrite(buff,1,n,fd) != n)
 	{
 	    cerr << "Write error on temporary file";
+	    fclose(fd);
 	    return tmpname;
 	}
     fclose(fd);

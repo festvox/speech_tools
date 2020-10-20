@@ -461,6 +461,9 @@ load(Lattice &lattice,EST_String filename)
 
 	    if(n_ptr == NULL){
 		cerr << "Couldn't find 'from' node ";
+		for (i=0;i<lattice.alphabet.length();i++)
+			delete &(lattice.alphabet[i]);
+		delete[] used;
 		return false;
 	    }
 	}
@@ -489,6 +492,7 @@ load(Lattice &lattice,EST_String filename)
 	if(to_node == NULL){
 	    cerr << "Couldn't find to node, index " 
 		 << temp_arcs[j].end << endl;
+	    delete[] used;
 	    return false;
 	}
 

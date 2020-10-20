@@ -41,6 +41,7 @@
 #ifndef __FMatrix_H__
 #define __FMatrix_H__
 
+#include <cstdlib>
 #include "EST_TSimpleMatrix.h"
 #include "EST_TSimpleVector.h"
 

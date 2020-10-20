@@ -38,10 +38,11 @@
  /*                                                                       */
  /*************************************************************************/
 
-#ifndef __TMatrix_H__
-#define __TMatrix_H__
+#ifndef TMatrix_H__
+#define TMatrix_H__
 
 #include <iostream>
+#include <cstddef>
 
 using namespace std; // FIXME: To be removed
 
@@ -323,5 +324,5 @@ public:
 
 #undef A_CHECK
 
-#endif
+#endif // TMatrix_H__
 

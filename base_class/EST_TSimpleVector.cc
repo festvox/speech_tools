@@ -55,7 +55,7 @@ template<class T> void EST_TSimpleVector<T>::copy(const EST_TSimpleVector<T> &a)
   if (this->p_column_step==1 && a.p_column_step==1)
     {
     resize(a.n(), FALSE);
-    memcpy((void *)(this->p_memory), (const void *)(a.p_memory), this->n() * sizeof(T));
+    std::memcpy((void *)(this->p_memory), (const void *)(a.p_memory), this->n() * sizeof(T));
     }
 else
   ((EST_TVector<T> *)this)->copy(a);

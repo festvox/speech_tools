@@ -48,6 +48,7 @@
 #ifndef __EST_VAL_H__
 #define __EST_VAL_H__
 
+#include <cstdlib>
 #include "EST_String.h"
 #include "EST_error.h"
 #include "EST_Contents.h"

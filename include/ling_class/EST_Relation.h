@@ -37,6 +37,7 @@
 #ifndef __EST_RELATION_H__
 #define __EST_RELATION_H__
 
+#include <cstdlib>
 #include "EST_String.h"
 #include "EST_TList.h"
 #include "EST_TKVL.h"

@@ -59,9 +59,9 @@ EST_write_status save(const EST_String &filename, const EST_TMatrix<float> &a)
     ostream *outf;
     EST_String s;
     if (filename == "-")
-	outf = &cout;
+	outf = &std::cout;
     else
-	outf = new ofstream(filename);
+	outf = new std::ofstream(filename);
     
     if (!(*outf)) return misc_write_error;
 

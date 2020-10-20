@@ -41,6 +41,7 @@
 #ifndef __DMatrix_H__
 #define __DMatrix_H__
 
+#include <cstddef>
 #include "EST_TSimpleMatrix.h"
 #include "EST_TSimpleVector.h"
 #include "EST_FMatrix.h"

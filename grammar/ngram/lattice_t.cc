@@ -51,8 +51,14 @@ Declare_TSortable_T(Lattice::Node *, Lattice_Node_P)
 Declare_TList_T(Lattice::symbol_t, Lattice_symbol_t_P)
 Declare_TSortable_T(Lattice::symbol_t, Lattice_symbol_t_P)
 
-Declare_TVector_Base_T(Lattice::symbol_t, {0}, {0}, Lattice_symbol_t_P)
-
+/* C++ macro syntax is weird. Given A(B,{C,D},E), the comma between C
+ * and D is expanded and the preprocessor interprets 4 arguments given
+ * instead of 3. To prevent that, we can define a COMMA macro:
+ * See https://stackoverflow.com/a/19841470/446149
+ */
+#define COMMA ,
+Declare_TVector_Base_T(Lattice::symbol_t, {0 COMMA 0}, {0 COMMA 0}, Lattice_symbol_t_P)
+#undef COMMA
 #if defined(INSTANTIATE_TEMPLATES)
 
 #include "../base_class/EST_TList.cc"

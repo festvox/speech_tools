@@ -296,7 +296,7 @@ LISP EST_SCFG_Chart::find_parse()
 
     top = edges[0][n_vertices-1][grammar->distinguished_symbol()];
 
-    if (top == 0)
+    if (top == NULL)
 	return NIL;   // no parse
     else
 	return print_edge(0,n_vertices-1,grammar->distinguished_symbol(),top);
@@ -336,7 +336,7 @@ void EST_SCFG_Chart::extract_parse(EST_Relation *syn,
 
     top = edges[0][n_vertices-1][grammar->distinguished_symbol()];
 
-    if (top == 0)
+    if (top == NULL)
 	return;   // failed to parse so no parse tree
     else
     {
