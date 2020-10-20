@@ -768,7 +768,8 @@ static FILE16 *file_open(const char *url,
 static void parse_url(const char *url, 
 		      char **scheme, char **host, int *port, char **path)
 {
-    char *p, *q;
+    const char *p, *q;
+    char *p1;
     int warned = 0;
 
     *scheme = *host = *path = 0;
@@ -776,7 +777,7 @@ static void parse_url(const char *url,
 
     /* Does it start with a scheme? */
     
-    for(p = (char *)url; *p; p++)
+    for(p = url; p && *p; p++)
 	if(*p == ':' || *p == '/')
 	    break;
 
@@ -797,7 +798,7 @@ static void parse_url(const char *url,
     {
 	url += 2;
 
-	for(p = (char *)url; *p; p++)
+	for(p = url; *p; p++)
 	    if(*p == '/')
 		break;
 
@@ -827,8 +828,8 @@ static void parse_url(const char *url,
 
     /* Windoze users have a tendency to use backslashes instead of slashes */
 
-    for(p=*path; *p; p++)
-	if(*p == '\\')
+    for(p1=*path; *p1; p1++)
+	if(*p1 == '\\')
 	{
 	    if(!warned)
 	    {
@@ -837,7 +838,7 @@ static void parse_url(const char *url,
 		warned = 1;
 	    }
 
-	    *p = '/';
+	    *p1 = '/';
 	}
 }
 
