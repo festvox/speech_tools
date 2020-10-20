@@ -164,13 +164,14 @@
 #include <fcntl.h>
 #include <cstring>
 #include "rateconv.h"
+#include <cstdint>
 
 /*
  *	adaptable defines and globals
  */
-#define	BYTE		char		/* signed or unsigned */
-#define	WORD		short		/* signed or unsigned, fit two BYTEs */
-#define	LONG 		int		/* signed, fit two WORDs */
+#define	BYTE		int8_t		/* signed or unsigned */
+#define	WORD		int16_t		/* signed or unsigned, fit two BYTEs */
+#define	LONG 		int32_t		/* signed, fit two WORDs */
 
 #ifndef MAXUP
 #define	MAXUP		0x400		/* MAXUP*MAXLENGTH worst case malloc */
@@ -422,7 +423,7 @@ static void make_coe(void)
 /*  to interface with rest of system // deleted various io functions   */
 /*  too.                                                               */
 /***********************************************************************/
-static WORD *inbuff = NULL;
+static const WORD *inbuff = NULL;
 static int inpos;
 static int inmax;
 static WORD *outbuff = NULL;
@@ -497,7 +498,7 @@ static int intexport(float *buff, int n)
     return i;
 }
     
-static int init_globs(WORD *in,int insize, WORD **out, int *outsize,
+static int init_globs(const WORD *in,int insize, WORD **out, int *outsize,
 		       int in_samp_freq, int out_samp_freq)
 {
     int new_size;
@@ -547,7 +548,7 @@ static int init_globs(WORD *in,int insize, WORD **out, int *outsize,
  * External call added by Alan W Black, 4th June 1996
  * a combination of parse args and main
  */
-int rateconv(short *in,int isize, short **out, int *osize,
+int rateconv(const int16_t *in,int isize, short **out, int *osize,
 	     int in_samp_freq, int out_samp_freq)
 {
     int insize = 0, outsize = 0, skirtlen;
