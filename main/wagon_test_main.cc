@@ -100,7 +100,7 @@ static int wagon_test_main(int argc, char **argv)
 
     parse_command_line
 	(argc, argv,
-	 EST_String("<options>\n")+
+	 EST_String("[options]\n")+
 	 "Summary: program to test CART models on data\n"+
 	 "-desc <ifile>     Field description file\n"+
 	 "-data <ifile>     Datafile, one vector per line\n"+

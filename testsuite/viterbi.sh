@@ -32,7 +32,9 @@
 ##                                                                       ##
 ###########################################################################
 
-$TOP/bin/viterbi -ngram "$DATA/vit.B.ngram" \
+VITERBI=${VITERBI:-$TOP/bin/viterbi}
+
+$VITERBI -ngram "$DATA/vit.B.ngram" \
 	"$DATA/vit.observes" \
 	-vocab "$DATA/vit.vocab" \
 	-prev_tag B \

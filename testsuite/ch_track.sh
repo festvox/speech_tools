@@ -32,8 +32,8 @@
 ##                                                                       ##
 ###########################################################################
 
-CH_TRACK=$TOP/bin/ch_track
-DATA=../lib/example_data
+CH_TRACK=${CH_TRACK:-$TOP/bin/ch_track}
+DATA=${DATA:-../lib/example_data}
 
 set -x
 
@@ -82,6 +82,7 @@ test_info ()
 
 echo >$OUTPUT
 
+mkdir -p tmp
 test_conversions 2>&1 >> $OUTPUT
 test_info 2>&1 >> $OUTPUT
 

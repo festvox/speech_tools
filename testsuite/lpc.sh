@@ -31,12 +31,12 @@
 ##  THIS SOFTWARE.                                                       ##
 ##                                                                       ##
 ###########################################################################
-SIG2FV=$TOP/bin/sig2fv
-SIGFILTER=$TOP/bin/sigfilter
-CH_TRACK=$TOP/bin/ch_track
-CH_WAVE=$TOP/bin/ch_wave
+SIG2FV=${SIG2FV:-$TOP/bin/sig2fv}
+SIGFILTER=${SIGFILTER:-$TOP/bin/sigfilter}
+CH_TRACK=${CH_TRACK:-$TOP/bin/ch_track}
+CH_WAVE=${CH_WAVE:-$TOP/bin/ch_wave}
 
-DATA=$TOP/lib/example_data
+DATA=${DATA:-$TOP/lib/example_data}
 
 lpc_test () {
 
@@ -71,6 +71,7 @@ mfcc_test () {
 
 echo >$OUTPUT
 
+mkdir -p tmp
 lpc_test 2>&1 >> $OUTPUT
 mfcc_test 2>&1 >> $OUTPUT
 

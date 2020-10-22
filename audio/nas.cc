@@ -139,6 +139,12 @@ int play_nas_wave(EST_Wave &inwave, EST_Option &al)
 				 na_sync_play_cb,
 				 (AuPointer) &d,(AuFlowID *) NULL,
 				 (int *) NULL, (int *) NULL, &ret);
+	if (er == NULL)
+	{
+	    cerr << "[NAS Audio] Error playing on " << auservername << endl;
+	    AuCloseServer(aud);
+	    return -1;
+	}
 	while (1)
 	{
 	    AuNextEvent(aud, AuTrue, &ev);

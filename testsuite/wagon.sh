@@ -32,21 +32,24 @@
 ##                                                                       ##
 ###########################################################################
 
-WAGON=$TOP/bin/wagon
-
-DATA=../lib/example_data
+WAGON=${WAGON:-$TOP/bin/wagon}
+DATA=${DATA:-../lib/example_data}
+OUTFILE=${OUTFILE:-tmp/wagon.tree}
 
 regress_tree () {
 
 	echo "regression tree" >&2
 	
-	/bin/rm -f tmp/wagon.tree
+	/bin/rm -f "$OUTFILE"
 
-	$WAGON -desc $DATA/wagon.desc -data $DATA/wagon.data -output tmp/wagon.tree -stop 5 -quiet || exit 1
+	$WAGON -desc $DATA/wagon.desc -data $DATA/wagon.data -output "$OUTFILE" -stop 5 -quiet || exit 1
 
-        if diff $DATA/wagon.tree tmp/wagon.tree
-		then echo wagon standard cart tree: pass
-		else echo wagon standard cart tree: fail 
+        if diff $DATA/wagon.tree "$OUTFILE"; then
+		echo wagon standard cart tree: pass
+		exit 0
+	else
+		echo wagon standard cart tree: fail
+		exit 1
 	fi
 }
 
