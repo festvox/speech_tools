@@ -1,8 +1,8 @@
-INSTALLATION
+# INSTALLATION
 
-Release notes
+## Release notes
 
-This documentation covers version 2.4 of the Edinburgh Speech Tools
+This documentation covers version 2.5.1 of the Edinburgh Speech Tools
 Library. While previous versions of the speech tools were primarily
 released solely to support the Festival Speech Synthesis System, the
 Edinburgh Speech Tools Library now contains sufficiently useful tools
@@ -16,51 +16,51 @@ several programs and routines are quite mature, others are young and
 have not be rigorously tested. Please do not assume these programs
 work.
 
-Requirements
+## Requirements
+
+The Edinburgh Speech Tools provide a Makefile based build system and a new
+build system based on meson (mesonbuild.com). This new build system has
+the following advantages:
+
+- Can use more than one process to build in parallel
+- Honors --prefix to install in any directory
+- Uses out-of-source builds (the build directory is not the source directory)
+- Leverages meson standards for cross-compilation
+
+However the meson-based build system has been less tested than the
+Makefile-based system.
 
 In order to compile and install the Edinburgh Speech Tools you need
-the following
+the following:
 
-GNU make
+### A C++ compiler
 
-Any recent version, the various make programs that come with different
-UNIX systems are wildly varying and hence it makes it too difficult to
-write Makefiles which are portable, so we depend on a version of make
-which is available for all of the platforms we are aiming at.
+The current Edinburgh Speech Tools version aims to be compilable by any
+C++-11 compliant compiler. We have tested both GCC and clang. We aim to
+provide support for Visual C++ as well.
 
-A C++ compiler
+If you happen to require a code change for your specific platform, please
+report it at https://github.com/festvox/speech_tools/issues.
 
-The system was developed primarily with GNU C++ (various versions from
-version 2.7.2), but we also have compiled it successfully with a
-number of other versions of gcc, and Visual C++.
+### GNU make
 
-Hopefully we have now sanitized the code sufficiently to to make it
-possible for ports to other C++ compilers without too much
-difficulty. But please note C++ is not a fully standardized language
-and each compiler follows the incomplete standard to various
-degrees. Often there are many but simple problems when porting to new
-C++ compilers. We are trying to deal with this by increasing our
-support. However, it is likely that small changes will be required for
-C++ compilers we have not yet tested the system under.
+If you want to use the Makefile-based build system, you will need make.
+Any recent version will work, the various make programs that come with
+different UNIX systems are wildly varying and hence it makes it too
+difficult to write Makefiles which are portable, so we depend on a
+version of make which is available for all of the platforms we are
+aiming at.
 
-However we feel this is stable enough to make it worthwhile attempting
-ports to other C++ compilers that we haven't tried yet.
+### meson and ninja
 
-Before installing the speech tools it is worth ensuring you have a
-fully installed and working version of your C++ compiler.  Most of the
-problems people have had in installing the speech tools have been due
-to incomplete or bad compiler installation. It might be worth checking
-if the following program works, if you don't know if anyone has used
-your C++ installation before.
+If you want to use the meson-based build system, you will need meson.
+Meson is a python3 based build system, so you will need to have python3
+installed and then install meson. meson uses ninja as backend, so you may
+want to install it as well. This is typically done using:
 
-          #include <iostream.h>
-          int main (int argc, char **argv)
-          {
-             cout << "Hello world\n";
-          }
+    pip3 install --user --upgrade meson ninja
 
-
-Supported Systems
+## Supported Systems
 
 We have successfully compiled and tested the speech tools on the
 following systems, except where specified we include support for both
@@ -75,9 +75,7 @@ Linux GCC 4.2 - 4.8.0
 
 Windows 7/8 GCC (from Cygwin 1.7), Visual C++ (VS2010,VS2012).
 
-As stated before C++ compilers are not standard and it is non-trivial
-to find the correct dialect which compiles under all.  We recommend
-the use of GCC 4.6 if you can use it, it is the most likely one to
+We recommend the use of GCC 4.6 if you can use it, it is the most likely one to
 work. Some of the compilers listed above produce a large number of
 warnings when compiling the code.
 
@@ -86,7 +84,7 @@ IRIX 5.3, 6.x, OSF (Alphas) and HPUX but at time of writing this we have
 not yet rechecked this version.  AIX4.3 probably works.
 
 
-Java is no longer supported!
+## Java is no longer supported!
 
 The java directory contains optional Java classes which give some
 access to speech tools facilities from Java programs.  This has been
@@ -102,7 +100,7 @@ You may (for instance on Solaris using gcc) need to make shared
 libraries for some compiler support libraries in order to comple the
 full JAVA_CPP support. See Appendix A for details.
 
-Windows 95/98/NT/XP/Vista/7/8 Port
+## Windows 95/98/NT/XP/Vista/7/8 Port
 
 We have done two ports of this code to Windows machines, one uses the
 Cygwin package, which provides a Unix like environment under on Win32
@@ -139,9 +137,21 @@ There are no doubt other differences we have not noticed. We don't use
 Windows for any of our work and so the Windows builds of our systems
 don't get the extensive use the unix builds do.
 
-BUILDING IT
+# BUILDING IT
 
-Configuration
+## Configuration
+
+### Meson instructions
+
+Run `meson setup --help` to see all the options meson provides. See the
+additional specific options for Edinburg Speech Tools defined in the
+`meson_options.txt` file. Use:
+
+    meson setup --prefix="/your/installation/directory" -Daudio_pulseaudio=false builddir
+
+This will create the `builddir` directory with your desired configuration.
+
+### Makefile instructions
 
 All compile-time configuration for the system is done through GNU 
 configure.  On most systems you can configure the system
@@ -174,7 +184,19 @@ Simple choices for common set ups are given near the top of this
 file. But for some sub-systems you will also need to change pathnames
 for external library support.
 
-Compilation
+## Compilation
+
+### Meson instructions
+
+From the previous step, you can start the compilation process with:
+
+    meson compile -C builddir
+
+Once the build finishes, you can run the test suite:
+
+    meson test -C builddir
+
+### Makefile instructions
 
 Once you have configured config/config you can compile the system. 
 
@@ -210,7 +232,25 @@ To test the system after compilation
 
           unix$ gmake test
 
-Installing the system
+## Installing the system
+
+### Meson instructions
+
+Run:
+
+    meson install -C builddir
+
+If the installation directory specified in `prefix` is not standard
+(`/usr`, `/usr/local`), you will have to add `$prefix/bin` to your path and
+`$prefix/lib` (where the shared libraries are) into your ldconfig settings,
+for instance setting `LD_LIBRARY_PATH` to the directory where the shared
+libraries are.
+
+In case you have trouble setting `LD_LIBRARY_PATH` you can use 
+`--default-library=static` in the meson setup.
+
+
+### Makefile instructions
 
 All executables are linked to from speech_tools/bin and you should add
 that to your PATH in order to use them.
@@ -226,6 +266,8 @@ will be then be substantially smaller) and you can delete all .o files
 Some aspects of the system have further dependencies which depend of
 the option selected at compile time. Specifically the readline
 libraries and Netaudio libraries.
+
+### Visual Studio instructions:
 
 These are uptodate instructions for Visual C++ builds.
 VS2010 was tested but older versions may work
