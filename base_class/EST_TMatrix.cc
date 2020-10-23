@@ -320,7 +320,7 @@ void EST_TMatrix<T>::fill(const_reference v)
 template<class T>
 EST_write_status EST_TMatrix<T>::save(const EST_String &filename) const
 {
-    ostream *outf;
+    std::ostream *outf;
     if (filename == "-" || filename == "")
 	outf = &std::cout;
     else

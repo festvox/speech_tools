@@ -40,6 +40,7 @@
 
 
 #include "EST_THash.h"
+#include <iostream>
 
 template<class K, class V>
 EST_THash<K,V>::EST_THash(int size,  unsigned int (*hash_function)(const K &key, unsigned int size))
@@ -225,7 +226,7 @@ EST_THash<K,V> &EST_THash<K,V>::operator = (const EST_THash<K,V> &from)
 }
 
 template<class K, class V>
-void EST_THash<K,V>::dump(ostream &stream, int all)
+void EST_THash<K,V>::dump(std::ostream &stream, int all)
 {
   for(unsigned int i=0; i<p_num_buckets; i++)
     if (all || p_buckets[i])

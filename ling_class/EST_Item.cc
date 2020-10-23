@@ -60,6 +60,8 @@
 
 #include "ling_class_init.h"
 
+using namespace std;
+
 /* Class initialisation. This is where you should register 
  * feature functions and so on.
  */

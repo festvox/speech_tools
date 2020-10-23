@@ -74,8 +74,8 @@ public:
     void cumulate(const int i,double count=1) {pd.cumulate(i,count);}
     const EST_String &most_probable(double *p) const;
     const EST_DiscreteProbDistribution &prob_dist() const {return pd;}
-    void print_freqs(ostream &os);
-    void print_probs(ostream &os);
+    void print_freqs(std::ostream &os);
+    void print_probs(std::ostream &os);
 };
 
 VAL_REGISTER_CLASS_DCLS(pstnode,EST_PredictionSuffixTree_tree_node)
@@ -131,8 +131,8 @@ public:
     void build(const EST_StrList &input); // to go
 
     void test(const EST_String filename);   // test EST_PredictionSuffixTree against test data
-    void print_freqs(ostream &os);
-    void print_probs(ostream &os);
+    void print_freqs(std::ostream &os);
+    void print_probs(std::ostream &os);
 
     const EST_String &predict(const EST_StrVector &words) const;
     const EST_String &predict(const EST_StrVector &words,double *prob) const;

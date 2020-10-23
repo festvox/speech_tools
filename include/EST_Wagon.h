@@ -153,7 +153,7 @@ class WQuestion {
     float get_score(void) const {return score;}
     void set_score(const float &f) {score=f;}
     int ask(const WVector &w) const;
-    friend ostream& operator<<(ostream& s, const WQuestion &q);
+    friend std::ostream& operator<<(std::ostream& s, const WQuestion &q);
 };
 
 enum wnim_type {wnim_unset, wnim_float, wnim_class, 
@@ -211,7 +211,7 @@ class WImpurity {
     float cluster_distance(int i); // distance i from centre in sds
     int in_cluster(int i);       // distance i from centre < most remote member
     float cluster_ranking(int i);  // position in closeness to centre
-    friend ostream& operator<<(ostream &s, WImpurity &imp);
+    friend std::ostream& operator<<(std::ostream &s, WImpurity &imp);
 };
 
 class WDlist {
@@ -239,7 +239,7 @@ class WDlist {
     const WQuestion &question() const {return p_question;}
     EST_Val predict(const WVector &w);
     friend WDlist *add_to_dlist(WDlist *l,WDlist *a);
-    friend ostream &operator<<(ostream &s, WDlist &d);
+    friend std::ostream &operator<<(std::ostream &s, WDlist &d);
 };
 
 class WNode {
@@ -249,7 +249,7 @@ class WNode {
     WImpurity impurity;
     WNode *left;
     WNode *right;
-    void print_out(ostream &s, int margin);
+    void print_out(std::ostream &s, int margin);
     int leaf(void) const { return ((left == 0) || (right == 0)); }
     int pure(void);
   public:
@@ -267,7 +267,7 @@ class WNode {
     EST_Val predict(const WVector &w);
     WNode *predict_node(const WVector &d);
     int samples(void) const { return data.n(); }
-    friend ostream& operator<<(ostream &s, WNode &n);
+    friend std::ostream& operator<<(std::ostream &s, WNode &n);
 };
 
 extern Discretes wgn_discretes;
@@ -281,12 +281,12 @@ extern EST_Track wgn_VertexFeats;
 void wgn_load_datadescription(EST_String fname,LISP ignores);
 void wgn_load_dataset(WDataSet &ds,EST_String fname);
 WNode *wgn_build_tree(float &score);
-WNode *wgn_build_dlist(float &score,ostream *output);
+WNode *wgn_build_dlist(float &score,std::ostream *output);
 WNode *wagon_stepwise(float limit);
 float wgn_score_question(WQuestion &q, WVectorVector &ds);
 void wgn_find_split(WQuestion &q,WVectorVector &ds,
 		WVectorVector &y,WVectorVector &n);
-float summary_results(WNode &tree,ostream *output);
+float summary_results(WNode &tree,std::ostream *output);
 
 extern int wgn_min_cluster_size;
 extern int wgn_max_questions;

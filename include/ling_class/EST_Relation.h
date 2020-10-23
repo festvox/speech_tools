@@ -72,7 +72,7 @@ class EST_Relation
     EST_Item *get_item_from_name(EST_THash<int,EST_Val> &inames,int name);
     EST_Item *get_item_from_name(EST_TVector< EST_Item * > &inames,int name);
     EST_write_status save_items(EST_Item *item, 
-				ostream &outf,
+				std::ostream &outf,
 				EST_TKVL<void *,int> &contentnames,
 				EST_TKVL<void *,int> &itemnames,
 				int &node_count) const;
@@ -176,17 +176,17 @@ class EST_Relation
 			  bool evaluate_ff = false) const;
 
     /** Save relation from already open ostream */
-    EST_write_status save(ostream &outf,EST_TKVL<void *,int> contents) const;
+    EST_write_status save(std::ostream &outf,EST_TKVL<void *,int> contents) const;
 
     /** Save relation from already open ostream */
-    EST_write_status save(ostream &outf,
+    EST_write_status save(std::ostream &outf,
 			  const EST_String &type,
 			  bool evaluate_ff) const;
     /** Iteration */
     typedef EST_Relation_Iterator Iterator;
 
     EST_Relation &operator=(const EST_Relation &s);
-    friend ostream& operator << (ostream &s, const EST_Relation &u);
+    friend std::ostream& operator << (std::ostream &s, const EST_Relation &u);
 
     EST_Item *append(EST_Item *si);
     EST_Item *append(); 

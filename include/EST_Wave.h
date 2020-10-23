@@ -323,7 +323,7 @@ public:
   EST_Wave& operator |=(const EST_Wave &a);
 
   /// print waveform
-  friend ostream& operator << (ostream& p_values, const EST_Wave &sig);
+  friend std::ostream& operator << (std::ostream& p_values, const EST_Wave &sig);
 
   // integrity check *** debug
   void integrity() const { p_values.integrity() ; }

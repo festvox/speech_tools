@@ -141,7 +141,7 @@ class EST_Chunk  {
     friend void grow_chunk(EST_ChunkPtr &shared, EST_chunk_size inuse, EST_chunk_size newsize);
     friend void grow_chunk(EST_ChunkPtr &shared, EST_chunk_size newsize);
 
-    friend ostream &operator << (ostream &s, const EST_Chunk &chp);
+    friend std::ostream &operator << (std::ostream &s, const EST_Chunk &chp);
     friend void tester(void);
 };
 
@@ -243,7 +243,7 @@ class EST_ChunkPtr {
     friend void grow_chunk(EST_ChunkPtr &shared, EST_Chunk::EST_chunk_size newsize);
 
     // we print it by just printing the chunk
-    friend ostream &operator << (ostream &s, const EST_ChunkPtr &cp) { return (s<< *cp.ptr); };
+    friend std::ostream &operator << (std::ostream &s, const EST_ChunkPtr &cp) { return (s<< *cp.ptr); };
 
     friend void tester(void);
 };

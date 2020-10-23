@@ -40,6 +40,7 @@
 
 #include "EST_TVector.h"
 #include "EST_TSimpleVector.h"
+#include <iostream>
 
 Declare_TVector_Base(float, 0, -123.456)
 Declare_TSimpleVector(float)
@@ -56,7 +57,7 @@ Instantiate_TSimpleVector(float)
 EST_write_status save(const EST_String &filename, const EST_TVector<float> &a)
 {
     int i;
-    ostream *outf;
+    std::ostream *outf;
     EST_String s;
     if (filename == "-")
 	outf = &std::cout;

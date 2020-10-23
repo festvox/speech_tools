@@ -57,7 +57,7 @@ Instantiate_TSimpleMatrix(float)
 EST_write_status save(const EST_String &filename, const EST_TMatrix<float> &a)
 {
     int i,j;
-    ostream *outf;
+    std::ostream *outf;
     EST_String s;
     if (filename == "-")
 	outf = &std::cout;

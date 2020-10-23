@@ -64,7 +64,7 @@ class EST_Features {
  protected:
     EST_TKVL<EST_String, EST_Val> *features;
 
-    void save_fpair(ostream &outf,
+    void save_fpair(std::ostream &outf,
 		    const EST_String &fname,
 		    const EST_Val &fvalue) const;
  public:
@@ -259,7 +259,7 @@ class EST_Features {
     /** Feature assignment */
     EST_Features& operator = (const EST_Features& a);
     /** Print Features */
-    friend ostream& operator << (ostream &s, const EST_Features &f)
+    friend std::ostream& operator << (std::ostream &s, const EST_Features &f)
         { f.save(s); return s; }
     ///@}
 
@@ -313,10 +313,10 @@ public:
     EST_read_status load(EST_TokenStream &ts);
     /// load features from sexpression, contained in already opened EST_TokenStream 
     EST_read_status load_sexpr(EST_TokenStream &ts);
-    /// save features in already opened ostream
-    EST_write_status save(ostream &outf) const;
-    /// save features as s-expression in already opened ostream
-    EST_write_status save_sexpr(ostream &outf) const;
+    /// save features in already opened std::ostream
+    EST_write_status save(std::ostream &outf) const;
+    /// save features as s-expression in already opened std::ostream
+    EST_write_status save_sexpr(std::ostream &outf) const;
 
     ///@}
 };

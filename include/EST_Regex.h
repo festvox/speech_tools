@@ -116,10 +116,10 @@ public:
     ///@}
 
     /// Stream output of regular expression.
-    friend ostream &operator << (ostream &s, const EST_Regex &str);
+    friend std::ostream &operator << (std::ostream &s, const EST_Regex &str);
 };
 
-ostream &operator << (ostream &s, const EST_Regex &str);
+std::ostream &operator << (std::ostream &s, const EST_Regex &str);
 
 /**@name Predefined_regular_expressions
   * Some regular expressions matching common things are predefined

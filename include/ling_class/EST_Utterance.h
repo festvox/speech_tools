@@ -96,11 +96,11 @@ public:
 
     /** save an utterance to an ostream
       */
-    EST_write_status save(ostream &outf,const EST_String &type) const;
+    EST_write_status save(std::ostream &outf,const EST_String &type) const;
     ///@}  
 
     EST_Utterance &operator=(const EST_Utterance &s);
-    friend ostream& operator << (ostream &s, const EST_Utterance &u);
+    friend std::ostream& operator << (std::ostream &s, const EST_Utterance &u);
     EST_Relation * operator() (const EST_String &name)
     { return relation(name);}
 

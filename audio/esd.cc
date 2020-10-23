@@ -48,6 +48,8 @@
 #include "audioP.h"
 #include "EST_io_aux.h"
 
+using namespace std;
+
 #ifdef SUPPORT_ESD
 
 // Hack hack. aupvlist.h is broken at least on FBSD 3.1.1

@@ -85,7 +85,7 @@ public:
     float peak_pos;
     float start_amp;
     float start_pos;
-    friend ostream& operator << (ostream& s, EventRFC &e) 
+    friend std::ostream& operator << (std::ostream& s, EventRFC &e) 
     {
 	s << e.type << " " << e.rise_amp << " " << e.rise_dur
 	    << " " << e.fall_amp << " " << e.fall_dur
@@ -132,7 +132,7 @@ public:
     EventSI *sn;
     EventSI *sp;
 
-    friend ostream& operator << (ostream& s, EventSI &e) 
+    friend std::ostream& operator << (std::ostream& s, EventSI &e) 
     {
 	s << e.type << " ra:" << e.rise_amp() << " rd:" << e.rise_dur()
 	    << "fa: " << e.fall_amp() << " fd:" << e.fall_dur()
@@ -171,7 +171,7 @@ public:
     void set_start_f0(float a);
     void set_start_pos(float a);
 
-    friend ostream& operator << (ostream& s, EventTilt &e) 
+    friend std::ostream& operator << (std::ostream& s, EventTilt &e) 
     {
 	s << e.type << " " << e.amp() << " " << e.dur()
 	    << " " << e.tilt() << " " << e.pos()

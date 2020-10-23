@@ -81,7 +81,7 @@ public:
     friend bool operator == (const Entry &a, const Entry &b);
 
     /// Print in human readable form.
-    friend ostream & operator << (ostream &s, const Entry &a);
+    friend std::ostream & operator << (std::ostream &s, const Entry &a);
   };
 
 private:
@@ -118,7 +118,7 @@ public:
   /// Write a specific table.
   static void write_table(EST_String socketsFileName);
   /// List the table to given stream
-  static void list(ostream &s, const EST_String type);
+  static void list(std::ostream &s, const EST_String type);
   /// Return a list of server names.
   static void names(EST_StrList &names, const EST_String type="");
 

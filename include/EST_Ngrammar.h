@@ -124,7 +124,7 @@ public:
     const EST_String &most_probable(double *prob = NULL) const
       {return p_pdf.most_probable(prob);}
     
-friend ostream&  operator<<(ostream& s, const EST_NgrammarState &a);
+friend std::ostream&  operator<<(std::ostream& s, const EST_NgrammarState &a);
     
 };
 
@@ -200,9 +200,9 @@ public:
   bool set_backoff_weight(const EST_StrVector &words, const double w);
   void frequency_of_frequencies(EST_DVector &ff);
   
-  void print_freqs(ostream &os,const int order,EST_String followers="");
+  void print_freqs(std::ostream &os,const int order,EST_String followers="");
   
-friend ostream&  operator<<(ostream& s, const EST_BackoffNgrammarState &a);
+friend std::ostream&  operator<<(std::ostream& s, const EST_BackoffNgrammarState &a);
   
 };
 
@@ -522,11 +522,11 @@ public:
     double get_backoff_weight(const EST_StrVector &words) const;
     bool set_backoff_weight(const EST_StrVector &words, const double w);
     
-    void print_freqs(ostream &os,double floor=0.0);
+    void print_freqs(std::ostream &os,double floor=0.0);
     
     // i/o functions
     // -------------
-    friend ostream& operator<<(ostream& s, EST_Ngrammar &n);
+    friend std::ostream& operator<<(std::ostream& s, EST_Ngrammar &n);
     friend EST_read_status load_ngram_htk_ascii(const EST_String filename, 
 						EST_Ngrammar &n);
     friend EST_read_status load_ngram_htk_binary(const EST_String filename, 
@@ -540,7 +540,7 @@ public:
 					       EST_Ngrammar &n);
     
     friend EST_write_status save_ngram_htk_ascii_sub(const EST_String &word,
-						     ostream *ost, 
+						     std::ostream *ost, 
 						     EST_Ngrammar &n,
 						     double floor);
     friend EST_write_status save_ngram_htk_ascii(const EST_String filename, 
@@ -559,7 +559,7 @@ public:
 						double floor);
     friend EST_write_status save_ngram_arpa(const EST_String filename, 
 					    EST_Ngrammar &n);
-    friend EST_write_status save_ngram_arpa_sub(ostream *ost, 
+    friend EST_write_status save_ngram_arpa_sub(std::ostream *ost, 
 						EST_Ngrammar &n, 
 						const EST_StrVector &words);
     friend EST_write_status save_ngram_wfst(const EST_String filename, 

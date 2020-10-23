@@ -1084,7 +1084,7 @@ EST_String EST_String::unquote_if_needed(const char quotec) const
   return *this;
 }
 
-ostream &operator << (ostream &s, const EST_String &str)
+std::ostream &operator << (std::ostream &s, const EST_String &str)
 
 {
   if (str.size > 0)

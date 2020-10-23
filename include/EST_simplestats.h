@@ -105,7 +105,7 @@ public:
     bool operator != (const EST_Discrete &d);
 
     EST_String print_to_string(int quote=0);
-    friend ostream& operator <<(ostream& s, const EST_Discrete &d);
+    friend std::ostream& operator <<(std::ostream& s, const EST_Discrete &d);
 
     ///
     EST_Discrete & operator = (const EST_Discrete &a) 
@@ -307,7 +307,7 @@ public:
     */
     void set_num_samples(const double c) { num_samples = c;}
     
-friend ostream & operator <<(ostream &s, const EST_DiscreteProbDistribution &p);
+friend std::ostream & operator <<(std::ostream &s, const EST_DiscreteProbDistribution &p);
     EST_DiscreteProbDistribution &operator=(const EST_DiscreteProbDistribution &a);
 };    
 

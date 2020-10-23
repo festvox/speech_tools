@@ -368,7 +368,7 @@ protected:
     friend int exchange_sub_trees(EST_Item *from,EST_Item *to);
 
     EST_Item &operator=(const EST_Item &s);
-    friend ostream& operator << (ostream &s, const EST_Item &a);
+    friend std::ostream& operator << (std::ostream &s, const EST_Item &a);
     friend bool operator !=(const EST_Item &a, const EST_Item &b)
     { return !i_same_item(&a,&b); }
     friend bool operator ==(const EST_Item &a, const EST_Item &b)

@@ -58,7 +58,7 @@ public:
 };
 
 bool operator ==(const CSMM &, const CSMM &);
-ostream& operator <<(ostream &s, const CSMM &);
+std::ostream& operator <<(std::ostream &s, const CSMM &);
 
 /// somewhere to keep the model parameters
 struct CSMM_parameter_set
@@ -76,7 +76,7 @@ struct CSMM_set
 
 
 
-ostream& operator <<(ostream &s, const CSMM_set &ms);
+std::ostream& operator <<(std::ostream &s, const CSMM_set &ms);
 
 bool
 create_empty_CSMM(EST_String model_name,

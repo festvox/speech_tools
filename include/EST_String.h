@@ -642,7 +642,7 @@ public:
       EST_String & ignore_volatile(void) volatile { return *((EST_String *)(void *)this); }
 
     /// Stream output for EST_String.
-    friend ostream &operator << (ostream &s, const EST_String &str);
+    friend std::ostream &operator << (std::ostream &s, const EST_String &str);
     friend class EST_Regex;
 
 }; 
@@ -653,7 +653,7 @@ EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t in
 
 int operator == (const char *a, const EST_String &b);
 int operator == (const EST_String &a, const EST_String &b);
-ostream &operator << (ostream &s, const EST_String &str);
+std::ostream &operator << (std::ostream &s, const EST_String &str);
 
 #include "EST_Regex.h"
 

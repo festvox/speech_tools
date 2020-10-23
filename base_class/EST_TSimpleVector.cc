@@ -46,10 +46,6 @@
 #include "EST_cutils.h"
 #include <cstring>
 
-using std::memset;
-using std::memcpy;
-
-
 template<class T> void EST_TSimpleVector<T>::copy(const EST_TSimpleVector<T> &a)
 {
   if (this->p_column_step==1 && a.p_column_step==1)
@@ -145,7 +141,7 @@ template<class T> EST_TSimpleVector<T> &EST_TSimpleVector<T>::operator=(const ES
 template<class T> void EST_TSimpleVector<T>::zero()
 {
   if (this->p_column_step==1)
-    memset((void *)(this->p_memory), 0, this->n() * sizeof(T));
+    std::memset((void *)(this->p_memory), 0, this->n() * sizeof(T));
   else
     ((EST_TVector<T> *)this)->fill(*this->def_val);
 }

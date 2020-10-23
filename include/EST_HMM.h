@@ -60,7 +60,7 @@ public:
     HMM_Mixture& operator = (const HMM_Mixture& a);
 };
 
-ostream& operator<<(ostream& s, const HMM_Mixture &mix);
+std::ostream& operator<<(std::ostream& s, const HMM_Mixture &mix);
 
 class HMM_State {
 private:
@@ -77,7 +77,7 @@ public:
     HMM_State& operator = (const HMM_State& a);
 };
 
-ostream& operator<<(ostream& s, const HMM_State &st);
+std::ostream& operator<<(std::ostream& s, const HMM_State &st);
 
 class HMM {
 private:
@@ -112,7 +112,7 @@ public:
 
 
 
-ostream& operator<<(ostream& s, const HMM &model);
+std::ostream& operator<<(std::ostream& s, const HMM &model);
 
 int operator !=(const HMM_Mixture &a, const HMM_Mixture &b);
 int operator !=(const HMM_State &a, const HMM_State &b);

@@ -40,6 +40,7 @@
 #include "ling_class/EST_Item.h"
 #include "ling_class/EST_FeatureFunctionPackage.h"
 
+using namespace std;
 			
 static EST_Val Dummy_Func(EST_Item *) { return EST_Val(); }
 static struct EST_FeatureFunctionPackage::Entry Dummy_Entry = { Dummy_Func };

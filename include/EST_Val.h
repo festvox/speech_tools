@@ -248,7 +248,7 @@ class EST_Val {
     operator EST_String() const { return string(); }
     ///@}
     /** print val*/
-    friend ostream& operator << (ostream &s, const EST_Val &a)
+    friend std::ostream& operator << (std::ostream &s, const EST_Val &a)
     { if (a.type() == val_unset) s << "[VAL unset]" ;
       else if (a.type() == val_int)	  s << a.v.ival;
       else if (a.type() == val_float)  s << a.v.fval;
