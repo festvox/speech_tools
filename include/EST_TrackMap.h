@@ -35,7 +35,6 @@
 #define __EST_TRACKMAP_H__
 
 #include <climits>
-using namespace std; // FIXME: To be removed
 
 #include "EST_TNamedEnum.h"
 #include "EST_ChannelType.h"

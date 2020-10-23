@@ -45,7 +45,6 @@
 /* force this to be loaded first */
 #ifdef __cplusplus
 #include <iostream>
-using namespace std; // FIXME: To be removed
 #endif
 
 #include<stdint.h>

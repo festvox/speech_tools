@@ -46,7 +46,6 @@
 /* This gets incuded from C */
 #ifdef __cplusplus
 #include <iostream>
-using namespace std; // FIXME: To be removed
 
 #undef read
 #undef write

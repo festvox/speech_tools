@@ -41,8 +41,6 @@
 
 #include <cmath>
 
-using namespace std; // FIXME: To be removed
-
 #include "EST_TList.h"
 #include "instantiate/EST_TKVLI.h"
 #include "EST_TIterator.h"

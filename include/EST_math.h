@@ -57,8 +57,6 @@ extern "C" int isnan(double);
 #include <float.h>
 #endif
 
-using namespace std; // FIXME: To be removed
-
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -48,10 +48,8 @@
 #if defined(__EMX__)
     /* For OS/2 */
 #   include <iostream>
-using namespace std; // FIXME: To be removed
 #elif defined(SYSTEM_IS_UNIX)
 #   include <iostream>
-using namespace std; // FIXME: To be removed
 #elif defined(SYSTEM_IS_WIN32)
 #   include "win32/EST_iostream_win32.h"
 #else

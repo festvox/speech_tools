@@ -43,8 +43,6 @@
 #include <cstdio>
 #include <istream>
 
-using namespace std; // FIXME: To be removed
-
 #include "EST_String.h"
 #include "EST_common.h"
 

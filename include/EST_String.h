@@ -43,7 +43,6 @@ class EST_Regex;
 #include <cstring>
 #include <iostream>
 #include <climits>
-using namespace std;  // FIXME: To be removed
 #include "EST_Chunk.h"
 #include "EST_strcasecmp.h"
 #include "EST_bool.h"

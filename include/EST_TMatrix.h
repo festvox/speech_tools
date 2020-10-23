@@ -44,8 +44,6 @@
 #include <iostream>
 #include <cstddef>
 
-using namespace std; // FIXME: To be removed
-
 #include "EST_rw_status.h"
 #include "EST_TVector.h"
 #include "instantiate/EST_TMatrixI.h"

@@ -42,8 +42,6 @@
 
 #include <iostream>
 #include <cmath>
-using namespace std; // FIXME: To be removed
-
 
 #ifndef PI
 #define PI 3.14159265358979323846

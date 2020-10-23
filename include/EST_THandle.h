@@ -37,8 +37,6 @@
 #include <iostream>
 #include "EST_bool.h"
 
-using namespace std; // FIXME: To be removed
-
 /** @class EST_THandle
   * @ingroup supportclasses
   * 

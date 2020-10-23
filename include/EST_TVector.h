@@ -42,7 +42,6 @@
 
 #include <cstddef>
 #include <iostream>
-using namespace std; // FIXME: To be removed
 #include "EST_bool.h"
 #include "EST_rw_status.h"
 #include "../base_class/EST_matrix_support.h"

@@ -44,7 +44,6 @@
 
 #ifdef __cplusplus
 #include <cstdlib>
-using namespace std; // FIXME: To be removed
 #else
 #include <stdlib.h>
 #endif
