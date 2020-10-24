@@ -42,6 +42,7 @@
 #define __EST_TRACKFILE_H__
 
 #include "EST_Token.h"
+#include "EST_Track.h"
 #include "EST_TNamedEnum.h"
 #include "EST_String.h"
 #include "EST_rw_status.h"
