@@ -209,8 +209,8 @@ EST_read_status EST_TrackFile::load_ascii(const EST_String filename, EST_Track &
     }
 
     tr.fill_time(ishift);
-    tr.set_single_break(FALSE);
-    tr.set_equal_space(TRUE);
+    tr.set_single_break(false);
+    tr.set_equal_space(true);
     tr.set_file_type(tff_ascii);
     tr.set_name(filename);
 
@@ -266,8 +266,8 @@ EST_read_status EST_TrackFile::load_xgraph(const EST_String filename, EST_Track 
 	}
     }
 
-    tr.set_single_break(FALSE);
-    tr.set_equal_space(TRUE);
+    tr.set_single_break(false);
+    tr.set_equal_space(true);
     tr.set_file_type(tff_xgraph);
     tr.set_name(filename);
 
@@ -344,8 +344,8 @@ EST_read_status EST_TrackFile::load_xmg(const EST_String filename, EST_Track &tr
 	}
     }
 
-    tr.set_single_break(TRUE);
-    tr.set_equal_space(FALSE);
+    tr.set_single_break(true);
+    tr.set_equal_space(false);
     tr.set_file_type(tff_xmg);
     tr.set_name(filename);
 
@@ -448,12 +448,12 @@ EST_read_status EST_TrackFile::load_est_ts(EST_TokenStream &ts,
 //    if (((hinfo.S("ByteOrder", "") == "01") ? bo_little : bo_big) 
 
     if (!hinfo.present("ByteOrder"))
-	swap = FALSE;  // ascii or not there for some reason
+	swap = false;  // ascii or not there for some reason
     else if (((hinfo.S("ByteOrder") == "01") ? bo_little : bo_big) 
 	!= EST_NATIVE_BO)
-	swap = TRUE;
+	swap = true;
     else
-	swap = FALSE;
+	swap = false;
 	    
     const int BINARY_CHANNEL_BUFFER_SIZE=1024;
     float *frame=0; 
@@ -577,7 +577,7 @@ EST_read_status EST_TrackFile::load_est_ts(EST_TokenStream &ts,
     // copy header info into track
     tr.f_set(hinfo);
 
-    tr.set_single_break(FALSE);
+    tr.set_single_break(false);
     tr.set_equal_space(eq_space);
 
     if(ascii)
@@ -671,8 +671,8 @@ EST_read_status load_snns_res(const EST_String filename, EST_Track &tr,
     }
     
     tr.fill_time(ishift);
-    tr.set_single_break(FALSE);
-    tr.set_equal_space(TRUE);
+    tr.set_single_break(false);
+    tr.set_equal_space(true);
     tr.set_file_type(tff_snns);
     tr.set_name(filename);
     
@@ -696,7 +696,7 @@ EST_write_status EST_TrackFile::save_esps(const EST_String filename, EST_Track& 
 	return write_fail;
     }
     
-    if ((include_time = (track_tosave.equal_space() != TRUE)))
+    if ((include_time = (track_tosave.equal_space() != true)))
     {
 	shift = EST_Track::default_frame_shift;
 	extra_channels++;
@@ -704,7 +704,7 @@ EST_write_status EST_TrackFile::save_esps(const EST_String filename, EST_Track& 
     else 
 	shift = track_tosave.shift();
     
-    track_tosave.change_type(0.0,FALSE);
+    track_tosave.change_type(0.0,false);
     
     float **a = new float*[track_tosave.num_frames()];
     // pity we need to copy it
@@ -826,7 +826,7 @@ EST_write_status EST_TrackFile::save_est_binary_ts(FILE *fp, EST_Track& tr)
     int i,j;
 
     // This should be made optional
-    bool breaks = TRUE;
+    bool breaks = true;
 
     fprintf(fp, "EST_File Track\n");
     fprintf(fp, "DataType binary\n");
@@ -869,8 +869,8 @@ EST_write_status EST_TrackFile::save_ascii(const EST_String filename, EST_Track&
        various precisioned numbers.  so we're going to use %g to do this */
     char fbuf[100];
     
-    if (tr.equal_space() == TRUE)
-	tr.change_type(0.0, FALSE);
+    if (tr.equal_space() == true)
+	tr.change_type(0.0, false);
     
     ostream *outf;
     if (filename == "-")
@@ -914,7 +914,7 @@ EST_write_status EST_TrackFile::save_xgraph(const EST_String filename, EST_Track
     if (!(*outf))
 	return write_fail;
     
-    tr.change_type(0.0, TRUE);
+    tr.change_type(0.0, true);
     
     for  (int j = 0; j < tr.num_channels(); ++j)
     {
@@ -1054,7 +1054,7 @@ EST_write_status EST_TrackFile::save_xmg(const EST_String filename, EST_Track& t
     int sr = 16000;		// REORG - fixed sample rate until xmg is fixed
     
     // this takes care of rescaling
-    tr.change_type(0.0, TRUE);
+    tr.change_type(0.0, true);
     
     if (filename == "-")
 	outf = &cout;
@@ -1130,16 +1130,16 @@ static EST_write_status save_htk_as(const EST_String filename,
 	type = use_type;
     }
     
-    if (track.equal_space() != TRUE)
+    if (track.equal_space() != true)
     {
-	track.change_type(0.0, FALSE);
+	track.change_type(0.0, false);
 	s = rint((HTK_UNITS_PER_SECOND * EST_Track::default_frame_shift/1000.0)/10.0) * 10.0;
 	type |= HTK_EST_PS;
 	file_num_channels += 1;
     }
     else
     {
-	track.change_type(0.0, FALSE);
+	track.change_type(0.0, false);
 	s = rint((HTK_UNITS_PER_SECOND * track.shift())/10.0) * 10.0;
     }
 
@@ -1237,7 +1237,7 @@ static int htk_sane_header(htk_header *htk)
 static int htk_swapped_header(htk_header *header)
 {
     //  Tries to guess if the header is swapped.  If so it
-    //  swaps the contents and returns TRUE, other returns FALSE
+    //  swaps the contents and returns true, other returns false
     //  HTK doesn't have a magic number so we need heuristics to
     //  guess when its byte swapped
     
@@ -1315,7 +1315,7 @@ static EST_read_status load_ema_internal(const EST_String filename, EST_Track &t
     
     tmp.resize(nframes, new_order);
     tmp.fill_time(shift);
-    tmp.set_equal_space(TRUE);
+    tmp.set_equal_space(true);
 
     file_data.resize(data_length);
     
@@ -1357,13 +1357,13 @@ static EST_read_status load_ema_internal(const EST_String filename, EST_Track &t
 
 EST_read_status EST_TrackFile::load_ema(const EST_String filename, EST_Track &tmp, float ishift, float startt)
 {
-  return load_ema_internal(filename, tmp, ishift, startt, FALSE);
+  return load_ema_internal(filename, tmp, ishift, startt, false);
 }
 
 
 EST_read_status EST_TrackFile::load_ema_swapped(const EST_String filename, EST_Track &tmp, float ishift, float startt)
 {
-  return load_ema_internal(filename, tmp, ishift, startt, TRUE);
+  return load_ema_internal(filename, tmp, ishift, startt, true);
 }
 
 #if 0
@@ -1443,7 +1443,7 @@ EST_read_status EST_TrackFile::load_NIST(const EST_String filename, EST_Track &t
   // copy into the Track
   int num_samples = data_length/num_channels;
   tmp.resize(num_samples, num_channels);
-  tmp.set_equal_space(TRUE);
+  tmp.set_equal_space(true);
   tmp.fill_time(1/(float)sample_rate);
 
   cerr << "shift " << 1/(float)sample_rate << endl;
@@ -2153,58 +2153,58 @@ EST_String EST_TrackFile::options_supported(void)
 static EST_TValuedEnumDefinition<EST_TrackFileType, const char *, EST_TrackFile::Info> trackfile_names[] =
 {
 { tff_none,             { "none" },
-{FALSE, NULL, NULL,
+{false, NULL, NULL,
  "unknown track file type"}},
 {tff_esps,		{ "esps" }, 
-{TRUE, EST_TrackFile::load_esps, EST_TrackFile::save_esps,
+{true, EST_TrackFile::load_esps, EST_TrackFile::save_esps,
  "entropic sps file"}},
 {tff_est_ascii,		{ "est", "est_ascii" }, 
-{TRUE, EST_TrackFile::load_est, EST_TrackFile::save_est_ascii,
+{true, EST_TrackFile::load_est, EST_TrackFile::save_est_ascii,
  "Edinburgh Speech Tools track file"}},
 {tff_est_binary,		{ "est_binary" }, 
-{TRUE, EST_TrackFile::load_est, EST_TrackFile::save_est_binary,
+{true, EST_TrackFile::load_est, EST_TrackFile::save_est_binary,
  "Edinburgh Speech Tools track file"}}
 ,
 {tff_htk,		{ "htk" }, 
-{TRUE, EST_TrackFile::load_htk, EST_TrackFile::save_htk,
+{true, EST_TrackFile::load_htk, EST_TrackFile::save_htk,
  "htk file"}},
 //{tff_NIST,	{ "NIST" }, 
-//{TRUE, EST_TrackFile::load_NIST, EST_TrackFile::save_NIST,
+//{true, EST_TrackFile::load_NIST, EST_TrackFile::save_NIST,
 // "NIST"}},
 {tff_htk_fbank,	{ "htk_fbank" }, 
-{FALSE, EST_TrackFile::load_htk, EST_TrackFile::save_htk_fbank,
+{false, EST_TrackFile::load_htk, EST_TrackFile::save_htk_fbank,
  "htk file (as FBANK)"}},
 {tff_htk_mfcc,	{ "htk_mfcc" }, 
-{FALSE, EST_TrackFile::load_htk, EST_TrackFile::save_htk_mfcc,
+{false, EST_TrackFile::load_htk, EST_TrackFile::save_htk_mfcc,
  "htk file (as MFCC)"}},
 {tff_htk_mfcc_e,	{ "htk_mfcc_e" }, 
-{FALSE, EST_TrackFile::load_htk, EST_TrackFile::save_htk_mfcc_e,
+{false, EST_TrackFile::load_htk, EST_TrackFile::save_htk_mfcc_e,
  "htk file (as MFCC_E)"}},
 {tff_htk_user,	{ "htk_user" }, 
-{FALSE, EST_TrackFile::load_htk, EST_TrackFile::save_htk_user,
+{false, EST_TrackFile::load_htk, EST_TrackFile::save_htk_user,
  "htk file (as USER)"}},
 {tff_htk_discrete,	{ "htk_discrete" }, 
-{FALSE, EST_TrackFile::load_htk, EST_TrackFile::save_htk_discrete,
+{false, EST_TrackFile::load_htk, EST_TrackFile::save_htk_discrete,
  "htk file (as DISCRETE)"}},
 {tff_ssff,		{"ssff"}, 
-{TRUE, EST_TrackFile::load_ssff, EST_TrackFile::save_ssff,
+{true, EST_TrackFile::load_ssff, EST_TrackFile::save_ssff,
  "Macquarie University's Simple Signal File Format"}},
 {tff_xmg,		{ "xmg" }, 
-{TRUE, EST_TrackFile::load_xmg, EST_TrackFile::save_xmg,
+{true, EST_TrackFile::load_xmg, EST_TrackFile::save_xmg,
  "xmg file viewer"}},
 {tff_xgraph,		{ "xgraph" }, 
-{FALSE, EST_TrackFile::load_xgraph, EST_TrackFile::save_xgraph,
+{false, EST_TrackFile::load_xgraph, EST_TrackFile::save_xgraph,
  "xgraph display program format"}},
 {tff_ema,		{ "ema" }, 
-{FALSE, EST_TrackFile::load_ema, NULL,
+{false, EST_TrackFile::load_ema, NULL,
  "ema"}},
 {tff_ema_swapped,	{ "ema_swapped" }, 
-{FALSE, EST_TrackFile::load_ema_swapped, NULL,
+{false, EST_TrackFile::load_ema_swapped, NULL,
  "ema, swapped"}},
 {tff_ascii,		{ "ascii" }, 
-{TRUE, EST_TrackFile::load_ascii, EST_TrackFile::save_ascii,
+{true, EST_TrackFile::load_ascii, EST_TrackFile::save_ascii,
  "ascii decimal numbers"}},
-{ tff_none,  {"none"},  {FALSE, NULL, NULL, "unknown track file type"} }
+{ tff_none,  {"none"},  {false, NULL, NULL, "unknown track file type"} }
 };
 
 EST_TNamedEnumI<EST_TrackFileType, EST_TrackFile::Info> EST_TrackFile::map(trackfile_names);
@@ -2213,23 +2213,23 @@ static EST_TValuedEnumDefinition<EST_TrackFileType, const char *,
 EST_TrackFile::TS_Info> track_ts_names[] =
 {
 { tff_none,		{ "none" },				
-{FALSE, NULL, NULL,
+{false, NULL, NULL,
  "unknown track file type"}},
  
 {tff_est_ascii,		{"est"}, 
-{TRUE, EST_TrackFile::load_est_ts, EST_TrackFile::save_est_ts,
+{true, EST_TrackFile::load_est_ts, EST_TrackFile::save_est_ts,
  "Edinburgh Speech Tools track file"}},
 
 {tff_est_binary,	{"est_binary"}, 
-{TRUE, EST_TrackFile::load_est_ts, EST_TrackFile::save_est_binary_ts,
+{true, EST_TrackFile::load_est_ts, EST_TrackFile::save_est_binary_ts,
  "Edinburgh Speech Tools track file"}},
 
 {tff_ssff,		{"ssff"}, 
-{TRUE, EST_TrackFile::load_ssff_ts, EST_TrackFile::save_ssff_ts,
+{true, EST_TrackFile::load_ssff_ts, EST_TrackFile::save_ssff_ts,
  "Macquarie University's Simple Signal File Format"}},
 
 { tff_none,		{ "none" },
-{FALSE, NULL, NULL,
+{false, NULL, NULL,
  "unknown track file type"}}
 };
 

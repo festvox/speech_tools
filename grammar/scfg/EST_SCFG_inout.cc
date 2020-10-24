@@ -229,7 +229,7 @@ double EST_SCFG_traintest::f_I_cal(int c, int p, int i, int k)
 //	       terminal(corpus.a_no_check(c).symbol_at(i)),
 //	       res);
     }
-    else if (corpus.a_no_check(c).valid(i,k) == TRUE)
+    else if (corpus.a_no_check(c).valid(i,k) == true)
     {
 	int j;
 	double s=0;
@@ -272,7 +272,7 @@ double EST_SCFG_traintest::f_O_cal(int c, int p, int i, int k)
 	else
 	    res = 0.0;
     }
-    else if (corpus.a_no_check(c).valid(i,k) == TRUE)
+    else if (corpus.a_no_check(c).valid(i,k) == true)
     {
 	double s1=0.0;
 	double s2,s3;

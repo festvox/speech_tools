@@ -50,8 +50,8 @@ int in_list(const EST_Item *c,const EST_Item *l)
     
     for (i=l; i != 0; i=inext(i))
 	if (i == c)
-	    return TRUE;
-    return FALSE;
+	    return true;
+    return false;
 }
 
 int in_tree(const EST_Item *c,const EST_Item *t)
@@ -59,13 +59,13 @@ int in_tree(const EST_Item *c,const EST_Item *t)
     EST_Item *i;
 
     if (t == c)
-	return TRUE;
+	return true;
     else
     {
 	for (i=daughter1(t); i != 0; i=next_sibling(i))
 	    if (in_tree(c,i))
-		return TRUE;
-	return FALSE;
+		return true;
+	return false;
     }
 }
 
@@ -99,7 +99,7 @@ int merge_item(EST_Item *from, EST_Item *to)
     }
     from->set_contents(to->contents());
 
-    return TRUE;
+    return true;
 }
 
 void merge_features(EST_Item *to, EST_Item *from, int keep_id)
@@ -122,7 +122,7 @@ int move_item(EST_Item *from, EST_Item *to)
     if (rfrom != 0) // from is current in this relation
 	delete rfrom;  // so delete it and its daughters
 
-    return TRUE;
+    return true;
 }
 
 int move_sub_tree(EST_Item *from, EST_Item *to)
@@ -133,7 +133,7 @@ int move_sub_tree(EST_Item *from, EST_Item *to)
     EST_Item *d,*r,*nr;
 
     if (in_tree(to,from))
-	return FALSE;  // can't do that 
+	return false;  // can't do that 
 
     to->set_contents(from->contents());
     // Remove current daughters, but don't delete them 
@@ -152,7 +152,7 @@ int move_sub_tree(EST_Item *from, EST_Item *to)
         delete r;
     }
 
-    return TRUE;
+    return true;
 }
 
 int exchange_sub_trees(EST_Item *from,EST_Item *to)
@@ -162,7 +162,7 @@ int exchange_sub_trees(EST_Item *from,EST_Item *to)
     EST_Item *rfrom = from->as_relation(to->relation_name());
 
     if ((!rfrom) || (in_tree(rfrom,to)) || (in_tree(to,rfrom)))
-	return FALSE;  // one or other in the other
+	return false;  // one or other in the other
     
     EST_Item_Content *toc = to->grab_contents();
     EST_Item_Content *fromc = rfrom->grab_contents();
@@ -176,7 +176,7 @@ int exchange_sub_trees(EST_Item *from,EST_Item *to)
     if (to_d)
 	copy_node_tree(to_d,from->insert_below(to_d));
 
-    return TRUE;
+    return true;
 }
 
 

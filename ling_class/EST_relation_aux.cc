@@ -193,9 +193,9 @@ static int is_in_class(const EST_String &name, const EST_StrList &s)
 
     for (p = s.head(); p; p = p->next())
 	if (name == s(p))
-	    return TRUE;
+	    return true;
     
-    return FALSE;
+    return false;
 }
 
 int check_vocab(EST_Relation &a, const EST_StrList &vocab)

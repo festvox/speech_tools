@@ -73,9 +73,9 @@ int wgn_held_out = 0;
 float wgn_dropout_feats = 0.0;
 float wgn_dropout_samples = 0.0;
 int wgn_cos = 1;
-int wgn_prune = TRUE;
-int wgn_quiet = FALSE;
-int wgn_verbose = FALSE;
+int wgn_prune = true;
+int wgn_quiet = false;
+int wgn_verbose = false;
 int wgn_count_field = -1;
 EST_String wgn_count_field_name = "";
 int wgn_predictee = 0;
@@ -250,14 +250,14 @@ WNode *wgn_build_tree(float &score)
     WNode *top = new WNode();
     int margin = 0;
 
-    wgn_set_up_data(top->get_data(),wgn_dataset,wgn_held_out,TRUE);
+    wgn_set_up_data(top->get_data(),wgn_dataset,wgn_held_out,true);
 
     margin = 0;
     wagon_split(margin,*top);  // recursively split data;
 
     if (wgn_held_out > 0)
     {
-	wgn_set_up_data(top->get_data(),wgn_dataset,wgn_held_out,FALSE);
+	wgn_set_up_data(top->get_data(),wgn_dataset,wgn_held_out,false);
 	top->held_out_prune();
     }
 	
@@ -730,7 +730,7 @@ static int wagon_split(int margin, WNode &node)
 
     node.set_impurity(WImpurity(node.get_data()));
     if (wgn_max_questions < 1)
-        return FALSE;
+        return false;
         
     find_best_question(node.get_data(), q);
 
@@ -763,7 +763,7 @@ static int wagon_split(int margin, WNode &node)
 	margin++;
 	wagon_split(margin,*r);
 	margin--;
-	return TRUE;
+	return true;
     }
     else
     {
@@ -776,7 +776,7 @@ static int wagon_split(int margin, WNode &node)
 		<< node.get_impurity() << endl;
 	}
 	margin--;
-	return FALSE;
+	return false;
     }
 }
 
@@ -789,7 +789,7 @@ void wgn_find_split(WQuestion &q,WVectorVector &ds,
     {
         // You need to count the number of yes/no again in all ds
         for (iy=in=i=0; i < ds.n(); i++)
-            if (q.ask(*ds(i)) == TRUE)
+            if (q.ask(*ds(i)) == true)
                 iy++;
             else
                 in++;
@@ -805,7 +805,7 @@ void wgn_find_split(WQuestion &q,WVectorVector &ds,
     n.resize(in);
     
     for (iy=in=i=0; i < ds.n(); i++)
-	if (q.ask(*ds(i)) == TRUE)
+	if (q.ask(*ds(i)) == true)
 	    y[iy++] = ds(i);
 	else
 	    n[in++] = ds(i);
@@ -845,7 +845,7 @@ static void find_best_question(WVectorVector &dset,
 #pragma omp for
     for (i=0;i < wgn_dataset.width(); i++)
     {
-	if ((wgn_dataset.ignore(i) == TRUE) ||
+	if ((wgn_dataset.ignore(i) == true) ||
 	    (i == wgn_predictee))
 	    scores[i] = WGN_HUGE_VAL;     // ignore this feature this time
         else if (wgn_random_number(1.0) < wgn_dropout_feats)
@@ -901,7 +901,7 @@ static void find_best_question(WVectorVector &dset,
     // test each feature with each possible question
     for (i=0;i < wgn_dataset.width(); i++)
     {
-	if ((wgn_dataset.ignore(i) == TRUE) ||
+	if ((wgn_dataset.ignore(i) == true) ||
 	    (i == wgn_predictee))
 	    tscore = WGN_HUGE_VAL;     // ignore this feature this time
         else if (wgn_random_number(1.0) < wgn_dropout_feats)
@@ -1147,7 +1147,7 @@ static float score_question_set(WQuestion &q, WVectorVector &ds, int ignorenth)
 	    else 
 		count = (*wv)[wgn_count_field];
 
-	    if (q.ask(*wv) == TRUE)
+	    if (q.ask(*wv) == true)
 	    {
 		num_yes++;
                 if (wgn_dataset.ftype(wgn_predictee) == wndt_ols)
@@ -1217,7 +1217,7 @@ WNode *wagon_stepwise(float limit)
 
     // Set all features to ignore
     for (i=0; i < wgn_dataset.width(); i++)
-	wgn_dataset.set_ignore(i,TRUE);
+	wgn_dataset.set_ignore(i,true);
 
     for (i=0; i < wgn_dataset.width(); i++)
     {
@@ -1242,7 +1242,7 @@ WNode *wagon_stepwise(float limit)
 	    best_score = bscore;
 	    delete best;
 	    best = new_best;
-	    wgn_dataset.set_ignore(best_feat,FALSE);
+	    wgn_dataset.set_ignore(best_feat,false);
 	    if (!wgn_quiet)
 	    {
 		fprintf(stdout,"FEATURE    %d %s: %2.4f\n",
@@ -1273,13 +1273,13 @@ static WNode *wagon_stepwise_find_next_best(float &bscore,int &best_feat)
 	    continue; // user wants me to ignore this completely
 	else if (i == wgn_predictee) // can't use the answer
 	    continue;
-	else if (wgn_dataset.ignore(i) == TRUE)
+	else if (wgn_dataset.ignore(i) == true)
 	{
 	    WNode *current;
 	    float score;
 
 	    // Allow this feature to participate
-	    wgn_dataset.set_ignore(i,FALSE);
+	    wgn_dataset.set_ignore(i,false);
 	    
 	    current = wgn_build_tree(score);
 
@@ -1299,7 +1299,7 @@ static WNode *wagon_stepwise_find_next_best(float &bscore,int &best_feat)
 		delete current;
 
 	    // switch it off again
-	    wgn_dataset.set_ignore(i,TRUE);
+	    wgn_dataset.set_ignore(i,true);
 	}
     }
 

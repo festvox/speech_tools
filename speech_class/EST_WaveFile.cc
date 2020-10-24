@@ -95,7 +95,7 @@ EST_read_status load_using(standard_load_fn_fp fn,
       short *data2 = new short[nsamp*nchan];
       memcpy(data2, data, nsamp*nchan*sizeof(short));
       wfree(data);
-      wv.values().set_memory(data2, 0, nsamp, nchan, TRUE);
+      wv.values().set_memory(data2, 0, nsamp, nchan, true);
       wv.set_sample_rate(srate);
     }
 
@@ -396,7 +396,7 @@ EST_read_status EST_WaveFile::load_raw(EST_TokenStream &ts,
 
   if (status == read_ok)
     {
-      wv.values().set_memory(data, 0, nsamp, nchan, TRUE);
+      wv.values().set_memory(data, 0, nsamp, nchan, true);
       wv.set_sample_rate(srate);
     }
 
@@ -750,48 +750,48 @@ static
 EST_TValuedEnumDefinition<EST_WaveFileType, const char *, EST_WaveFile::Info> wavefile_names[] =
 {
   { wff_none,	{ NULL }, 
-    { FALSE, NULL, NULL, NULL, NULL, "unknown track file type"} },
+    { false, NULL, NULL, NULL, NULL, "unknown track file type"} },
   { wff_nist,	{ "nist", "timit" }, 
-    { TRUE, EST_WaveFile::load_nist,  EST_WaveFile::save_nist,
+    { true, EST_WaveFile::load_nist,  EST_WaveFile::save_nist,
       EST_WaveFile::save_nist_header, EST_WaveFile::save_nist_data,
       "nist/timit" } },
   { wff_est,	{ "est"}, 
-    { TRUE, EST_WaveFile::load_est,  EST_WaveFile::save_est,
+    { true, EST_WaveFile::load_est,  EST_WaveFile::save_est,
       EST_WaveFile::save_est_header, EST_WaveFile::save_est_data,
       "est" } },
   { wff_esps,	{ "esps", "sd"}, 
-    { TRUE,  EST_WaveFile::load_esps,  EST_WaveFile::save_esps,
+    { true,  EST_WaveFile::load_esps,  EST_WaveFile::save_esps,
       EST_WaveFile::save_esps_header, EST_WaveFile::save_esps_data,
       "esps SD waveform" } },
   { wff_audlab, { "audlab", "vox"}, 
-    { TRUE,  EST_WaveFile::load_audlab,  EST_WaveFile::save_audlab,
+    { true,  EST_WaveFile::load_audlab,  EST_WaveFile::save_audlab,
       EST_WaveFile::save_audlab_header, EST_WaveFile::save_audlab_data,
       "audlab waveform" } },
   { wff_snd,	{ "snd", "au"}, 
-    { TRUE,  EST_WaveFile::load_snd,  EST_WaveFile::save_snd,
+    { true,  EST_WaveFile::load_snd,  EST_WaveFile::save_snd,
       EST_WaveFile::save_snd_header, EST_WaveFile::save_snd_data,
       "Sun snd file" } },
   { wff_aiff,	{ "aiff" }, 
-    { TRUE,  EST_WaveFile::load_aiff,  EST_WaveFile::save_aiff,
+    { true,  EST_WaveFile::load_aiff,  EST_WaveFile::save_aiff,
       EST_WaveFile::save_aiff_header, EST_WaveFile::save_aiff_data,
       "Apple aiff file" } },
   { wff_riff,	{ "riff", "wav" }, 
-    { TRUE,  EST_WaveFile::load_riff,  EST_WaveFile::save_riff,
+    { true,  EST_WaveFile::load_riff,  EST_WaveFile::save_riff,
       EST_WaveFile::save_riff_header, EST_WaveFile::save_riff_data,
       "Microsoft wav/riff file" } },
   { wff_raw,	{ "raw" }, 
-    { FALSE,  EST_WaveFile::load_raw,  EST_WaveFile::save_raw,
+    { false,  EST_WaveFile::load_raw,  EST_WaveFile::save_raw,
       EST_WaveFile::save_raw_header, EST_WaveFile::save_raw_data,
       "Headerless File" } },
   { wff_ulaw,	{ "ulaw", "basic" }, 
-    { FALSE,  EST_WaveFile::load_ulaw,  EST_WaveFile::save_ulaw,
+    { false,  EST_WaveFile::load_ulaw,  EST_WaveFile::save_ulaw,
       EST_WaveFile::save_ulaw_header, EST_WaveFile::save_ulaw_data,
       "Headerless 8K ulaw  File" } },
   { wff_alaw,	{ "alaw", "basic" }, 
-    { FALSE,  EST_WaveFile::load_alaw,  EST_WaveFile::save_alaw,
+    { false,  EST_WaveFile::load_alaw,  EST_WaveFile::save_alaw,
       EST_WaveFile::save_alaw_header, EST_WaveFile::save_alaw_data,
       "Headerless 8K alaw  File" } },
-  { wff_none,	{ NULL }, {FALSE,  NULL,  NULL,
+  { wff_none,	{ NULL }, {false,  NULL,  NULL,
       NULL, NULL, NULL} }
 };
 

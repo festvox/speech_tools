@@ -53,7 +53,7 @@ void EST_TVector<T>::default_vals()
   p_column_step=0;
 
   p_memory = NULL;
-  p_sub_matrix=FALSE;
+  p_sub_matrix=false;
 }
 
 template<class T>
@@ -230,7 +230,7 @@ EST_TVector<T> &EST_TVector<T>::operator=(const EST_TVector<T> &in)
 template<class T>
 T &EST_TVector<T>::a_check(difference_type n)
 {
-  if (!EST_vector_bounds_check(n, num_columns(), FALSE))
+  if (!EST_vector_bounds_check(n, num_columns(), false))
     return *error_return;
 
   return fast_a_v(n);
@@ -261,7 +261,7 @@ void EST_TVector<T>::copy_section(pointer dest, difference_type offset, differen
   if (num<0)
     num = num_columns()-offset;
 
-  if (!EST_vector_bounds_check(num+offset-1, num_columns(), FALSE))
+  if (!EST_vector_bounds_check(num+offset-1, num_columns(), false))
     return;
   
 
@@ -276,7 +276,7 @@ void EST_TVector<T>::set_section(const_pointer src, difference_type offset,
   if (num<0)
     num = num_columns()-offset;
 
-  if (!EST_vector_bounds_check(num+offset-1, num_columns(), FALSE))
+  if (!EST_vector_bounds_check(num+offset-1, num_columns(), false))
     return;
 
   for(difference_type i=0; i<num; i++)

@@ -214,9 +214,9 @@ int NAME##_p(LISP x)                                   \
 {                                                      \
     if (val_p(x) &&                                    \
         (val_type_##NAME == val(x).type()))            \
-	return TRUE;                                   \
+	return true;                                   \
     else                                               \
-	return FALSE;                                  \
+	return false;                                  \
 }                                                      \
                                                        \
 LISP siod(const class CLASS *v)                        \
@@ -246,9 +246,9 @@ int NAME##_p(LISP x)                                   \
 {                                                      \
     if (val_p(x) &&                                    \
         (val_type_##NAME == val(x).type()))            \
-	return TRUE;                                   \
+	return true;                                   \
     else                                               \
-	return FALSE;                                  \
+	return false;                                  \
 }                                                      \
                                                        \
 LISP siod(const CLASS *v)                              \
@@ -271,9 +271,9 @@ int NAME##_p(LISP x)                                   \
 {                                                      \
     if (val_p(x) &&                                    \
         (val_type_##NAME == val(x).type()))            \
-	return TRUE;                                   \
+	return true;                                   \
     else                                               \
-	return FALSE;                                  \
+	return false;                                  \
 }                                                      \
                                                        \
 LISP siod(const CLASS v)                               \

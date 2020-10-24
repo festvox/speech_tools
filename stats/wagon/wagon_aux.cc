@@ -72,11 +72,11 @@ int WNode::pure(void)
     //  A node is pure if it has no sub-nodes or its not of type class
 
     if ((left == 0) && (right == 0))
-	return TRUE;
+	return true;
     else if (get_impurity().type() != wnim_class)
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 void WNode::prune(void)
@@ -84,7 +84,7 @@ void WNode::prune(void)
     // Check all sub-nodes and if they are all of the same class 
     // delete their sub nodes.  Returns pureness of this node
 
-    if (pure() == FALSE)
+    if (pure() == false)
     {
 	// Ok lets try and make it pure
 	if (left != 0) left->prune();
@@ -92,8 +92,8 @@ void WNode::prune(void)
 
 	// Have to check purity as well as values to ensure left and right
 	// don't further split
-	if ((left  != 0) && (left->pure()  == TRUE) && 
-        (right != 0)  && (right->pure() == TRUE) &&
+	if ((left  != 0) && (left->pure()  == true) && 
+        (right != 0)  && (right->pure() == true) &&
 	    (left->get_impurity().value() == right->get_impurity().value()))
 	{
 	     delete left; left = 0;
@@ -170,7 +170,7 @@ void WDataSet::ignore_non_numbers()
             continue;
         else
         {
-            p_ignore[i] = TRUE;
+            p_ignore[i] = true;
         }
     }
              
@@ -200,7 +200,7 @@ void WDataSet::load_description(const EST_String &fname, LISP ignores)
     {
 	p_name[i] = get_c_string(car(car(d)));
 	tname = get_c_string(car(cdr(car(d))));
-	p_ignore[i] = FALSE;
+	p_ignore[i] = false;
 	if ((wgn_predictee_name != "") && (wgn_predictee_name == p_name[i]))
 	    wgn_predictee = i;
 	if ((wgn_count_field_name != "") && 
@@ -210,13 +210,13 @@ void WDataSet::load_description(const EST_String &fname, LISP ignores)
 	{
 	    // The count must be ignored, repeat it if you want it too
 	    p_type[i] = wndt_ignore;  // the count must be ignored
-	    p_ignore[i] = TRUE;
+	    p_ignore[i] = true;
 	    wgn_count_field = i;
 	}
 	else if ((tname == "ignore") || (siod_member_str(p_name[i],ignores)))
 	{
 	    p_type[i] = wndt_ignore;  // user specified ignore
-	    p_ignore[i] = TRUE;
+	    p_ignore[i] = true;
 	    if (i == wgn_predictee)
 		wagon_error(EST_String("predictee \"")+p_name[i]+
 			    "\" can't be ignored \n");
@@ -266,39 +266,39 @@ int WQuestion::ask(const WVector &w) const
     {
       case wnop_equal:    // for numbers
 	if (w.get_flt_val(feature_pos) == operand1.Float())
-	    return TRUE;
+	    return true;
 	else 
-	    return FALSE;
+	    return false;
       case wnop_binary:    // for numbers
 	if (w.get_int_val(feature_pos) == 1)
-	    return TRUE;
+	    return true;
 	else 
-	    return FALSE;
+	    return false;
       case wnop_greaterthan:
 	if (w.get_flt_val(feature_pos) > operand1.Float())
-	    return TRUE;
+	    return true;
 	else 
-	    return FALSE;
+	    return false;
       case wnop_lessthan:
 	if (w.get_flt_val(feature_pos) < operand1.Float())
-	    return TRUE;
+	    return true;
 	else 
-	    return FALSE;
+	    return false;
       case wnop_is:       // for classes
 	if (w.get_int_val(feature_pos) == operand1.Int())
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
       case wnop_in:       // for subsets -- note operand is list of ints
 	if (ilist_member(operandl,w.get_int_val(feature_pos)))
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
       default:
 	wagon_error("Unknown test operator");
     }
     
-    return FALSE;
+    return false;
 }
 
 ostream& operator<<(ostream& s, const WQuestion &q)
@@ -781,7 +781,7 @@ static void part_to_ols_data(EST_FMatrix &X, EST_FMatrix &Y,
     X.resize(members.length(),w);
     Y.resize(members.length(),1);
     feat_names.append("Intercept");
-    included[0] = TRUE;
+    included[0] = true;
 
     for (p=0,pp=members.head(); pp; p++,pp=pp->next())
     {
@@ -803,8 +803,8 @@ static void part_to_ols_data(EST_FMatrix &X, EST_FMatrix &Y,
                     feat_names.append(wgn_dataset.feat_name(m));
                 }
                 X.a_no_check(p,xm) = (*wv)[m];
-                included.a_no_check(xm) = FALSE;
-                included.a_no_check(xm) = TRUE;
+                included.a_no_check(xm) = false;
+                included.a_no_check(xm) = true;
                 xm++;
             }
         }

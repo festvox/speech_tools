@@ -43,18 +43,10 @@
 // when making a EST_Stream of events, it is important to link the events
 // pointers as well.
 
-#ifndef __Event_H__
-#define __Event_H__
+#ifndef Event_H__
+#define Event_H__
 
 #include "EST_String.h"
-
-#ifndef FALSE
-#       define  FALSE   (0)
-#endif
-#ifndef TRUE
-#       define  TRUE    (1)
-#endif
-
 
 //class RFCelement{
 //    float amp;
@@ -186,4 +178,4 @@ void gc_eventsi(void *w);
 void gc_eventtilt(void *w);
 void gc_eventrfc(void *w);
 
-#endif // __Event_H__
+#endif // Event_H__

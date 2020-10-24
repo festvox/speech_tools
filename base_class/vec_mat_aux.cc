@@ -326,7 +326,7 @@ int inverse(const EST_FMatrix &a,EST_FMatrix &inv,int &singularity)
 
     singularity = -1;
     if (a.num_rows() != a.num_columns())
-	return FALSE;
+	return false;
 
     // Make the inverse the identity matrix.
     inv.resize(n,n);
@@ -362,7 +362,7 @@ int inverse(const EST_FMatrix &a,EST_FMatrix &inv,int &singularity)
 	if (biggest == 0.0)  // oops found a singularity
 	{   
 	    singularity = (int)pos.a_no_check(i,0);
-	    return FALSE;
+	    return false;
 	}
 
 	// Swap current with biggest
@@ -384,12 +384,12 @@ int inverse(const EST_FMatrix &a,EST_FMatrix &inv,int &singularity)
 	{
 	    if (j==i) continue;
 	    s = b.a_no_check(j,i);
-	    all_zeros = TRUE;
+	    all_zeros = true;
 	    for (k=0; k<n; k++)
 	    {
 		b.a_no_check(j,k) -= b.a_no_check(i,k) * s;
 		if (b.a_no_check(j,k) != 0)
-		    all_zeros = FALSE;
+		    all_zeros = false;
 		inv.a_no_check(j,k) -= inv.a_no_check(i,k) * s;
 	    }
 	    if (all_zeros)
@@ -399,12 +399,12 @@ int inverse(const EST_FMatrix &a,EST_FMatrix &inv,int &singularity)
 		// always identify greater row so linear regression
 		// can preserve intercept in column 0
 		singularity = ((this_row > j) ? this_row : j);
-		return FALSE;
+		return false;
 	    }
 	}
     }
 
-    return TRUE;
+    return true;
 }
 
 int pseudo_inverse(const EST_FMatrix &a, EST_FMatrix &inv)
@@ -424,17 +424,17 @@ int pseudo_inverse(const EST_FMatrix &a, EST_FMatrix &inv,int &singularity)
 	return inverse(a,inv,singularity);
     
     if( a.num_rows() < a.num_columns() )
-	return FALSE;
+	return false;
     
     EST_FMatrix a_trans,atrans_a,atrans_a_inverse;
 
     transpose(a,a_trans);
     multiply(a_trans,a,atrans_a);
     if (!inverse(atrans_a,atrans_a_inverse,singularity))
-	return FALSE;
+	return false;
     multiply(atrans_a_inverse,a_trans,inv);
     
-    return TRUE;
+    return true;
 }
 
 

@@ -277,7 +277,7 @@ LISP l_matches(LISP atom, LISP regex)
     // t if printname of atom matches regex, nil otherwise
     const EST_String pname = get_c_string(atom);
 
-    if (pname.matches(make_regex(get_c_string(regex))) == TRUE)
+    if (pname.matches(make_regex(get_c_string(regex))) == true)
 	return truth;
     else
 	return NIL;

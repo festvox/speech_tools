@@ -470,9 +470,9 @@ EST_read_status EST_DMatrix::est_load(const EST_String &filename)
 	double *buff;
 	if ((EST_BIG_ENDIAN && (hinfo.sval("ByteOrder")=="LittleEndian")) ||
 	    (EST_LITTLE_ENDIAN && (hinfo.sval("ByteOrder") == "BigEndian")))
-            swap = TRUE;
+            swap = true;
 	else
-            swap = FALSE;
+            swap = false;
 	
 	buff = walloc(double,rows*cols);
 	// A single read is *much* faster than multiple reads
@@ -591,9 +591,9 @@ EST_read_status EST_DVector::est_load(const EST_String &filename)
 	double *buff;
 	if ((EST_BIG_ENDIAN && (hinfo.sval("ByteOrder")=="LittleEndian")) ||
 	    (EST_LITTLE_ENDIAN && (hinfo.sval("ByteOrder") == "BigEndian")))
-            swap = TRUE;
+            swap = true;
 	else
-            swap = FALSE;
+            swap = false;
 	
 	buff = walloc(double,l);
 	// A single read is *much* faster than multiple reads

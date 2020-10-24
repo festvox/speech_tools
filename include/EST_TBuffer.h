@@ -126,7 +126,7 @@ public:
 
   /// Extend if needed, copying existing data.
   void ensure(unsigned int req_size)	
-    {if (req_size > p_size) expand_to(req_size, (bool)TRUE);}	
+    {if (req_size > p_size) expand_to(req_size, true);}	
 
   /// Make sure there is enough space, copying if requested.
   void ensure(unsigned int req_size, bool copy)	

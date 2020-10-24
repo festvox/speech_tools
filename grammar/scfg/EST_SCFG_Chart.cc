@@ -114,7 +114,7 @@ EST_SCFG_Chart::EST_SCFG_Chart()
     edges = 0;
     wfst = 0;
     emptyedge = 0;
-    grammar_local = TRUE;
+    grammar_local = true;
     grammar = new EST_SCFG;
 }
 
@@ -131,7 +131,7 @@ void EST_SCFG_Chart::set_grammar_rules(EST_SCFG &imported_grammar)
 {
     if (grammar_local)
 	delete grammar;
-    grammar_local = FALSE;
+    grammar_local = false;
     grammar = &imported_grammar;
 }
 
@@ -458,7 +458,7 @@ void scfg_parse(EST_Relation *Word, const EST_String &name,
     chart.set_grammar_rules(grammar);
     chart.setup_wfst(Word,name);
     chart.parse();
-    chart.extract_parse(Syntax,Word,TRUE);
+    chart.extract_parse(Syntax,Word,true);
 
     return;
 }

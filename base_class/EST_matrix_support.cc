@@ -59,15 +59,15 @@ bool EST_matrix_bounds_check(int r,
   if ((r < 0) || (r >= num_rows))
     {
       cerr << "Tried to " << what << " row " << r << " of " << num_rows << " row matrix\n";
-      return FALSE;
+      return false;
     }
   if ((c < 0) || (c >= num_columns))
     {
 	cerr << "Tried to " << what << " column " << c << " of " << num_columns << " column matrix\n";
-	return FALSE;
+	return false;
     }
 
-  return TRUE;
+  return true;
 }
 
 bool EST_matrix_bounds_check(int r, int nr,
@@ -83,12 +83,12 @@ bool EST_matrix_bounds_check(int r, int nr,
       if ((r < 0) || (r >= num_rows))
 	{
 	  cerr << "Tried to " << what << " row " << r << " of " << num_rows << " row matrix\n";
-	  return FALSE;
+	  return false;
 	}
       if (r+nr-1 >= num_rows)
 	{
 	  cerr << "Tried to " << what << " row " << r+nr-1 << " of " << num_rows << " row matrix\n";
-	  return FALSE;
+	  return false;
 	}
     }
   if (nc>0)
@@ -96,16 +96,16 @@ bool EST_matrix_bounds_check(int r, int nr,
       if ((c < 0) || (c >= num_columns))
 	{
 	  cerr << "Tried to " << what << " column " << c << " of " << num_columns << " column matrix\n";
-	  return FALSE;
+	  return false;
 	}
       if (c+nc-1 >= num_columns)
 	{
 	  cerr << "Tried to " << what << " column " << c+nc-1 << " of " << num_columns << " column matrix\n";
-	  return FALSE;
+	  return false;
 	}
     }
 
-  return TRUE;
+  return true;
 }
 
 bool EST_vector_bounds_check(int c,
@@ -117,10 +117,10 @@ bool EST_vector_bounds_check(int c,
   if ((c < 0) || (c >= num_columns))
     {
 	cerr << "Tried to " << what << " column " << c << " of " << num_columns << " column vector\n";
-	return FALSE;
+	return false;
     }
 
-  return TRUE;
+  return true;
 }
 
 bool EST_vector_bounds_check(int c, int nc,
@@ -134,14 +134,14 @@ bool EST_vector_bounds_check(int c, int nc,
       if ((c < 0) || (c >= num_columns))
 	{
 	  cerr << "Tried to " << what << " column " << c << " of " << num_columns << " column vector\n";
-	  return FALSE;
+	  return false;
 	}
       if (c+nc-1 >= num_columns)
 	{
 	  cerr << "Tried to " << what << " column " << c+nc-1 << " of " << num_columns << " column vector\n";
-	  return FALSE;
+	  return false;
 	}
     }
-  return TRUE;
+  return true;
 }
 

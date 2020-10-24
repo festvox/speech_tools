@@ -82,28 +82,28 @@ int main(int argc, char **argv)
     // What to do about standard input and producing prompts etc.
     if ((al.present("-i")) || (al.present("--interactive")))
     {
-	interactive = TRUE;
-	stdin_input = TRUE;
+	interactive = true;
+	stdin_input = true;
     }
     else if ((al.present("--pipe")))
     {
-	interactive=FALSE;
-	stdin_input = TRUE;
+	interactive=false;
+	stdin_input = true;
     }
     else if ((al.present("-b")) || (al.present("--batch")))
     {
-	interactive=FALSE;
-	stdin_input=FALSE;
+	interactive=false;
+	stdin_input=false;
     }
     else if (isatty(0))  // if stdin is a terminal assume interactive
     {   
-	interactive = TRUE;
-	stdin_input = TRUE;
+	interactive = true;
+	stdin_input = true;
     }
     else                     // else assume pipe mode
     {   
-	interactive = FALSE;
-	stdin_input = TRUE;
+	interactive = false;
+	stdin_input = true;
     }
 
     siod_init(heap_size);
@@ -155,7 +155,7 @@ static void siod_load_default_files(void)
     initfile += "init.scm";
 
     if (access((const char *)initfile,R_OK) == 0)
-	vload(initfile,FALSE);
+	vload(initfile,false);
     else
 	cerr << "Initialization file " << initfile << " not found" << endl;
 }

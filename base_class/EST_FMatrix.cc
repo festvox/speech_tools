@@ -197,12 +197,12 @@ int operator !=(const EST_FVector &fv1,
 {
     int i;
     if(fv1.length() != fv2.length())
-	return FALSE;
+	return false;
     for(i=0;i<fv1.length();i++)
 	if(fv1.a_no_check(i) != fv2.a_no_check(i))
-	    return FALSE;
+	    return false;
 
-    return TRUE;
+    return true;
 }
 
 EST_FVector operator*(const EST_FMatrix &a, const EST_FVector &v)
@@ -486,9 +486,9 @@ EST_read_status EST_FMatrix::est_load(const EST_String &filename)
 	float *buff;
 	if ((EST_BIG_ENDIAN && (hinfo.sval("ByteOrder")=="LittleEndian")) ||
 	    (EST_LITTLE_ENDIAN && (hinfo.sval("ByteOrder") == "BigEndian")))
-	    swap = TRUE;
+	    swap = true;
 	else
-	    swap = FALSE;
+	    swap = false;
 
 	buff = walloc(float,rows*cols);
 	// A single read is *much* faster than multiple reads
@@ -657,9 +657,9 @@ EST_read_status EST_FVector::est_load(const EST_String &filename)
         float *buff;
 	if ((EST_BIG_ENDIAN && (hinfo.sval("ByteOrder")=="LittleEndian")) ||
 	    (EST_LITTLE_ENDIAN && (hinfo.sval("ByteOrder") == "BigEndian")))
-            swap = TRUE;
+            swap = true;
 	else
-            swap = FALSE;
+            swap = false;
 	
 	buff = walloc(float,l);
 	// A single read is *much* faster than multiple reads

@@ -194,7 +194,7 @@ EST_read_status EST_GenXML::read_xml(FILE *file,
   state.utt=&u;
 
   XML_Parser *parser = EST_GenXML::pclass->make_parser(file, name, &state);
-  parser->track_context(TRUE);
+  parser->track_context(true);
 
   CATCH_ERRORS()
     return read_format_error;
@@ -586,7 +586,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 		state->id="";
 	      }
 	    EST_Litem *idp = ids.head();
-	    bool first=TRUE;
+	    bool first=true;
 	    for(; idp!= NULL; idp = idp->next())
 	      {
 		 EST_String id = ids(idp);
@@ -596,7 +596,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 		 if (!first)
 		   element_close(c, p, data, name);
 		 else
-		   first=FALSE;
+		   first=false;
 
 		 state->id=id;
 		 element_open(c, p, data, name, attributes);

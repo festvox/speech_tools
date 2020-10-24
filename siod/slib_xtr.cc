@@ -575,7 +575,7 @@ static void init_storage_xtr1(long type)
 {long j;
  struct user_type_hooks *p;
  set_gc_hooks(type,
-	      FALSE,
+	      false,
 	      array_gc_relocate,
 	      array_gc_mark,
 	      array_gc_scan,

@@ -227,26 +227,26 @@ LISP siod_nth(int n,LISP list)
 
 int siod_atomic_list(LISP list)
 {
-    // TRUE is list only contains atoms
+    // true is list only contains atoms
     LISP p;
 
     for (p=list; p != NIL; p=cdr(p))
 	if (CONSP(car(p)))
-	    return FALSE;
+	    return false;
 
-    return TRUE;
+    return true;
 }
 
 int siod_eof(LISP item)
 {
-    // TRUE if item is what siod denotes as eof
+    // true if item is what siod denotes as eof
     if (CONSP(item) &&
 	(cdr(item) == NIL) &&
 	(SYMBOLP(car(item))) &&
 	(strcmp("eof",get_c_string(car(item))) == 0))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 LISP quote(LISP l)

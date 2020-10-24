@@ -50,7 +50,7 @@ template<class T> void EST_TSimpleVector<T>::copy(const EST_TSimpleVector<T> &a)
 {
   if (this->p_column_step==1 && a.p_column_step==1)
     {
-    resize(a.n(), FALSE);
+    resize(a.n(), false);
     std::memcpy((void *)(this->p_memory), (const void *)(a.p_memory), this->n() * sizeof(T));
     }
 else
@@ -99,7 +99,7 @@ void EST_TSimpleVector<T>::copy_section(T* dest, int offset, int num) const
   if (num<0)
     num = this->num_columns()-offset;
 
-  if (!EST_vector_bounds_check(num+offset-1, this->num_columns(), FALSE))
+  if (!EST_vector_bounds_check(num+offset-1, this->num_columns(), false))
     return;
 
   if (!this->p_sub_matrix && this->p_column_step==1)
@@ -119,7 +119,7 @@ void EST_TSimpleVector<T>::set_section(const T* src, int offset, int num)
   if (num<0)
     num = this->num_columns()-offset;
 
-  if (!EST_vector_bounds_check(num+offset-1, this->num_columns(), FALSE))
+  if (!EST_vector_bounds_check(num+offset-1, this->num_columns(), false))
     return;
   
   if (!this->p_sub_matrix && this->p_column_step==1)

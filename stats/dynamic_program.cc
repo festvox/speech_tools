@@ -85,7 +85,7 @@ void trace_back_and_link(int i, int j,
 
 inline bool null_lpf(const int,const int,const int,const int)
 {
-    return FALSE;
+    return false;
 }
 
 bool dp_match(const EST_Relation &lexical,
@@ -216,7 +216,7 @@ bool dp_match(const EST_Relation &lexical,
 	       lcf,lpf,null_sym,cost))
     {
 	cerr << "No path found (over pruning ?)" << endl;
-	return FALSE;
+	return false;
     }
     // make somewhere to record the relations
     //utt.create_relation("Match");
@@ -238,7 +238,7 @@ bool dp_match(const EST_Relation &lexical,
 			surface.rlast(),
 			DP_path_i,DP_path_j,null_sym);
 
-    return TRUE;
+    return true;
 }
 
 
@@ -256,7 +256,7 @@ bool dp_sub(int i, int j,
     
     // already done ?
     if(cost(i,j) >= 0)
-	return TRUE;
+	return true;
 
     //cerr << "sub " << i << " " << j << endl;
 
@@ -266,7 +266,7 @@ bool dp_sub(int i, int j,
 
     // prune ?
     if(lpf(i,j,vr1.length()-1,vr2.length()-1))
-	return FALSE;
+	return false;
 
 
     // consider all paths into this point 
@@ -294,7 +294,7 @@ bool dp_sub(int i, int j,
 		best_c = lcf(null_sym,vr2(j)) + cost.a(i,j-1);
 	    }
 	    else
-		return FALSE;
+		return false;
 	}
     }
 
@@ -368,9 +368,9 @@ bool dp_sub(int i, int j,
 
     if(best_c == MAXFLOAT)
 	// didn't find a better path
-	return FALSE;
+	return false;
     else
-	return TRUE;
+	return true;
 
 }
 

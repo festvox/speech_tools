@@ -181,9 +181,9 @@ static int wagon_test_main(int argc, char **argv)
 	get_c_string(car(cdr(siod_nth(wgn_predictee,description))));
 
     if (al.present("-predict"))
-	simple_predict(data,wgn_output,tree,description,FALSE);
+	simple_predict(data,wgn_output,tree,description,false);
     else if (al.present("-predict_val"))
-	simple_predict(data,wgn_output,tree,description,TRUE);
+	simple_predict(data,wgn_output,tree,description,true);
     else if (streq(predict_type,"float") ||
 	     streq(predict_type,"int"))
 	test_tree_float(data,wgn_output,tree,description);

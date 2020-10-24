@@ -51,8 +51,8 @@ static int tc_pyobject = -1;
 // Check if a LISP object stores reference to PyObject
 int pyobject_p(LISP x) {
   if (TYPEP(x, tc_pyobject))
-    return TRUE;
-  return FALSE;
+    return true;
+  return false;
 }
 
 LISP pyobjectp(LISP x) {

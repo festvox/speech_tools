@@ -215,12 +215,12 @@ class EST_Viterbi_Decoder {
     void search(void);
     /** Extract the result from the table and store it as a feature
         on the related \ref EST_Item  in the given \ref EST_Relation 
-        named as `n`. Return FALSE if no path is found.
+        named as `n`. Return false if no path is found.
     */
     bool result(const EST_String &n);
 
     /** Extract the end point of the best path found during search. 
-	Return FALSE if no path is found.
+	Return false if no path is found.
      */
     bool result( EST_VTPath **bestPathEnd );
 

@@ -155,10 +155,10 @@ int EST_Features::present(const EST_String &name) const
 	if (v.type() == val_type_feats)
 	    return feats(v)->present(nname.after("."));
 	else
-	    return FALSE;
+	    return false;
     }
     else
-	return FALSE;
+	return false;
 }
 
 void EST_Features::set_path(const EST_String &name, const EST_Val &sval)

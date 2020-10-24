@@ -635,19 +635,19 @@ EST_String EST_UtteranceFile::options_supported(void)
 // note the order here defines the order in which loads are tried.
 Start_TNamedEnumI_T(EST_UtteranceFileType, EST_UtteranceFile::Info, EST_UtteranceFile::map, utterancefile)
   { uff_none,		{ NULL }, 
-    { FALSE, NULL, NULL, "unknown utterance file type"} },
+    { false, NULL, NULL, "unknown utterance file type"} },
   { uff_est,		{ "est", "est_ascii"}, 
-    { TRUE, EST_UtteranceFile::load_est_ascii,  EST_UtteranceFile::save_est_ascii, "Standard EST Utterance File" } },
+    { true, EST_UtteranceFile::load_est_ascii,  EST_UtteranceFile::save_est_ascii, "Standard EST Utterance File" } },
 #if defined(INCLUDE_XML_FORMATS)
   { uff_apml,		{ "apml", "xml"}, 
-    { TRUE, EST_UtteranceFile::load_apml,  NULL, "Utterance in APML" } },
+    { true, EST_UtteranceFile::load_apml,  NULL, "Utterance in APML" } },
   { uff_genxml,		{ "genxml", "xml"}, 
-    { TRUE, EST_UtteranceFile::load_genxml,  EST_UtteranceFile::save_genxml, "Utterance in XML, Any DTD" } },
+    { true, EST_UtteranceFile::load_genxml,  EST_UtteranceFile::save_genxml, "Utterance in XML, Any DTD" } },
 #endif
   { uff_xlabel,	{ "xlabel"}, 
-    { TRUE, EST_UtteranceFile::load_xlabel,  EST_UtteranceFile::save_xlabel, "Xwaves Label File" } },
+    { true, EST_UtteranceFile::load_xlabel,  EST_UtteranceFile::save_xlabel, "Xwaves Label File" } },
   { uff_none,		{NULL},
-      { FALSE, NULL, NULL, "unknown utterance file type"} }
+      { false, NULL, NULL, "unknown utterance file type"} }
 
 End_TNamedEnumI_T(EST_UtteranceFileType, EST_UtteranceFile::Info, EST_UtteranceFile::map, utterancefile)
 

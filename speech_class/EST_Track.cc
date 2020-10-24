@@ -109,8 +109,8 @@ void EST_Track::default_channel_names()
 
 void EST_Track::default_vals(void)
 {
-    p_equal_space = FALSE;
-    p_single_break = FALSE;
+    p_equal_space = false;
+    p_single_break = false;
     p_values.resize(0, 0);
     p_times.resize(0);
     p_is_val.resize(0);
@@ -660,7 +660,7 @@ void EST_Track::change_type(float nshift, bool single_break)
     {
 	if (!p_equal_space || nshift != shift())
 	    sample(nshift);
-	p_equal_space = TRUE;
+	p_equal_space = true;
     }
     
     if (single_break != p_single_break)
@@ -699,8 +699,8 @@ void EST_Track::sample(float f_interval)
     p_times = new_times;
     p_values = new_values;
     p_is_val = new_is_break;
-    p_single_break = FALSE;
-    p_equal_space = TRUE;
+    p_single_break = false;
+    p_equal_space = true;
 }
 
 float EST_Track::interp_amp(float x, int c, float fl)
@@ -755,18 +755,18 @@ int EST_Track::interp_value(float x, float fl)
     //	    break;
     
     if (i == 0)			// must be a break for the first value. (can't have i -1).
-	return FALSE;
+	return false;
     
     if ((!track_break(i)) && (!track_break(i -1)))
-	return TRUE;
+	return true;
     
     p = prev_non_break(i);
     n = next_non_break(i);
     
     if ((x < p_times(p) + (cf / 2.0)) || (x > p_times(n) - (cf / 2.0)))
-	return TRUE;		// rounding at edges
+	return true;		// rounding at edges
     
-    return FALSE;
+    return false;
 }
 
 float EST_Track::estimate_shift(float x)
@@ -842,7 +842,7 @@ void EST_Track::rm_excess_breaks()
     p_values.resize(num_frames(), num_channels());
     p_is_val.resize(num_frames());
     
-    p_single_break = TRUE;
+    p_single_break = true;
 }    
 
 void EST_Track::rm_trailing_breaks()
@@ -964,7 +964,7 @@ void EST_Track::pad_breaks()
     p_is_val.resize(num_frames());
     p_values.resize(num_frames(), num_channels());
     
-    p_single_break = FALSE;
+    p_single_break = false;
 }    
 
 static bool bounds_check(const EST_Track &t, int f, int c, int set)
@@ -974,15 +974,15 @@ static bool bounds_check(const EST_Track &t, int f, int c, int set)
   if (f<0 || f >= t.num_frames())
     {
       cerr << "Attempt to " << what << " frame " << f << " of " << t.num_frames() << " frame track\n";
-      return FALSE;
+      return false;
     }
   if (c<0 || c >= t.num_channels())
     {
       cerr << "Attempt to " << what << " channel " << c << " of " << t.num_channels() << " channel track\n";
-      return FALSE;
+      return false;
     }
 
-return TRUE;
+return true;
 }
 
 static bool bounds_check(const EST_Track &t, 
@@ -997,12 +997,12 @@ static bool bounds_check(const EST_Track &t,
       if (f<0 || f >= t.num_frames())
 	{
 	  cerr << "Attempt to " << what << " frame " << f << " of " << t.num_frames() << " frame track\n";
-	  return FALSE;
+	  return false;
 	}
       if (f+nf-1 >= t.num_frames())
 	{
 	  cerr << "Attempt to " << what << " frame " << f+nf-1 << " of " << t.num_frames() << " frame track\n";
-	  return FALSE;
+	  return false;
 	}
     }
 
@@ -1011,16 +1011,16 @@ static bool bounds_check(const EST_Track &t,
       if (c<0 || c >= t.num_channels())
 	{
 	  cerr << "Attempt to " << what << " channel " << c << " of " << t.num_channels() << " channel track\n";
-	  return FALSE;
+	  return false;
 	}
       if (c+nc-1 >= t.num_channels())
 	{
 	  cerr << "Attempt to " << what << " channel " << c+nc-1 << " of " << t.num_channels() << " channel track\n";
-	  return FALSE;
+	  return false;
 	}
     }
 
-return TRUE;
+return true;
 }
 
 float &EST_Track::a(int i, int c)

@@ -317,8 +317,8 @@ static int is_a_member(const EST_IList &ii, int i)
 {
     for (EST_Litem *p=ii.head(); p != 0; p=p->next())
 	if (ii(p) == i)
-	    return TRUE;
-    return FALSE;
+	    return true;
+    return false;
 }
 
 void EST_WFST::add_epsilon_reachable(EST_WFST_MultiState *ms) const
@@ -535,9 +535,9 @@ static int check_distinguished(const EST_WFST &nmwfst,
     EST_IList from_p,from_q;
     
     if (marks.distinguished(p,q))   // been here, done that
-	return TRUE;
+	return true;
     else if (marks.undistinguished(p,q)) // been here too
-	return FALSE;
+	return false;
     // Not been here yet so do some work to try to find out if
     // these states can be distinguished
     else if ((nmwfst.state(p)->type() != nmwfst.state(q)->type()) ||
@@ -546,7 +546,7 @@ static int check_distinguished(const EST_WFST &nmwfst,
     {	// Different final/non-final type or different number
 	// of transitions so obviously different states
 	marks.distinguish(p,q);
-	return TRUE;
+	return true;
     }
     else 
     {   // Have to check their transitions individually
@@ -560,7 +560,7 @@ static int check_distinguished(const EST_WFST &nmwfst,
 		(marks.distinguished(y,z)))
 	    {   // no equiv transition or obviously different states
 		marks.distinguish(p,q);
-		return TRUE;
+		return true;
 	    }
 	    else if (equivalent_to(y,z,assumptions))
 		continue;
@@ -573,9 +573,9 @@ static int check_distinguished(const EST_WFST &nmwfst,
 	// All transitions had potential match so only now
 	// actually check their follow sets
 	EST_Litem *yp, *zp;
-	int tl = FALSE;
+	int tl = false;
 	if (assumptions.length() == 0)
-	    tl = TRUE;
+	    tl = true;
 	// assume they are undistinguished
 	add_assumption(p,q,assumptions);
 	for (yp=from_p.head(),zp=from_q.head(); 
@@ -586,7 +586,7 @@ static int check_distinguished(const EST_WFST &nmwfst,
 	    {
 		marks.distinguish(p,q);  // set the distinguished
 		assumptions.clear();
-		return TRUE;
+		return true;
 	    }
 	// ok I give up, they are the same
 	if (tl)
@@ -596,7 +596,7 @@ static int check_distinguished(const EST_WFST &nmwfst,
 	    mark_undistinguished(marks,assumptions);
 	    assumptions.clear();
 	}
-	return FALSE;
+	return false;
     }
 }
 
@@ -668,7 +668,7 @@ void EST_WFST::complement(const EST_WFST &a)
 
 static int noloopstostart(const EST_WFST &a)
 {
-    // TRUE if there are no transitions leading to the start state
+    // true if there are no transitions leading to the start state
     // when this is true there is a union operation which preserves
     // deterministicness
     int i;
@@ -680,15 +680,15 @@ static int noloopstostart(const EST_WFST &a)
 	for (p=s->transitions.head(); p != 0; p=p->next())
 	{
 	    if (s->transitions(p)->state() == a.start_state())
-		return FALSE;
+		return false;
 	}
     }
-    return TRUE;
+    return true;
 }
 
 int EST_WFST::deterministiconstartstates(const EST_WFST &a, const EST_WFST &b) const
 {
-    // TRUE if there are no common transition labels from a and b's
+    // true if there are no common transition labels from a and b's
     // start state
     EST_IMatrix tab;
     int in,out;
@@ -713,9 +713,9 @@ int EST_WFST::deterministiconstartstates(const EST_WFST &a, const EST_WFST &b) c
 	else if (out == -1) 
 	    continue;  // obviously not a clash
 	else if (tab(in,out) == 1)
-	    return FALSE;
+	    return false;
     }
-    return TRUE;
+    return true;
 }
 
 /***********************************************************************/
@@ -940,15 +940,15 @@ void EST_WFST::remove_error_states(const EST_WFST &a)
 
 int EST_WFST::can_reach_final(int state)
 {
-    // Return TRUE iff this state is final or can reach a final state
+    // Return true iff this state is final or can reach a final state
 
     if (p_states[state]->type() == wfst_final)
-	return TRUE;
+	return true;
     else if (p_states[state]->type() == wfst_error)
-	return FALSE;
+	return false;
     else if (p_states[state]->tag() == current_tag)  
 	// Been here and it is reachable
-	return TRUE;
+	return true;
     else
     {
 	EST_Litem *i;
@@ -967,11 +967,11 @@ int EST_WFST::can_reach_final(int state)
 	// is reachable from here
 	p_states[state]->set_type(r);
 	if (r == wfst_error)
-	    return FALSE;
+	    return false;
 	else
 	{
 	    p_states[state]->set_tag(current_tag);
-	    return TRUE;
+	    return true;
 	}
     }
 }
@@ -993,11 +993,11 @@ int EST_WFST::deterministic() const
 	{
 	    if (tab(state(i)->transitions(t)->in_symbol(),
 		    state(i)->transitions(t)->out_symbol()) == 1)
-		return FALSE;
+		return false;
 	    else
 		tab(state(i)->transitions(t)->in_symbol(),
 		    state(i)->transitions(t)->out_symbol()) = 1;
 	}
     }
-    return TRUE;
+    return true;
 }

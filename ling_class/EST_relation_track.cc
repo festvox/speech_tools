@@ -55,15 +55,15 @@ void track_to_label(const EST_Track &tr, EST_Relation &lab, float thresh)
 {
     int i;
     EST_Item *tmp_seg;
-    int p_pos = FALSE;
-    int c_pos = FALSE;
+    int p_pos = false;
+    int c_pos = false;
     
     for (i = 0; i < tr.num_frames(); ++i)
     {
         if (tr.a(i) > thresh)
-            c_pos = TRUE;
+            c_pos = true;
         else 
-            c_pos = FALSE;
+            c_pos = false;
         
         if (c_pos == p_pos)
         {
@@ -73,7 +73,7 @@ void track_to_label(const EST_Track &tr, EST_Relation &lab, float thresh)
 
         tmp_seg = lab.append();
 
-        if (c_pos == TRUE)
+        if (c_pos == true)
             tmp_seg->set_name("neg");
         else 
             tmp_seg->set_name("pos");

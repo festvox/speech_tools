@@ -267,13 +267,13 @@ void print_hs_2(void)
 
 /* I don't have a clean way to do this but need to reset this if */
 /* ctrl-c occurs. */
-int audsp_mode = FALSE;
-int siod_ctrl_c = FALSE;
+int audsp_mode = false;
+int siod_ctrl_c = false;
 
 static void err_ctrl_c(void)
 {   
-    audsp_mode = FALSE;
-    siod_ctrl_c = TRUE;
+    audsp_mode = false;
+    siod_ctrl_c = true;
     err("control-c interrupt",NIL);}
 
 long no_interrupt(long n)
@@ -344,7 +344,7 @@ long repl_driver(long want_sigint,long want_init,struct repl_hooks *h)
      siod_reset_prompt();
  }
  if (k == 2) return(2);
- siod_ctrl_c = FALSE;
+ siod_ctrl_c = false;
  if (want_sigint) signal(SIGINT,handle_sigint);
  close_open_files();
  catch_framep = (struct catch_frame *) NULL;
@@ -557,7 +557,7 @@ static long repl(struct repl_hooks *h)
 	x = NIL;
     }
     else if ((restricted != NIL) &&
-	     (restricted_function_call(x) == FALSE))
+	     (restricted_function_call(x) == false))
 	err("Expression contains functions not in restricted list",x);
     else
     {
@@ -750,7 +750,7 @@ LISP gen_intern(char *name,int require_copy)
 LISP cintern(const char *name)
 {
     char *dname = (char *)(void *)name;
-    return(gen_intern(dname,FALSE));
+    return(gen_intern(dname,false));
 }
 
 LISP rintern(const char *name)
@@ -758,7 +758,7 @@ LISP rintern(const char *name)
     if (name == 0)
 	return NIL;
     char *dname = (char *)(void *)name;
-    return gen_intern(dname,TRUE);
+    return gen_intern(dname,true);
 }
 
 LISP intern(LISP name)
@@ -2014,23 +2014,23 @@ static int restricted_function_call(LISP l)
     LISP p;
     
     if (l == NIL)
-	return TRUE;
+	return true;
     else if (!consp(l))
-	return TRUE;
+	return true;
     else if (TYPE(car(l)) == tc_symbol)
     {
 	if (streq("quote",get_c_string(car(l))))
-	    return TRUE;
+	    return true;
 	else if (siod_member_str(get_c_string(car(l)),restricted) == NIL)
-	    return FALSE;
+	    return false;
     }
-    else if (restricted_function_call(car(l)) == FALSE)
-	return FALSE;
+    else if (restricted_function_call(car(l)) == false)
+	return false;
 
     // As its some type of list with a valid car, check the cdr
     for (p=cdr(l); consp(p); p=cdr(p))
-	if (restricted_function_call(car(p)) == FALSE)
-	    return FALSE;
-    return TRUE;
+	if (restricted_function_call(car(p)) == false)
+	    return false;
+    return true;
 }
 

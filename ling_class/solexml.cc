@@ -136,7 +136,7 @@ EST_read_status solexml_read(FILE *file,
   state.utt=&u;
 
   XML_Parser *parser = pclass.make_parser(file, name, &state);
-  parser->track_context(TRUE);
+  parser->track_context(true);
 
   CATCH_ERRORS()
     return read_format_error;
@@ -276,7 +276,7 @@ void Sole_Parser_Class::element_open(XML_Parser_Class &c,
         extract_ids(attributes, ids);
 
         EST_Litem *idp = ids.head();
-        bool first=TRUE;
+        bool first=true;
         for(; idp!= NULL; idp = idp->next())
 	{
             EST_String id = ids(idp);
@@ -284,7 +284,7 @@ void Sole_Parser_Class::element_open(XML_Parser_Class &c,
                 XML_Parser_Class::error(c, p, data, EST_String("Element With No Id"));
 
             if (first)
-                first=FALSE;
+                first=false;
             else
 	    {
                 state->current = state->parent;

@@ -143,7 +143,7 @@ static WDlist *dlist_score_question(WQuestion &q, WVectorList &ds)
     for (i=0,d=ds.head(); d != 0; d=d->next(),i++)
     {
 	wv = ds(d);
-	if (q.ask(*wv) == TRUE)
+	if (q.ask(*wv) == true)
 	    y.cumulate((*wv)[0]);
     }
 

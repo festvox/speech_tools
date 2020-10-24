@@ -65,8 +65,8 @@ using namespace std;
 #ifdef SUPPORT_FREEBSD16
 #include <sys/soundcard.h>
 #include <fcntl.h>
-int freebsd16_supported = TRUE;
-int linux16_supported = FALSE;
+bool freebsd16_supported = true;
+bool linux16_supported = false;
 static char *aud_sys_name = "FreeBSD";
 #endif /*SUPPORT_FREEBSD16 */
 
@@ -77,8 +77,8 @@ static char *aud_sys_name = "FreeBSD";
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-int linux16_supported = TRUE;
-int freebsd16_supported = FALSE;
+bool linux16_supported = true;
+bool freebsd16_supported = false;
 static const char *aud_sys_name = "Linux";
 static int stereo_only = 0;
 
@@ -409,8 +409,8 @@ int record_linux_wave(EST_Wave &inwave, EST_Option &al)
 // Needed inside Java on (at least some) linux systems
 // as scheduling interrupts seem to break the writes. 
 
-int linux16_supported = TRUE;
-int freebsd16_supported = FALSE;
+bool linux16_supported = true;
+bool freebsd16_supported = false;
 
 #ifdef THREAD_SAFETY
 #include <csignal>
@@ -879,8 +879,8 @@ int record_linux_wave(EST_Wave &inwave, EST_Option &al)
 
 #else
 
-int freebsd16_supported = FALSE;
-int linux16_supported = FALSE;
+bool freebsd16_supported = false;
+bool linux16_supported = false;
 
 int play_linux_wave(EST_Wave &inwave, EST_Option &al)
 {

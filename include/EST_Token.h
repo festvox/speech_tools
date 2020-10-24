@@ -170,7 +170,7 @@ class EST_Token {
     ///@{
     /// Note that this token was quoted (or not)
     void set_quoted(int q) { p_quoted = q; }
-    /// TRUE is token was quoted
+    /// true is token was quoted
     int quoted() const { return p_quoted; }
     ///@}
     ///
@@ -232,7 +232,7 @@ enum EST_tokenstream_type {tst_none, tst_file, tst_pipe, tst_string, tst_istream
     Note there is an interesting issue about what to do about
     the last whitespace in the file.  Should it be ignored or should
     it be attached to a token with a name string of length zero.
-    In unquoted mode the eof() will return TRUE if the next token name
+    In unquoted mode the eof() will return true if the next token name
     is empty (the mythical last token).  In quoted mode the last must
     be returned so eof will not be raised.
 
@@ -350,7 +350,7 @@ class EST_TokenStream{
     void set_PrePunctuationSymbols(const EST_String &ps) 
         { PrePunctuationSymbols = ps; p_table_wrong=1;}
     /// set characters to be used as quotes and escape, and set quote mode
-    void set_quotes(char q, char e) { quotes = TRUE; quote = q; escape = e; p_table_wrong=1;}
+    void set_quotes(char q, char e) { quotes = true; quote = q; escape = e; p_table_wrong=1;}
     /// query quote mode
     int quoted_mode(void) { return quotes; }
     ///@}

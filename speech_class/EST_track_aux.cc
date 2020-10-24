@@ -966,7 +966,7 @@ void channel_to_time(EST_Track &tr, int channel, float scale)
     {
 	tr.t(i) = tr.a(i,channel) * scale;
     }
-    tr.set_equal_space(FALSE);
+    tr.set_equal_space(false);
 }
 
 void channel_to_time(EST_Track &tr, EST_ChannelType c, float scale)
@@ -1007,7 +1007,7 @@ void channel_to_time_lengths(EST_Track &tr, int channel, float scale)
 	tr.t(i) = tt;
 	tt += tr.a(i,channel) * scale;
     }
-    tr.set_equal_space(FALSE);
+    tr.set_equal_space(false);
 }
 
 void channel_to_time_lengths(EST_Track &tr, EST_ChannelType c, float scale)

@@ -56,8 +56,6 @@ using namespace std;
 // to support win32 audio, presumably under cygnus gunwin32 These definitions
 // aren't in the gnuwin32 headers
 
-#undef TRUE
-#undef FALSE
 /*  Changed for cygwin 1
   #include <Windows32/BASE.h>
   #define SND_MEMORY          0x0004  
@@ -70,7 +68,7 @@ using namespace std;
 
 #endif 
 
-int win32audio_supported = TRUE;
+bool win32audio_supported = true;
 
 struct riff_header {
   char riff[4];
@@ -118,7 +116,7 @@ int play_win32audio_wave(EST_Wave &inwave, EST_Option &al)
 }
 
 #else
-int win32audio_supported = FALSE;
+bool win32audio_supported = false;
 
 int play_win32audio_wave(EST_Wave &inwave, EST_Option &al)
 {

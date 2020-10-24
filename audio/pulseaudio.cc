@@ -44,7 +44,7 @@ using namespace std;
 #ifdef SUPPORT_PULSEAUDIO
 
 #include <pulse/simple.h>
-int pulse_supported = TRUE;
+bool pulse_supported = true;
 
 #define AUDIOBUFFSIZE 256
 // #define AUDIOBUFFSIZE 20480
@@ -104,7 +104,7 @@ int record_pulse_wave(EST_Wave &inwave, EST_Option &al)
 
 #else /* SUPPORT_PULSEAUDIO */
 
-int pulse_supported = FALSE;
+bool pulse_supported = false;
 
 int play_pulse_wave(EST_Wave &inwave, EST_Option &al)
 {

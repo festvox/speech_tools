@@ -53,9 +53,9 @@ int linked(EST_Item *from, EST_Item *to)
 
     for (i=link1(from); i; i=next_link(i))
 	if (i == to)
-	    return TRUE;
+	    return true;
 
-    return FALSE;
+    return false;
 }
 
 void add_link(EST_Item *from, EST_Item *to)
@@ -107,7 +107,7 @@ int link_items(EST_Relation *mlsrel,EST_Item *i1, EST_item *i2)
     {
 	EST_error("can't link two items already in %s\n",
 		  (const char *)mlsrel->name());
-	return FALSE;
+	return false;
     }
     else if (i1->in_relation(mlsrel->name()))
     {
@@ -132,7 +132,7 @@ int link_items(EST_Relation *mlsrel,EST_Item *i1, EST_item *i2)
 	mls_insert_linked_up(c,i1);
 	mls_insert_linked_down(c,i1);
     }
-    return TRUE;
+    return true;
 }
 #endif
 

@@ -68,7 +68,7 @@ bool kalman_filter(EST_FVector &x,
     if(!kalman_filter_param_check(x,P,Q,R,A,H,z))
     {
 	cerr << "Kalman filter parameters inconsistent !" << endl;
-	return FALSE;
+	return false;
     }
 
     EST_FMatrix K,I,At,Ht,PHt,HPHt_R,HPHt_R_inv;
@@ -101,10 +101,10 @@ bool kalman_filter(EST_FVector &x,
 	if(singularity != -1)
 	{
 	    cerr << " H * P * Ht + R is singular !" << endl;
-	    return FALSE;
+	    return false;
 	}
 	cerr << "Matrix inversion failed for an unknown reason !" << endl;
-	return FALSE;
+	return false;
     }
 
     K = PHt * HPHt_R_inv;
@@ -116,7 +116,7 @@ bool kalman_filter(EST_FVector &x,
 
     //cerr << "done" << endl;
 
-    return TRUE;
+    return true;
 }
 
 
@@ -142,7 +142,7 @@ bool kalman_filter_Pinv(EST_FVector &x,
     if(!kalman_filter_param_check(x,Pinv,Q,Rinv,A,H,z))
     {
 	cerr << "Kalman filter parameters inconsistent !" << endl;
-	return FALSE;
+	return false;
     }
 
 
@@ -165,10 +165,10 @@ bool kalman_filter_Pinv(EST_FVector &x,
 	if(singularity != -1)
 	{
 	    cerr << "P is singular !" << endl;
-	    return FALSE;
+	    return false;
 	}
 	cerr << "Matrix inversion failed for an unknown reason !" << endl;
-	return FALSE;
+	return false;
     }
 
     // compute gain
@@ -188,10 +188,10 @@ bool kalman_filter_Pinv(EST_FVector &x,
 	if(singularity != -1)
 	{
 	    cerr << "Pinv is singular !" << endl;
-	    return FALSE;
+	    return false;
 	}
 	cerr << "Matrix inversion failed for an unknown reason !" << endl;
-	return FALSE;
+	return false;
     }
 
     // try and remedy numerical errors
@@ -199,7 +199,7 @@ bool kalman_filter_Pinv(EST_FVector &x,
 
     //cerr << "done" << endl;
 
-    return TRUE;
+    return true;
 
 }
 
@@ -224,7 +224,7 @@ bool kalman_filter_param_check(EST_FVector &x,
        (measurement_dim <= 0))
     {
 	cerr << "No state or measurements !!" << endl;
-	return FALSE;
+	return false;
     }
 
     // dimensionality
@@ -235,7 +235,7 @@ bool kalman_filter_param_check(EST_FVector &x,
     {
 	cerr << "P, or Pinv, must be a symmetrical square matrix of the same dimension" << endl;
 	cerr << "as the state vector, x" << endl;
-	return FALSE;
+	return false;
     }
 
     // Q is process noise covariance
@@ -244,7 +244,7 @@ bool kalman_filter_param_check(EST_FVector &x,
     {
 	cerr << "Q must be a symmetrical square matrix of the same dimension" << endl;
 	cerr << "as the state vector, x" << endl;
-	return FALSE;
+	return false;
     }
 
     // R is measurement noise covariance
@@ -253,7 +253,7 @@ bool kalman_filter_param_check(EST_FVector &x,
     {
 	cerr << "R, or Rinv, must be a symmetrical square matrix of the same dimension" << endl;
 	cerr << "as the measurement vector, z" << endl;
-	return FALSE;
+	return false;
     }
 
     if((A.num_rows() != state_dim) ||
@@ -261,15 +261,15 @@ bool kalman_filter_param_check(EST_FVector &x,
     {
 	cerr << "A must be a square matrix of the same dimension" << endl;
 	cerr << "as the state vector, x" << endl;
-	return FALSE;
+	return false;
     }
 
     if((H.num_rows() != measurement_dim) ||
        (H.num_columns() != state_dim) )
     {
 	cerr << "H must have dimensions to fit  z = Hx" << endl;
-	return FALSE;
+	return false;
     }
 
-    return TRUE;
+    return true;
 }

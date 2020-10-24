@@ -59,7 +59,7 @@ using namespace std;
 #define au_serverrate 16000
 static int nas_playing = 0;
 
-int nas_supported = TRUE;
+bool nas_supported = true;
 
 int endian_int = 1;
 #define NAS_BIG_ENDIAN (((char *)&endian_int)[0] == 0)
@@ -108,11 +108,11 @@ int play_nas_wave(EST_Wave &inwave, EST_Option &al)
     /* only supports individual sample rate of which this wave is not */
     /* one then we should resample.                                   */
     samp_rate = inwave.sample_rate();
-    bool samp_rate_ok = FALSE;
+    bool samp_rate_ok = false;
     for (i=0; dev_sr[i] != -1; i++)
 	if (samp_rate == dev_sr[i])
-	    samp_rate_ok = TRUE;
-    if (samp_rate_ok == FALSE)
+	    samp_rate_ok = true;
+    if (samp_rate_ok == false)
     {
 	if (samp_rate == 10000)
 	    inwave.resample(9600);  // just sounds much better than 16000
@@ -173,7 +173,7 @@ int record_nas_wave(EST_Wave &wave, EST_Option &al)
 }
 
 #else
-int nas_supported = FALSE;
+bool nas_supported = false;
 
 int play_nas_wave(EST_Wave &inwave, EST_Option &al)
 {

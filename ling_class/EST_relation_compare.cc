@@ -533,7 +533,7 @@ void multiple_matrix_compare(EST_RelationList &rlist, EST_RelationList
 
     for (pt = tlist.head(); pt; pt = pt->next())
     {
-	pr = RelationList_ptr_extract(rlist, tlist(pt).name(), TRUE);
+	pr = RelationList_ptr_extract(rlist, tlist(pt).name(), true);
 	if (pr != 0)
 	{
 	    reflab = rlist(pr);

@@ -372,11 +372,11 @@ EST_write_status EST_WFST::save(const EST_String &filename,
     fprintf(ofd,"DataType %s\n",(const char *)type);
     fprintf(ofd,"in %s\n",
       (const char *)quote_string(EST_String("(")+
-				 p_in_symbols.print_to_string(TRUE)+")",
+				 p_in_symbols.print_to_string(true)+")",
 				 "\"","\\",1));
     fprintf(ofd,"out %s\n",
       (const char *)quote_string(EST_String("(")+
-				 p_out_symbols.print_to_string(TRUE)+")",
+				 p_out_symbols.print_to_string(true)+")",
 				 "\"","\\",1));
     fprintf(ofd,"NumStates %d\n",p_num_states);
     fprintf(ofd, "ByteOrder %s\n", ((EST_NATIVE_BO == bo_big) ? "10" : "01"));
@@ -535,7 +535,7 @@ EST_read_status EST_WFST::load(const EST_String &filename)
 	    << "\" for reading" << endl;
 	return read_error;
     }
-    ts.open(fd,FALSE);
+    ts.open(fd,false);
     ts.set_quotes('"','\\');
 
     if ((read_est_header(ts, hinfo, ascii, t) != format_ok) ||
@@ -562,12 +562,12 @@ EST_read_status EST_WFST::load(const EST_String &filename)
     if (!ascii)
     {
 	if (!hinfo.present("ByteOrder"))
-	    swap = FALSE;  // ascii or not there for some reason
+	    swap = false;  // ascii or not there for some reason
 	else if (((hinfo.val("ByteOrder") == "01") ? bo_little : bo_big) 
 		 != EST_NATIVE_BO)
-	    swap = TRUE;
+	    swap = true;
 	else
-	    swap = FALSE;
+	    swap = false;
 	r = load_binary(fd,hinfo,num_states,swap);
     }
     else

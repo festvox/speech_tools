@@ -102,7 +102,7 @@ template<class T>
 T &EST_TMatrix<T>::a_check(difference_type row, difference_type col) 
 {
 
-  if (!EST_matrix_bounds_check(row, col, num_rows(), num_columns(), FALSE))
+  if (!EST_matrix_bounds_check(row, col, num_rows(), num_columns(), false))
     return *this->error_return;
     
   return a_no_check(row,col);
@@ -173,7 +173,7 @@ EST_TMatrix<T> &EST_TMatrix<T>::add_rows(const EST_TMatrix<T> &in)
   else
     {
       int old_num_rows = num_rows();
-      resize(num_rows()+in.num_rows(), num_columns(), TRUE);
+      resize(num_rows()+in.num_rows(), num_columns(), true);
 
       for(difference_type i=old_num_rows, i1=0; i<num_rows(); i++, i1++)
 	for(difference_type j=0; j<num_columns(); j++)
@@ -369,7 +369,7 @@ void EST_TMatrix<T>::copy_row(int r, T *buf,
 {
     int to = num >= 0 ? offset + num : num_columns();
 
-    if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), FALSE))
+    if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), false))
     {
       if (num_rows()>0)
 	r=0;
@@ -387,7 +387,7 @@ void EST_TMatrix<T>::copy_row(int r, EST_TVector<T> &buf,
 {
   int to = num >= 0 ? offset + num : num_columns();
 
-  if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), FALSE))
+  if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), false))
   {
     if (num_rows()>0)
       r=0;
@@ -411,7 +411,7 @@ void EST_TMatrix<T>::copy_column(int c, T *buf,
 
   int to = num >= 0 ? offset + num : num_rows();
 
-  if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), FALSE))
+  if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), false))
   {
     if (num_columns()>0)
       c=0;
@@ -433,7 +433,7 @@ void EST_TMatrix<T>::copy_column(int c, EST_TVector<T> &buf,
 
   int to = num >= 0 ? offset + num : num_rows();
 
-  if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), FALSE))
+  if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), false))
   {
     if( num_columns()>0 )
       c=0;
@@ -453,7 +453,7 @@ void EST_TMatrix<T>::set_row(int r, const T *buf, int offset, int num)
 {
     int to = num>=0?offset+num:num_columns();
 
-    if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), TRUE))
+    if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), true))
       return;
 
     for(int j=offset; j<to; j++)
@@ -465,7 +465,7 @@ void EST_TMatrix<T>::set_column(int c, const T *buf, int offset, int num)
 {
     int to = num>=0?offset+num:num_rows();
 
-    if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), TRUE))
+    if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), true))
       return;
 
     for(int i=offset; i<to; i++)
@@ -479,10 +479,10 @@ void  EST_TMatrix<T>::set_row(int r,
 {
   int to = num>=0?offset+num:num_columns();
 
-  if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), TRUE))
+  if (!EST_matrix_bounds_check(r, 0, num_rows(), num_columns(), true))
     return;
 
-  if (!EST_matrix_bounds_check(from_r, 0, from.num_rows(), from.num_columns(), FALSE))
+  if (!EST_matrix_bounds_check(from_r, 0, from.num_rows(), from.num_columns(), false))
   {
     if (from.num_rows()>0)
       from_r=0;
@@ -501,10 +501,10 @@ void  EST_TMatrix<T>::set_column(int c,
 {
   int to = num>=0?offset+num:num_rows();
 
-  if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), TRUE))
+  if (!EST_matrix_bounds_check(0, c, num_rows(), num_columns(), true))
     return;
 
-  if (!EST_matrix_bounds_check(0, from_c, from.num_rows(), from.num_columns(), FALSE))
+  if (!EST_matrix_bounds_check(0, from_c, from.num_rows(), from.num_columns(), false))
   {
     if (from.num_columns()>0)
       from_c=0;
@@ -528,7 +528,7 @@ void EST_TMatrix<T>::row(EST_TVector<T> &rv, int r, int start_c, int len)
   if (rv.p_memory != NULL && ! rv.p_sub_matrix)
     delete [] (rv.p_memory - rv.p_offset);
 
-  rv.p_sub_matrix = TRUE;
+  rv.p_sub_matrix = true;
   rv.p_num_columns = len;
   rv.p_offset = this->p_offset + start_c*this->p_column_step + r*p_row_step;
   rv.p_memory = this->p_memory - this->p_offset + rv.p_offset;
@@ -550,7 +550,7 @@ void EST_TMatrix<T>::column(EST_TVector<T> &cv, int c, int start_r, int len)
   if (cv.p_memory != NULL && ! cv.p_sub_matrix)
     delete [] (cv.p_memory - cv.p_offset);
 
-  cv.p_sub_matrix = TRUE;
+  cv.p_sub_matrix = true;
   cv.p_num_columns = len;
   cv.p_offset = this->p_offset + c*this->p_column_step + start_r*p_row_step;
   cv.p_memory = this->p_memory - this->p_offset + cv.p_offset;
@@ -575,7 +575,7 @@ void EST_TMatrix<T>::sub_matrix(EST_TMatrix<T> &sm,
   if (sm.p_memory != NULL && ! sm.p_sub_matrix)
     delete [] (sm.p_memory - sm.p_offset);
 
-  sm.p_sub_matrix = TRUE;
+  sm.p_sub_matrix = true;
   sm.p_offset = this->p_offset + c*this->p_column_step + r*p_row_step;
   sm.p_memory = this->p_memory - this->p_offset + sm.p_offset;
   sm.p_row_step=p_row_step;

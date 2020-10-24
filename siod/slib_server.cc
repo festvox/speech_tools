@@ -118,7 +118,7 @@ long repl_from_socket(int fd)
 #else
     hd.repl_read = NULL;
 #endif
-    siod_interactive = FALSE;
+    siod_interactive = false;
     siod_server_socket = fd;
 
     return repl_driver(1,0,&hd);

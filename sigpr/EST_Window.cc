@@ -258,7 +258,7 @@ void EST_Window::make_window( EST_TBuffer<float> &window_vals, int size,
 			      const char *name, int window_centre )
 {
     EST_WindowFunc *make_window =  EST_Window::creator(name);
-    window_vals.ensure(size, (bool)FALSE); 
+    window_vals.ensure(size, false);
     make_window(size, window_vals, window_centre);
 }
 
@@ -267,7 +267,7 @@ void EST_Window::make_window( EST_FVector &window_vals, int size,
 {
     EST_TBuffer<float> fwindow;
     EST_WindowFunc *make_window =  EST_Window::creator(name);
-    fwindow.ensure(size, (bool)FALSE); 
+    fwindow.ensure(size, false);
     make_window(size, fwindow, window_centre);
     window_vals.resize(size);
     for (int i = 0; i < size; ++i)
@@ -285,7 +285,7 @@ void EST_Window::window_signal(const EST_Wave &sig,
       
       // create the window shape
     make_window(size, window_vals,-1);
-    window.ensure(size, (bool)FALSE);
+    window.ensure(size, false);
     dc = find_dc(sig, start, size);
 
      /* There are three separate loops, one each for the beginning and

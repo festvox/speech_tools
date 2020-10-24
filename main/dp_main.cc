@@ -78,7 +78,7 @@ static void load_vocab(const EST_String &vfile);
 static EST_Item *null_sym;
 //static EST_String deleted_marker = "<del>";
 //static EST_String inserted_marker = "<ins>";
-static bool show_cost=FALSE;
+static bool show_cost=false;
 static int prune_width = 100;
 //static float path_cost;
 int StrVector_index(const EST_StrVector &v, const EST_String &s);
@@ -194,7 +194,7 @@ int main(int argc, char **argv)
 
 
     if(al.present("-show_cost"))
-	show_cost=TRUE;
+	show_cost=true;
 
     if(files.length() != 2)
     {
@@ -328,9 +328,9 @@ bool local_prune(const int i, const int j,
        (abs((int)(near_j - (float)j)) > prune_width) )
     {
 	//cerr << "lpf " << i << "," << j << " true" << endl;
-	return TRUE;
+	return true;
     }
 
-    return FALSE;
+    return false;
 
 }

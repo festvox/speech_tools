@@ -71,7 +71,7 @@ using namespace std;
 static int sun16_check_device(int audio);
 static int sun16_set_info(int audio, int sample_rate);
 
-int sun16_supported = TRUE;
+bool sun16_supported = true;
 
 /* supported sampling frequencies for Sun dbri device */
 static int dev_sr[] = {8000, 9600, 11025, 16000, 18900, 22050, 32000, 
@@ -90,11 +90,11 @@ int play_sun16_wave(EST_Wave &inwave, EST_Option &al)
     char *audiodevice;
 
     sample_rate = inwave.sample_rate();
-    int samp_rate_ok = FALSE;
+    int samp_rate_ok = false;
     for (i=0; dev_sr[i] != -1; i++)
 	if (sample_rate == dev_sr[i])
-	    samp_rate_ok = TRUE;
-    if (samp_rate_ok == FALSE)
+	    samp_rate_ok = true;
+    if (samp_rate_ok == false)
     {
 	if (sample_rate == 10000)
 	    inwave.resample(9600);  // just sounds much better than 16000
@@ -119,14 +119,14 @@ int play_sun16_wave(EST_Wave &inwave, EST_Option &al)
     num_samples = inwave.num_samples();
     sample_rate = inwave.sample_rate();
 
-    if (sun16_check_device(audio) == FALSE)
+    if (sun16_check_device(audio) == false)
     {
 	cerr << "SUN16: device doesn't support 16bit linear." << endl;
 	fclose(fdaudio);
 	return -1;
     }
 
-    if (sun16_set_info(audio,sample_rate) == FALSE)
+    if (sun16_set_info(audio,sample_rate) == false)
     {
 	cerr << "SUN16: unable to set sample rate " <<
 	    sample_rate << endl;
@@ -169,9 +169,9 @@ static int sun16_check_device(int audio)
 	 (streq("SUNW,dbri",type.name)) ||     /* Older Suns (SS10s SS20s) */
          (streq("SUNW,audiots",type.name)) ||  /* For stations more advanced than ultras */
 	 (streq("SUNW,sb16",type.name))))      /* i386 machines            */
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 #else
 /* SunOS */
     int type;
@@ -180,9 +180,9 @@ static int sun16_check_device(int audio)
 
     if ((ioctl(audio, AUDIO_GETDEV, &type) != -1) &&
 	((type == AUDIO_DEV_SPEAKERBOX) || (type == AUDIO_DEV_CODEC)))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 #endif
 
 }
@@ -199,9 +199,9 @@ static int sun16_set_info(int audio, int sample_rate)
     info.play.channels = 1;
 
     if (ioctl(audio, AUDIO_SETINFO, &info) == -1)
-	return FALSE;
+	return false;
     else
-	return TRUE;
+	return true;
 }
 
 static int sun16_setrecord_info(int audio, int sample_rate)
@@ -235,9 +235,9 @@ static int sun16_setrecord_info(int audio, int sample_rate)
     info.record.error = 0;
 
     if (ioctl(audio, AUDIO_SETINFO, &info) == -1)
-	return FALSE;
+	return false;
     else
-	return TRUE;
+	return true;
 }
 
 int record_sun16_wave(EST_Wave &wave, EST_Option &al)
@@ -263,14 +263,14 @@ int record_sun16_wave(EST_Wave &wave, EST_Option &al)
 	return -1;
     }
 
-    if (sun16_check_device(audio) == FALSE)
+    if (sun16_check_device(audio) == false)
     {
 	cerr << "SUN16: device doesn't support 16bit linear." << endl;
 	close(audio);
 	return -1;
     }
 
-    if (sun16_setrecord_info(audio,actual_sample_rate) == FALSE)
+    if (sun16_setrecord_info(audio,actual_sample_rate) == false)
     {
 	cerr << "SUN16: unable to set sample rate " <<
 	    actual_sample_rate << endl;
@@ -317,7 +317,7 @@ int record_sun16_wave(EST_Wave &wave, EST_Option &al)
 }
 
 #else
-int sun16_supported = FALSE;
+bool sun16_supported = false;
 
 int play_sun16_wave(EST_Wave &inwave, EST_Option &al)
 {

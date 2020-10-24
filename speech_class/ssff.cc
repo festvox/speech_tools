@@ -76,7 +76,7 @@ EST_read_status EST_TrackFile::load_ssff_ts(EST_TokenStream &ts, EST_Track &tr, 
     (void)ishift;
     (void)startt;
     int num_frames, num_channels;
-    int swap = FALSE;
+    int swap = false;
     int i,j,pos,end;
     float Start_Time, Record_Freq;
     EST_Features channels;
@@ -120,10 +120,10 @@ EST_read_status EST_TrackFile::load_ssff_ts(EST_TokenStream &ts, EST_Track &tr, 
 	    if (ts.get() == "SPARC")
 	    {
 		if (EST_NATIVE_BO != bo_big)
-		    swap = TRUE;
+		    swap = true;
 	    }
 	    else if (EST_NATIVE_BO == bo_big)
-		swap = TRUE;
+		swap = true;
 	}
 	else if (c == "Column")
 	{

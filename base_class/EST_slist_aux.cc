@@ -188,9 +188,9 @@ int strlist_member(const EST_StrList &l,const EST_String &s)
     EST_Litem *p;
     for (p = l.head(); p != 0; p = p->next())
 	if (l.item(p) == s)
-	    return TRUE;
+	    return true;
 
-    return FALSE;
+    return false;
 }
 
 int strlist_index(const EST_StrList &l,const EST_String &s)

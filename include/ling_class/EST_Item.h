@@ -227,13 +227,13 @@ protected:
         replace them with their evaluation. */
     void evaluate_features();
 
-    /** TRUE if feature is present, FALSE otherwise */
+    /** true if feature is present, false otherwise */
     int f_present(const EST_String &name) const
     {
         if (p_contents)
             return features().present(name);
         else
-            return FALSE; }
+            return false; }
 
     // Number of items (including this) until no next item.
     int length() const;
@@ -303,7 +303,7 @@ protected:
     EST_Item *as_relation(const char *relname) const
     { return p_contents->Relation(relname); }
 
-    /// TRUE if this item is in named relation
+    /// true if this item is in named relation
     int in_relation(const EST_String &relname) const
     { return p_contents->in_relation(relname); }
 

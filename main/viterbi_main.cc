@@ -87,23 +87,23 @@ static float beam=-1;
 static float ob_beam=-1;
 static int n_beam = -1;
 
-static bool trace_on = FALSE;
+static bool trace_on = false;
 
 // always logs
 static double ob_log_prob_floor = SAFE_LOG_ZERO;  
 static double ob_log_prob_floor2 = SAFE_LOG_ZERO;  
 static double lm_log_prob_floor = SAFE_LOG_ZERO;  
 
-int btest_debug = FALSE;
+int btest_debug = false;
 static EST_String out_file = "";
 static EST_StrList vocab;
 static EST_Track observations;  
 static EST_Track observations2;  
 static EST_TList<EST_StrVector> given; // to do : convert to array for speed
-int using_given=FALSE;
+int using_given=false;
 
 // default is that obs are already logs
-int take_logs = FALSE;
+int take_logs = false;
 int num_obs = 1;
 
 
@@ -184,7 +184,7 @@ int main(int argc, char **argv)
     if (al.present("-given"))
     {
 	load_given(al.val("-given"),ngram.order());
-	using_given=TRUE;
+	using_given=true;
     }
 
     if (al.present("-lm_scale"))
@@ -233,7 +233,7 @@ int main(int argc, char **argv)
 
 
     if (al.present("-trace"))
-	trace_on = TRUE;
+	trace_on = true;
 
     // language model floor
     if (al.present("-lm_floor"))
@@ -556,7 +556,7 @@ static double find_gram_prob(EST_VTPath *p,int *state)
     // Look up transition probability from *state for name.
     // Return probability and update state
     double prob=0.0,nprob;
-    int i,f=FALSE;
+    int i,f=false;
     EST_VTPath *pp;
     
     EST_StrVector window(ngram.order());
@@ -572,7 +572,7 @@ static double find_gram_prob(EST_VTPath *p,int *state)
 	else
 	{
 	    window[i] = pstring;
-	    f = TRUE;
+	    f = true;
 	}
     }
     window[ngram.order()-1] = p->c->name.string();
@@ -636,7 +636,7 @@ static void get_history(EST_StrVector &history, EST_VTPath *p)
 {
 
     EST_VTPath *pp;
-    int i,f=FALSE;
+    int i,f=false;
     for (pp=p->from,i=0; i < history.length(); i++)
     {
 	
@@ -650,7 +650,7 @@ static void get_history(EST_StrVector &history, EST_VTPath *p)
 	else
 	{
 	    history[i] = pstring;
-	    f = TRUE;
+	    f = true;
 	}
     }
 
@@ -705,9 +705,9 @@ static int is_a_special(const EST_String &s, int &val)
 	tmp = tmp.before(">");
 	val = atoi(tmp);
 	//cerr << "special " << tmp << "=" << val << endl;
-	return TRUE;
+	return true;
     }
-    return FALSE;
+    return false;
 }
 
 static void top_n_candidates(EST_VTCandidate* &all_c)

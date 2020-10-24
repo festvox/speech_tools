@@ -58,12 +58,12 @@ int operator !=(const EST_DVector &fv1,
 {
     int i;
     if(fv1.length() != fv2.length())
-	return FALSE;
+	return false;
     for(i=0;i<fv1.length();i++)
 	if(fv1.a_no_check(i) != fv2.a_no_check(i))
-	    return FALSE;
+	    return false;
 
-    return TRUE;
+    return true;
 }
 
 

@@ -66,35 +66,35 @@ EST_String make_tmp_filename()
     return cname;
 }
 
-int readable_file(char *filename)
+bool readable_file(char *filename)
 {
-    // Returns TRUE if this is file is readable, FALSE otherwise
+    // Returns true if this is file is readable, false otherwise
 
     if (streq(filename,"-"))
-	return TRUE;
+	return true;
     else if (access(filename,R_OK) == 0)
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int writable_file(char *filename)
 {
-    // Returns TRUE if this is afile is writable or creatable, FALSE
+    // Returns true if this is afile is writable or creatable, false
     // otherwise
     // Note this is *not* guaranteed to work, if the file doesn't
     // exist the directory is checked if its writable but it can
     // lie, esp. with ro file systems and NFS.
 
     if (streq(filename,"-"))
-	return TRUE;
+	return true;
     else if (access(filename,W_OK) == 0)
-	return TRUE;
+	return true;
     else if ((access(filename,F_OK) == -1) &&  // doesn't exists
 	     (access(EST_Pathname(filename).directory(),W_OK) == 0))
-	return TRUE;  // probably;
+	return true;  // probably;
     else
-	return FALSE;
+	return false;
 }
 
 EST_String stdin_to_file()
@@ -306,9 +306,9 @@ int ilist_member(const EST_IList &l,int i)
     EST_Litem *p;
     for (p = l.head(); p != 0; p = p->next())
 	if (l.item(p) == i)
-	    return TRUE;
+	    return true;
 
-    return FALSE;
+    return false;
 }
 
 int ilist_index(const EST_IList &l,int i)
@@ -330,9 +330,9 @@ int strlist_member(const EST_StrList &l,const EST_String &s)
     EST_Litem *p;
     for (p = l.head(); p != 0; p = p->next())
 	if (l.item(p) == s)
-	    return TRUE;
+	    return true;
 
-    return FALSE;
+    return false;
 }
 
 int strlist_index(const EST_StrList &l,const EST_String &s)

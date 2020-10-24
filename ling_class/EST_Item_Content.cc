@@ -63,14 +63,14 @@ EST_Item_Content::~EST_Item_Content()
 
 int EST_Item_Content::unref_relation(const EST_String &relname)
 {
-    // Unreference this item from this relation.  Returns TRUE
-    // if no one else is referencing it, FALSE otherwise
+    // Unreference this item from this relation.  Returns true
+    // if no one else is referencing it, false otherwise
     if ((relname == "") && (relations.length() == 1))
     {   // sigh, something to with isolated EST_Items and
         // SunCC causes a problems in exit(), so hit it with
         // a bigger stick
         relations.clear();
-        return TRUE;
+        return true;
     }
     if (relations.present(relname))
         relations.remove_item(relname);
@@ -80,8 +80,8 @@ int EST_Item_Content::unref_relation(const EST_String &relname)
                (const char *)name(),
                f.F("end",0.0));
     if (relations.length() == 0)
-        return TRUE;
-    return FALSE;
+        return true;
+    return false;
 }
 
 int EST_Item_Content::unref_and_delete()

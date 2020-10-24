@@ -119,7 +119,7 @@ static int wfst_run_main(int argc, char **argv)
     for (f=files.head(); f != 0; f=f->next())
     {
 	if (files(f) == "-")
-	    ts.open(stdin,FALSE);
+	    ts.open(stdin,false);
 	else
 	    if (ts.open(files(f)) != 0)
 		EST_error("failed to read WFST data file from \"%s\"",

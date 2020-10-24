@@ -669,10 +669,10 @@ LISP vload(const char *fname_raw, long cflag)
 void init_subrs_file(void)
 {
     long j;
-    set_gc_hooks(tc_c_file,FALSE,NULL,NULL,NULL,file_gc_free,NULL,&j);
+    set_gc_hooks(tc_c_file,false,NULL,NULL,NULL,file_gc_free,NULL,&j);
     set_print_hooks(tc_c_file,file_prin1, NULL);
     setvar(cintern("stderr"),
-	   fd_to_scheme_file(fileno(stderr),"stderr","w",FALSE),NIL);
+	   fd_to_scheme_file(fileno(stderr),"stderr","w",false),NIL);
 
  init_subr_2("fread",lfread,
   "(fread BUFFER FILE)\n\

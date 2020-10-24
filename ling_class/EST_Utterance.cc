@@ -100,7 +100,7 @@ void EST_Utterance::clear_relations()
 
 EST_Relation *EST_Utterance::create_relation(const EST_String &n)
 {
-    EST_Relation *r = relation(n,FALSE);
+    EST_Relation *r = relation(n,false);
     if (r)   // there is one already, so clear it
 	r->clear();
     else
@@ -154,7 +154,7 @@ void EST_Utterance::evaluate_all_features()
 
 void EST_Utterance::remove_relation(const EST_String &n)
 {
-    EST_Relation *r = relation(n,FALSE);
+    EST_Relation *r = relation(n,false);
 
     if (r != 0)
 	relations.remove(n);
@@ -300,7 +300,7 @@ int utterance_merge(EST_Utterance &utt,
 	}
     }
 
-    return TRUE;
+    return true;
 }
 
 int utterance_merge(EST_Utterance &utt,
@@ -350,7 +350,7 @@ int utterance_merge(EST_Utterance &utt,
     }
     sisilist.remove_item(sub_root->contents());
     clear_up_sisilist(sisilist);
-    return TRUE;
+    return true;
 }
 
 static void copy_relation(EST_Item *to,EST_Item *from,

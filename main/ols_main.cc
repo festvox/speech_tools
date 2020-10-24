@@ -143,13 +143,13 @@ static int ols_main(int argc, char **argv)
 	    names.append(dataset.feat_name(i));
 
         included.resize(X.num_columns());
-        included[0] = TRUE;  // always guarantee interceptor
+        included[0] = true;  // always guarantee interceptor
         for (i=1; i<included.length(); i++)
         {
-            if (dataset.ignore(i) == TRUE)
+            if (dataset.ignore(i) == true)
                 included.a_no_check(i) = OLS_IGNORE;
             else
-                included.a_no_check(i) = FALSE;
+                included.a_no_check(i) = false;
         }
 
 	if (!stepwise_ols(X,Y,names,swlimit,coeffs,Xtest,Ytest,included))
@@ -164,13 +164,13 @@ static int ols_main(int argc, char **argv)
         int i;
 
         included.resize(X.num_columns());
-        included[0] = TRUE;  // always guarantee interceptor
+        included[0] = true;  // always guarantee interceptor
         for (i=1; i<included.length(); i++)
         {
-            if (dataset.ignore(i) == TRUE)
+            if (dataset.ignore(i) == true)
                 included.a_no_check(i) = OLS_IGNORE;
             else
-                included.a_no_check(i) = TRUE;
+                included.a_no_check(i) = true;
         }
 
 	if (!robust_ols(X,Y,included,coeffs))

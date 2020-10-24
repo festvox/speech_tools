@@ -106,9 +106,9 @@ int EST_THash<K,V>::present(const K &key) const
 
   for(p=p_buckets[b]; p!=NULL; p=p->next)
     if (p->k == key)
-      return TRUE;
+      return true;
   
-return FALSE;
+return false;
 }
 
 template<class K, class V>
@@ -180,7 +180,7 @@ int EST_THash<K,V>::add_item(const K &key, const V &value, int no_search)
       if (p->k == key)
 	{
 	  p->v = value;
-	  return FALSE;
+	  return false;
 	}
       
   p = new EST_Hash_Pair<K,V>;
@@ -189,7 +189,7 @@ int EST_THash<K,V>::add_item(const K &key, const V &value, int no_search)
   p->next = p_buckets[b];
   p_buckets[b] = p;
   p_num_entries++;
-  return TRUE;
+  return true;
 }
 
 template<class K, class V>

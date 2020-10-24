@@ -164,10 +164,10 @@ EST_TokenStream::EST_TokenStream(EST_TokenStream &s)
 void EST_TokenStream::default_values()
 {
     type = tst_none;
-    peeked_tokp = FALSE;
-    peeked_charp = FALSE;
-    eof_flag = FALSE;
-    quotes = FALSE;
+    peeked_tokp = false;
+    peeked_charp = false;
+    eof_flag = false;
+    quotes = false;
     p_filepos = 0;
     linepos = 1;  
     WhiteSpaceChars = EST_Token_Default_WhiteSpaceChars;
@@ -175,7 +175,7 @@ void EST_TokenStream::default_values()
     PrePunctuationSymbols = EST_String::Empty;
     PunctuationSymbols = EST_String::Empty;
     build_table();
-    close_at_end=TRUE;
+    close_at_end=true;
     
     /* Avoid leaving uninitialized members */
     fp = 0;
@@ -294,8 +294,8 @@ int EST_TokenStream::open_string(const EST_String &newbuffer)
 int EST_TokenStream::seek_end()
 {
     // This isn't actually useful but people expect it 
-    peeked_charp = FALSE;
-    peeked_tokp = FALSE;
+    peeked_charp = false;
+    peeked_tokp = false;
 
     switch (type)
     {
@@ -329,8 +329,8 @@ int EST_TokenStream::seek_end()
 
 int EST_TokenStream::seek(int position)
 {
-    peeked_charp = FALSE;
-    peeked_tokp = FALSE;
+    peeked_charp = false;
+    peeked_tokp = false;
 
     switch (type)
     {
@@ -390,8 +390,8 @@ int EST_TokenStream::fread(void *buff, int size, int nitems)
 	return 0;
     }
 
-    peeked_charp = FALSE;
-    peeked_tokp = FALSE;
+    peeked_charp = false;
+    peeked_tokp = false;
 
     switch (type)
     {
@@ -454,8 +454,8 @@ void EST_TokenStream::close(void)
     }
 
     type = tst_none;
-    peeked_charp = FALSE;
-    peeked_tokp = FALSE;
+    peeked_charp = false;
+    peeked_tokp = false;
 
 }
 
@@ -487,9 +487,9 @@ int EST_TokenStream::restart(void)
     }
 
     linepos = 1;
-    peeked_charp = FALSE;
-    peeked_tokp = FALSE;
-    eof_flag = FALSE;
+    peeked_charp = false;
+    peeked_tokp = false;
+    eof_flag = false;
 
     return 0;
 }
@@ -591,7 +591,7 @@ EST_Token &EST_TokenStream::must_get(EST_String expected, bool *ok)
     {
         if (ok != NULL)
         {
-            *ok=FALSE;
+            *ok=false;
             return tok;
         }
         else
@@ -602,7 +602,7 @@ EST_Token &EST_TokenStream::must_get(EST_String expected, bool *ok)
     }
 
     if (ok != NULL)
-        *ok=TRUE;
+        *ok=true;
     return tok;
 }
 
@@ -654,7 +654,7 @@ void EST_TokenStream::build_table()
 
 inline int EST_TokenStream::getpeeked_internal(void)
 {
-  peeked_charp = FALSE;
+  peeked_charp = false;
   return peeked_char;
 }
 
@@ -717,7 +717,7 @@ inline int EST_TokenStream::peekch_internal()
 
     if (!peeked_charp)
 	peeked_char = getch_internal();
-    peeked_charp = TRUE;
+    peeked_charp = true;
     return peeked_char;
 }
 
@@ -736,7 +736,7 @@ EST_Token &EST_TokenStream::get(void)
 {
     if (peeked_tokp)
     {
-	peeked_tokp = FALSE;
+	peeked_tokp = false;
 	return current_tok;
     }
 
@@ -775,7 +775,7 @@ EST_Token &EST_TokenStream::get(void)
 		    c = getch_internal();
 		tok_stuff[i++] = c;
 	    }
-	    current_tok.set_quoted(TRUE);
+	    current_tok.set_quoted(true);
 	}
 	else            // standard whitespace separated tokens
 	{
@@ -834,7 +834,7 @@ EST_Token &EST_TokenStream::get(void)
 	current_tok.set_whitespace(tok_wspace);
 	current_tok.set_punctuation(EST_String::Empty);
 	current_tok.set_prepunctuation(EST_String::Empty);
-	eof_flag = TRUE;
+	eof_flag = true;
     }
 	
     return current_tok;
@@ -846,16 +846,16 @@ int EST_TokenStream::eoln(void)
     // to know about them)
 
     if ((peek().whitespace().contains("\n")) ||	eof())
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 
 }
 
 EST_Token &EST_TokenStream::peek(void)
 {
     if (!peeked_tokp) get();
-    peeked_tokp = TRUE;
+    peeked_tokp = true;
     return current_tok;
 }
 

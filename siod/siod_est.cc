@@ -102,9 +102,9 @@ class EST_Utterance *utterance(LISP x)
 int utterance_p(LISP x)
 {
     if (TYPEP(x,tc_utt))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 LISP siod(const class EST_Utterance *u)
@@ -176,9 +176,9 @@ LISP val_equal(LISP a,LISP b)
 int val_p(LISP x)
 {
     if (TYPEP(x,tc_val))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 LISP siod(const class EST_Val v)
@@ -275,16 +275,16 @@ static int feature_like(LISP v)
 {
     // True if non nil and assoc like
     if ((v == NIL) || (!consp(v)))
-	return FALSE;
+	return false;
     else
     {
 	LISP p;
 	for (p=v; p != NIL; p=cdr(p))
 	{
 	    if (!consp(p) || (!consp(car(p))) || (consp(car(car(p)))))
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
     }
 }
 

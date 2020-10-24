@@ -48,7 +48,7 @@ using namespace std;
 
 #ifdef SUPPORT_MPLAYER
 
-int mplayer_supported = TRUE;
+bool mplayer_supported = true;
 
 static EST_Pathname tempfile;
 static EST_Pathname temppath;
@@ -95,7 +95,7 @@ int play_mplayer_wave(EST_Wave &inwave, EST_Option &al)
 }
 
 #else
-int mplayer_supported = FALSE;
+bool mplayer_supported = false;
 
 int play_mplayer_wave(EST_Wave &inwave, EST_Option &al)
 {

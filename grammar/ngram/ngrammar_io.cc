@@ -289,7 +289,7 @@ load_ngram_cstr_bin(const EST_String filename, EST_Ngrammar &n)
     long freq_data_start, freq_data_end;
     FILE *ifd;
     int magic = 0;
-    int swap = FALSE;
+    int swap = false;
     
     if ((ifd=fopen(filename,"rb")) == NULL)
 	return misc_read_error;
@@ -300,12 +300,12 @@ load_ngram_cstr_bin(const EST_String filename, EST_Ngrammar &n)
 	return misc_read_error;
     }
     if (SWAPINT(magic) == EST_NGRAMBIN_MAGIC)
-	swap = TRUE;
+	swap = true;
     else if (magic != EST_NGRAMBIN_MAGIC) {
 		fclose(ifd);
 	return wrong_format;
     }
-    if (ts.open(ifd, FALSE) == -1)
+    if (ts.open(ifd, false) == -1)
 	return misc_read_error;
     
     ts.set_SingleCharSymbols("\n");

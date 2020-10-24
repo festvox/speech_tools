@@ -175,7 +175,7 @@ void siod_el_init(void)
 	walloc(char,strlen(home)+strlen(editline_history_file)+2);
     sprintf(full_history_file,"%s/%s",home,editline_history_file);
     read_history(full_history_file);
-    el_user_intr = TRUE;  /* we want SIGINT to raise a signal */
+    el_user_intr = true;  /* we want SIGINT to raise a signal */
 
     el_user_completion_function = command_completion;
     el_bind_key_in_metamap('h',siod_display_doc);
@@ -270,11 +270,11 @@ static int possible_commandp(char *text, int start, int end)
 	if (strchr(" \t\n\r",text[t]) != NULL)
 	    continue;
 	else if (text[t] == '(')
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
 
-    return FALSE;
+    return false;
 }
 
 static int possible_variablep(char *text, int start, int end)
@@ -288,14 +288,14 @@ static int possible_variablep(char *text, int start, int end)
 	if (strchr(" \t\n",text[t]) != NULL)
 	    continue;
 	else if (text[t] == '(')
-	    return FALSE;
+	    return false;
 	else if ((text[t] == '"') &&
 		 (t == start-1))
-	    return FALSE;
+	    return false;
 	else
-	    return TRUE;
+	    return true;
 
-    return TRUE;
+    return true;
 }
 
 #endif /* SUPPORT_EDITLINE */

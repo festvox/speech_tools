@@ -1064,7 +1064,7 @@ bool EST_Ngrammar::oov_preprocess(const EST_String &filename,
     // open the original files for reading
     if (filename == "-")
     {
-	if( ts.open(stdin, FALSE) == -1)
+	if( ts.open(stdin, false) == -1)
 	{
 	    cerr << "EST_Ngrammar:: failed to open stdin";
 	    cerr << " for reading" << endl;
@@ -1164,27 +1164,27 @@ bool EST_Ngrammar::build_ngram(const EST_String &filename,
     int bad_word=0;
     EST_String s;
     EST_TokenStream ts;
-    int eoln_is_eos = FALSE;
-    int sliding_window = TRUE;
+    int eoln_is_eos = false;
+    int sliding_window = true;
     int count=0;
     clear();
     
     if ( (input_format == "") || (input_format == "sentence_per_line") )
     {
 	// may do something here later
-	eoln_is_eos = TRUE;
-	sliding_window = TRUE;
+	eoln_is_eos = true;
+	sliding_window = true;
     }
     else if (input_format == "sentence_per_file")
     {
-	eoln_is_eos = FALSE;
-	sliding_window = TRUE;
+	eoln_is_eos = false;
+	sliding_window = true;
 	p_number_of_sentences = 1;
     }
     else if(input_format == "ngram_per_line")
     {
-	eoln_is_eos = FALSE;
-	sliding_window = FALSE;
+	eoln_is_eos = false;
+	sliding_window = false;
 	p_number_of_sentences = 1;
     }
     else
@@ -1197,7 +1197,7 @@ bool EST_Ngrammar::build_ngram(const EST_String &filename,
     
     if (filename == "-")
     {
-	if( ts.open(stdin, FALSE) == -1)
+	if( ts.open(stdin, false) == -1)
 	{
 	    cerr << "EST_Ngrammar:: failed to open stdin";
 	    cerr << " for reading" << endl;
@@ -1839,7 +1839,7 @@ bool EST_Ngrammar::set_representation(EST_Ngrammar::representation_t new_represe
     else
     {
 	cerr << "set_representation: unknown ngrammar representation" << endl;
-	return FALSE;
+	return false;
     }
 }
 

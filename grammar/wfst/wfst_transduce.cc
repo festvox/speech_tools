@@ -100,7 +100,7 @@ int transduce(const EST_WFST &wfst,const EST_IList &in,EST_IList &out)
 {
     // Transduce input stream to an output stream
     EST_Litem *i,*cs;
-    int r=FALSE;
+    int r=false;
     wfst_tstate_list *current_ms = new wfst_tstate_list;
     wfst_tstate start_state;
     wfst_translist ss_eps_trans;
@@ -140,7 +140,7 @@ int transduce(const EST_WFST &wfst,const EST_IList &in,EST_IList &out)
 	if ((wfst.final((*current_ms)(cs).state)) &&
 	    ((*current_ms)(cs).outs.length() > out.length()))
 	{
-	    r = TRUE;
+	    r = true;
 	    out = (*current_ms)(cs).outs;
 	}
     }
@@ -231,20 +231,20 @@ int recognize(const EST_WFST &wfst,const EST_IList &in,
 		   nstate);
 	state = nstate;
 	if (state == WFST_ERROR_STATE)
-	    return FALSE;
+	    return false;
     }
     
     if (p != q)
     {  
 	cerr << "wfst recognize: in/out tapes of different lengths"
 	    << endl;
-	return FALSE;
+	return false;
     }
     
     if (wfst.final(state))
-	return TRUE;
+	return true;
     else 
-	return FALSE;
+	return false;
 }
 
 int recognize_for_perplexity(const EST_WFST &wfst,
@@ -311,19 +311,19 @@ int recognize_for_perplexity(const EST_WFST &wfst,
 		   nstate);
 	state = nstate;
 	if (state == WFST_ERROR_STATE)
-	    return FALSE;
+	    return false;
     }
     
     if (p != q)
     {  
 	cerr << "wfst recognize: in/out tapes of different lengths"
 	    << endl;
-	return FALSE;
+	return false;
     }
     
     if (wfst.final(state))
-	return TRUE;
+	return true;
     else 
-	return FALSE;
+	return false;
 }
 

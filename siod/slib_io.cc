@@ -93,10 +93,10 @@ int parse_url(const EST_String &url,
     host = "";
     port = "";
     path = url.after("file:");
-    return TRUE;
+    return true;
   }
   else  if (!url.matches(RxURL, 0, start_of_bracket, end_of_bracket))
-    return FALSE;
+    return false;
 
   protocol = url.at(start_of_bracket[1], end_of_bracket[1]-start_of_bracket[1]);
   host = url.at(start_of_bracket[2], end_of_bracket[2]-start_of_bracket[2]);
@@ -108,7 +108,7 @@ int parse_url(const EST_String &url,
   else
       path = bitpath;
 
-  return TRUE;
+  return true;
 }
 
 static int connect_to_server(const char *host, int port)

@@ -295,9 +295,9 @@ void initialise_parameters (struct Ms_Op *p_par)
 
 struct Ms_Op *default_ms_op(struct Ms_Op *ms)
 {
-    ms->smooth_double = FALSE;
-    ms->apply_hanning = TRUE;
-    ms->extrapolate = TRUE;
+    ms->smooth_double = false;
+    ms->apply_hanning = true;
+    ms->extrapolate = true;
     ms->first_median = 11;
     ms->second_median = 1; 
     ms->window_length = 7; 

@@ -52,21 +52,12 @@ using namespace std;
 
 #ifdef SUPPORT_ESD
 
-// Hack hack. aupvlist.h is broken at least on FBSD 3.1.1
-
-#undef __cplusplus
-
-extern "C"
-{
 #include <aupvlist.h>
-}
-#define __cplusplus
-
 #include <esd.h>
 
 #define au_serverrate 16000
 
-bool esd_supported = TRUE;
+bool esd_supported = true;
 
 static int endian_int = 1;
 #define ESD_BIG_ENDIAN (((char *)&endian_int)[0] == 0)
@@ -148,7 +139,7 @@ int record_esd_wave(EST_Wave &wave, EST_Option &al)
 }
 
 #else
-int esd_supported = FALSE;
+bool esd_supported = false;
 
 int play_esd_wave(EST_Wave &inwave, EST_Option &al)
 {

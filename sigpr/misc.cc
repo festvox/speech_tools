@@ -67,7 +67,7 @@ void EST_pre_emphasis(EST_Wave &signal, EST_Wave &psignal, float a)
 	    maxval = absval(fpdata[i]);
     }
 
-    psignal.resize(num_samples,1,FALSE);
+    psignal.resize(num_samples,1,false);
     psignal.set_sample_rate(signal.sample_rate());
     short_set(psignal, 0, fpdata, maxval);
 }
@@ -88,7 +88,7 @@ void EST_post_deemphasis(EST_Wave &signal, EST_Wave &dsignal, float a)
 	    maxval = absval(fddata[i]);
     }
 
-    dsignal.resize(num_samples,1,FALSE);
+    dsignal.resize(num_samples,1,false);
     dsignal.set_sample_rate(signal.sample_rate());
     short_set(dsignal, 0, fddata, maxval);
 }

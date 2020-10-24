@@ -206,16 +206,16 @@ static int wagon_main(int argc, char **argv)
     }
 
     if (al.present("-quiet"))
-	wgn_quiet = TRUE;
+	wgn_quiet = true;
     if (al.present("-verbose"))
-	wgn_verbose = TRUE;
+	wgn_verbose = true;
 
     if (al.present("-stop"))
 	wgn_min_cluster_size = atoi(al.val("-stop"));
     if (al.present("-max_questions"))
 	wgn_max_questions = atoi(al.val("-max_questions"));
     if (al.present("-noprune"))
-	wgn_prune = FALSE;
+	wgn_prune = false;
     if (al.present("-predictee"))
 	wgn_predictee_name = al.val("-predictee");
     if (al.present("-count_field"))
