@@ -42,6 +42,7 @@
 //@{
 #ifndef __RATECONV_H__
 #define __RATECONV_H__
+#include <cstdint>
 
 int rateconv(const int16_t *in,int isize, short **out, int *osize,
 	     int in_samp_freq, int out_samp_freq);
