@@ -49,9 +49,6 @@
 #if defined(SYSTEM_IS_WIN32)
 #   include <winsock2.h>
 #   include <windows.h> 
-#   if defined(_MSC_VER)
-#       define VISUAL_CPP 1
-#   endif
 #else
 #   define SYSTEM_IS_UNIX 1
 #   include <sys/types.h>

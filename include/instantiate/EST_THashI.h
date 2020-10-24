@@ -54,13 +54,8 @@
 	Instantiate_TIterator_T(HASH_ ## TAG ## _t, HASH_ ## TAG ## _t:: IP, HASHPAIR_ ## TAG ## _t, HASH_ ## TAG ## _itt) \
 	Instantiate_TIterator_T(HASH_ ## TAG ## _t, HASH_ ## TAG ## _t:: IPK, KEY, HASH_ ## TAG ## _itt)
 
-#if defined(VISUAL_CPP)
-#    define Instantiate_THash_T_IT(KEY, VAL, TAG) \
-	Instantiate_THash_T_IT_IP(KEY, VAL, TAG, IPointer_s, IPointer_k_s)
-#else
 #    define Instantiate_THash_T_IT(KEY, VAL, TAG) \
 	Instantiate_THash_T_IT_IP(KEY, VAL, TAG, IPointer, IPointer_k)
-#endif
 
 #define Instantiate_THash_T_MIN(KEY, VAL, TAG) \
         template class EST_Hash_Pair< KEY, VAL >; \
