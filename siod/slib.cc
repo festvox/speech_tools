@@ -91,8 +91,10 @@ Cambridge, MA 02138
 #include "siod_defs.h"
 #include "siodp.h"
 
-#ifdef WIN32
-#include "winsock2.h"
+
+#ifdef _WIN32
+#include <winsock2.h>
+#include <io.h>
 #endif
 
 using namespace std;
@@ -787,8 +789,8 @@ void gc_unprotect(LISP *location)
     }
     if (reg == 0)
     {
-	fprintf(stderr,"Cannot unprotected %lx: never protected\n",
-		(unsigned long)*location);
+	fprintf(stderr,"Cannot unprotected %p: never protected\n",
+		(void*)*location);
 	fflush(stderr);
     }
     else if (l==0) /* its the first one in the list that needs to be deleted */

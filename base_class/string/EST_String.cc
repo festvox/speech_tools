@@ -1258,6 +1258,32 @@ EST_String EST_String::Number(long i, int b)
   return EST_String(buf);
 }
 
+
+EST_String EST_String::Number(long long i, int b)
+{
+  char buf[64];
+  const char *format;
+
+  switch (b)
+    {
+    case 8:
+      format="0%llo";
+      break;
+    case 10:
+      format="%lld";
+      break;
+    case 16:
+      format="0x%llx";
+      break;
+    default:
+      format="??%lld??";
+      break;
+    }
+  sprintf(buf, format, i);
+
+  return EST_String(buf);
+}
+
 EST_String EST_String::Number(float f)
 {
   char buf[64];

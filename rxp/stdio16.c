@@ -52,7 +52,7 @@
 #define ERR2(m,x,y) fprintf(stderr,m,x,y)
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 #undef boolean
 #include <winsock.h>
 #include <fcntl.h>
@@ -102,7 +102,7 @@ static int StringSeek(FILE16 *file, long offset, int ptrname);
 static int StringClose(FILE16 *file);
 static int StringFlush(FILE16 *file);
 
-#ifdef WIN32
+#ifdef _WIN32
 #ifdef SOCKETS_IMPLEMENTED
 static int WinsockRead(FILE16 *file, unsigned char *buf, int max_count);
 static int WinsockWrite(FILE16 *file, const unsigned char *buf, int count);

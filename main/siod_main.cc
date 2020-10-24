@@ -43,7 +43,9 @@
 #include "EST_Pathname.h"
 #include "siod.h"
 
-using namespace std;
+#ifdef _WIN32
+#include <io.h>
+#endif
 
 using namespace std;
 

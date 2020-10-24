@@ -1,4 +1,3 @@
-
  /************************************************************************/
  /*                                                                      */
  /*                Centre for Speech Technology Research                 */
@@ -30,61 +29,21 @@
  /*  ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF      */
  /*  THIS SOFTWARE.                                                      */
  /*                                                                      */
- /*************************************************************************/
- /*                                                                       */
- /*                 Author: Richard Caley (rjc@cstr.ed.ac.uk)             */
- /*                   Date: Tue Sep4th 1997                               */
- /* --------------------------------------------------------------------  */
- /* Defines of things which may not be here on all unixes.                */
- /*                                                                       */
- /*************************************************************************/
+ /************************************************************************/
+ /*                 Author: Richard Caley (rjc@cstr.ed.ac.uk)            */
+ /*                   Date: Tue Jun 10 1997                              */
+ /************************************************************************/
+ /*                                                                      */
+ /* FD opening functions.                                                */
+ /*                                                                      */
+ /************************************************************************/
 
-#if !defined(__EST_SOCKET_UNIX_H__)
-#define __EST_SOCKET_UNIX_H__ 1
+#ifndef IO_H__
+#define IO_H__
 
-#include <errno.h>
-
-/* Solaris defines this, linux doesn't */
-#if defined(sun) && !defined(SVR4)
-typedef int ssize_t;
-#endif
-
-#if defined(older_solaris)
-/* older versions of Solaris don't have this */
-typedef int socklen_t;
-#endif
-
-#if defined(__FreeBSD__) &&  __FreeBSD__ < 4
-typedef int socklen_t;
-#endif
-
-#if defined(__APPLE__) 
-#endif
-
-#if defined(__CYGWIN__) &&  __GNUC__ < 3
-typedef int socklen_t;
-#endif
-
-#if defined(__osf__)
-typedef int socklen_t;
-#endif
-
-#if defined(_AIX)
-#include <sys/select.h>
-#endif
-
-#define NOT_A_SOCKET(FD) ((FD) <0)
-#define socket_error() errno
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-int socket_initialise(void);
-
-#if defined(__cplusplus)
-}
-#endif
+int fd_open_stdinout(const char *r_or_w);
+int fd_open_file(const char *name, const char *r_or_w);
+int fd_open_url(const char *protocol, const char *host, 
+		const char *port, const char *path, const char *r_or_w);
 
 #endif
-

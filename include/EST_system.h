@@ -42,18 +42,19 @@
 #if !defined(EST_SYSTEM_H)
 #    define EST_SYSTEM_H 1
 
+#ifdef _WIN32
+ #define SYSTEM_IS_WIN32
+#endif
+
 #if defined(SYSTEM_IS_WIN32)
-#   define _WINSOCKAPI_		/* horrible hack */
-#   define _LPCVOID_DEFINED     /* and another */
+#   include <winsock2.h>
 #   include <windows.h> 
-#   include "win32/EST_defines_win32.h"
 #   if defined(_MSC_VER)
 #       define VISUAL_CPP 1
 #   endif
 #else
 #   define SYSTEM_IS_UNIX 1
 #   include <sys/types.h>
-#   include "unix/EST_defines_unix.h"
 #endif
 
 #endif

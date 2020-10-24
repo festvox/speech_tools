@@ -159,7 +159,7 @@ void pprint_to_fd(FILE *fd,LISP exp);
 LISP lread(void);
 LISP lreadtk(long j);
 LISP lreadf(FILE *f);
-#ifdef WIN32
+#ifdef _WIN32
 LISP lreadwinsock(void);
 #endif
 void set_read_hooks(char *all_set,char *end_set,

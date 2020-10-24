@@ -54,6 +54,8 @@ FILE *stddebug = NULL;
 extern int el_pos;
 extern char *repl_prompt;
 
+char *editline_history_file = ".editline_history";
+
 #ifndef SUPPORT_EDITLINE
 
 /* If for some reason you don't want editline the following */

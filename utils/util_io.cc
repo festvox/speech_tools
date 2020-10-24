@@ -51,7 +51,9 @@
 #include "EST_cutils.h"
 #include "EST_Token.h"
 
-using namespace std;
+#ifdef _WIN32
+#include <io.h>
+#endif
 
 using namespace std;
 

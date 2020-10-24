@@ -103,6 +103,4 @@ subdir('instantiate')
 subdir('ling_class')
 subdir('rxp')
 subdir('sigpr')
-subdir('unix')
-subdir('win32')
 

@@ -43,6 +43,10 @@
 #include <string.h>
 #include "EST_cutils.h"
 
+#ifdef _WIN32
+#include <process.h>
+#endif
+
 #define _S_S_S(S) #S
 #define STRINGIZE(S) _S_S_S(S)
 

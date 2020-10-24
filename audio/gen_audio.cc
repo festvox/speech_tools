@@ -51,7 +51,9 @@
 #include "EST_audio.h"
 #include "EST_wave_aux.h"
 
-using namespace std;
+#ifdef _WIN32
+#include <process.h>
+#endif
 
 using namespace std;
 

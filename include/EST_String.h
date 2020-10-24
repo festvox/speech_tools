@@ -258,6 +258,9 @@ public:
     /// Build string from a long integer.
     static EST_String Number(long i, int base=10);
 
+    /// Build string from a long long integer.
+    static EST_String Number(long long i, int base=10);
+
     /// Build string from a double.
     static EST_String Number(double d);
 

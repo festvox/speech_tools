@@ -44,7 +44,6 @@
 #include "EST_cutils.h"
 #include "EST_Token.h"
 #include "EST_Wagon.h"
-#include "EST_math.h"
 
 using namespace std;
 

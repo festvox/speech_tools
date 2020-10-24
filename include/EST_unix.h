@@ -54,8 +54,7 @@
 #   include <sys/resource.h>
 #   include <dirent.h>
 #elif defined(SYSTEM_IS_WIN32)
-#   include <io.h>
-#   include "win32/EST_unix_win32.h"
+
 #else
 #   error No System Selected
 #endif

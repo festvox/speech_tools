@@ -86,7 +86,7 @@ siod_lib = static_library(
     'slib_xtr.cc',
     'slib_repl.cc',
     'slib_python.cc',
-    'io.cc',
+    'slib_io.cc',
     'trace.cc'
   ),
   dependencies: siod_lib_deps,

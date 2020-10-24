@@ -41,8 +41,8 @@
 **
 **  Win32 system-dependant routines for editline library.
 */
-#include <windows.h>
 #include "editline.h"
+#include <windows.h>
 
 extern CONST ECHAR el_NIL[];
 

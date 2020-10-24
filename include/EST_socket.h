@@ -47,11 +47,22 @@
 #   include <netdb.h>
 #   include <netinet/in.h>
 #   include <arpa/inet.h>
-#   include "unix/EST_socket_unix.h"
+#   define SOCKETS_IMPLEMENTED 1
 #elif defined(SYSTEM_IS_WIN32)
 #   include <winsock2.h>
-#   include "win32/EST_socket_win32.h"
+#   include <io.h>
+#   define SOCKETS_IMPLEMENTED 1
 #else
 #   error No System Selected
+#endif
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+int socket_initialise(void);
+
+#if defined(__cplusplus)
+}
 #endif
 

@@ -54,18 +54,19 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <assert.h>
 #include <errno.h>
 #include <string.h>		/* that's where strerror is.  really. */
 #include <sys/types.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <direct.h>
 #endif
 
 #ifdef SOCKETS_IMPLEMENTED
 
-#ifdef WIN32
+#ifdef _WIN32
 #undef boolean
 #include <winsock.h>
 #include <fcntl.h>
@@ -684,7 +685,7 @@ static FILE16 *http_open(const char *url,
 	return 0;
     }
 
-#ifdef WIN32
+#ifdef _WIN32
     f16 = MakeFILE16FromWinsock(s, type);
 #else
     f16 = MakeFILE16FromFILE(fin, type);

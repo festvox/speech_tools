@@ -18,6 +18,11 @@
 static long siod_time_base;
 #endif
 
+#ifdef _WIN32
+#include <io.h>
+#include <process.h>
+#endif
+
 static LISP lgetenv(LISP name)
 {
     return rintern(getenv(get_c_string(name)));

@@ -44,7 +44,7 @@
  /************************************************************************/
 
 #include <cstdio>
-#include "EST_System.h"
+#include "EST_system.h"
 #include "EST_Pathname.h"
 
 void EST_Pathname::setup(void)
@@ -193,9 +193,4 @@ EST_Pathname operator + (const EST_Pathname p, const EST_Pathname addition)
 
 EST_Pathname operator + (const char *p, const EST_Pathname addition) 
 {return EST_Pathname::append(p, addition); }
-
-EST_Pathname &operator += (EST_Pathname p, const EST_Pathname addition)
-{ p = EST_Pathname::append(p, addition); return p; }
-EST_Pathname &operator += (EST_Pathname p, const EST_String addition)
-{ p = EST_Pathname::append(p, addition); return p; }
 

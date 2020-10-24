@@ -507,10 +507,10 @@ enum EST_write_status save_wave_est(FILE *fp, const short *data, int offset,
 /*  other's explanations. I would have used the SOX code directly but    */
 /*  was not really in the right form so starting again was easier        */
 /*=======================================================================*/
-#define WAVE_FORMAT_PCM    0x0001
-#define WAVE_FORMAT_ADPCM  0x0002
-#define WAVE_FORMAT_ALAW   0x0006
-#define WAVE_FORMAT_MULAW  0x0007
+#define EST_WAVE_FORMAT_PCM    0x0001
+#define EST_WAVE_FORMAT_ADPCM  0x0002
+#define EST_WAVE_FORMAT_ALAW   0x0006
+#define EST_WAVE_FORMAT_MULAW  0x0007
 
 enum EST_read_status load_wave_riff(EST_TokenStream &ts, short **data, int
 				    *num_samples, int *num_channels, int
@@ -553,14 +553,14 @@ enum EST_read_status load_wave_riff(EST_TokenStream &ts, short **data, int
     switch (shortdata)
     {
 	/* This is a non-proprietary format */
-    case WAVE_FORMAT_PCM:
+    case EST_WAVE_FORMAT_PCM:
 	actual_sample_type = st_short; break;
 	/* The follow are registered proprietary WAVE formats  (?) */
-    case WAVE_FORMAT_MULAW:
+    case EST_WAVE_FORMAT_MULAW:
 	actual_sample_type = st_mulaw; break;
-    case WAVE_FORMAT_ALAW:
+    case EST_WAVE_FORMAT_ALAW:
 	actual_sample_type = st_alaw; break;
-    case WAVE_FORMAT_ADPCM:
+    case EST_WAVE_FORMAT_ADPCM:
 	fprintf(stderr, "RIFF file: unsupported proprietary sample format ADPCM\n"); 
 	actual_sample_type = st_short;
 	break;
@@ -697,11 +697,11 @@ enum EST_write_status save_wave_riff_header(FILE *fp, int num_samples,
     fwrite(&data_size,1,4,fp);	/* size of header */
     switch (sample_type)
     {
-    case st_short:  data_short = WAVE_FORMAT_PCM; break;
-    case st_uchar: data_short = WAVE_FORMAT_PCM; break;
-    case st_mulaw: data_short = WAVE_FORMAT_MULAW; break;
-    case st_alaw: data_short = WAVE_FORMAT_ALAW; break;
-    case st_adpcm: data_short = WAVE_FORMAT_ADPCM; break;
+    case st_short:  data_short = EST_WAVE_FORMAT_PCM; break;
+    case st_uchar: data_short = EST_WAVE_FORMAT_PCM; break;
+    case st_mulaw: data_short = EST_WAVE_FORMAT_MULAW; break;
+    case st_alaw: data_short = EST_WAVE_FORMAT_ALAW; break;
+    case st_adpcm: data_short = EST_WAVE_FORMAT_ADPCM; break;
     default:
       fprintf(stderr,"RIFF format: unsupported data format %d\n",
 	      sample_type);

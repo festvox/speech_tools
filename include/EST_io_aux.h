@@ -97,8 +97,8 @@ int compress_file(const EST_String &filename,
 		  
 #define numeric_char(in) (((in < '9' ) && (in > '0')) ? TRUE : FALSE)
 
-#ifdef WIN32
-#include "Winsock2.h"
+#ifdef _WIN32
+#include <winsock2.h>
 typedef SOCKET SOCKET_FD;
 #else
 typedef int SOCKET_FD;

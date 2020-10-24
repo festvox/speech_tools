@@ -39,12 +39,12 @@
 #include "EST.h"
 #include "EST_audio.h"
 #include "EST_cmd_line_options.h"
-#if defined(WIN32) || defined(__CYGWIN__)
-#include "windows.h"
-#include "Mmsystem.h"
+#if defined(_WIN32) || defined(__CYGWIN__)
+#include <windows.h>
+#include <mmsystem.h>
 #endif
 
-#if defined(WIN32) || defined(__CYGWIN__)
+#if defined(_WIN32) || defined(__CYGWIN__)
 int win_record_wave(EST_Wave &wave,  EST_Option &al);
 #endif
 
@@ -54,7 +54,6 @@ int win_record_wave(EST_Wave &wave,  EST_Option &al);
 
 
 
-using namespace std;
 
 int main (int argc, char *argv[])
 {
@@ -88,7 +87,7 @@ int main (int argc, char *argv[])
 	al.add_item("-time", "10");
     if (al.present("-o"))
 	out_file = al.val("-o");
-#if defined(WIN32) || defined(__CYGWIN__)
+#if defined(_WIN32) || defined(__CYGWIN__)
     if (win_record_wave(wave,al) != 0)
 #else
     if (record_wave(wave,al) != 0)
@@ -101,7 +100,7 @@ int main (int argc, char *argv[])
     return 0;
 }
 
-#if defined(WIN32) || defined(__CYGWIN__)
+#if defined(_WIN32) || defined(__CYGWIN__)
 int win_record_wave(EST_Wave &wave,  EST_Option &al)
 {
     char command_buffer[100];  // This could be more robust - ART

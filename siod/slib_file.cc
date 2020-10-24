@@ -13,6 +13,10 @@
 #include "siodp.h"
 #include "EST_Pathname.h"
 
+#ifdef _WIN32
+#include <io.h>
+#endif
+
 static void siod_string_print(LISP exp, EST_String &sd);
 
 LISP open_files = NIL;
