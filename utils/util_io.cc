@@ -53,6 +53,8 @@
 
 using namespace std;
 
+using namespace std;
+
 EST_String make_tmp_filename()
 {
     // returns tmp filename

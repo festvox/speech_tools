@@ -45,6 +45,8 @@
 
 using namespace std;
 
+using namespace std;
+
 static void siod_lisp_vars(void);
 static void siod_load_default_files(void);
 
