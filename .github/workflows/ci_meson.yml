@@ -16,6 +16,7 @@ jobs:
     - run: meson setup build
       env:
         CC: gcc
+    - run: meson compile -C build -v
     - run: meson test -C build -v
     - uses: actions/upload-artifact@v1
       if: failure()
@@ -35,6 +36,7 @@ jobs:
     - run: meson setup build
       env:
         CC: gcc
+    - run: meson compile -C build -v
     - run: meson test -C build -v
     - uses: actions/upload-artifact@v1
       if: failure()
@@ -53,6 +55,7 @@ jobs:
     - run: meson setup build
       env:
         CC: gcc
+    - run: meson compile -C build -v
     - run: meson test -C build -v
     - uses: actions/upload-artifact@v1
       if: failure()
