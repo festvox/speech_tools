@@ -26,8 +26,8 @@ with open(os.path.join(CORRECTDIR, TESTNAME + ".out")) as fh:
     test_output_correct = fh.read()
 
 # paths and newlines in windows and unix are different
-test_output_correct = test_output_correct.replace("\\", "/").replace("\r", "\n")
-test_output_patched = test_output.replace("\\", "/").replace("\r", "\n")
+test_output_correct = test_output_correct.replace("\\", "/").replace("\r\n", "\n")
+test_output_patched = test_output.replace("\\", "/").replace("\r\n", "\n")
 
 output_diff = unified_diff(test_output_patched.splitlines(keepends=True),
                            test_output_correct.splitlines(keepends=True))
