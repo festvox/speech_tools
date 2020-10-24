@@ -99,7 +99,7 @@ void *safe_walloc(size_t size)
 
     if (p == NULL)
     {
-	fprintf(stderr,"WALLOC: failed to malloc %zd bytes\n",size);
+	fprintf(stderr,"WALLOC: failed to malloc %zu bytes\n",size);
 	exit(-1);  /* I'd rather not do this but this is the only safe */
 	           /* thing to do */
     }
@@ -123,7 +123,7 @@ void *safe_wrealloc(void *ptr, size_t size)
 
     if ((p == NULL) && (size != 0))
     {
-	fprintf(stderr,"WREALLOC: failed to malloc %zd bytes\n",size);
+	fprintf(stderr,"WREALLOC: failed to malloc %zu bytes\n",size);
 	exit(-1);  /* I'd rather not do this but this is the only safe */
 	           /* thing to do */
     }

@@ -40,20 +40,18 @@
 #include "EST_audio.h"
 #include "EST_cmd_line_options.h"
 #if defined(_WIN32) || defined(__CYGWIN__)
+#ifndef NOMINMAX
 #define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
+#endif
 #include <windows.h>
 #include <mmsystem.h>
 #endif
 
+using namespace std;
+
 #if defined(_WIN32) || defined(__CYGWIN__)
 int win_record_wave(EST_Wave &wave,  EST_Option &al);
 #endif
-
-
-
-
-
-
 
 
 int main (int argc, char *argv[])

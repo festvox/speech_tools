@@ -254,7 +254,7 @@ void siod_print_welcome(void)
 }
 
 void print_hs_1(void)
-{printf("heap_size = %ld cells, %zd bytes. %ld inums. GC is %s\n",
+{printf("heap_size = %ld cells, %zu bytes. %ld inums. GC is %s\n",
         heap_size,(heap_size*sizeof(struct obj)),
 	inums_dim,
 	(gc_kind_copying == 1) ? "stop and copy" : "mark and sweep");}

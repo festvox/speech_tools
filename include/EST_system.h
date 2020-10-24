@@ -47,7 +47,9 @@
 #endif
 
 #if defined(SYSTEM_IS_WIN32)
-#define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
+#ifndef NOMINMAX
+#      define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
+#endif
 #   include <winsock2.h>
 #   include <windows.h> 
 #else

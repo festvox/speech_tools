@@ -42,7 +42,9 @@
 **  Win32 system-dependant routines for editline library.
 */
 #include "editline.h"
+#ifndef NOMINMAX
 #define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
+#endif
 #include <windows.h>
 
 extern CONST ECHAR el_NIL[];
