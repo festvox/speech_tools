@@ -63,6 +63,7 @@ using namespace std;
   #define SND_MEMORY          0x0004  
   #define WAVE_FORMAT_PCM     1
 */
+#define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
 #include <windows.h>
 
 #endif 

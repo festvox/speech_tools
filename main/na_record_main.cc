@@ -40,6 +40,7 @@
 #include "EST_audio.h"
 #include "EST_cmd_line_options.h"
 #if defined(_WIN32) || defined(__CYGWIN__)
+#define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
 #include <windows.h>
 #include <mmsystem.h>
 #endif
