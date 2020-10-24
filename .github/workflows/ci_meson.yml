@@ -42,54 +42,54 @@ jobs:
         name: MacOS_Meson_Testlog
         path: build/meson-logs/testlog.txt
 
-#  windows-mingw:
-#    runs-on: windows-latest
-#    steps:
-#    - uses: actions/checkout@v2
-#    - uses: actions/setup-python@v1
-#      with:
-#        python-version: '3.x'
-#    - run: pip install meson ninja
-#    - run: meson setup build
-#      env:
-#        CC: gcc
-#    - run: meson test -C build -v
-#    - uses: actions/upload-artifact@v1
-#      if: failure()
-#      with:
-#        name: Windows_Meson_Testlog
-#        path: build/meson-logs/testlog.txt
-#
-#  windows-msvc:
-#    runs-on: windows-2019
-#    defaults:
-#      run:
-#        shell: cmd
-#    env:
-#      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
-#    steps:
-#    - uses: actions/checkout@v2
-#    - uses: actions/setup-python@v1
-#      with:
-#        python-version: '3.x'
-#    - run: pip install meson
-#    - name: Add msbuild to PATH
-#      uses: microsoft/setup-msbuild@v1.0.2
-#    - name: Configure
-#      run: |
-#        call "%VCVARS%"
-#        meson setup --backend vs2019 --buildtype debug build
-#    - name: Build
-#      run: |
-#        call "%VCVARS%"
-#        meson compile -C build -v
-#    - name: Test
-#      run: |
-#        call "%VCVARS%"
-#        meson test -C build -v
-#    - uses: actions/upload-artifact@v1
-#      if: failure()
-#      with:
-#        name: Windows_Meson_Testlog
-#        path: build/meson-logs/testlog.txt
+  windows-mingw:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - run: pip install meson ninja
+    - run: meson setup build
+      env:
+        CC: gcc
+    - run: meson test -C build -v
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: Windows_Meson_Testlog
+        path: build/meson-logs/testlog.txt
+
+  windows-msvc:
+    runs-on: windows-2019
+    defaults:
+      run:
+        shell: cmd
+    env:
+      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - run: pip install meson
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Configure
+      run: |
+        call "%VCVARS%"
+        meson setup --backend vs2019 --buildtype debug build
+    - name: Build
+      run: |
+        call "%VCVARS%"
+        meson compile -C build -v
+    - name: Test
+      run: |
+        call "%VCVARS%"
+        meson test -C build -v
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: Windows_Meson_Testlog
+        path: build/meson-logs/testlog.txt
 
