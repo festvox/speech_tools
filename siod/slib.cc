@@ -91,6 +91,7 @@ Cambridge, MA 02138
 #include "siod_defs.h"
 #include "siodp.h"
 
+#include <cinttypes>
 
 #ifdef _WIN32
 #include <winsock2.h>
@@ -253,8 +254,8 @@ void siod_print_welcome(void)
 }
 
 void print_hs_1(void)
-{printf("heap_size = %ld cells, %ld bytes. %ld inums. GC is %s\n",
-        heap_size,(long)(heap_size*sizeof(struct obj)),
+{printf("heap_size = %ld cells, %zd bytes. %ld inums. GC is %s\n",
+        heap_size,(heap_size*sizeof(struct obj)),
 	inums_dim,
 	(gc_kind_copying == 1) ? "stop and copy" : "mark and sweep");}
 

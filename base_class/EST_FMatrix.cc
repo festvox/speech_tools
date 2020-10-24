@@ -402,8 +402,8 @@ EST_write_status EST_FMatrix::est_save(const EST_String &filename,
     else
 	fprintf(fd,"DataType ascii\n");
 
-    fprintf(fd,"rows %ld\n",num_rows());
-    fprintf(fd,"columns %ld\n",num_columns());
+    fprintf(fd,"rows %td\n",num_rows());
+    fprintf(fd,"columns %td\n",num_columns());
 
     fprintf(fd,"EST_Header_End\n");
 
@@ -895,7 +895,7 @@ EST_write_status EST_FVector::est_save(const EST_String &filename,
     else
 	fprintf(fd,"DataType ascii\n");
 
-    fprintf(fd,"length %ld\n",length());
+    fprintf(fd,"length %td\n",length());
     fprintf(fd,"EST_Header_End\n");
 
     if (type == "est_binary")
