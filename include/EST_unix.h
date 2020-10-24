@@ -53,7 +53,19 @@
 #   include <sys/wait.h>
 #   include <sys/resource.h>
 #   include <dirent.h>
-#elif defined(SYSTEM_IS_WIN32)
+#elif defined(_WIN32)
+
+#include <io.h>
+#include <process.h> /* for getpid() and the exec..() family */
+#include <direct.h> /* for _getcwd() and _chdir() */
+
+#ifdef _MSC_VER
+#define access _access
+#define dup2 _dup2
+#define getcwd _getcwd
+#define chdir _chdir
+#define isatty _isatty
+#endif
 
 /* Second argument of access() */
 #ifndef R_OK
@@ -65,7 +77,6 @@
 #ifndef F_OK
 #define F_OK    0       /* Test for existence.  */
 #endif
-#include <io.h>
 
 #else
 #   error No System Selected
