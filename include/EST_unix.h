@@ -55,6 +55,18 @@
 #   include <dirent.h>
 #elif defined(SYSTEM_IS_WIN32)
 
+/* Second argument of access() */
+#ifndef R_OK
+#define R_OK    4       /* Test for read permission.  */
+#endif
+#ifndef W_OK
+#define W_OK    2       /* Test for write permission.  */
+#endif
+#ifndef F_OK
+#define F_OK    0       /* Test for existence.  */
+#endif
+#include <io.h>
+
 #else
 #   error No System Selected
 #endif
