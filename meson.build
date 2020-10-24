@@ -17,6 +17,11 @@ if cxx.has_argument('-fno-implicit-templates')
   add_project_arguments('-fno-implicit-templates', language : 'cpp')
 endif
 
+# https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+if cxx.has_argument('/Zc:__cplusplus')
+  add_project_arguments('/Zc:__cplusplus', language : 'cpp')
+endif
+
 
 v_array = meson.project_version().split('.')
 v_major = v_array[0]
