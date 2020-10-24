@@ -1,5 +1,5 @@
-shell = find_program('sh', native: true)
-
+pymod = import('python')
+python3 = pymod.find_installation()
 testsuite_tests = ['string', 'hash', 'pathname', 'track', 'token', 'complex',
     'list', 'kvl', 'handle', 'named_enum', 'deq', 'ling', 'feature']
 # disabled: sigpr
@@ -31,11 +31,11 @@ foreach mode : ['example', 'regression']
     else
       args = []
     endif
-    test(testname, shell,
-         args: [join_paths(meson.source_root(), 'testsuite/run_test.sh'),
+    test(testname, python3,
+         args: [join_paths(meson.current_source_dir(), 'run_test.py'),
                 testname,
                 exe.full_path(),
-                join_paths(meson.source_root(), 'testsuite/correct')
+                join_paths(meson.current_source_dir(), 'correct')
          ] + args,
          depends: exe
     )
@@ -43,6 +43,7 @@ foreach mode : ['example', 'regression']
 endforeach
 
 
+shell = find_program('sh', native: true)
 
 testsuite_scripts = ['ch_wave', 'ch_track', 'viterbi', 'wagon', 'tilt', 'lpc']
 
