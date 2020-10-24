@@ -1565,14 +1565,15 @@ void f_ungetc(int c, void *arg)
   ungetc(c,f);
 }
 
-#ifdef WIN32
+#ifdef _WIN32
 int winsock_unget_buffer;
 bool winsock_unget_buffer_unused=true;
 bool use_winsock_unget_buffer;
 
-int f_getc_winsock(HANDLE h)
+int f_getc_winsock(void* h)
 {long iflag,dflag;
  char c;
+ HANDLE h = *((HANDLE*) arg);
  DWORD lpNumberOfBytesRead;
  iflag = no_interrupt(1);
  if (use_winsock_unget_buffer)
@@ -1595,8 +1596,9 @@ int f_getc_winsock(HANDLE h)
  no_interrupt(iflag);
  return(c);}
 
-void f_ungetc_winsock(int c, HANDLE h)
+void f_ungetc_winsock(int c, void* h)
 {
+ (HANDLE*) h;
  if (winsock_unget_buffer_unused)
  {
   cerr << "f_ungetc_winsock: tried to unget before reading socket\n";
@@ -1630,13 +1632,13 @@ LISP lreadf(FILE *f)
  }
  return(readtl(&s));}
 
-#ifdef WIN32
+#ifdef _WIN32
 LISP lreadwinsock(void)
 {
 	struct gen_readio s;
-	s.getc_fcn = (int (*)(char *))f_getc_winsock;
-	s.ungetc_fcn = (void (*)(int, char *))f_ungetc_winsock;
-	s.cb_argument = siod_server_socket;
+	s.getc_fcn = f_getc_winsock;
+	s.ungetc_fcn = f_ungetc_winsock;
+	s.cb_argument = &siod_server_socket;
 	return(readtl(&s));}
 #endif
 
