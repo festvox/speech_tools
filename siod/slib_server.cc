@@ -43,6 +43,7 @@ LISP siod_send_lisp_to_client(LISP x)
 	fwrite("\n",1,1,fd);
 	fclose(fd);
 #ifdef _WIN32
+        (void) r;
 	send(siod_server_socket,"LP\n",3,0);
 #else
 	r = write(siod_server_socket,"LP\n",3);
@@ -78,7 +79,7 @@ static int acknowledge_sock_print(LISP x)
 
     siod_send_lisp_to_client(x);
 #ifdef _WIN32
-    send(siod_server_socket,"OK\n",3,0);
+    r = send(siod_server_socket,"OK\n",3,0);
 #else
     r = write(siod_server_socket,"OK\n",3);
 #endif

@@ -1570,11 +1570,10 @@ int winsock_unget_buffer;
 bool winsock_unget_buffer_unused=true;
 bool use_winsock_unget_buffer;
 
-int f_getc_winsock(void* h)
-{long iflag,dflag;
+int f_getc_winsock(void* arg)
+{long iflag;
  char c;
  HANDLE h = *((HANDLE*) arg);
- DWORD lpNumberOfBytesRead;
  iflag = no_interrupt(1);
  if (use_winsock_unget_buffer)
  {
@@ -1598,7 +1597,7 @@ int f_getc_winsock(void* h)
 
 void f_ungetc_winsock(int c, void* h)
 {
- (HANDLE*) h;
+ (void) h;
  if (winsock_unget_buffer_unused)
  {
   cerr << "f_ungetc_winsock: tried to unget before reading socket\n";
