@@ -59,7 +59,12 @@ class EST_FVector;
 class EST_FMatrix : public EST_TSimpleMatrix<float> {
 private:
 public:
-    using EST_TSimpleMatrix<float>::EST_TSimpleMatrix;
+    /// default constructor
+    EST_FMatrix(void) : EST_TSimpleMatrix<float>() {};
+    /// size constructor
+    EST_FMatrix(int m, int n) : EST_TSimpleMatrix<float>(m, n) {};
+    /// copy constructor
+    EST_FMatrix(const EST_FMatrix &m) : EST_TSimpleMatrix<float>(m) {}; 
 
     static EST_String default_file_type;
     /// Creates a matrix of the same size as a. if b == 0, fills it with 0.0
@@ -113,7 +118,16 @@ public:
 */
 class EST_FVector: public EST_TSimpleVector<float> {
 public:
-    using EST_TSimpleVector<float>::EST_TSimpleVector;
+    ///default constructor
+    EST_FVector() : EST_TSimpleVector<float>() {}; 
+    /// copy constructor
+    EST_FVector(const EST_FVector &v) : EST_TSimpleVector<float>(v) {};
+    /// "size" constructor
+    EST_FVector(int n): EST_TSimpleVector<float>(n) {}; 
+    /// memory constructor
+    EST_FVector(int n, float* memory, int offset=0, 
+		int free_when_destroyed=0) :
+        EST_TSimpleVector<float>(n,memory, offset, free_when_destroyed) {};
 
     /// elementwise multiply
     EST_FVector &operator*=(const EST_FVector &s); 

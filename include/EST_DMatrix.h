@@ -58,7 +58,12 @@ possible.
 class EST_DMatrix : public EST_TSimpleMatrix<double> {
 private:
 public:
-    using EST_TSimpleMatrix<double>::EST_TSimpleMatrix;
+    /// default constructor
+    EST_DMatrix(void) : EST_TSimpleMatrix<double>() {};
+    /// size constructor
+    EST_DMatrix(int m, int n) : EST_TSimpleMatrix<double>(m, n) {};
+    /// copy constructor
+    EST_DMatrix(const EST_DMatrix &m) : EST_TSimpleMatrix<double>(m) {};
 
     static EST_String default_file_type;
     /// Creates a matrix of the same size as a. if b == 0, fills it with 0.0
@@ -113,7 +118,17 @@ public:
 */
 class EST_DVector: public EST_TSimpleVector<double> {
 public:
-    using EST_TSimpleVector<double>::EST_TSimpleVector;
+    ///default constructor
+    EST_DVector() : EST_TSimpleVector<double>() {}; 
+    /// copy constructor
+    EST_DVector(const EST_DVector &v) : EST_TSimpleVector<double>(v) {};
+    /// "size" constructor
+    EST_DVector(int n): EST_TSimpleVector<double>(n) {}; 
+    /// memory constructor
+    EST_DVector(int n, double* memory, int offset=0, 
+		int free_when_destroyed=0) :
+        EST_TSimpleVector<double>(n,memory, offset, free_when_destroyed) {};
+
 
     /// elementwise multiply
     EST_DVector &operator*=(const EST_DVector &s); 
