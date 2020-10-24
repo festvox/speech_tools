@@ -1683,7 +1683,7 @@ STATIC STATUS accept_line()
     return CSdone;
 }
 
-#ifdef SYSTEM_IS_WIN32
+#ifdef _WIN32
 STATIC STATUS end_of_input()
 {
     Line[End] = '\0';
@@ -1932,7 +1932,7 @@ STATIC KEYMAP	Map[33] = {
     {	CTL('W'),	wipe		},
     {	CTL('X'),	exchange	},
     {	CTL('Y'),	yank		},
-#ifdef SYSTEM_IS_WIN32
+#ifdef _WIN32
     {	CTL('Z'),	end_of_input	},
 #else
     {	CTL('Z'),	ring_bell	},
