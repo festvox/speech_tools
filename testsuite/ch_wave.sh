@@ -34,12 +34,7 @@
 
 CH_WAVE=${CH_WAVE:-$TOP/bin/ch_wave}
 BCAT=${BCAT:-$TOP/bin/bcat}
-DATA="${DATA:-$TOP/lib/example_data}"
-
-if [ ! `echo "$DATA" | grep "^/"` ]; then
-  DATA=`pwd`"/$DATA"
-fi
-
+DATA="${DATA:-${EST_HOME}/lib/example_data}"
 
 test_conversion () {
 	type=$1
