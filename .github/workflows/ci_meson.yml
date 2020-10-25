@@ -74,7 +74,7 @@ jobs:
       run:
         shell: cmd
     env:
-      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\${{ vs }}\Enterprise\VC\Auxiliary\Build\vcvars${{ arch }}.bat
+      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\${{ matrix.vs }}\Enterprise\VC\Auxiliary\Build\vcvars${{ matrix.arch }}.bat
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v1
