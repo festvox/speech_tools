@@ -78,7 +78,7 @@ bool readable_file(char *filename)
 	return false;
 }
 
-int writable_file(char *filename)
+bool writable_file(char *filename)
 {
     // Returns true if this is afile is writable or creatable, false
     // otherwise

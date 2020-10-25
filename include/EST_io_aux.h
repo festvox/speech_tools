@@ -57,7 +57,7 @@
  *  \brief Make a unique temporary filename
  *  \fn EST_String stdin_to_file()
  *  \brief Copy stdin to a file and return the name of that tmpfile
- *  \fn int writable_file(char *filename)
+ *  \fn bool writable_file(char *filename)
  *  \brief return true if this file is writeable
  *  \fn bool readable_file(char *filename)
  *  \brief return true if this file is readable
@@ -74,7 +74,7 @@
 
 EST_String make_tmp_filename();
 EST_String stdin_to_file();
-int writable_file(char *filename);
+bool writable_file(char *filename);
 bool readable_file(char *filename);
 
 inline int
