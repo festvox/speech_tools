@@ -71,6 +71,7 @@ class EST_TMatrix : public EST_TVector<T>
 {
 
 public:
+  using typename EST_TVector<T>::value_type;
   using typename EST_TVector<T>::size_type;
   using typename EST_TVector<T>::difference_type;
   using typename EST_TVector<T>::reference;

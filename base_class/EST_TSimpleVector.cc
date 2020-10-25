@@ -45,16 +45,17 @@
 #include <fstream>
 #include "EST_cutils.h"
 #include <cstring>
+#include <algorithm>
 
 template<class T> void EST_TSimpleVector<T>::copy(const EST_TSimpleVector<T> &a)
 {
   if (this->p_column_step==1 && a.p_column_step==1)
     {
     resize(a.n(), false);
-    std::memcpy((void *)(this->p_memory), (const void *)(a.p_memory), this->n() * sizeof(T));
+    std::memcpy(this->p_memory, a.p_memory, this->n() * sizeof(T));
     }
 else
-  ((EST_TVector<T> *)this)->copy(a);
+  EST_TVector<T>::copy(a);
 }
 
 template<class T> EST_TSimpleVector<T>::EST_TSimpleVector(const EST_TSimpleVector<T> &in) : EST_TVector<T>()
@@ -64,38 +65,35 @@ template<class T> EST_TSimpleVector<T>::EST_TSimpleVector(const EST_TSimpleVecto
 }
 
 // should copy from and delete old version first
-template<class T> void EST_TSimpleVector<T>::resize(int newn, int set)
+template<class T> void EST_TSimpleVector<T>::resize(size_type newn, bool set)
 {
-  int oldn = this->n();
-  T *old_vals =NULL;
-  int old_offset = this->p_offset;
-  unsigned int q;
+  size_type oldn = this->n();
+  pointer old_vals =nullptr;
+  difference_type old_offset = this->p_offset;
 
   this->just_resize(newn, &old_vals);
 
   if (set && old_vals)
     {
-      int copy_c = 0;
-      if (this->p_memory != NULL)
+      size_type copy_c = 0;
+      if (this->p_memory != nullptr)
 	{
-	  copy_c = Lof(this->n(), oldn);
-          for (q=0; q<copy_c* sizeof(T); q++) /* for memcpy */
-              ((char *)this->p_memory)[q] = ((char *)old_vals)[q];
+	  copy_c = std::min(this->n(), oldn);
+          std::memmove(this->p_memory, old_vals, copy_c*sizeof(T));
 	}
       
-      for (int i=copy_c; i < this->n(); ++i)
+      for (difference_type i=copy_c; i < this->n(); ++i)
 	this->p_memory[i] = *this->def_val;
     }
   
-  if (old_vals != NULL && old_vals != this->p_memory && !this->p_sub_matrix)
+  if (old_vals != nullptr && old_vals != this->p_memory && !this->p_sub_matrix)
     delete [] (old_vals - old_offset);
 
 }
 
 template<class T>
-void EST_TSimpleVector<T>::copy_section(T* dest, int offset, int num) const
+void EST_TSimpleVector<T>::copy_section(pointer dest, difference_type offset, difference_type num) const
 {
-  unsigned int q;
   if (num<0)
     num = this->num_columns()-offset;
 
@@ -104,18 +102,16 @@ void EST_TSimpleVector<T>::copy_section(T* dest, int offset, int num) const
 
   if (!this->p_sub_matrix && this->p_column_step==1)
   {
-      for (q=0; q<num* sizeof(T); q++)  /* for memcpy */
-          ((char *)dest)[q] = ((char *)(this->p_memory+offset))[q];
+      std::memmove(dest, this->p_memory + offset, num*sizeof(T));
   }
   else
-    for(int i=0; i<num; i++)
+    for(difference_type i=0; i<num; ++i)
       dest[i] = this->a_no_check(offset+i);
 }
 
 template<class T>
-void EST_TSimpleVector<T>::set_section(const T* src, int offset, int num)
+void EST_TSimpleVector<T>::set_section(const_pointer src, difference_type offset, difference_type num)
 {
-  unsigned int q;
   if (num<0)
     num = this->num_columns()-offset;
 
@@ -124,8 +120,7 @@ void EST_TSimpleVector<T>::set_section(const T* src, int offset, int num)
   
   if (!this->p_sub_matrix && this->p_column_step==1)
   {
-      for (q=0; q<num* sizeof(T); q++)  /* for memcpy */
-          ((char *)(this->p_memory+offset))[q] = ((char *)(src))[q];
+      std::memmove(this->p_memory+offset, src, num*sizeof(T));
   }
   else
     for(int i=0; i<num; i++)
@@ -141,9 +136,9 @@ template<class T> EST_TSimpleVector<T> &EST_TSimpleVector<T>::operator=(const ES
 template<class T> void EST_TSimpleVector<T>::zero()
 {
   if (this->p_column_step==1)
-    std::memset((void *)(this->p_memory), 0, this->n() * sizeof(T));
+    std::memset(this->p_memory, 0, this->n() * sizeof(T));
   else
-    ((EST_TVector<T> *)this)->fill(*this->def_val);
+    EST_TVector<T>::fill(*this->def_val);
 }
 
 

@@ -43,8 +43,12 @@
 #include "EST_unix.h"
 #include "EST_math.h"
 #include <ctime>
+#include <limits>
+#include <cstddef>
 
 using namespace std;
+using difference_type = EST_FMatrix::difference_type;
+using size_type = EST_FMatrix::size_type;
 
 bool polynomial_fit(EST_FVector &x, EST_FVector &y, 
 		    EST_FVector &co_effs, int order)
@@ -90,10 +94,10 @@ bool polynomial_fit(EST_FVector &x, EST_FVector &y, EST_FVector &co_effs,
     EST_FVector y1;
     y1.resize(y.n());
     
-    for(int row=0;row<y.n();row++)
+    for(ptrdiff_t row=0;row<y.n();row++)
     {
 	y1[row] = y[row] * weights[row];
-	for(int col=0;col<=order;col++){
+	for(ptrdiff_t col=0;col<=order;col++){
 	    A(row,col) = pow(x[row],(float)col) * weights[row];
 	    
 	}
@@ -133,8 +137,8 @@ bool polynomial_fit(EST_FVector &x, EST_FVector &y, EST_FVector &co_effs,
 
 float matrix_max(const EST_FMatrix &a)
 {
-    int i, j;
-    float v = INT_MIN;
+    ptrdiff_t i, j;
+    float v = std::numeric_limits<float>::min();
     
     for (i = 0; i < a.num_rows(); ++i)
 	for (j = 0; j < a.num_columns(); ++j)
@@ -144,17 +148,16 @@ float matrix_max(const EST_FMatrix &a)
     return v;
 }
 
-int square(const EST_FMatrix &a)
+bool square(const EST_FMatrix &a)
 {
     return a.num_rows() == a.num_columns();
 }
 // add all elements in matrix.
 float sum(const EST_FMatrix &a)
 {
-    int i, j;
-    float t = 0.0;
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    float t = 0.0f;
+    for (ptrdiff_t i = 0; i < a.num_rows(); ++i)
+	for (ptrdiff_t j = 0; j < a.num_columns(); ++j)
 	    t += a.a_no_check(i, j);
     return t;
 }
@@ -162,8 +165,7 @@ float sum(const EST_FMatrix &a)
 // set all elements not on the diagonal to zero.
 EST_FMatrix diagonalise(const EST_FMatrix &a)
 {
-    int i;
-    EST_FMatrix b(a, 0);	// initialise and fill b with zeros
+    EST_FMatrix b(a, 0.0f);	// initialise and fill b with zeros
 
     if (a.num_rows() != a.num_columns())
     {
@@ -171,7 +173,7 @@ EST_FMatrix diagonalise(const EST_FMatrix &a)
 	return b;
     }
     
-    for (i = 0; i < a.num_rows(); ++i)
+    for (ptrdiff_t i = 0; i < a.num_rows(); ++i)
 	b(i, i) = a.a_no_check(i, i);
     
     return b;
@@ -181,18 +183,16 @@ EST_FMatrix diagonalise(const EST_FMatrix &a)
 void inplace_diagonalise(EST_FMatrix &a)
 {
     // NB - will work on non-square matrices without warning
-    int i,j;
-    
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (ptrdiff_t i = 0; i < a.num_rows(); ++i)
+	for (ptrdiff_t j = 0; j < a.num_columns(); ++j)
 	    if(i != j)
-		a.a_no_check(i, j) = 0;
+		a.a_no_check(i, j) = 0.0f;
 }
 
-EST_FMatrix sub(const EST_FMatrix &a, int row, int col)
+EST_FMatrix sub(const EST_FMatrix &a, difference_type row, difference_type col)
 {
-    int i, j, I, J;
-    int n = a.num_rows() - 1;
+    difference_type i, j, I, J;
+    size_type n = a.num_rows() - 1;
     EST_FMatrix s(n, n);
     
     for (i = I = 0; i < n; ++i, ++I)
@@ -212,23 +212,21 @@ EST_FMatrix sub(const EST_FMatrix &a, int row, int col)
     return s;
 }
 
-EST_FMatrix row(const EST_FMatrix &a, int row)
+EST_FMatrix row(const EST_FMatrix &a, difference_type row)
 {
     EST_FMatrix s(1, a.num_columns());
-    int i;
     
-    for (i = 0; i < a.num_columns(); ++i)
+    for (difference_type i = 0; i < a.num_columns(); ++i)
 	s(0, i) = a.a(row, i);
     
     return s;
 }
 
-EST_FMatrix column(const EST_FMatrix &a, int col)
+EST_FMatrix column(const EST_FMatrix &a, difference_type col)
 {
     EST_FMatrix s(a.num_rows(), 1);
-    int i;
-    
-    for (i = 0; i < a.num_rows(); ++i)
+
+    for (difference_type i = 0; i < a.num_rows(); ++i)
 	s(i, 0) = a.a(i, col);
     
     return s;
@@ -237,10 +235,9 @@ EST_FMatrix column(const EST_FMatrix &a, int col)
 EST_FMatrix triangulate(const EST_FMatrix &a)
 {
     EST_FMatrix b(a, 0);
-    int i, j;
     
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = i; j < a.num_rows(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = i; j < a.num_rows(); ++j)
 	    b(j, i) = a.a(j, i);
     
     return b;
@@ -248,22 +245,21 @@ EST_FMatrix triangulate(const EST_FMatrix &a)
 
 void transpose(const EST_FMatrix &a,EST_FMatrix &b)
 {
-    int i, j;
     b.resize(a.num_columns(), a.num_rows());
     
-    for (i = 0; i < b.num_rows(); ++i)
-	for (j = 0; j < b.num_columns(); ++j)
+    for (difference_type i = 0; i < b.num_rows(); ++i)
+	for (difference_type j = 0; j < b.num_columns(); ++j)
 	    b.a_no_check(i, j) = a.a_no_check(j, i);
 }
 
 EST_FMatrix backwards(EST_FMatrix &a)
 {
-    int i, j, n;
+    size_type n;
     n = a.num_columns();
     EST_FMatrix t(n, n);
     
-    for (i = 0; i < n; ++i)
-	for (j = 0; j < n; ++j)
+    for (difference_type i = 0; i < n; ++i)
+	for (difference_type j = 0; j < n; ++j)
 	    t(n - i - 1, n - j - 1) = a.a(i, j);
     
     return t;
@@ -274,25 +270,23 @@ EST_FMatrix backwards(EST_FMatrix &a)
 // where int abs(int) is a macro
 EST_FMatrix fmatrix_abs(const EST_FMatrix &a)
 {
-    int i, j;
-    EST_FMatrix b(a, 0);
+    EST_FMatrix b(a, 0.0f);
     
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (EST_FMatrix::difference_type i = 0; i < a.num_rows(); ++i)
+	for (EST_FMatrix::difference_type j = 0; j < a.num_columns(); ++j)
 	    b.a_no_check(i, j) = fabs(a.a_no_check(i, j));
     
     return b;
 }
 
-static void row_swap(int from, int to, EST_FMatrix &a)
+static void row_swap(difference_type from, difference_type to, EST_FMatrix &a)
 {
-    int i;
     float f;
 
     if (from == to)
 	return;
 
-    for (i=0; i < a.num_columns(); i++)
+    for (difference_type i=0; i < a.num_columns(); i++)
     {
 	f = a.a_no_check(to,i);
 	a.a_no_check(to,i) = a.a_no_check(from,i);
@@ -312,7 +306,7 @@ int inverse(const EST_FMatrix &a,EST_FMatrix &inv,int &singularity)
     // Used to use a function written by Richard Tobin (in C) but 
     // we no longer need C functionality any more.   This algorithm 
     // follows that in "Introduction to Algorithms", Cormen, Leiserson
-    // and Rivest (p759) and the term Gauss-Jordon is used for some part,
+    // and Rivest (p759) and the term Gauss-Jordan is used for some part,
     // As well as looking back at Richard's.
     // This also keeps a record of which rows are which from the original
     // so that it can return which column actually has the singularity
@@ -475,9 +469,9 @@ float determinant(const EST_FMatrix &a)
     return det;
 }
 
-void eye(EST_FMatrix &a, const int n)
+void eye(EST_FMatrix &a, const difference_type n)
 {
-    int i,j;
+    difference_type i,j;
     a.resize(n,n);
     for (i=0; i<n; i++)
     {
@@ -490,7 +484,8 @@ void eye(EST_FMatrix &a, const int n)
 
 void eye(EST_FMatrix &a)
 {
-    int i,n;
+    difference_type i;
+    size_type n;
     n=a.num_rows();
     if(n != a.num_columns())
     {
@@ -506,7 +501,7 @@ void eye(EST_FMatrix &a)
 EST_FVector add(const EST_FVector &a,const EST_FVector &b)
 {
   // a + b
-  int a_len = a.length();
+  size_type a_len = a.length();
   EST_FVector ans( a_len );
   
   if(a_len != b.length()){
@@ -515,7 +510,7 @@ EST_FVector add(const EST_FVector &a,const EST_FVector &b)
     return ans;
   };
 
-  for( int i=0; i<a_len; i++ )
+  for( difference_type i=0; i<a_len; i++ )
     ans.a_no_check(i) = a.a_no_check(i) + b.a_no_check(i);
 
   return ans;
@@ -524,7 +519,7 @@ EST_FVector add(const EST_FVector &a,const EST_FVector &b)
 EST_FVector subtract(const EST_FVector &a,const EST_FVector &b)
 {
   // a - b
-  int a_len = a.length();
+  size_type a_len = a.length();
   EST_FVector ans( a_len );
   
   if(a_len != b.length()){
@@ -533,7 +528,7 @@ EST_FVector subtract(const EST_FVector &a,const EST_FVector &b)
     return ans;
   };
 
-  for( int i=0; i<a_len; i++ )
+  for( difference_type i=0; i<a_len; i++ )
     ans.a_no_check(i) = a.a_no_check(i) - b.a_no_check(i);
 
   return ans;
@@ -548,9 +543,9 @@ EST_FVector diagonal(const EST_FMatrix &a)
 	cerr << "Can't extract diagonal of non-square matrix !" << endl;
 	return ans;
     }
-    int i;
+
     ans.resize(a.num_rows());
-    for(i=0;i<a.num_rows();i++)
+    for(difference_type i=0;i<a.num_rows();i++)
 	ans.a_no_check(i) = a.a_no_check(i,i);
 
     return ans;
@@ -558,9 +553,9 @@ EST_FVector diagonal(const EST_FMatrix &a)
 
 float polynomial_value(const EST_FVector &coeffs, const float x)
 {
-    float y=0;
+    float y=0.0f;
 
-    for(int i=0;i<coeffs.length();i++)
+    for(difference_type i=0;i<coeffs.length();i++)
 	y += coeffs.a_no_check(i) * pow(x,(float)i);
 
     return y;
@@ -581,8 +576,8 @@ void symmetrize(EST_FMatrix &a)
     }
 	      
     // no need to look at entries on the diagonal !
-    for(int i=0;i<a.num_rows();i++)
-	for(int j=i+1;j<a.num_columns();j++)
+    for(difference_type i=0;i<a.num_rows();i++)
+	for(difference_type j=i+1;j<a.num_columns();j++)
 	{
 	    f = 0.5 * (a.a_no_check(i,j) + a.a_no_check(j,i));
 	    a.a_no_check(i,j) = a.a_no_check(j,i) = f;
@@ -593,7 +588,7 @@ void
 stack_matrix(const EST_FMatrix &M, EST_FVector &v)
 {
     v.resize(M.num_rows() * M.num_columns());
-    int i,j,k=0;
+    difference_type i,j,k=0;
     for(i=0;i<M.num_rows();i++)
 	for(j=0;j<M.num_columns();j++)
 	    v.a_no_check(k++) = M(i,j);
@@ -605,8 +600,8 @@ make_random_matrix(EST_FMatrix &M, const float scale)
 {
 
     float r;
-    for(int row=0;row<M.num_rows();row++)
-	for(int col=0;col<M.num_columns();col++)
+    for(difference_type row=0;row<M.num_rows();row++)
+	for(difference_type col=0;col<M.num_columns();col++)
 	{
 	    r = scale * ((double)rand()/(double)RAND_MAX);
 	    M.a_no_check(row,col) = r;
@@ -618,7 +613,7 @@ make_random_vector(EST_FVector &V, const float scale)
 {
 
     float r;
-    for(int i=0;i<V.length();i++)
+    for(difference_type i=0;i<V.length();i++)
     {
 	r = scale * ((double)rand()/(double)RAND_MAX);
 	V.a_no_check(i) = r;
@@ -636,8 +631,8 @@ make_random_symmetric_matrix(EST_FMatrix &M, const float scale)
 
     float r;
 
-    for(int row=0;row<M.num_rows();row++)
-	for(int col=0;col<=row;col++)
+    for(difference_type row=0;row<M.num_rows();row++)
+	for(difference_type col=0;col<=row;col++)
 	{
 	    r = scale * ((double)rand()/(double)RAND_MAX);
 	    M.a_no_check(row,col) = r;
@@ -655,7 +650,7 @@ make_random_diagonal_matrix(EST_FMatrix &M, const float scale)
     }
 
     M.fill(0.0);
-    for(int row=0;row<M.num_rows();row++)
+    for(difference_type row=0;row<M.num_rows();row++)
 	M.a_no_check(row,row) = scale * ((double)rand()/(double)RAND_MAX);
 
 
@@ -671,8 +666,8 @@ make_poly_basis_function(EST_FMatrix &T, EST_FVector t)
 	cerr << "   T.num_rows()=" << T.num_rows() << endl;
 	return;
     }
-    for(int row=0;row<T.num_rows();row++)
-	for(int col=0;col<T.num_columns();col++)
+    for(difference_type row=0;row<T.num_rows();row++)
+	for(difference_type col=0;col<T.num_columns();col++)
 	    T.a_no_check(row,col) = pow(t[row],(float)col);
     
 }
@@ -680,7 +675,7 @@ make_poly_basis_function(EST_FMatrix &T, EST_FVector t)
 int
 floor_matrix(EST_FMatrix &M, const float floor)
 {
-    int i,j,k=0;
+    difference_type i,j,k=0;
     for(i=0;i<M.num_rows();i++)
 	for(j=0;j<M.num_columns();j++)
 	    if(M.a_no_check(i,j) < floor)
@@ -700,8 +695,8 @@ cov_prod(const EST_FVector &v1,const EST_FVector &v2)
     EST_FMatrix m;
     m.resize(v1.length(),v2.length());
     
-    for(int i=0;i<v1.length();i++)
-	for(int j=0;j<v2.length();j++)
+    for(difference_type i=0;i<v1.length();i++)
+	for(difference_type j=0;j<v2.length();j++)
 	    m.a_no_check(i,j) = v1.a_no_check(i) * v2.a_no_check(j);
 
     return m;
@@ -722,15 +717,4 @@ void est_seed()
 #endif
 }
 
-#if 0
-void est_seed48()
-{
-    unsigned short seed;
-    struct timeval tp;
-    struct timezone tzp;
-    gettimeofday(&tp,&tzp);
-    seed = (getpid()&0x7f) * (tp.tv_usec&0xff);
-    cerr << "seed48: " << seed << endl;
-    seed48(&seed);
-}
-#endif
+

@@ -55,6 +55,15 @@
  */
 template<class T>
 class EST_TSimpleMatrix : public EST_TMatrix<T> {
+public:
+  using typename EST_TMatrix<T>::value_type;
+  using typename EST_TMatrix<T>::size_type;
+  using typename EST_TMatrix<T>::difference_type;
+  using typename EST_TMatrix<T>::reference;
+  using typename EST_TMatrix<T>::const_reference;
+  using typename EST_TMatrix<T>::pointer;
+  using typename EST_TMatrix<T>::const_pointer;
+
 protected:
     
     // just copy data, no resizing.

@@ -38,14 +38,16 @@
 /*                                                                       */
 /*************************************************************************/
 
-#ifndef __DMatrix_H__
-#define __DMatrix_H__
+#ifndef DMatrix_H__
+#define DMatrix_H__
 
-#include <cstddef>
 #include "EST_TSimpleMatrix.h"
 #include "EST_TSimpleVector.h"
 #include "EST_FMatrix.h"
 
+
+#include <cstdlib>
+#include <cstddef>
 
 class EST_DVector;
 
@@ -56,7 +58,15 @@ EST_DMatrix x should be used instead of `double **x` wherever
 possible.
 */
 class EST_DMatrix : public EST_TSimpleMatrix<double> {
-private:
+public:
+  using typename EST_TSimpleMatrix<double>::value_type;
+  using typename EST_TSimpleMatrix<double>::size_type;
+  using typename EST_TSimpleMatrix<double>::difference_type;
+  using typename EST_TSimpleMatrix<double>::reference;
+  using typename EST_TSimpleMatrix<double>::const_reference;
+  using typename EST_TSimpleMatrix<double>::pointer;
+  using typename EST_TSimpleMatrix<double>::const_pointer;
+
 public:
     /// default constructor
     EST_DMatrix(void) : EST_TSimpleMatrix<double>() {};
@@ -118,15 +128,23 @@ public:
 */
 class EST_DVector: public EST_TSimpleVector<double> {
 public:
+  using value_type = double;
+  using typename EST_TVector<double>::size_type;
+  using typename EST_TVector<double>::difference_type;
+  using typename EST_TVector<double>::reference;
+  using typename EST_TVector<double>::const_reference;
+  using typename EST_TVector<double>::pointer;
+  using typename EST_TVector<double>::const_pointer;
+public:
     ///default constructor
     EST_DVector() : EST_TSimpleVector<double>() {}; 
     /// copy constructor
     EST_DVector(const EST_DVector &v) : EST_TSimpleVector<double>(v) {};
     /// "size" constructor
-    EST_DVector(int n): EST_TSimpleVector<double>(n) {}; 
+    EST_DVector(size_type n): EST_TSimpleVector<double>(n) {}; 
     /// memory constructor
-    EST_DVector(int n, double* memory, int offset=0, 
-		int free_when_destroyed=0) :
+    EST_DVector(size_type n, pointer memory, difference_type offset=0, 
+		bool free_when_destroyed=false) :
         EST_TSimpleVector<double>(n,memory, offset, free_when_destroyed) {};
 
 
@@ -165,7 +183,7 @@ int pseudo_inverse(const EST_DMatrix &a, EST_DMatrix &inv,int &singularity);
 
 /// some useful matrix creators
 /// make an identity matrix of dimension n
-void eye(EST_DMatrix &a, const int n);
+void eye(EST_DMatrix &a, const EST_FMatrix::size_type n);
 /// make already square matrix into I without resizing
 void eye(EST_DMatrix &a);
 

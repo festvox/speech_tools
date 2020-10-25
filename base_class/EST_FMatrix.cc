@@ -43,8 +43,6 @@
 #include <fstream>
 #include <cmath>
 #include <climits>
-using namespace std;
-
 #include "EST_String.h"
 #include "EST_types.h"
 #include "EST_FileType.h"
@@ -52,6 +50,11 @@ using namespace std;
 #include "EST_FMatrix.h"
 #include "EST_cutils.h"  // for swap functions 
 #include "EST_Token.h"
+
+using namespace std;
+
+using difference_type = EST_FMatrix::difference_type;
+using size_type = EST_FMatrix::size_type;
 
 
 /* EST_FVector may used as EST_Val */
@@ -65,7 +68,7 @@ EST_String EST_FMatrix::default_file_type = "est_ascii";
 EST_FMatrix::EST_FMatrix(const EST_FMatrix &a, int b)
 :EST_TSimpleMatrix<float>(a.num_rows(), a.num_columns())
 {
-    float vv = 0.0;
+    float vv = 0.0f;
     if (b < 0)
 	return;
     if (b == 0)
@@ -74,19 +77,18 @@ EST_FMatrix::EST_FMatrix(const EST_FMatrix &a, int b)
 
 EST_FMatrix & EST_FMatrix::operator+=(const EST_FMatrix &a)
 {
-    int i, j;
     if (a.num_columns() != num_columns())
     {
-	cerr <<"Matrix addition error: bad number of columns\n";
+	cerr << "Matrix addition error: bad number of columns\n";
 	return *this;
     }
     if (a.num_rows() != num_rows())
     {
-	cerr <<"Matrix addition error: bad number of rows\n";
+	cerr << "Matrix addition error: bad number of rows\n";
 	return *this;
     }
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type i = 0; i < num_rows(); ++i)
+	for (difference_type  j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) += a.a_no_check(i,j);
 
     return *this;
@@ -94,7 +96,6 @@ EST_FMatrix & EST_FMatrix::operator+=(const EST_FMatrix &a)
 
 EST_FMatrix & EST_FMatrix::operator-=(const EST_FMatrix &a)
 {
-    int i, j;
     if (a.num_columns() != num_columns())
     {
 	cerr <<"Matrix subtraction error: bad number of columns\n";
@@ -105,8 +106,8 @@ EST_FMatrix & EST_FMatrix::operator-=(const EST_FMatrix &a)
 	cerr <<"Matrix subtraction error: bad number of rows\n";
 	return *this;
     }
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type  i = 0; i < num_rows(); ++i)
+	for (difference_type  j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) -= a.a_no_check(i,j);
 
     return *this;
@@ -115,9 +116,8 @@ EST_FMatrix & EST_FMatrix::operator-=(const EST_FMatrix &a)
 EST_FMatrix & EST_FMatrix::operator*=(const float f)
 {
 
-    int i,j;
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type i = 0; i < num_rows(); ++i)
+	for (difference_type j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) *= f;
 
     return *this;
@@ -126,9 +126,8 @@ EST_FMatrix & EST_FMatrix::operator*=(const float f)
 EST_FMatrix & EST_FMatrix::operator/=(const float f)
 {
 
-    int i,j;
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type i = 0; i < num_rows(); ++i)
+	for (difference_type j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) /= f;
 
     return *this;
@@ -137,7 +136,6 @@ EST_FMatrix & EST_FMatrix::operator/=(const float f)
 EST_FMatrix operator+(const EST_FMatrix &a, const EST_FMatrix &b)
 {
     EST_FMatrix ab;
-    int i, j;
     if (a.num_columns() != b.num_columns())
     {
 	cerr <<"Matrix addition error: bad number of columns\n";
@@ -149,8 +147,8 @@ EST_FMatrix operator+(const EST_FMatrix &a, const EST_FMatrix &b)
 	return ab;
     }
     ab.resize(a.num_rows(), a.num_columns());
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = 0; j < a.num_columns(); ++j)
 	    ab.a_no_check(i, j) = a.a_no_check(i, j) + b.a_no_check(i, j);
 
     return ab;
@@ -159,7 +157,6 @@ EST_FMatrix operator+(const EST_FMatrix &a, const EST_FMatrix &b)
 EST_FMatrix operator-(const EST_FMatrix &a,const EST_FMatrix &b)
 {
     EST_FMatrix ab;
-    int i, j;
 
     if (a.num_columns() != b.num_columns())
     {
@@ -173,8 +170,8 @@ EST_FMatrix operator-(const EST_FMatrix &a,const EST_FMatrix &b)
 	return ab;
     }
     ab.resize(a.num_rows(), a.num_columns());
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = 0; j < a.num_columns(); ++j)
 	    ab.a_no_check(i, j) = a.a_no_check(i, j) - b.a_no_check(i, j);
 
     return ab;
@@ -183,23 +180,21 @@ EST_FMatrix operator-(const EST_FMatrix &a,const EST_FMatrix &b)
 EST_FMatrix operator*(const EST_FMatrix &a, const float x)
 {
     EST_FMatrix b(a, 0);
-    int i, j;
 
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = 0; j < a.num_columns(); ++j)
 	    b.a_no_check(i,j) = a.a_no_check(i,j) * x;
 
     return b;
 }
 
-int operator !=(const EST_FVector &fv1, 
-		const EST_FVector &fv2)
+bool operator !=(const EST_FVector &v1, 
+		const EST_FVector &v2)
 {
-    int i;
-    if(fv1.length() != fv2.length())
+    if(v1.length() != v2.length())
 	return false;
-    for(i=0;i<fv1.length();i++)
-	if(fv1.a_no_check(i) != fv2.a_no_check(i))
+    for(difference_type i=0;i<v1.length();i++)
+	if(v1.a_no_check(i) != v2.a_no_check(i))
 	    return false;
 
     return true;
@@ -692,9 +687,9 @@ EST_read_status EST_FVector::load(const EST_String &filename)
     {   // maybe its an ancient ascii file
       EST_TokenStream ts;
       EST_String s;
-      int i;
+      size_type n;
 
-      i = 0;
+      n = 0;
       
       if (((filename == "-") ? ts.open(cin) : ts.open(filename)) != 0)
 	{
@@ -706,9 +701,9 @@ EST_read_status EST_FVector::load(const EST_String &filename)
       while (!ts.eof())
 	{
 	  ts.get();
-	  ++i;
+	  ++n;
 	}
-      resize(i);
+      resize(n);
       
       ts.close();
       if (((filename == "-") ? ts.open(cin) : ts.open(filename)) != 0)
@@ -717,7 +712,7 @@ EST_read_status EST_FVector::load(const EST_String &filename)
 	  return misc_read_error;
 	}
       
-      for (i = 0; !ts.eof(); ++i)
+      for (difference_type i = 0; !ts.eof() && i < n; ++i)
 	{
 	  s = ts.get().string();
 	  (*this)[i] = (float)(atof(s));  // actually returns double
@@ -825,7 +820,7 @@ float operator*(const EST_FVector &v1, const EST_FVector &v2)
 	return b;
     }
 
-    int i;
+    difference_type i;
     for (i = 0; i < v1.length(); ++i)
 	b += v1.a_no_check(i) * v2.a_no_check(i);
 

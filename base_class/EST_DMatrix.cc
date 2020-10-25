@@ -38,6 +38,7 @@
  /*                                                                       */
  /*************************************************************************/
 
+#include <cstddef>
 #include <cstdlib>
 #include <cstdio>
 #include <fstream>
@@ -55,6 +56,10 @@
 
 using namespace std;
 
+using difference_type = EST_DMatrix::difference_type;
+using size_type = EST_DMatrix::size_type;
+
+
 EST_String EST_DMatrix::default_file_type = "est_ascii";
 
 EST_DMatrix::EST_DMatrix(const EST_DMatrix &a, int b)
@@ -69,19 +74,18 @@ EST_DMatrix::EST_DMatrix(const EST_DMatrix &a, int b)
 
 EST_DMatrix & EST_DMatrix::operator+=(const EST_DMatrix &a)
 {
-    int i, j;
     if (a.num_columns() != num_columns())
     {
-	cerr <<"Matrix addition error: bad number of columns\n";
+	cerr << "Matrix addition error: bad number of columns\n";
 	return *this;
     }
     if (a.num_rows() != num_rows())
     {
-	cerr <<"Matrix addition error: bad number of rows\n";
+	cerr << "Matrix addition error: bad number of rows\n";
 	return *this;
     }
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type i = 0; i < num_rows(); ++i)
+	for (difference_type  j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) += a.a_no_check(i,j);
 
     return *this;
@@ -89,7 +93,6 @@ EST_DMatrix & EST_DMatrix::operator+=(const EST_DMatrix &a)
 
 EST_DMatrix & EST_DMatrix::operator-=(const EST_DMatrix &a)
 {
-    int i, j;
     if (a.num_columns() != num_columns())
     {
 	cerr <<"Matrix subtraction error: bad number of columns\n";
@@ -100,8 +103,8 @@ EST_DMatrix & EST_DMatrix::operator-=(const EST_DMatrix &a)
 	cerr <<"Matrix subtraction error: bad number of rows\n";
 	return *this;
     }
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type  i = 0; i < num_rows(); ++i)
+	for (difference_type  j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) -= a.a_no_check(i,j);
 
     return *this;
@@ -110,9 +113,8 @@ EST_DMatrix & EST_DMatrix::operator-=(const EST_DMatrix &a)
 EST_DMatrix & EST_DMatrix::operator*=(const double f)
 {
 
-    int i,j;
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type i = 0; i < num_rows(); ++i)
+	for (difference_type j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) *= f;
 
     return *this;
@@ -121,9 +123,8 @@ EST_DMatrix & EST_DMatrix::operator*=(const double f)
 EST_DMatrix & EST_DMatrix::operator/=(const double f)
 {
 
-    int i,j;
-    for (i = 0; i < num_rows(); ++i)
-	for (j = 0; j < num_columns(); ++j)
+    for (difference_type i = 0; i < num_rows(); ++i)
+	for (difference_type j = 0; j < num_columns(); ++j)
 	    a_no_check(i, j) /= f;
 
     return *this;
@@ -132,7 +133,6 @@ EST_DMatrix & EST_DMatrix::operator/=(const double f)
 EST_DMatrix operator+(const EST_DMatrix &a, const EST_DMatrix &b)
 {
     EST_DMatrix ab;
-    int i, j;
     if (a.num_columns() != b.num_columns())
     {
 	cerr <<"Matrix addition error: bad number of columns\n";
@@ -144,8 +144,8 @@ EST_DMatrix operator+(const EST_DMatrix &a, const EST_DMatrix &b)
 	return ab;
     }
     ab.resize(a.num_rows(), a.num_columns());
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = 0; j < a.num_columns(); ++j)
 	    ab.a_no_check(i, j) = a.a_no_check(i, j) + b.a_no_check(i, j);
 
     return ab;
@@ -154,7 +154,6 @@ EST_DMatrix operator+(const EST_DMatrix &a, const EST_DMatrix &b)
 EST_DMatrix operator-(const EST_DMatrix &a,const EST_DMatrix &b)
 {
     EST_DMatrix ab;
-    int i, j;
 
     if (a.num_columns() != b.num_columns())
     {
@@ -168,8 +167,8 @@ EST_DMatrix operator-(const EST_DMatrix &a,const EST_DMatrix &b)
 	return ab;
     }
     ab.resize(a.num_rows(), a.num_columns());
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = 0; j < a.num_columns(); ++j)
 	    ab.a_no_check(i, j) = a.a_no_check(i, j) - b.a_no_check(i, j);
 
     return ab;
@@ -178,14 +177,26 @@ EST_DMatrix operator-(const EST_DMatrix &a,const EST_DMatrix &b)
 EST_DMatrix operator*(const EST_DMatrix &a, const double x)
 {
     EST_DMatrix b(a, 0);
-    int i, j;
 
-    for (i = 0; i < a.num_rows(); ++i)
-	for (j = 0; j < a.num_columns(); ++j)
+    for (difference_type i = 0; i < a.num_rows(); ++i)
+	for (difference_type j = 0; j < a.num_columns(); ++j)
 	    b.a_no_check(i,j) = a.a_no_check(i,j) * x;
 
     return b;
 }
+
+bool operator !=(const EST_DVector &v1, 
+		const EST_DVector &v2)
+{
+    if(v1.length() != v2.length())
+	return false;
+    for(difference_type i=0;i<v1.length();i++)
+	if(v1.a_no_check(i) != v2.a_no_check(i))
+	    return false;
+
+    return true;
+}
+
 
 EST_DVector operator*(const EST_DMatrix &a, const EST_DVector &v)
 {    
@@ -420,7 +431,6 @@ EST_write_status EST_DMatrix::est_save(const EST_String &filename,
 
 EST_read_status EST_DMatrix::est_load(const EST_String &filename)
 {
-
     // ascii/binary load with short header for byte swap and sizes
     int i,j,k;
     int rows, cols, swap;
@@ -626,9 +636,9 @@ EST_read_status EST_DVector::load(const EST_String &filename)
     {   // maybe its an ancient ascii file
         EST_TokenStream ts;
         EST_String s;
-        int i;
+        size_type n;
 
-        i = 0;
+        n = 0;
       
         if (((filename == "-") ? ts.open(cin) : ts.open(filename)) != 0)
 	{
@@ -640,9 +650,9 @@ EST_read_status EST_DVector::load(const EST_String &filename)
         while (!ts.eof())
 	{
             ts.get();
-            ++i;
+            ++n;
 	}
-        resize(i);
+        resize(n);
       
         ts.close();
         if (((filename == "-") ? ts.open(cin) : ts.open(filename)) != 0)
@@ -651,7 +661,7 @@ EST_read_status EST_DVector::load(const EST_String &filename)
             return misc_read_error;
 	}
       
-        for (i = 0; !ts.eof(); ++i)
+        for (difference_type i = 0; !ts.eof() && i < n; ++i)
 	{
             s = ts.get().string();
             (*this)[i] = atof(s);  // actually returns double
@@ -669,14 +679,13 @@ EST_read_status EST_DVector::load(const EST_String &filename)
 
 EST_DVector & EST_DVector::operator+=(const EST_DVector &s)
 {
-    int i;
     if(n() != s.n()){
 	cerr << "Cannot elementwise add vectors of differing lengths" 
              << endl;
 	return *this;
     }
     
-    for (i = 0; i < n(); ++i)
+    for (difference_type i = 0; i < n(); ++i)
 	(*this)[i] += s(i);
 
     
@@ -692,7 +701,7 @@ EST_DVector& EST_DVector::operator*=(const EST_DVector &s)
 	return *this;
     }
 
-    for (int i = 0; i < n(); ++i)
+    for (difference_type i = 0; i < n(); ++i)
 	(*this)[i] *= s(i);
 
     return *this;
@@ -700,7 +709,7 @@ EST_DVector& EST_DVector::operator*=(const EST_DVector &s)
 
 EST_DVector& EST_DVector::operator*=(const double f)
 {
-    for (int i = 0; i < n(); ++i)
+    for (difference_type i = 0; i < n(); ++i)
 	(*this)[i] *= f;
 
     return *this;
@@ -714,7 +723,7 @@ double operator*(const EST_DVector &v1, const EST_DVector &v2)
       return 0;
     }
   double p=0;
-  for (int i = 0; i < v1.length(); ++i)
+  for (difference_type i = 0; i < v1.length(); ++i)
       p += v1.a_no_check(i) * v2.a_no_check(i);
 
     return p;
@@ -723,7 +732,7 @@ double operator*(const EST_DVector &v1, const EST_DVector &v2)
 
 EST_DVector& EST_DVector::operator/=(const double f)
 {
-    for (int i = 0; i < n(); ++i)
+    for (difference_type i = 0; i < n(); ++i)
 	(*this)[i] /= f;
 
     return *this;
