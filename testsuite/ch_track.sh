@@ -33,7 +33,10 @@
 ###########################################################################
 
 CH_TRACK=${CH_TRACK:-$TOP/bin/ch_track}
-DATA=${DATA:-../lib/example_data}
+#DATA=${DATA:-../lib/example_data}
+# DATA must be relative as $DATA will appear in the output file and
+# an absolute path would make the harder to diff with the correct output
+DATA=$TOP/lib/example_data
 
 set -x
 

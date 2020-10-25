@@ -33,7 +33,10 @@
 ###########################################################################
 
 WAGON=${WAGON:-$TOP/bin/wagon}
-DATA=${DATA:-../lib/example_data}
+#DATA=${DATA:-../lib/example_data}
+# DATA must be relative as $DATA will appear in the output file and
+# an absolute path would make the harder to diff with the correct output
+DATA=$TOP/lib/example_data
 OUTFILE=${OUTFILE:-tmp/wagon.tree}
 
 regress_tree () {
