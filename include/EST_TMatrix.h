@@ -219,13 +219,13 @@ public:
   ///@{
 
   /// Make the vector `rv` a window onto row `r`
-  void row(EST_TVector<T> &rv, int r, int start_c=0, int len=-1);
+  void row(EST_TVector<T> &rv, difference_type r, difference_type start_c=0, difference_type len=-1);
   /// Make the vector `cv` a window onto column `c`
-  void column(EST_TVector<T> &cv, int c, int start_r=0, int len=-1);
+  void column(EST_TVector<T> &cv, difference_type c, difference_type start_r=0, difference_type len=-1);
   /// Make the matrix `sm` a window into this matrix.
   void sub_matrix(EST_TMatrix<T> &sm,
-		  int r=0, int numr=EST_ALL, 
-		  int c=0, int numc=EST_ALL);
+		  difference_type r=0, difference_type numr=EST_ALL, 
+		  difference_type c=0, difference_type numc=EST_ALL);
   ///@}
 
   /**@name Copy in and out
@@ -235,52 +235,52 @@ public:
     /** Copy row `r` of matrix to `buf`. `buf`
         should be pre-malloced to the correct size.
         */
-    void copy_row(int r, T *buf, int offset=0, int num=-1) const;
+    void copy_row(difference_type r, pointer buf, difference_type offset=0, difference_type num=-1) const;
 
     /** Copy row `r` of matrix to
         `buf`. `buf` should be
         pre-malloced to the correct size.  */
     
-    void copy_row(int r, EST_TVector<T> &t, int offset=0, int num=-1) const;
+    void copy_row(difference_type r, EST_TVector<T> &t, difference_type offset=0, difference_type num=-1) const;
 
     /** Copy column `c` of matrix to `buf`. `buf`
         should be pre-malloced to the correct size.
         */
-    void copy_column(int c, T *buf, int offset=0, int num=-1) const;
+    void copy_column(difference_type c, pointer buf, difference_type offset=0, difference_type num=-1) const;
 
     /** Copy column `c` of matrix to
         `buf`. `buf` should
         be pre-malloced to the correct size.  */
 
-    void copy_column(int c,  EST_TVector<T> &t, int offset=0, int num=-1)const;
+    void copy_column(difference_type c,  EST_TVector<T> &t, difference_type offset=0, difference_type num=-1) const;
 
     /** Copy buf into row `n` of matrix. 
         */
-    void set_row(int n, const T *buf, int offset=0, int num=-1);
+    void set_row(difference_type n, const_pointer buf, difference_type offset=0, difference_type num=-1);
 
-    void set_row(int n, const EST_TVector<T> &t, int offset=0, int num=-1)
+    void set_row(difference_type n, const EST_TVector<T> &t, difference_type offset=0, difference_type num=-1)
       { set_row(n, t.memory(), offset, num); }
 
-    void set_row(int r, 
-                 const EST_TMatrix<T> &from, int from_r, int from_offset=0,
-                 int offset=0, int num=-1); // set nth row
+    void set_row(difference_type r, 
+                 const EST_TMatrix<T> &from, difference_type from_r, difference_type from_offset=0,
+                 difference_type offset=0, difference_type num=-1); // set nth row
 
 
     /** Copy buf into column `n` of matrix.         
       */
-    void set_column(int n, const T *buf, int offset=0, int num=-1);
+    void set_column(difference_type n, const_pointer buf, difference_type offset=0, difference_type num=-1);
 
-    void set_column(int n, const EST_TVector<T> &t, int offset=0, int num=-1)
+    void set_column(difference_type n, const EST_TVector<T> &t, difference_type offset=0, difference_type num=-1)
       { set_column(n, t.memory(), offset, num); }
     
-    void set_column(int c, 
-                    const EST_TMatrix<T> &from, int from_c, int from_offset=0, 
-                    int offset=0, int num=-1); // set nth column
+    void set_column(difference_type c, 
+                    const EST_TMatrix<T> &from, difference_type from_c, difference_type from_offset=0, 
+                    difference_type offset=0, difference_type num=-1); // set nth column
 
   /** For when you absolutely have to have access to the memory.
     */
-  void set_memory(T *buffer, int offset, int rows, int columns, 
-		  int free_when_destroyed=0);
+  void set_memory(pointer buffer, difference_type offset, size_type rows, size_type columns, 
+		  bool free_when_destroyed=false);
 
   ///@}
 

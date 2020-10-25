@@ -73,7 +73,7 @@ public:
     /// default constructor
     EST_TSimpleMatrix(void) : EST_TMatrix<T>() {};
     /// size constructor
-    EST_TSimpleMatrix(int m, int n) : EST_TMatrix<T>(m, n) {};
+    EST_TSimpleMatrix(size_type m, size_type n) : EST_TMatrix<T>(m, n) {};
     /// copy constructor
     EST_TSimpleMatrix(const EST_TSimpleMatrix<T> &m); 
 
@@ -81,7 +81,7 @@ public:
     void copy(const EST_TSimpleMatrix<T> &a); 
 
     /// resize matrix
-    void resize(int rows, int cols, int set=1); 
+    void resize(size_type rows, size_type cols, int set=1); 
 
     /// assignment operator
     EST_TSimpleMatrix<T> &operator=(const EST_TSimpleMatrix<T> &s); 
