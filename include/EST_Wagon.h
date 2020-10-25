@@ -67,7 +67,7 @@ class WVector : public EST_FVector
     WVector(int n) : EST_FVector(n) {}
     int get_int_val(int n) const { return (int)a_no_check(n); }
     float get_flt_val(int n) const { return a_no_check(n); }
-    void set_int_val(int n,int i) { a_check(n) = (int)i; }
+    void set_int_val(int n,int i) { a_check(n) = (float)i; }
     void set_flt_val(int n,float f) { a_check(n) = f; }
 };
 
