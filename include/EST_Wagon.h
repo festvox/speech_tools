@@ -251,7 +251,7 @@ class WNode {
     WNode *right;
     void print_out(std::ostream &s, int margin);
     int leaf(void) const { return ((left == 0) || (right == 0)); }
-    int pure(void);
+    bool pure(void);
   public:
     WNode() { left = right = 0; }
     ~WNode() { if (left != 0) {delete left; left=0;}

@@ -67,7 +67,7 @@ WNode *WNode::predict_node(const WVector &d)
 	return right->predict_node(d);
 }
 
-int WNode::pure(void)
+bool WNode::pure(void)
 {
     //  A node is pure if it has no sub-nodes or its not of type class
 
