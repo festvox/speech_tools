@@ -81,7 +81,7 @@ jobs:
     - name: Configure
       run: |
         call "%VCVARS%"
-        meson setup --backend vs2019 --buildtype debug build
+        meson setup --backend vs2019 --buildtype debug --default-library static build
     - name: Build
       run: |
         call "%VCVARS%"
