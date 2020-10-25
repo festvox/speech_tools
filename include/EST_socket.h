@@ -47,10 +47,14 @@
 #   include <netdb.h>
 #   include <netinet/in.h>
 #   include <arpa/inet.h>
+#define NOT_A_SOCKET(FD) ((FD) <0)
+#define socket_error() errno
 #   define SOCKETS_IMPLEMENTED 1
 #elif defined(SYSTEM_IS_WIN32)
 #   include <winsock2.h>
 #   include <io.h>
+#define NOT_A_SOCKET(FD) ((FD) == INVALID_SOCKET)
+#define socket_error() WSAGetLastError()
 #   define SOCKETS_IMPLEMENTED 1
 #else
 #   error No System Selected
