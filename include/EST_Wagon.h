@@ -59,7 +59,7 @@
 
 // I get floating point exceptions of Alphas when I do any comparisons
 // with HUGE_VAL or FLT_MAX so I'll make my own
-#define WGN_HUGE_VAL 1.0e20
+#define WGN_HUGE_VAL 1.0e20f
 
 class WVector : public EST_FVector
 {
@@ -152,7 +152,7 @@ class WQuestion {
     const EST_IList &get_operandl(void) const {return operandl;}
     float get_score(void) const {return score;}
     void set_score(const float &f) {score=f;}
-    int ask(const WVector &w) const;
+    bool ask(const WVector &w) const;
     friend std::ostream& operator<<(std::ostream& s, const WQuestion &q);
 };
 

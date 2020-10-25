@@ -259,7 +259,7 @@ void WDataSet::load_description(const EST_String &fname, LISP ignores)
     }
 }
 
-int WQuestion::ask(const WVector &w) const
+bool WQuestion::ask(const WVector &w) const
 {
     // Ask this question of the given vector
     switch (op)
