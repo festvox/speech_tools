@@ -153,8 +153,11 @@ static int connect_to_server(const char *host, int port)
 static void server_send(int s, const char *text)
 {
   size_t n=strlen(text);
+#ifdef _MSC_VER
+  int sent;
+#else
   ssize_t sent;
-
+#endif
   while (n>0)
     if ((sent = write(s, text, n))<0)
       err("error talking to server", NIL);
@@ -166,8 +169,11 @@ static const char *server_get_line(int s)
 {
   static char buffer[MAX_LINE_LENGTH+1];
   char *p=buffer;
+#ifdef _MSC_VER
+  int n; // This is what read returns on MSVC 2019
+#else
   ssize_t n;
-
+#endif
   *p='\0';
 
   while(1==1)
