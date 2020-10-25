@@ -64,12 +64,17 @@ jobs:
         path: build/meson-logs/testlog.txt
 
   windows-msvc:
+    strategy:
+      matrix:
+        vs: [2019]
+        #arch: [32, 64]
+        arch: [64]
     runs-on: windows-2019
     defaults:
       run:
         shell: cmd
     env:
-      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\${{ vs }}\Enterprise\VC\Auxiliary\Build\vcvars${{ arch }}.bat
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v1
