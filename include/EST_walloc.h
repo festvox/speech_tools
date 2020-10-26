@@ -40,9 +40,15 @@
 #if !defined(__EST_WALLOC_H__)
 
 #if defined(__cplusplus)
-extern "C" {
+#include <cstdlib>
+#include <cstddef>
+#else
 #include <stdlib.h>
 #include <stddef.h>
+#endif
+
+#if defined(__cplusplus)
+extern "C" {
 #endif
 
 void *safe_walloc(size_t size);
