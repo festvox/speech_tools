@@ -11,5 +11,5 @@ lib_siod = files(
 
 install_data(
   lib_siod,
-  install_dir: get_option('datadir') / meson.project_name()
+  install_dir: SIOD_SUBDIR
 )

@@ -6,7 +6,9 @@ PROJECT_DATE = 'July 2020'
 PROJECT_VERSION = meson.project_version()
 PROJECT_STATE = 'current'
 SYSTEM_TYPE = host_machine.cpu_family() + '_' + host_machine.system()
-ESTLIBDIRC = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
+ESTLIB_SUBDIR = join_paths(get_option('datadir'), meson.project_name())
+ESTLIBDIRC = join_paths(get_option('prefix'), ESTLIB_SUBDIR)
+SIOD_SUBDIR = join_paths(ESTLIB_SUBDIR, 'siod')
 DOCDIR = join_paths(get_option('prefix'), get_option('datadir'), 'doc', meson.project_name())
 
 
