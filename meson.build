@@ -106,12 +106,60 @@ subdir('doc')
 pkg = import('pkgconfig')
 
 pkg.generate(
-  name: meson.project_name(),
-  description: 'Edinburgh Speech Tools Library',
-  libraries: [estools, estbase, eststring],
+  eststring,
+  name: 'eststring',
+  description: 'Edinburgh Speech Tools Library (eststring)',
   subdirs: pkg_config_h_subdirs,
   version: meson.project_version(),
-  variables: ['pkgdatadir=${prefix}/' + get_option('datadir') / meson.project_name() ],
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
+  filebase : 'eststring'
+)
+
+pkg.generate(
+  estbase,
+  name: 'estbase',
+  description: 'Edinburgh Speech Tools Library (estbase)',
+  requires: eststring,
+  subdirs: pkg_config_h_subdirs,
+  version: meson.project_version(),
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
+  filebase : 'estbase'
+)
+
+pkg.generate(
+  estools,
+  name: 'estools',
+  description: 'Edinburgh Speech Tools Library (estools)',
+  requires: [estbase, eststring],
+  subdirs: pkg_config_h_subdirs,
+  version: meson.project_version(),
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
+  filebase : 'estools'
+)
+
+pkg.generate(
+  name: meson.project_name(),
+  description: 'Edinburgh Speech Tools Library',
+  requires: [estools, estbase, eststring],
+  subdirs: pkg_config_h_subdirs,
+  version: meson.project_version(),
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
   filebase : meson.project_name()
 )
 
