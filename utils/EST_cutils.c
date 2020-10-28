@@ -81,7 +81,7 @@ const char * est_paths_rel_bin[] = {
 static bool is_path_valid(const char *path)
 {
   if (path == NULL) return false;
-  const char *filename = "/init.scm";
+  const char *filename = "siod/init.scm";
   char *fname = malloc((strlen(path) + strlen(filename) + 1)*sizeof(char));
   if (fname == NULL) return false;
   sprintf(fname, "%s%s", path, filename);
