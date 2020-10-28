@@ -20,7 +20,7 @@ if cxx.has_argument('-fno-implicit-templates')
 endif
 
 # https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
-if cxx.has_argument('/Zc:__cplusplus')
+if cxx.get_id() == 'msvc' and cxx.has_argument('/Zc:__cplusplus')
   add_project_arguments('/Zc:__cplusplus', language : 'cpp')
 endif
 
