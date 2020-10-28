@@ -36,16 +36,11 @@
 /*               Various Low level C utilities                           */
 /*                                                                       */
 /*=======================================================================*/
+#include "EST_cutils.h"
+#include "EST_unix.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include "EST_unix.h"
 #include <string.h>
-#include "EST_cutils.h"
-
-#ifdef _WIN32
-#include <process.h>
-#endif
 
 #define _S_S_S(S) #S
 #define STRINGIZE(S) _S_S_S(S)
