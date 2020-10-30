@@ -95,8 +95,8 @@ class WDataSet : public WVectorList {
     void ignore_non_numbers();
 
     int ftype(const int &i) const {return p_type(i);}
-    int ignore(int i) const {return p_ignore(i); }
-    void set_ignore(int i,int value) { p_ignore[i] = value; }
+    bool ignore(int i) const {return (bool)p_ignore(i); }
+    void set_ignore(ptrdiff_t i, bool value) { p_ignore[i] = (int)value; }
     const EST_String &feat_name(const int &i) const {return p_name(i);}
     int samples(void) const {return length();}
     int width(void) const {return dlength;}

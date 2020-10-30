@@ -410,7 +410,7 @@ WImpurity::WImpurity(const WVectorVector &ds)
     for (i=0; i < ds.n(); i++)
     {
         if (t == wnim_ols)
-            cumulate(i,1);
+            cumulate((float)i,1.0);
         else if (wgn_count_field == -1)
 	    cumulate((*(ds(i)))[wgn_predictee],1);
         else
@@ -933,7 +933,7 @@ float WImpurity::cluster_ranking(int i)
 	    ranking++;
     }
 
-    return ranking;
+    return (float)ranking;
 }
 
 float WImpurity::cluster_member_mean(int i)

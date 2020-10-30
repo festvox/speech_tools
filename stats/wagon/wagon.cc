@@ -1151,7 +1151,7 @@ static float score_question_set(WQuestion &q, WVectorVector &ds, int ignorenth)
 	    {
 		num_yes++;
                 if (wgn_dataset.ftype(wgn_predictee) == wndt_ols)
-                    y.cumulate(d,count);  // note the sample number not value
+                    y.cumulate((float)d,count);  // note the sample number not value
                 else
                     y.cumulate((*wv)[wgn_predictee],count);
 	    }
@@ -1159,7 +1159,7 @@ static float score_question_set(WQuestion &q, WVectorVector &ds, int ignorenth)
 	    {
 		num_no++;
                 if (wgn_dataset.ftype(wgn_predictee) == wndt_ols)
-                    n.cumulate(d,count);  // note the sample number not value
+                    n.cumulate((float)d,count);  // note the sample number not value
                 else
                     n.cumulate((*wv)[wgn_predictee],count);
 	    }
