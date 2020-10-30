@@ -458,9 +458,9 @@ public:
     ///@{
 
     /// Function style access to constant strings.
-    char operator () (int i) const { return memory[i]; }
+    char operator () (size_t i) const { return memory[i]; }
     /// Array style access to writable strings.
-    char &operator [] (int i) { return memory(i); }
+    char &operator [] (size_t i) { return memory(i); }
 #endif
 
     /// Cast to const char * by simply giving access to pointer.
