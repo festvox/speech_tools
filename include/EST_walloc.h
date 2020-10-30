@@ -41,9 +41,9 @@
 
 #if defined(__cplusplus)
 extern "C" {
+#endif
 #include <stdlib.h>
 #include <stddef.h>
-#endif
 
 void *safe_walloc(size_t size);
 void *safe_wcalloc(size_t size);
