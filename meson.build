@@ -11,6 +11,10 @@ ESTLIBDIRC = join_paths(get_option('prefix'), ESTLIB_SUBDIR)
 SIOD_SUBDIR = join_paths(ESTLIB_SUBDIR, 'siod')
 DOCDIR = join_paths(get_option('prefix'), get_option('datadir'), 'doc', meson.project_name())
 
+# From bindir find the relative path to ESTLIB_SUBDIR
+# This needs from a relative_to computation, not available on meson right now
+# See: https://github.com/mesonbuild/meson/pull/7908
+ESTRELLIBDIR = join_paths('..', ESTLIB_SUBDIR)
 
 cc = meson.get_compiler('c')
 cxx = meson.get_compiler('cpp')

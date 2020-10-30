@@ -24,6 +24,7 @@ utils_lib = static_library(
     '-DESTDATE=' + PROJECT_DATE,
     '-DESTVERSION=' + PROJECT_VERSION,
     '-DESTLIBDIRC=' + ESTLIBDIRC,
+    '-DESTRELLIBDIR="' + ESTRELLIBDIR + '"',
     '-DESTSTATE=' + PROJECT_STATE,
     '-DESTOSTYPE=' + SYSTEM_TYPE
   ],

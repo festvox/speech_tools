@@ -36,11 +36,13 @@
 /*               Various Low level C utilities                           */
 /*                                                                       */
 /*=======================================================================*/
+#define _POSIX_C_SOURCE 200809L
 #include "EST_cutils.h"
 #include "EST_unix.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #define _S_S_S(S) #S
 #define STRINGIZE(S) _S_S_S(S)
@@ -62,21 +64,11 @@ const char * est_libdir = ESTLIBDIR;
 
 const char * const est_ostype = STRINGIZE(ESTOSTYPE);
 
-#ifdef _WIN32
-const char * est_paths_rel_bin[] = {
-  "..\\share\\speech_tools",
-  ".\\lib",
-  "..\\lib",
-  NULL
-};
-#else
-const char * est_paths_rel_bin[] = {
-  "../share/speech_tools",
-  "./lib",
-  "../lib",
-  NULL
-};
+#ifndef ESTRELLIBDIR
+#define ESTRELLIBDIR NULL
 #endif
+
+static const char * const est_path_rel_bin = ESTRELLIBDIR;
 
 static bool is_path_valid(const char *path)
 {
@@ -142,74 +134,64 @@ static bool chop_dirname(char *buf, size_t bufsize) {
   return false;
 }
 
-char * get_estlibdir(const char **paths, const char **paths_rel_bin)
+char *get_estlibdir(const char *path, const char *path_rel_bin)
 {
   /* Return the path to estlibdir. Search if any of the following are valid:
-   * - Any of the paths given as arguments.
-   *   + If paths is a NULL pointer, it is ignored
-   *   + Otherwise, paths must be an array of const char* pointers, ended on a
-   *     NULL const char*.
+   * - The given path.
+   *   + If path is a NULL pointer, it is ignored
+   *   + Otherwise, path is searched.
    * - ESTLIBDIR environment variable
-   * - Hardcoded path
-   * - Relative paths to the executed binary location. The relative component is 
-   *   tested from  an array of const char* pointers, ended on a NULL const char*;
+   * - Hardcoded path, if it is not NULL
+   * - Relative paths to the executed binary location. 
+   *   + If path_rel_bin is NULL, a hardcoded relative path is tested
+   *   + Otherwise the current binary is located (on a best effort) and the relative
+   *     path is tested
    *
-   * A path is considered valid if there is an init.scm file inside it.
+   * A path is considered valid if there is a siod/init.scm file inside it.
    * If a path is valid, this function returns the path. You will have to free it.
    * If no path is valid, this function returns NULL
    */
-   /* given paths */
-   const char *candidate;
-   if (paths != NULL)
-   {
-     for (size_t i=0; paths[i] != NULL; ++i)
-     {
-         if (is_path_valid(paths[i])) {
-             return wstrdup(paths[i]);
-         }
-     }
-   }
-   /* environment variable */
-   candidate = getenv("ESTLIBDIR");
-   if (is_path_valid(candidate)) {
-       return wstrdup(candidate);
-   }
-   /* hardcoded value */
-   if (is_path_valid(ESTLIBDIR)) {
-       return wstrdup(ESTLIBDIR);
-   }
-   /* get path of the current binary */
-   if (paths_rel_bin == NULL || paths_rel_bin[0] == NULL) return NULL;
-   size_t num_paths_rel_bin = 0;
-   size_t maxlen_paths_rel_bin = 0;
-   for (size_t i = 0; paths_rel_bin[i] != NULL; ++i) {
-     size_t len_path_rel_bin = strlen(paths_rel_bin[i]);
-     if (len_path_rel_bin > maxlen_paths_rel_bin)
-       maxlen_paths_rel_bin = len_path_rel_bin;
-     ++num_paths_rel_bin;
-   }
-   char *buf = calloc(8192+maxlen_paths_rel_bin, sizeof(char));
-   if (!get_current_binary_location(buf, 8191+maxlen_paths_rel_bin)) {
-     free(buf);
-     return NULL;
-   }
-   /* Directory where the current binary is */
-   if (!chop_dirname(buf, 8191+maxlen_paths_rel_bin)) {
-     free(buf);
-     return NULL;
-   }
-   size_t len_dirname = strlen(buf);
-   for (size_t i = 0; i < num_paths_rel_bin; ++i) {
-     size_t len_path_rel_bin = strlen(paths_rel_bin[i]);
-      memcpy(buf + len_dirname, paths_rel_bin[i], len_path_rel_bin*sizeof(char));
-      buf[len_dirname + len_path_rel_bin] = '\0';
-      if (is_path_valid(buf)) {
-        char * out = wstrdup(buf);
-        free(buf);
-        return out;
-      }
-   }
-   return NULL;
+  /* given paths */
+  const char *candidate;
+  if (is_path_valid(path)) {
+    return wstrdup(path);
+  }
+  /* environment variable */
+  candidate = getenv("ESTLIBDIR");
+  if (is_path_valid(candidate)) {
+    return wstrdup(candidate);
+  }
+  /* hardcoded value */
+  if (is_path_valid(ESTLIBDIR)) {
+    return wstrdup(ESTLIBDIR);
+  }
+  /* get path of the current binary */
+  if (path_rel_bin == NULL) path_rel_bin = est_path_rel_bin;
+  if (path_rel_bin == NULL) return NULL;
+  size_t len_path_rel_bin = strlen(path_rel_bin);
+  /* prevent overflow with a malformed path_rel_bin: */
+  if (len_path_rel_bin > SIZE_MAX-8192) return NULL;
+  char *buf = calloc(8192+len_path_rel_bin, sizeof(char));
+  if (buf == NULL) return NULL;
+  if (!get_current_binary_location(buf, 8191+len_path_rel_bin)) {
+    free(buf);
+    return NULL;
+  }
+  /* Directory where the current binary is */
+  if (!chop_dirname(buf, 8191+len_path_rel_bin)) {
+    free(buf);
+    return NULL;
+  }
+  size_t len_dirname = strlen(buf);
+  memcpy(buf + len_dirname, path_rel_bin, len_path_rel_bin*sizeof(char));
+  buf[len_dirname + len_path_rel_bin] = '\0';
+  if (is_path_valid(buf)) {
+    char * out = wstrdup(buf);
+    free(buf);
+    return out;
+  }
+  free(buf);
+  return NULL;
 }
 
 char *cmake_tmp_filename()
