@@ -111,9 +111,9 @@ public:
     static const EST_String Empty;
 
     /// Type of string size field.
-    typedef int EST_string_size;
+    typedef ptrdiff_t EST_string_size;
     /// Maximum string size.
-#  define MAX_STRING_SIZE (INT_MAX)
+#  define MAX_STRING_SIZE (PTRDIFF_MAX)
 
 private:
     /// Smart pointer to actual memory.
@@ -238,9 +238,9 @@ public:
     }
 
     /// Length of string ({\em not} length of underlying chunk)
-    int length(void) const { return size; }
+    EST_string_size length(void) const { return size; }
     /// Size of underlying chunk.
-    int space (void) const { return memory.size(); }
+    EST_Chunk::EST_chunk_size space (void) const { return memory.size(); }
     /// Get a const-pointer to the actual memory.
     const char *str(void) const { return size==0?"":(const char *)memory; }
     /// Get a writable pointer to the actual memory.
@@ -458,9 +458,9 @@ public:
     ///@{
 
     /// Function style access to constant strings.
-    char operator () (size_t i) const { return memory[i]; }
+    char operator () (ptrdiff_t i) const { return memory[i]; }
     /// Array style access to writable strings.
-    char &operator [] (size_t i) { return memory(i); }
+    char &operator [] (ptrdiff_t i) { return memory(i); }
 #endif
 
     /// Cast to const char * by simply giving access to pointer.

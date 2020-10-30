@@ -482,7 +482,7 @@ int EST_String::subst(EST_String source,
 
   // printf("match '%s'\n", (const char *)(*this));
 
-  int i;
+  EST_string_size i;
   if (size > 0)
     {
     int escaped=0;
@@ -954,7 +954,7 @@ EST_String &EST_String::operator = (const EST_String &s)
 EST_String downcase(const EST_String &s)
 {
     EST_String t = EST_String(s.size, chunk_allocate(s.size+1, s.str(), s.size));
-    int i;
+    EST_String::EST_string_size i;
 
     for (i=0; i < s.length(); i++)
 	if (isupper(s(i)))
@@ -967,7 +967,7 @@ EST_String downcase(const EST_String &s)
 EST_String upcase(const EST_String &s)
 {
     EST_String t = EST_String(s.size, chunk_allocate(s.size+1, s.str(), s.size));
-    int i;
+    EST_String::EST_string_size i;
 
     for (i=0; i < s.length(); i++)
 	if (islower(s(i)))

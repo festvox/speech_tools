@@ -105,8 +105,8 @@ class EST_Chunk  {
   public:
     typedef  unsigned short use_counter;
 #       define MAX_CHUNK_COUNT (USHRT_MAX)
-    typedef  int EST_chunk_size;
-#       define MAX_CHUNK_SIZE  (INT_MAX)
+    typedef  ptrdiff_t EST_chunk_size;
+#       define MAX_CHUNK_SIZE  (PTRDIFF_MAX)
 
   private:
     use_counter count;
@@ -218,8 +218,8 @@ class EST_ChunkPtr {
     });
 
 
-    char operator [] (size_t i) const { return ptr->memory[i]; };
-    char &operator () (size_t i) CII({ 
+    char operator [] (ptrdiff_t i) const { return ptr->memory[i]; };
+    char &operator () (ptrdiff_t i) CII({ 
       if (ptr->count>1) 
 	{
 	  CHUNK_WARN("getting writable version of shared chunk\n");
