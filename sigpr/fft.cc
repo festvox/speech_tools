@@ -43,6 +43,7 @@
 #include "sigpr/EST_fft.h"
 #include "EST_math.h"
 #include "EST_error.h"
+#include "EST_common.h"
 
 #define PI8 0.392699081698724 /* PI / 8.0 */
 #define RT2 1.4142135623731  /* sqrt(2.0) */
@@ -341,6 +342,7 @@ void FR4TR(int in, int nn, float *b0, float *b1, float *b2, float* b3) {
     switch (signum(L[k-1] - 2)) {
     case -1:
       L[k-1]=2;
+      EST_SWITCH_FALLTHROUGH;
     case 0:
       L[k]=2;
       break;

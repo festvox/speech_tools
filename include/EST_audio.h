@@ -42,17 +42,17 @@
 #include "EST_Wave.h"
 #include "EST_Option.h"
 
-extern int nas_supported;
-extern int pulse_supported;
-extern int esd_supported;
-extern int sun16_supported;
-extern int freebsd16_supported;
-extern int linux16_supported;
-extern int mplayer_supported;
-extern int win32audio_supported;
-extern int os2audio_supported;
-extern int irix_supported;
-extern int macosx_supported;
+extern bool nas_supported;
+extern bool pulse_supported;
+extern bool esd_supported;
+extern bool sun16_supported;
+extern bool freebsd16_supported;
+extern bool linux16_supported;
+extern bool mplayer_supported;
+extern bool win32audio_supported;
+extern bool os2audio_supported;
+extern bool irix_supported;
+extern bool macosx_supported;
 
 int play_wave(EST_Wave &wave, EST_Option &al);
 int record_wave(EST_Wave &wave, EST_Option &al);

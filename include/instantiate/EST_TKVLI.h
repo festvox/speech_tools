@@ -57,7 +57,7 @@
         Instantiate_TIterator_T(KVL_ ## TAG ## _t, KVL_ ## TAG ## _t::IPointer, KVI_ ## TAG ## _t, KVL_ ## TAG ##_itt) \
         Instantiate_TList(KVI_ ## TAG ## _t)
 
-// template ostream & operator<<(ostream &s, EST_TKVI<KEY, VAL> const &i); 
+// template std::ostream & operator<<(std::ostream &s, EST_TKVI<KEY, VAL> const &i); 
 
 #define Instantiate_KVL(KEY, VAL) \
 		Instantiate_KVL_T(KEY, VAL, KEY ## VAL) 

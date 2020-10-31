@@ -42,6 +42,8 @@
 #include "EST_String.h"
 #include "EST_Ngrammar.h"
 
+using namespace std;
+
 static bool
 ExponentialFit(EST_DVector &N, double &a, double &b, int first, int last)
 {

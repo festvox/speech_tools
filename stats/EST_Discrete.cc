@@ -45,6 +45,8 @@
 #include "EST_String.h"
 #include "EST_simplestats.h"
 
+using namespace std;
+
 static void Discrete_val_delete_funct(void *d) { delete (int *)d; }
 
 EST_Discrete::~EST_Discrete() 
@@ -155,7 +157,7 @@ Discretes::~Discretes()
     delete [] discretes;
 }
 
-const int Discretes::def(const EST_StrList &vocab)
+int Discretes::def(const EST_StrList &vocab)
 {
     //  Define discrete, increasing the size of the table if need be
     int i,pos;

@@ -39,6 +39,7 @@
 /*                                                                       */
 /*=======================================================================*/
 #include <cstdlib>
+#include <iostream>
 #include "EST_unix.h"
 #include "EST_String.h"
 #include "EST_io_aux.h"
@@ -49,6 +50,8 @@
 #include "EST_cmd_line.h"
 #include "EST_Pathname.h"
 #include "EST_Features.h"
+
+using namespace std;
 
 // This is reset by the command line options functions to argv[0]
 EST_String est_progname = "ESTtools";
@@ -174,7 +177,7 @@ int parse_command_line(int argc,
 			      EST_String(": missing ifile argument for \"")+
 			      arg+"\"\n");
 		i++;
-		if (writable_file(argv[i]) == TRUE)
+		if (writable_file(argv[i]) == true)
 		    al.add_item(arg,argv[i]);
 		else 
 		    arg_error(argv[0],
@@ -188,7 +191,7 @@ int parse_command_line(int argc,
 			      EST_String(": missing ifile argument for \"")+
 			      arg+"\"\n");
 		i++;
-		if (readable_file(argv[i]) == TRUE)
+		if (readable_file(argv[i]) == true)
 		    al.add_item(arg,argv[i]);
 		else
 		    arg_error(argv[0],
@@ -229,17 +232,17 @@ static int valid_option(const EST_Option &options,const char *arg,
 	if (options.key(p) == arg)
 	{
 	    sarg = arg;
-	    return TRUE;
+	    return true;
 	}
 	else if ((options.val(p) == "<star>") &&
 		 (EST_String(arg).contains(options.key(p), 0)))
 	{
 	    sarg = options.key(p);
-	    return TRUE;
+	    return true;
 	}
     }
     
-    return FALSE;
+    return false;
 }
 
 static void parse_usage(const EST_String &progname, const EST_String &usage, 
@@ -343,7 +346,7 @@ static void output_man_options(const EST_String &usage)
 {
     EST_TokenStream ts;
     EST_Token t;
-    int in_options = FALSE;
+    int in_options = false;
     
     ts.open_string(usage);
     ts.set_SingleCharSymbols("{}[]|");
@@ -370,7 +373,7 @@ static void output_man_options(const EST_String &usage)
 	    }
 	    if (!ts.peek().whitespace().contains("\n"))
 		fprintf(stdout,"\n");
-	    in_options = TRUE;
+	    in_options = true;
 	}
 	else if (in_options)
 	{
@@ -402,7 +405,7 @@ static void output_sgml_options(const EST_String &usage)
     EST_TokenStream ts;
     EST_Token t;
     EST_String atype;
-    int in_options = FALSE;
+    int in_options = false;
     
     ts.open_string(usage);
     ts.set_SingleCharSymbols("{}[]|");
@@ -441,7 +444,7 @@ static void output_sgml_options(const EST_String &usage)
 	    }
 	    if (!ts.peek().whitespace().contains("\n"))
 		fprintf(stdout,"\n");
-	    in_options = TRUE;
+	    in_options = true;
 	}
 	else if (in_options)
 	{
@@ -460,7 +463,7 @@ static void output_sgml_synopsis(char **argv, const EST_String &usage)
     EST_TokenStream ts;
     EST_Token t;
     EST_String atype;
-    int in_options = FALSE;
+    int in_options = false;
     
     ts.open_string(usage);
     ts.set_SingleCharSymbols("{}[]|");
@@ -502,7 +505,7 @@ static void output_sgml_synopsis(char **argv, const EST_String &usage)
 		fprintf(stdout," \" {%s}\"",(const char *)escape_xml_characters(ts.get().string()));
 		ts.get();
 	    }
-	    in_options = TRUE;
+	    in_options = true;
 	}
     }
     fprintf(stdout,"</arg>\n</cmdsynopsis>\n");

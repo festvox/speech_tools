@@ -57,8 +57,6 @@ extern "C" int isnan(double);
 #include <float.h>
 #endif
 
-using namespace std;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -88,7 +86,7 @@ extern "C" {
 #endif
 
 #ifndef isnanf
-#define isnanf isnan
+#define isnanf std::isnan
 #endif
 
 /* OS/2 with gcc EMX */

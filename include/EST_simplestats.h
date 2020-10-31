@@ -47,6 +47,8 @@
 #include "EST_TKVL.h"
 #include "EST_types.h"
 
+extern template class EST_TVector<double>;
+
 typedef size_t int_iter; 
 
 /** A class for managing mapping string names to integers and back again,
@@ -81,11 +83,11 @@ public:
     bool init(const EST_StrList &vocab);
 
     /// The number of members in the discrete
-    const int length(void) const { return namevector.length(); }
+    int length(void) const { return namevector.length(); }
     /** The int assigned to the given name, if it doesn't exists p\_def\_val
         is returned (which is -1 by default)
     */
-    const int index(const EST_String &n) const { 
+    int index(const EST_String &n) const { 
 	int *i;
 	return (((i=(int*)nametrie.lookup(n)) != NULL) ? *i : p_def_val);
     };
@@ -103,7 +105,7 @@ public:
     bool operator != (const EST_Discrete &d);
 
     EST_String print_to_string(int quote=0);
-    friend ostream& operator <<(ostream& s, const EST_Discrete &d);
+    friend std::ostream& operator <<(std::ostream& s, const EST_Discrete &d);
 
     ///
     EST_Discrete & operator = (const EST_Discrete &a) 
@@ -119,7 +121,7 @@ class Discretes {
   public:
     Discretes() {max=50;next_free=0;discretes=new EST_Discrete*[max];}
     ~Discretes();
-    const int def(const EST_StrList &members);
+    int def(const EST_StrList &members);
     EST_Discrete &discrete(const int t) const {return *discretes[t-10];}
     EST_Discrete &operator [] (const int t) const {return *discretes[t-10];}
 };
@@ -201,7 +203,7 @@ enum EST_tprob_type {tprob_string, tprob_int, tprob_discrete};
           EST_String name;
           double prob;
           item_prob(i,name,prob);
-          cout << name << ": prob " << prob << endl;
+          std::cout << name << ": prob " << prob << std::endl;
        }
     \endverbatim
 
@@ -222,7 +224,7 @@ public:
     /// Create with copying from an existing distribution.
     EST_DiscreteProbDistribution(const EST_DiscreteProbDistribution &b);
     /// Create with given vocabulary
-    EST_DiscreteProbDistribution(const EST_TList<EST_String> &vocab)
+    EST_DiscreteProbDistribution(const EST_StrList &vocab)
           {init(); (void)init(vocab);}
     /// Create using given \ref EST_Discrete  class as the vocabulary
     EST_DiscreteProbDistribution(const EST_Discrete *d) {init(); init(d);}
@@ -305,7 +307,7 @@ public:
     */
     void set_num_samples(const double c) { num_samples = c;}
     
-friend ostream & operator <<(ostream &s, const EST_DiscreteProbDistribution &p);
+friend std::ostream & operator <<(std::ostream &s, const EST_DiscreteProbDistribution &p);
     EST_DiscreteProbDistribution &operator=(const EST_DiscreteProbDistribution &a);
 };    
 

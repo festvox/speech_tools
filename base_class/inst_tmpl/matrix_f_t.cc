@@ -38,6 +38,7 @@
  /*                                                                      */
  /************************************************************************/
 
+#include "EST_TVector.h"
 #include "EST_TMatrix.h"
 #include "EST_TSimpleMatrix.h"
 
@@ -46,6 +47,7 @@ Declare_TSimpleMatrix(float)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
+extern template class EST_TVector<float>;
 #include "../base_class/EST_TSimpleMatrix.cc"
 #include "../base_class/EST_TMatrix.cc"
 
@@ -55,12 +57,12 @@ Instantiate_TSimpleMatrix(float)
 EST_write_status save(const EST_String &filename, const EST_TMatrix<float> &a)
 {
     int i,j;
-    ostream *outf;
+    std::ostream *outf;
     EST_String s;
     if (filename == "-")
-	outf = &cout;
+	outf = &std::cout;
     else
-	outf = new ofstream(filename);
+	outf = new std::ofstream(filename);
     
     if (!(*outf)) return misc_write_error;
 
@@ -70,10 +72,10 @@ EST_write_status save(const EST_String &filename, const EST_TMatrix<float> &a)
 	{
 	    *outf << a(i,j) << "\t";
 	}
-	*outf << endl;
+	*outf << std::endl;
     }
     
-    if (outf != &cout)
+    if (outf != &std::cout)
 	delete outf;
     return write_ok;
 }

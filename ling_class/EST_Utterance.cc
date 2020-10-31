@@ -46,6 +46,8 @@
 #include "EST_UtteranceFile.h"
 #include "EST_string_aux.h"
 
+using namespace std;
+
 const EST_String DEF_FILE_TYPE = "est_ascii";
 
 static void clear_up_sisilist(EST_TKVL<EST_Item_Content *,EST_Item *> &s);
@@ -59,6 +61,7 @@ Declare_KVL_T(EST_Item_Content *, EST_Item *, KVL_ICP_IP)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
+extern template class EST_TItem < EST_TKVI < EST_String, EST_Val> >;
 #include "../base_class/EST_TList.cc"
 #include "../base_class/EST_TKVL.cc"
 
@@ -97,7 +100,7 @@ void EST_Utterance::clear_relations()
 
 EST_Relation *EST_Utterance::create_relation(const EST_String &n)
 {
-    EST_Relation *r = relation(n,FALSE);
+    EST_Relation *r = relation(n,false);
     if (r)   // there is one already, so clear it
 	r->clear();
     else
@@ -151,7 +154,7 @@ void EST_Utterance::evaluate_all_features()
 
 void EST_Utterance::remove_relation(const EST_String &n)
 {
-    EST_Relation *r = relation(n,FALSE);
+    EST_Relation *r = relation(n,false);
 
     if (r != 0)
 	relations.remove(n);
@@ -297,7 +300,7 @@ int utterance_merge(EST_Utterance &utt,
 	}
     }
 
-    return TRUE;
+    return true;
 }
 
 int utterance_merge(EST_Utterance &utt,
@@ -347,7 +350,7 @@ int utterance_merge(EST_Utterance &utt,
     }
     sisilist.remove_item(sub_root->contents());
     clear_up_sisilist(sisilist);
-    return TRUE;
+    return true;
 }
 
 static void copy_relation(EST_Item *to,EST_Item *from,
@@ -473,11 +476,18 @@ EST_read_status EST_Utterance::load(EST_TokenStream &ts)
 {
     EST_read_status stat=read_error;
     int pos = ts.tell();
-    int max_id;
-
+    int max_id=-2, n;
+    int num_formats = EST_UtteranceFile::map.n();
     init();  // we're committed to reading something so clear utterance
 
-    for(int n=0; n< EST_UtteranceFile::map.n() ; n++)
+    if (num_formats <= 0)
+    {
+        EST_error("There is not a single UtteranceFile format declared \
+                   in EST source code. This should not happen!");
+        return misc_read_error;
+    }
+    
+    for(n=0; n< num_formats ; n++)
     {
 	EST_UtteranceFileType t = EST_UtteranceFile::map.token(n);
 	

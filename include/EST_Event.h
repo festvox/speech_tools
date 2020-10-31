@@ -43,18 +43,10 @@
 // when making a EST_Stream of events, it is important to link the events
 // pointers as well.
 
-#ifndef __Event_H__
-#define __Event_H__
+#ifndef Event_H__
+#define Event_H__
 
 #include "EST_String.h"
-
-#ifndef FALSE
-#       define  FALSE   (0)
-#endif
-#ifndef TRUE
-#       define  TRUE    (1)
-#endif
-
 
 //class RFCelement{
 //    float amp;
@@ -85,12 +77,12 @@ public:
     float peak_pos;
     float start_amp;
     float start_pos;
-    friend ostream& operator << (ostream& s, EventRFC &e) 
+    friend std::ostream& operator << (std::ostream& s, EventRFC &e) 
     {
 	s << e.type << " " << e.rise_amp << " " << e.rise_dur
 	    << " " << e.fall_amp << " " << e.fall_dur
 	    << " " << e.start_amp << " " << e.start_pos
-            << endl;
+            << std::endl;
 	    return s;
 	}
 };
@@ -132,14 +124,14 @@ public:
     EventSI *sn;
     EventSI *sp;
 
-    friend ostream& operator << (ostream& s, EventSI &e) 
+    friend std::ostream& operator << (std::ostream& s, EventSI &e) 
     {
 	s << e.type << " ra:" << e.rise_amp() << " rd:" << e.rise_dur()
 	    << "fa: " << e.fall_amp() << " fd:" << e.fall_dur()
 	    << " sf0:" << e.start_f0() << " spos:" << e.start_pos()
 	    << " pf0:" << e.peak_f0() << " ppos:" << e.peak_pos()
 	    << " ef0:" << e.end_f0() << " epos:" << e.end_pos()
-            << endl;
+            << std::endl;
 	    return s;
 	}
 };
@@ -171,12 +163,12 @@ public:
     void set_start_f0(float a);
     void set_start_pos(float a);
 
-    friend ostream& operator << (ostream& s, EventTilt &e) 
+    friend std::ostream& operator << (std::ostream& s, EventTilt &e) 
     {
 	s << e.type << " " << e.amp() << " " << e.dur()
 	    << " " << e.tilt() << " " << e.pos()
 	    << " sf0 " << e.start_f0() << " " << e.start_pos()
-            << endl;
+            << std::endl;
 	    return s;
 	}
 
@@ -186,4 +178,4 @@ void gc_eventsi(void *w);
 void gc_eventtilt(void *w);
 void gc_eventrfc(void *w);
 
-#endif // __Event_H__
+#endif // Event_H__

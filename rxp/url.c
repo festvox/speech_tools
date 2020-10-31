@@ -54,18 +54,19 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <assert.h>
 #include <errno.h>
 #include <string.h>		/* that's where strerror is.  really. */
 #include <sys/types.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <direct.h>
 #endif
 
 #ifdef SOCKETS_IMPLEMENTED
 
-#ifdef WIN32
+#ifdef _WIN32
 #undef boolean
 #include <winsock.h>
 #include <fcntl.h>
@@ -377,8 +378,9 @@ bad:
 FILE16 *url_open(const char *url, const char *base, const char *type,
 		 char **merged_url)
 {
-    char *scheme, *host, *path, *m_url;
-    int port, i;
+    char *scheme=NULL, *host, *path, *m_url;
+    int port;
+    unsigned int i;
     FILE16 *f;
 #ifdef HAVE_LIBZ
     int len, gzipped = 0;
@@ -386,8 +388,9 @@ FILE16 *url_open(const char *url, const char *base, const char *type,
 
     /* Determine the merged URL */
 
-    if(!(m_url = url_merge(url, base, &scheme, &host, &port, &path)))
+    if(!(m_url = url_merge(url, base, &scheme, &host, &port, &path))) {
 	return 0;
+    }
 
 #ifdef HAVE_LIBZ
     len = strlen(m_url);
@@ -541,6 +544,7 @@ static FILE16 *http_open(const char *url,
 	LT_ERROR1(LEFILE,
 		     "Error: can't find address for host in http URL \"%s\"\n",
 		     url);
+	close(s);
 	return 0;
     }
 
@@ -556,6 +560,7 @@ static FILE16 *http_open(const char *url,
     {
 	LT_ERROR1(LEFILE, "Error: system call connect failed: %s\n",
 		     Strerror());
+	close(s);
 	return 0;
     }
 
@@ -567,7 +572,15 @@ static FILE16 *http_open(const char *url,
 #else
     fin = fdopen(s, "r");
     setvbuf(fin, 0, _IONBF, 0);
-    fout = fdopen(dup(s), "w");
+    int newfd = dup(s);
+    if (newfd < 0) {
+        LT_ERROR(LEFILE,
+                 "Error: http_open: Can't copy file descriptor\n");
+        close(s);
+        fclose(fin);
+    return 0;
+    }
+    fout = fdopen(newfd, "w");
 #endif
 #endif
 
@@ -672,7 +685,7 @@ static FILE16 *http_open(const char *url,
 	return 0;
     }
 
-#ifdef WIN32
+#ifdef _WIN32
     f16 = MakeFILE16FromWinsock(s, type);
 #else
     f16 = MakeFILE16FromFILE(fin, type);
@@ -692,7 +705,7 @@ static FILE16 *file_open(const char *url,
     FILE *f;
     FILE16 *f16;
     char *file;
-
+    (void) port;
     if(host && host[0])
 	WARN1(LEFILE, "Warning: ignoring host part in file URL \"%s\"\n", url);
 
@@ -756,7 +769,8 @@ static FILE16 *file_open(const char *url,
 static void parse_url(const char *url, 
 		      char **scheme, char **host, int *port, char **path)
 {
-    char *p, *q;
+    const char *p, *q;
+    char *p1;
     int warned = 0;
 
     *scheme = *host = *path = 0;
@@ -764,13 +778,16 @@ static void parse_url(const char *url,
 
     /* Does it start with a scheme? */
     
-    for(p = (char *)url; *p; p++)
+    for(p = url; p && *p; p++)
 	if(*p == ':' || *p == '/')
 	    break;
 
     if(p > url && *p == ':')
     {
 	*scheme = Malloc(p - url + 1);
+    if (*scheme == NULL) {
+        return;
+    }
 	strncpy(*scheme, url, p - url);
 	(*scheme)[p - url] = '\0';
 	url = p+1;
@@ -782,7 +799,7 @@ static void parse_url(const char *url,
     {
 	url += 2;
 
-	for(p = (char *)url; *p; p++)
+	for(p = url; *p; p++)
 	    if(*p == '/')
 		break;
 
@@ -812,8 +829,8 @@ static void parse_url(const char *url,
 
     /* Windoze users have a tendency to use backslashes instead of slashes */
 
-    for(p=*path; *p; p++)
-	if(*p == '\\')
+    for(p1=*path; *p1; p1++)
+	if(*p1 == '\\')
 	{
 	    if(!warned)
 	    {
@@ -822,7 +839,7 @@ static void parse_url(const char *url,
 		warned = 1;
 	    }
 
-	    *p = '/';
+	    *p1 = '/';
 	}
 }
 

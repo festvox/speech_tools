@@ -44,7 +44,6 @@
 
 #ifdef __cplusplus
 #include <cstdlib>
-using namespace std;
 #else
 #include <stdlib.h>
 #endif
@@ -62,9 +61,9 @@ int EST_strncasecmp(const char *s1, const char *s2,
  }
 
 inline int EST_strcasecmp(const char *s1, const char *s2) 
-	{ return EST_strcasecmp(s1, s2, NULL); };
+	{ return EST_strcasecmp(s1, s2, NULL); }
 inline int EST_strncasecmp(const char *s1, const char *s2, size_t n)
-	{ return EST_strncasecmp(s1, s2, n, NULL); };
+	{ return EST_strncasecmp(s1, s2, n, NULL); }
 
 #endif
 

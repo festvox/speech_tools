@@ -43,42 +43,14 @@
 #include "EST_Pathname.h"
 #include "siod.h"
 
+#ifdef _WIN32
+#include <io.h>
+#endif
+
+using namespace std;
+
 static void siod_lisp_vars(void);
 static void siod_load_default_files(void);
-
-/** @name <command>siod</command> <emphasis>Scheme Interpreter</emphasis>
-    @id siod-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
- 
-   <command>siod</command> is a command line interface to the
-   <productname>Scheme In One Defun</productname> Scheme interpreter,
-   as modified by CSTR for use in &theEST;. It is essentially &festival;
-   without the speech synthesis code.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
-
 
 int main(int argc, char **argv)
 {
@@ -110,28 +82,28 @@ int main(int argc, char **argv)
     // What to do about standard input and producing prompts etc.
     if ((al.present("-i")) || (al.present("--interactive")))
     {
-	interactive = TRUE;
-	stdin_input = TRUE;
+	interactive = true;
+	stdin_input = true;
     }
     else if ((al.present("--pipe")))
     {
-	interactive=FALSE;
-	stdin_input = TRUE;
+	interactive=false;
+	stdin_input = true;
     }
     else if ((al.present("-b")) || (al.present("--batch")))
     {
-	interactive=FALSE;
-	stdin_input=FALSE;
+	interactive=false;
+	stdin_input=false;
     }
     else if (isatty(0))  // if stdin is a terminal assume interactive
     {   
-	interactive = TRUE;
-	stdin_input = TRUE;
+	interactive = true;
+	stdin_input = true;
     }
     else                     // else assume pipe mode
     {   
-	interactive = FALSE;
-	stdin_input = TRUE;
+	interactive = false;
+	stdin_input = true;
     }
 
     siod_init(heap_size);
@@ -183,7 +155,7 @@ static void siod_load_default_files(void)
     initfile += "init.scm";
 
     if (access((const char *)initfile,R_OK) == 0)
-	vload(initfile,FALSE);
+	vload(initfile,false);
     else
 	cerr << "Initialization file " << initfile << " not found" << endl;
 }

@@ -50,7 +50,9 @@
 #include "EST_cutils.h"
 #include "EST_Token.h"
 
-int StrListtoFList(EST_StrList &s, EST_FList &f)
+using namespace std;
+
+int StrListtoFList(const EST_StrList &s, EST_FList &f)
 {
     EST_Litem *p;
 
@@ -88,21 +90,20 @@ int StrListtoIList(EST_StrList &s, EST_IList &il)
 
 // read string list eclosed in brackets. Simply a place holder for
 // future use with more complicate lists.
-void BracketStringtoStrList(EST_String s, EST_StrList &l, EST_String sep)
+void BracketStringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep)
 {
     s.gsub("(", "");
     s.gsub(")", "");
     StringtoStrList(s, l, sep);
 }
     
-void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep)
+void StringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep)
 {
     EST_TokenStream ts;
     EST_String tmp;
 
     ts.open_string(s);
 
-    (void)sep;
     if (sep != "")  // default is standard white space
 	ts.set_WhiteSpaceChars(sep);
     ts.set_SingleCharSymbols(";");
@@ -117,13 +118,13 @@ void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep)
     return;
 }
     
-void StrListtoString(EST_StrList &l, EST_String &s, EST_String sep)
+void StrListtoString(EST_StrList &l, EST_String &s, const EST_String &sep)
 {
     for (EST_Litem *p = l.head(); p; p = p->next())
 	s += l(p) + sep;
 }
     
-EST_read_status load_StrList(EST_String filename, EST_StrList &l)
+EST_read_status load_StrList(const EST_String &filename, EST_StrList &l)
 {
     EST_TokenStream ts;
     EST_String s;
@@ -143,8 +144,8 @@ EST_read_status load_StrList(EST_String filename, EST_StrList &l)
     return format_ok;
 }
 
-EST_write_status save_StrList(EST_String filename, EST_StrList &l, 
-			      EST_String style)
+EST_write_status save_StrList(const EST_String &filename, const EST_StrList &l, 
+			      const EST_String &style)
 {
     ostream *outf;
     EST_Litem *p;
@@ -176,7 +177,8 @@ EST_write_status save_StrList(EST_String filename, EST_StrList &l,
 	return misc_write_error;
     }
 
-    delete outf;
+    if (outf != &cout)
+	delete outf;
 
     return write_ok;
 }
@@ -186,9 +188,9 @@ int strlist_member(const EST_StrList &l,const EST_String &s)
     EST_Litem *p;
     for (p = l.head(); p != 0; p = p->next())
 	if (l.item(p) == s)
-	    return TRUE;
+	    return true;
 
-    return FALSE;
+    return false;
 }
 
 int strlist_index(const EST_StrList &l,const EST_String &s)
@@ -207,23 +209,22 @@ int strlist_index(const EST_StrList &l,const EST_String &s)
 
 void StrList_to_StrVector(EST_StrList &l, EST_StrVector &v)
 {
-    int len,i;
+    size_t len,i;
 
     len = l.length();
     v.resize(len);
 
     //EST_TBI *p;
     EST_Litem *p;
-    for (p = l.head(),i=0; p != 0; p = p->next(),i++)
+    for (p = l.head(),i=0; p != 0; p = p->next(),++i)
 	v[i] = l(p);
 }
 
 
 void StrVector_to_StrList(EST_StrVector &v, EST_StrList &l)
 {
-    int i;
     l.clear();
-    for (i=0;i<v.length();i++)
+    for (std::ptrdiff_t i=0;i<v.length();++i)
       l.append(v[i]);
 }
 
@@ -231,7 +232,7 @@ void StrVector_to_StrList(EST_StrVector &v, EST_StrList &l)
 int StrVector_index(const EST_StrVector &v,const EST_String &s)
 {
     int i;
-    for(i=0;i<v.length();i++)
+    for(i=0;i<v.length();++i)
 	if(v(i) == s)
 	    return i;
 

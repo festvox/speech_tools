@@ -53,8 +53,6 @@
 
 #include <cstring>
 
-using namespace std;
-
 #include "EST_String.h"
 #include "EST_rw_status.h"
 

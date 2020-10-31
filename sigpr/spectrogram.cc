@@ -48,6 +48,8 @@
 #include "sigpr/EST_spectrogram.h"
 #include "sigpr/EST_misc_sigpr.h"
 
+using namespace std;
+extern template class EST_TVector<float>;
 
 void make_spectrogram(EST_Wave &sig, EST_Track &sp, EST_Features &op)
 {
@@ -143,7 +145,7 @@ void raw_spectrogram(EST_Track &sp, EST_Wave &sig,
     
     // spectrogram gets order/2 powers, the moduli of order/2
     // complex numbers
-    sp.resize(num_frames, order/2, FALSE);
+    sp.resize(num_frames, order/2, false);
 
     EST_FVector real(order);
     EST_FVector imag(order);
@@ -167,7 +169,7 @@ void raw_spectrogram(EST_Track &sp, EST_Wave &sig,
 			       window_vals, 
 			       window_start,
 			       frame_length, 
-			       real, FALSE);
+			       real, false);
       
       int state = slow?power_spectrum_slow(real, imag):power_spectrum(real, imag);
       if (state != 0)

@@ -49,6 +49,7 @@
 #include "ling_class/EST_relation_compare.h"
 #include "EST_io_aux.h"
 
+using namespace std;
 
 int close_enough(EST_Item &a, EST_Item &b)
 {
@@ -532,7 +533,7 @@ void multiple_matrix_compare(EST_RelationList &rlist, EST_RelationList
 
     for (pt = tlist.head(); pt; pt = pt->next())
     {
-	pr = RelationList_ptr_extract(rlist, tlist(pt).name(), TRUE);
+	pr = RelationList_ptr_extract(rlist, tlist(pt).name(), true);
 	if (pr != 0)
 	{
 	    reflab = rlist(pr);

@@ -132,6 +132,6 @@ int operator !=(const EST_TTI_Entry<CONTAINER> &e1,
 { (void)e1; (void)e2; return 1; }
 
 template<class CONTAINER>
-ostream& operator <<(ostream &s, 
+std::ostream& operator <<(std::ostream &s, 
 			    const EST_TTI_Entry<CONTAINER> &e)
 { (void)e; return s << "entry"; }

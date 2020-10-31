@@ -60,6 +60,8 @@
 
 #include "ling_class_init.h"
 
+using namespace std;
+
 /* Class initialisation. This is where you should register 
  * feature functions and so on.
  */
@@ -582,20 +584,20 @@ void copy_node_tree_contents(EST_Item *from, EST_Item *to)
 
 int EST_Item::verify() const
 {
-    // Return FALSE if this node and its neighbours aren't
+    // Return false if this node and its neighbours aren't
     // properly linked
 
     if (((d == 0) || (d->u == this)) &&
 	((n == 0) || (n->p == this)))
     {
         if ((d) && (!d->verify()))
-            return FALSE;
+            return false;
         if ((n) && (!n->verify()))
-            return FALSE;
-	return TRUE;
+            return false;
+	return true;
 }
     else
-	return FALSE;
+	return false;
 }
 
 EST_Item *append_daughter(EST_Item *n, EST_Item *p)

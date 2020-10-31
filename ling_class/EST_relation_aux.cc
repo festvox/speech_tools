@@ -48,7 +48,9 @@
 #include "EST_Option.h"
 #include "EST_Token.h"
 
-static int is_in_class(const EST_String &name, EST_StrList &s);
+using namespace std;
+
+static int is_in_class(const EST_String &name, const EST_StrList &s);
 
 bool dp_match(const EST_Relation &lexical,
 	      const EST_Relation &surface,
@@ -82,7 +84,7 @@ void quantize(EST_Relation &a, float q)
 
 // edit labels using a sed file to do the editing
 
-int edit_labels(EST_Relation &a, EST_String sedfile)
+int edit_labels(EST_Relation &a, const EST_String &sedfile)
 {
     EST_Item *a_ptr;
     EST_String command;
@@ -122,8 +124,11 @@ int edit_labels(EST_Relation &a, EST_String sedfile)
     }
     for (a_ptr = a.head(); a_ptr != 0; a_ptr = inext(a_ptr))
     {
-	if (fscanf(fp, "%s", newname) < 1)
+        if (fscanf(fp, "%99s", newname) != 1)
+        {
+            cerr << "Error reading newname from file" << endl;
             break;
+        }
 //	cout << "oldname: " << a_ptr->name() << " newname: " << newname << endl;
 	a_ptr->set_name(newname);
     }
@@ -182,18 +187,18 @@ void change_label(EST_Relation &seg, const EST_StrList &oname,
 		a_ptr->set_name(nname);
 }
 
-static int is_in_class(const EST_String &name, EST_StrList &s)
+static int is_in_class(const EST_String &name, const EST_StrList &s)
 {
     EST_Litem *p;
 
     for (p = s.head(); p; p = p->next())
 	if (name == s(p))
-	    return TRUE;
+	    return true;
     
-    return FALSE;
+    return false;
 }
 
-int check_vocab(EST_Relation &a, EST_StrList &vocab)
+int check_vocab(EST_Relation &a, const EST_StrList &vocab)
 {
     EST_Item *s;
     for (s = a.head(); s; s = inext(s))
@@ -414,7 +419,11 @@ int relation_divide(EST_RelationList &slist, EST_Relation &lab,
 	if (k->F("end") > lab.head()->F("end"))
 	    break;
 
-    filename = (EST_String)k->f("file");
+    if (k != NULL)
+	filename = (EST_String)k->f("file");
+    else
+	filename = "no_name";
+
     a.f.set("name", (filename + ext));
     kstart = 0.0;
     

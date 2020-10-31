@@ -50,6 +50,7 @@
 #include "EST_cutils.h"  // for swap functions 
 #include "EST_Token.h"
 #include "rateconv.h"
+#include <memory>
 
 EST_SMatrix::EST_SMatrix(EST_SMatrix &a, int b) 
 :EST_TSimpleMatrix<short>(a.num_rows(), a.num_columns())
@@ -63,9 +64,9 @@ EST_SMatrix::EST_SMatrix(EST_SMatrix &a, int b)
 
 int EST_SMatrix::rateconv(int in_samp_freq, int out_samp_freq)
 {
-  short *in_buf = new short[num_rows()];
-  short ** results = new short *[num_columns()];
-  int *len = new int[num_columns()];
+  std::unique_ptr<short[]> in_buf(new short[num_rows()]);
+  std::unique_ptr< std::unique_ptr < short >[] > results(new std::unique_ptr < short >[num_columns()]);
+  std::unique_ptr<int[]> len(new int[num_columns()]);
   int max_len=0;
 
   for(int c=0; c<num_columns(); c++)
@@ -73,33 +74,30 @@ int EST_SMatrix::rateconv(int in_samp_freq, int out_samp_freq)
       short *out_buf;
       int osize;
 
-      copy_column(c, in_buf);
+      copy_column(c, in_buf.get());
 
-      if (::rateconv(in_buf,
+      if (::rateconv(in_buf.get(),
 		   num_rows(), &out_buf, &osize,
 		   in_samp_freq, out_samp_freq) == 0)
 	{
-	  results[c]=out_buf;
+	  results[c]=std::unique_ptr<short>(out_buf);
 	  len[c]=osize;
 	  if (osize > max_len)
 	    max_len = osize;
 	}
-      else
+      else {
 	return -1;
+      }
     }
-  delete [] in_buf;
 
   resize(max_len, EST_CURRENT, 0);
   fill(0);
 
   for(int c1=0; c1<num_columns(); c1++)
     {
-      set_column(c1, results[c1], 0, len[c1]);
-      delete [] results[c1];
+      set_column(c1, results[c1].get(), 0, len[c1]);
     }
-
-  delete [] results;
-  delete [] len;
   return 0;
 }
+
 

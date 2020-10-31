@@ -44,9 +44,11 @@
 #include "EST_io_aux.h"
 #include "EST_Pathname.h"
 
+using namespace std;
+
 #ifdef SUPPORT_WIN32AUDIO
 
-#include <EST_system.h>
+#include "EST_system.h"
 
 #ifdef SYSTEM_IS_UNIX
 
@@ -54,26 +56,19 @@
 // to support win32 audio, presumably under cygnus gunwin32 These definitions
 // aren't in the gnuwin32 headers
 
-#undef TRUE
-#undef FALSE
 /*  Changed for cygwin 1
   #include <Windows32/BASE.h>
   #define SND_MEMORY          0x0004  
   #define WAVE_FORMAT_PCM     1
 */
+#ifndef NOMINMAX
+#define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
+#endif
 #include <windows.h>
-
-/* This is no longer required
-extern "C" {
-WINBOOL STDCALL PlaySoundA(LPCSTR  pszSound, HMODULE hmod, DWORD fdwSound);
-};
-
-#define PlaySound PlaySoundA
-*/
 
 #endif 
 
-int win32audio_supported = TRUE;
+bool win32audio_supported = true;
 
 struct riff_header {
   char riff[4];
@@ -98,10 +93,10 @@ int play_win32audio_wave(EST_Wave &inwave, EST_Option &al)
     struct riff_header *hdr = (struct riff_header *)buffer;
     char *data = buffer + sizeof(struct riff_header);
 
-    strncpy(hdr->riff, "RIFF", 4);
+    memcpy(hdr->riff, "RIFF", 4);
     hdr->file_size = sizeof(riff_header) + inwave.length()*sizeof(short);
-    strncpy(hdr->wave, "WAVE", 4);
-    strncpy(hdr->fmt, "fmt ", 4);
+    memcpy(hdr->wave, "WAVE", 4);
+    memcpy(hdr->fmt, "fmt ", 4);
     hdr->header_size = 16;
     hdr->sample_format = WAVE_FORMAT_PCM;
     hdr->n_channels = inwave.num_channels();
@@ -109,7 +104,7 @@ int play_win32audio_wave(EST_Wave &inwave, EST_Option &al)
     hdr->bytes_per_second = hdr->sample_rate * hdr->n_channels * 2;
     hdr->block_align =  hdr->n_channels * 2;
     hdr->bits_per_sample = 16;
-    strncpy(hdr->data, "data", 4);
+    memcpy(hdr->data, "data", 4);
     hdr->data_size = hdr->n_channels * 2 * inwave.num_samples();
   
     memcpy(data, inwave.values().memory(), hdr->n_channels * 2 * inwave.num_samples());
@@ -121,7 +116,7 @@ int play_win32audio_wave(EST_Wave &inwave, EST_Option &al)
 }
 
 #else
-int win32audio_supported = FALSE;
+bool win32audio_supported = false;
 
 int play_win32audio_wave(EST_Wave &inwave, EST_Option &al)
 {

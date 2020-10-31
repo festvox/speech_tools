@@ -51,6 +51,8 @@ template <> EST_Regex *EST_THash<EST_String, EST_Regex *>::Dummy_Value = NULL;
   Instantiate_TStringHash_T(EST_Regex *, hash_string_regex)
 #endif
 
+using namespace std;
+
 static EST_TStringHash<EST_Regex *> regexes(100);
 
 int siod_init(int heap_size)
@@ -225,26 +227,26 @@ LISP siod_nth(int n,LISP list)
 
 int siod_atomic_list(LISP list)
 {
-    // TRUE is list only contains atoms
+    // true is list only contains atoms
     LISP p;
 
     for (p=list; p != NIL; p=cdr(p))
 	if (CONSP(car(p)))
-	    return FALSE;
+	    return false;
 
-    return TRUE;
+    return true;
 }
 
 int siod_eof(LISP item)
 {
-    // TRUE if item is what siod denotes as eof
+    // true if item is what siod denotes as eof
     if (CONSP(item) &&
 	(cdr(item) == NIL) &&
 	(SYMBOLP(car(item))) &&
 	(strcmp("eof",get_c_string(car(item))) == 0))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 LISP quote(LISP l)
@@ -527,7 +529,7 @@ void siod_list_to_strlist(LISP l, EST_StrList &a)
 
 }
 
-LISP siod_strlist_to_list(EST_StrList &a)
+LISP siod_strlist_to_list(const EST_StrList &a)
 {
     // copy a into l
     LISP b=NIL;;

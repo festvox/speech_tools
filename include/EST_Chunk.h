@@ -46,7 +46,6 @@
 #define HAVE_WALLOC_H (1)
 
 #include <iostream>
-using namespace std;
 #include <climits>
 #include <sys/types.h>
 
@@ -106,8 +105,8 @@ class EST_Chunk  {
   public:
     typedef  unsigned short use_counter;
 #       define MAX_CHUNK_COUNT (USHRT_MAX)
-    typedef  int EST_chunk_size;
-#       define MAX_CHUNK_SIZE  (INT_MAX)
+    typedef  ptrdiff_t EST_chunk_size;
+#       define MAX_CHUNK_SIZE  (PTRDIFF_MAX)
 
   private:
     use_counter count;
@@ -119,7 +118,7 @@ class EST_Chunk  {
     ~EST_Chunk();
 
     EST_Chunk *operator & ();
-    void *operator new (size_t size, int bytes);
+    void *operator new (size_t size, size_t bytes);
     void operator delete (void *it);
     
     void operator ++ ()
@@ -131,9 +130,9 @@ class EST_Chunk  {
   public:
     friend class EST_ChunkPtr;
 
-    friend EST_ChunkPtr chunk_allocate(int bytes);
-    friend EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len);
-    friend EST_ChunkPtr chunk_allocate(int bytes, const EST_ChunkPtr &initial, int initial_start, int initial_len);
+    friend EST_ChunkPtr chunk_allocate(size_t bytes);
+    friend EST_ChunkPtr chunk_allocate(size_t bytes, const char *initial, size_t initial_len);
+    friend EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t initial_start, size_t initial_len);
 
     friend void cp_make_updatable(EST_ChunkPtr &shared, EST_chunk_size inuse);
     friend void cp_make_updatable(EST_ChunkPtr &shared);
@@ -141,7 +140,7 @@ class EST_Chunk  {
     friend void grow_chunk(EST_ChunkPtr &shared, EST_chunk_size inuse, EST_chunk_size newsize);
     friend void grow_chunk(EST_ChunkPtr &shared, EST_chunk_size newsize);
 
-    friend ostream &operator << (ostream &s, const EST_Chunk &chp);
+    friend std::ostream &operator << (std::ostream &s, const EST_Chunk &chp);
     friend void tester(void);
 };
 
@@ -219,8 +218,8 @@ class EST_ChunkPtr {
     });
 
 
-    const char operator [] (int i) const { return ptr->memory[i]; };
-    char &operator () (int i) CII({ 
+    char operator [] (ptrdiff_t i) const { return ptr->memory[i]; };
+    char &operator () (ptrdiff_t i) CII({ 
       if (ptr->count>1) 
 	{
 	  CHUNK_WARN("getting writable version of shared chunk\n");
@@ -230,9 +229,9 @@ class EST_ChunkPtr {
     });
 
     // Creating a new one
-    friend EST_ChunkPtr chunk_allocate(int size);
-    friend EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len);
-    friend EST_ChunkPtr chunk_allocate(int bytes, const EST_ChunkPtr &initial, int initial_start, int initial_len);
+    friend EST_ChunkPtr chunk_allocate(size_t size);
+    friend EST_ChunkPtr chunk_allocate(size_t bytes, const char *initial, size_t initial_len);
+    friend EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t initial_start, size_t initial_len);
 
     // Make sure the memory isn`t shared.
     friend void cp_make_updatable(EST_ChunkPtr &shared, EST_Chunk::EST_chunk_size inuse);
@@ -243,7 +242,7 @@ class EST_ChunkPtr {
     friend void grow_chunk(EST_ChunkPtr &shared, EST_Chunk::EST_chunk_size newsize);
 
     // we print it by just printing the chunk
-    friend ostream &operator << (ostream &s, const EST_ChunkPtr &cp) { return (s<< *cp.ptr); };
+    friend std::ostream &operator << (std::ostream &s, const EST_ChunkPtr &cp) { return (s<< *cp.ptr); };
 
     friend void tester(void);
 };

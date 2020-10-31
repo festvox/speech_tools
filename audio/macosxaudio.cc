@@ -45,6 +45,8 @@
 #include "EST_Option.h"
 #include "audioP.h"
 
+using namespace std;
+
 #if defined (SUPPORT_MACOSX_AUDIO)
 
 #include <CoreServices/CoreServices.h>
@@ -53,7 +55,7 @@
 #include <CoreAudio/CoreAudio.h>
 #include <AudioUnit/AudioUnit.h>
 
-int macosx_supported = TRUE;
+bool macosx_supported = true;
 
 AudioUnit outau;
 EST_SMatrix *waveMatrix;
@@ -91,7 +93,7 @@ OSStatus render_callback(void *inref,
   } else {
   	for(UInt32 i = 0; i < channels; ++i)
   		memset(ioData->mBuffers[i].mData, 0, ioData->mBuffers[i].mDataByteSize);
-    done = TRUE;
+    done = true;
   }
 
     return noErr;
@@ -188,7 +190,7 @@ int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
     // set up for playing
     waveSize = inwave.num_samples()*sizeof(short); 
     waveMatrix = &inwave.values();
-    done = FALSE;
+    done = false;
     waveIndex = 0;
     
     err = AudioOutputUnitStart(outau);
@@ -214,7 +216,7 @@ int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
 
 #else
 
-int macosx_supported = FALSE;
+bool macosx_supported = false;
 
 int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
 {

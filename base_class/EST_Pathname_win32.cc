@@ -44,7 +44,7 @@
  /************************************************************************/
 
 #include <cstdio>
-#include "EST_System.h"
+#include "EST_system.h"
 #include "EST_Pathname.h"
 
 void EST_Pathname::setup(void)
@@ -113,11 +113,11 @@ EST_Pathname EST_Pathname::construct(EST_Pathname dir,
   return EST_Pathname::construct(dir, filename);
 }
 
-EST_TList<EST_String> EST_Pathname::entries(int check_for_directories) const
+EST_StrList EST_Pathname::entries(int check_for_directories) const
 {
   WIN32_FIND_DATA find_data;
   HANDLE handle;
-  EST_TList<EST_String> list;
+  EST_StrList list;
   EST_Pathname pattern(this->as_directory() + EST_Pathname("*"));
 
   handle = FindFirstFile(pattern, &find_data);
@@ -193,9 +193,4 @@ EST_Pathname operator + (const EST_Pathname p, const EST_Pathname addition)
 
 EST_Pathname operator + (const char *p, const EST_Pathname addition) 
 {return EST_Pathname::append(p, addition); }
-
-EST_Pathname &operator += (EST_Pathname p, const EST_Pathname addition)
-{ p = EST_Pathname::append(p, addition); return p; }
-EST_Pathname &operator += (EST_Pathname p, const EST_String addition)
-{ p = EST_Pathname::append(p, addition); return p; }
 

@@ -43,8 +43,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 #include "EST_common.h"
 #include "EST_String.h"
 

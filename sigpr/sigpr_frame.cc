@@ -44,6 +44,8 @@
 #include "EST_error.h"
 #include "EST_TBuffer.h"
 
+using namespace std;
+
 #define ALMOST1 0.99999
 #define MAX_ABS_CEPS 4.0
 

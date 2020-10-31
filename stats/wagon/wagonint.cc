@@ -44,6 +44,8 @@
 #include "EST_Token.h"
 #include "EST_Wagon.h"
 
+using namespace std;
+
 int wagon_ask_question(LISP question, LISP value)
 {
     const char *str_oper = wgn_ques_oper_str(question);
@@ -52,39 +54,39 @@ int wagon_ask_question(LISP question, LISP value)
     {
 	if (streq(get_c_string(value),
 		  get_c_string(wgn_ques_operand(question))))
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
     }
     else if (streq("=",str_oper))
 	if (get_c_float(value) == get_c_float(wgn_ques_operand(question)))
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
     else if (streq("<",str_oper))
 	if (get_c_float(value) < get_c_float(wgn_ques_operand(question)))
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
     else if (streq(">",str_oper))
 	if (get_c_float(value) > get_c_float(wgn_ques_operand(question)))
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
     else if (streq("matches",str_oper))
     {
 	EST_Regex rgx(get_c_string(wgn_ques_operand(question)));
 	if (EST_String(get_c_string(value)).matches(rgx))
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
     }
     else if (streq("in",str_oper))
 	if (siod_member_str(get_c_string(value),
 			    wgn_ques_operand(question)) != NIL)
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
     else 
     {
 	cerr << "WAGON: unknown question operator: \"" << 
@@ -92,5 +94,5 @@ int wagon_ask_question(LISP question, LISP value)
 	siod_error();
     }
     // not reached, just for the compiler
-    return FALSE;
+    return false;
 }

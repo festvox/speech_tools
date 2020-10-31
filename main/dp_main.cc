@@ -42,6 +42,8 @@
 #include <cmath>
 #include "EST.h"
 
+using namespace std;
+
 EST_read_status load_TList_of_StrVector(EST_TList<EST_StrVector> &w,
 					const EST_String &filename,
 					const int vec_len);
@@ -76,7 +78,7 @@ static void load_vocab(const EST_String &vfile);
 static EST_Item *null_sym;
 //static EST_String deleted_marker = "<del>";
 //static EST_String inserted_marker = "<ins>";
-static bool show_cost=FALSE;
+static bool show_cost=false;
 static int prune_width = 100;
 //static float path_cost;
 int StrVector_index(const EST_StrVector &v, const EST_String &s);
@@ -103,55 +105,6 @@ float substitution_cost = 1;
 //    where vocab includes some null symbol for insertions/deletions
 
 EST_String distance_measure = "simple"; // could be "matrix"
-
-
-
-
-/** @name <command>dp</command> <emphasis> Perform dynamic programming on label sequences</emphasis>
-  * @id dp-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-dp provides simple dynamic programming to find the lowest cost
-alignment of two symbol sequences. Possible uses include:
-
-<itemizedlist>
-<listitem><para>Label alignment (e.g. speech recogniser output scoring) </para></listitem>
-</itemizedlist>
-
-The costs of inserting/deleting/substituting symbols can be given
-either with command line options, or as a file containing a full
-matrix of costs. In the former case, all insertions will have the same
-cost. In the latter case, each row of the file contains the cost of
-replacing a symbol in sequence 1 with each possible symbol in the
-vocabulary to align with sequence 2, including a special "place
-holder" symbol used for insertions/deletions. See the examples
-below. The place holder can be redefined.
-
-The output is an EST utterance with three Relations: the first two are
-the input sequences, and the third shows the alignment found by
-dynamic programming.
-
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char **argv)
@@ -241,7 +194,7 @@ int main(int argc, char **argv)
 
 
     if(al.present("-show_cost"))
-	show_cost=TRUE;
+	show_cost=true;
 
     if(files.length() != 2)
     {
@@ -375,66 +328,9 @@ bool local_prune(const int i, const int j,
        (abs((int)(near_j - (float)j)) > prune_width) )
     {
 	//cerr << "lpf " << i << "," << j << " true" << endl;
-	return TRUE;
+	return true;
     }
 
-    return FALSE;
+    return false;
 
 }
-
-
-/**@name Examples
-
-<para>
-Align two symbol sequences:
-</para>
-
-<para>
-<screen>
-$ dp -vocab vocab.file "a b c" "a b d c" -i 1 -d 2 -s 3
-</screen>
-</para>
-
-<para>
-where vocab.file contains "a b c d"
-</para>
-
-<para>
-Or, using a full cost matrix:
-</para>
-
-<para>
-<screen>
-$ dp -vocab vocab2.file -cost_matrix foo "a b c" "a b d c"
-</screen>
-</para>
-
-<para>
-where vocab2.file contains "a b c d <null>" and the file foo contains:
-</para>
-
-<para>
-<screen>
-<para>0 3 3 3 2</para>
-<para>3 0 3 3 2</para>
-<para>3 3 0 3 2</para>
-<para>3 3 3 0 2</para>
-<para>1 1 1 1 0</para>
-</screen>
-</para>
-
-<para> Each row of foo shows the cost of replacing an input symbol
-with each symbol in the vocabulary to match an output symbol. Each row
-corresponds to an item in the vocabulary (in the order they appear in
-the vocabulary file). In the example, replacing 'a' with 'a' costs 0,
-replacing 'a' with any of 'b' 'c' or 'd' costs 3 (a substitution), and
-replacing 'a' with the place holder symbol 'null' costs 2 (a
-deletion). The cost of replacing 'null' with anything other than
-'null' costs 1 (an insertion).  The costs of 1,2 and 3 used here are
-only for illustration. The cost matrix meed not have the form above -
-for example, replacing 'a' with 'a' need not cost 0. The entries in
-foo are read as floats.  </para>
-
-*/
-//@{
-//@}

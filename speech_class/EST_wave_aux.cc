@@ -48,6 +48,8 @@
 #include "EST_io_aux.h"
 #include "EST_error.h"
 
+using namespace std;
+
 void extract(EST_Wave &sig, EST_Option &al);
 
 /* Allow EST_Wave to be used in an EST_Val */
@@ -164,7 +166,7 @@ void wave_combine_channels(EST_Wave &s,const EST_Wave &m)
 	s = tmp;
 	return;
     }
-    s.resize(m.num_samples(), 1, FALSE);
+    s.resize(m.num_samples(), 1, false);
     s.set_sample_rate(m.sample_rate());
     
     for(int i=0; i<m.num_samples(); i++)

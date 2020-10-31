@@ -41,6 +41,8 @@
 #include "sigpr/EST_sigpr_utt.h"
 #include "EST_cmd_line_options.h"
 
+using namespace std;
+
 void set_parameters(EST_Features &a_list, EST_Option &al);
 
 void option_override(EST_Features &op, EST_Option al, 
@@ -48,43 +50,6 @@ void option_override(EST_Features &op, EST_Option al,
 
 static int save_pm(EST_String filename, const EST_Track& fz);
 
-/** @name <command>pda</command> <emphasis>Pitch Detection Algorithm</emphasis>
-    @id pda-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-pda is a pitch detection algorithm that produces a fundamental frequency
-contour from a speech waveform file. At present only the
-super resolution pitch determination algorithm is implemented.
-See (Medan, Yair, and Chazan, 1991) and (Bagshaw et al., 1993) for a detailed
-description of the algorithm.
-</para><para>
-
-The default values given below were found to optimise the performance
-of the pitch determination algorithm for speech data sampled at 20kHz
-using a 16\-bit waveform and low pass filter with a 600Hz cut-off
-frequency and more than \-85dB rejection above 700Hz. The best
-performances occur if the [\-p] flag is passed.  </para><para>
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main (int argc, char *argv[])
@@ -259,14 +224,3 @@ static int save_pm(EST_String filename,const EST_Track& fz)
     return 0;
 }
 
-/**@name Examples
-
-Pitch detection on typical male voice, using low pass filtering:
-<screen>
-$ pda kdt_010.wav -o kdt_010.f0 -fmin 80 -fmax 200 -L
-</screen>
-*/
-//@{
-
-//@}
-//@}

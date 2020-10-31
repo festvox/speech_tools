@@ -1,51 +1,54 @@
- /*************************************************************************/
- /*                                                                       */
- /*                Centre for Speech Technology Research                  */
- /*                     University of Edinburgh, UK                       */
- /*                         Copyright (c) 1996                            */
- /*                        All Rights Reserved.                           */
- /*                                                                       */
- /*  Permission is hereby granted, free of charge, to use and distribute  */
- /*  this software and its documentation without restriction, including   */
- /*  without limitation the rights to use, copy, modify, merge, publish,  */
- /*  distribute, sublicense, and/or sell copies of this work, and to      */
- /*  permit persons to whom this work is furnished to do so, subject to   */
- /*  the following conditions:                                            */
- /*   1. The code must retain the above copyright notice, this list of    */
- /*      conditions and the following disclaimer.                         */
- /*   2. Any modifications must be clearly marked as such.                */
- /*   3. Original authors' names are not deleted.                         */
- /*   4. The authors' names are not used to endorse or promote products   */
- /*      derived from this software without specific prior written        */
- /*      permission.                                                      */
- /*                                                                       */
- /*  THE UNIVERSITY OF EDINBURGH AND THE CONTRIBUTORS TO THIS WORK        */
- /*  DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING      */
- /*  ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   */
- /*  SHALL THE UNIVERSITY OF EDINBURGH NOR THE CONTRIBUTORS BE LIABLE     */
- /*  FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    */
- /*  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN   */
- /*  AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,          */
- /*  ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF       */
- /*  THIS SOFTWARE.                                                       */
- /*                                                                       */
- /*************************************************************************/
- /*                                                                       */
- /*                     Author :  Paul Taylor                             */
- /*                     Date   :  April 1996                              */
- /* --------------------------------------------------------------------- */
- /*                        Matrix class                                   */
- /*                                                                       */
- /*************************************************************************/
+/*************************************************************************/
+/*                                                                       */
+/*                Centre for Speech Technology Research                  */
+/*                     University of Edinburgh, UK                       */
+/*                         Copyright (c) 1996                            */
+/*                        All Rights Reserved.                           */
+/*                                                                       */
+/*  Permission is hereby granted, free of charge, to use and distribute  */
+/*  this software and its documentation without restriction, including   */
+/*  without limitation the rights to use, copy, modify, merge, publish,  */
+/*  distribute, sublicense, and/or sell copies of this work, and to      */
+/*  permit persons to whom this work is furnished to do so, subject to   */
+/*  the following conditions:                                            */
+/*   1. The code must retain the above copyright notice, this list of    */
+/*      conditions and the following disclaimer.                         */
+/*   2. Any modifications must be clearly marked as such.                */
+/*   3. Original authors' names are not deleted.                         */
+/*   4. The authors' names are not used to endorse or promote products   */
+/*      derived from this software without specific prior written        */
+/*      permission.                                                      */
+/*                                                                       */
+/*  THE UNIVERSITY OF EDINBURGH AND THE CONTRIBUTORS TO THIS WORK        */
+/*  DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING      */
+/*  ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   */
+/*  SHALL THE UNIVERSITY OF EDINBURGH NOR THE CONTRIBUTORS BE LIABLE     */
+/*  FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    */
+/*  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN   */
+/*  AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,          */
+/*  ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF       */
+/*  THIS SOFTWARE.                                                       */
+/*                                                                       */
+/*************************************************************************/
+/*                                                                       */
+/*                     Author :  Paul Taylor                             */
+/*                     Date   :  April 1996                              */
+/* --------------------------------------------------------------------- */
+/*                        Matrix class                                   */
+/*                                                                       */
+/*************************************************************************/
 
-#ifndef __FMatrix_H__
-#define __FMatrix_H__
+#ifndef FMatrix_H__
+#define FMatrix_H__
 
 #include "EST_TSimpleMatrix.h"
 #include "EST_TSimpleVector.h"
 
 #include "EST_Val.h"
 #include "EST_Val_defs.h"
+
+#include <cstdlib>
+#include <cstddef>
 
 class EST_FVector;
 
@@ -56,18 +59,25 @@ class EST_FVector;
 */
 
 class EST_FMatrix : public EST_TSimpleMatrix<float> {
-private:
 public:
+  using typename EST_TSimpleMatrix<float>::value_type;
+  using typename EST_TSimpleMatrix<float>::size_type;
+  using typename EST_TSimpleMatrix<float>::difference_type;
+  using typename EST_TSimpleMatrix<float>::reference;
+  using typename EST_TSimpleMatrix<float>::const_reference;
+  using typename EST_TSimpleMatrix<float>::pointer;
+  using typename EST_TSimpleMatrix<float>::const_pointer;
+public:
+    /// default constructor
+    EST_FMatrix(void) : EST_TSimpleMatrix<float>() {};
     /// size constructor
-    EST_FMatrix(int m, int n):EST_TSimpleMatrix<float>(m, n)  {}
+    EST_FMatrix(int m, int n) : EST_TSimpleMatrix<float>(m, n) {};
     /// copy constructor
-    EST_FMatrix(const EST_FMatrix &a):EST_TSimpleMatrix<float>(a)  {}
+    EST_FMatrix(const EST_FMatrix &m) : EST_TSimpleMatrix<float>(m) {}; 
 
     static EST_String default_file_type;
-    /// CHECK  - what does this do???
+    /// Creates a matrix of the same size as a. if b == 0, fills it with 0.0
     EST_FMatrix(const EST_FMatrix &a, int b);
-    /// default constructor
-    EST_FMatrix():EST_TSimpleMatrix<float>()  {}
 
     /// Save in file (ascii or binary)
     EST_write_status save(const EST_String &filename,
@@ -82,7 +92,7 @@ public:
     EST_read_status est_load(const EST_String &filename);
 
     /// Copy 2-d array `x` of size `rows x cols` into matrix.
-    void copyin(float **x, int rows, int cols);
+    void copyin(float **x, std::ptrdiff_t rows, std::ptrdiff_t cols);
 
     /// Add elements of 2 same sized matrices.
     EST_FMatrix &operator+=(const EST_FMatrix &a);
@@ -117,12 +127,24 @@ public:
 */
 class EST_FVector: public EST_TSimpleVector<float> {
 public:
-    /// Size constructor.
-    EST_FVector(int n): EST_TSimpleVector<float>(n) {}
-    /// Copy constructor.
-    EST_FVector(const EST_FVector &a): EST_TSimpleVector<float>(a) {}
-    /// Default constructor.
-    EST_FVector(): EST_TSimpleVector<float>() {}
+  using typename EST_TSimpleVector<float>::value_type;
+  using typename EST_TSimpleVector<float>::size_type;
+  using typename EST_TSimpleVector<float>::difference_type;
+  using typename EST_TSimpleVector<float>::reference;
+  using typename EST_TSimpleVector<float>::const_reference;
+  using typename EST_TSimpleVector<float>::pointer;
+  using typename EST_TSimpleVector<float>::const_pointer;
+public:
+    ///default constructor
+    EST_FVector() : EST_TSimpleVector<float>() {}; 
+    /// copy constructor
+    EST_FVector(const EST_FVector &v) : EST_TSimpleVector<float>(v) {};
+    /// "size" constructor
+    EST_FVector(size_type n): EST_TSimpleVector<float>(n) {}; 
+    /// memory constructor
+    EST_FVector(size_type n, pointer memory, difference_type offset=0, 
+		bool free_when_destroyed=false) :
+        EST_TSimpleVector<float>(n,memory, offset, free_when_destroyed) {};
 
     /// elementwise multiply
     EST_FVector &operator*=(const EST_FVector &s); 
@@ -155,7 +177,7 @@ float matrix_max(const EST_FMatrix &a);
 /// find largest element
 float vector_max(const EST_FVector &a);
 
-int square(const EST_FMatrix &a);
+bool square(const EST_FMatrix &a);
 /// inverse
 int inverse(const EST_FMatrix &a, EST_FMatrix &inv);
 int inverse(const EST_FMatrix &a, EST_FMatrix &inv, int &singularity);
@@ -165,7 +187,7 @@ int pseudo_inverse(const EST_FMatrix &a, EST_FMatrix &inv,int &singularity);
 
 /// some useful matrix creators
 /// make an identity matrix of dimension n
-void eye(EST_FMatrix &a, const int n);
+void eye(EST_FMatrix &a, const EST_FMatrix::size_type n);
 /// make already square matrix into I without resizing
 void eye(EST_FMatrix &a);
 
@@ -222,11 +244,11 @@ EST_FMatrix operator+(const EST_FMatrix &a, const EST_FMatrix &b);
 EST_FVector operator-(const EST_FVector &a, const EST_FVector &b);
 EST_FVector operator+(const EST_FVector &a, const EST_FVector &b);
 
-EST_FMatrix sub(const EST_FMatrix &a, int row, int col);
+EST_FMatrix sub(const EST_FMatrix &a, EST_FMatrix::difference_type row, EST_FMatrix::difference_type col);
 EST_FMatrix fmatrix_abs(const EST_FMatrix &a);
 
-EST_FMatrix row(const EST_FMatrix &a, int row);
-EST_FMatrix column(const EST_FMatrix &a, int col);
+EST_FMatrix row(const EST_FMatrix &a, EST_FMatrix::difference_type row);
+EST_FMatrix column(const EST_FMatrix &a, EST_FMatrix::difference_type col);
 
 
 /// least squares fit

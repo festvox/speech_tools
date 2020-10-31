@@ -49,6 +49,8 @@
 #include <cfloat>
 #include "EST_Ngrammar.h"
 
+using namespace std;
+
 static double fs_find_backoff_prob(EST_Ngrammar *backoff_ngrams,
 				       int order,const EST_StrVector words,
 				       int smooth_thresh);
@@ -119,7 +121,7 @@ int fs_backoff_smooth(EST_Ngrammar *backoff_ngrams,
     if (ngram.representation() != EST_Ngrammar::dense)
     {
 	cerr << "Ngrammar: can only ptsmooth dense ngrammars" << endl;
-	return FALSE;
+	return false;
     }
     else
     {
@@ -151,7 +153,7 @@ int fs_backoff_smooth(EST_Ngrammar *backoff_ngrams,
 	}
     }
 
-    return TRUE;
+    return true;
 }
 
 static double fs_find_backoff_prob(EST_Ngrammar *backoff_ngrams,

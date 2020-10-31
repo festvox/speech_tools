@@ -103,7 +103,7 @@ class EST_SCFG_Chart {
   private:
     /// pointer to grammar
     EST_SCFG *grammar;
-    /// TRUE is grammar was created internally, FALSE is can't be freed
+    /// true is grammar was created internally, false is can't be freed
     int grammar_local;
     /// Number of vertices (number of words + 1)
     int n_vertices;

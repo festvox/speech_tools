@@ -13,6 +13,10 @@
 #include "siodp.h"
 #include "EST_Pathname.h"
 
+#ifdef _WIN32
+#include <io.h>
+#endif
+
 static void siod_string_print(LISP exp, EST_String &sd);
 
 LISP open_files = NIL;
@@ -227,6 +231,7 @@ static LISP fd_to_scheme_file(int fd,
   sym->storage_as.c_file.f = (FILE *)NULL;
   sym->storage_as.c_file.name = (char *)NULL;
 
+  if (name == NULL) name = "";
   if (fd != fileno(stderr))
       open_files = cons(sym,open_files);
   sym->storage_as.c_file.name = (char *) must_malloc(strlen(name)+1);
@@ -664,10 +669,10 @@ LISP vload(const char *fname_raw, long cflag)
 void init_subrs_file(void)
 {
     long j;
-    set_gc_hooks(tc_c_file,FALSE,NULL,NULL,NULL,file_gc_free,NULL,&j);
+    set_gc_hooks(tc_c_file,false,NULL,NULL,NULL,file_gc_free,NULL,&j);
     set_print_hooks(tc_c_file,file_prin1, NULL);
     setvar(cintern("stderr"),
-	   fd_to_scheme_file(fileno(stderr),"stderr","w",FALSE),NIL);
+	   fd_to_scheme_file(fileno(stderr),"stderr","w",false),NIL);
 
  init_subr_2("fread",lfread,
   "(fread BUFFER FILE)\n\

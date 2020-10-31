@@ -48,6 +48,8 @@
 #include "EST_Option.h"
 #include "relation_io.h"
 
+using namespace std;
+
 #define DEF_SAMPLE_RATE 16000
 #define HTK_UNITS_PER_SECOND 10000000
 
@@ -630,7 +632,7 @@ static void pad_ends(EST_Relation &s, float length)
 }
 
 EST_read_status read_RelationList(EST_RelationList &plist, 
-				  EST_StrList &files, EST_Option &al)
+				  const EST_StrList &files, EST_Option &al)
 {
     EST_Litem *p, *plp;
     

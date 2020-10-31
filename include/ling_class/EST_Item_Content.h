@@ -96,7 +96,7 @@ class EST_Item_Content {
     EST_TKVL<EST_String, EST_Val> relations;
 
     EST_Item_Content& operator = (const EST_Item_Content& a);
-    friend ostream& operator << (ostream &s, const EST_Item_Content &a);
+    friend std::ostream& operator << (std::ostream &s, const EST_Item_Content &a);
 
     /**@name Relation related member functions */
     //@{

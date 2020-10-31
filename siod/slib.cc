@@ -85,13 +85,20 @@ Cambridge, MA 02138
 
 #include "EST_unix.h"
 
+#include "EST_common.h"
 #include "EST_cutils.h"
 #include "siod.h"
+#include "siod_defs.h"
 #include "siodp.h"
 
-#ifdef WIN32
-#include "winsock2.h"
+#include <cinttypes>
+
+#ifdef _WIN32
+#include <winsock2.h>
+#include <io.h>
 #endif
+
+using namespace std;
 
 static int restricted_function_call(LISP l);
 static long repl(struct repl_hooks *h);
@@ -158,9 +165,6 @@ static const char *user_te_readm = "";
 LISP (*user_readm)(int, struct gen_readio *) = NULL;
 LISP (*user_readt)(char *,long, int *) = NULL;
 void (*fatal_exit_hook)(void) = NULL;
-#ifdef THINK_C
-int ipoll_counter = 0;
-#endif
 FILE *fwarn=NULL;
 int siod_interactive = 1;
 
@@ -182,12 +186,7 @@ int num_dead_pointers = 0;
 static LISP set_restricted(LISP l);
 
 char *stack_limit_ptr = NULL;
-long stack_size = 
-#ifdef THINK_C
-  10000;
-#else
-  500000;
-#endif
+long stack_size = 500000;
 
 void NNEWCELL(LISP *_into,long _type)
 {if NULLP(freelist)               
@@ -255,8 +254,8 @@ void siod_print_welcome(void)
 }
 
 void print_hs_1(void)
-{printf("heap_size = %ld cells, %ld bytes. %ld inums. GC is %s\n",
-        heap_size,(long)(heap_size*sizeof(struct obj)),
+{printf("heap_size = %ld cells, %zu bytes. %ld inums. GC is %s\n",
+        heap_size,(heap_size*sizeof(struct obj)),
 	inums_dim,
 	(gc_kind_copying == 1) ? "stop and copy" : "mark and sweep");}
 
@@ -268,13 +267,13 @@ void print_hs_2(void)
 
 /* I don't have a clean way to do this but need to reset this if */
 /* ctrl-c occurs. */
-int audsp_mode = FALSE;
-int siod_ctrl_c = FALSE;
+int audsp_mode = false;
+int siod_ctrl_c = false;
 
 static void err_ctrl_c(void)
 {   
-    audsp_mode = FALSE;
-    siod_ctrl_c = TRUE;
+    audsp_mode = false;
+    siod_ctrl_c = true;
     err("control-c interrupt",NIL);}
 
 long no_interrupt(long n)
@@ -345,7 +344,7 @@ long repl_driver(long want_sigint,long want_init,struct repl_hooks *h)
      siod_reset_prompt();
  }
  if (k == 2) return(2);
- siod_ctrl_c = FALSE;
+ siod_ctrl_c = false;
  if (want_sigint) signal(SIGINT,handle_sigint);
  close_open_files();
  catch_framep = (struct catch_frame *) NULL;
@@ -428,7 +427,7 @@ long repl_c_string(char *str,
  else
    return(2);}
 
-#ifdef unix
+#ifdef __unix__
 #include <sys/types.h>
 #include <sys/times.h>
 double myruntime(void)
@@ -439,7 +438,7 @@ double myruntime(void)
  total += b.tms_stime;
  return(total / 60.0);}
 #else
-#if defined(THINK_C) | defined(WIN32) | defined(VMS)
+#if defined(WIN32) | defined(VMS)
 #ifndef CLOCKS_PER_SEC
 #define CLOCKS_PER_SEC CLK_TCK
 #endif
@@ -558,7 +557,7 @@ static long repl(struct repl_hooks *h)
 	x = NIL;
     }
     else if ((restricted != NIL) &&
-	     (restricted_function_call(x) == FALSE))
+	     (restricted_function_call(x) == false))
 	err("Expression contains functions not in restricted list",x);
     else
     {
@@ -751,7 +750,7 @@ LISP gen_intern(char *name,int require_copy)
 LISP cintern(const char *name)
 {
     char *dname = (char *)(void *)name;
-    return(gen_intern(dname,FALSE));
+    return(gen_intern(dname,false));
 }
 
 LISP rintern(const char *name)
@@ -759,17 +758,17 @@ LISP rintern(const char *name)
     if (name == 0)
 	return NIL;
     char *dname = (char *)(void *)name;
-    return gen_intern(dname,TRUE);
+    return gen_intern(dname,true);
 }
 
 LISP intern(LISP name)
 {return(rintern(get_c_string(name)));}
 
-LISP subrcons(long type, const char *name, SUBR_FUNC f)
+LISP subrcons(long type, const char *name, void(*f)(void))
 {LISP z;
  NEWCELL(z,type);
  (*z).storage_as.subr.name = name;
- (*z).storage_as.subr0.f = f;
+ (*z).storage_as.subr0.f = (SUBR_FUNC) f;
  return(z);}
 
 LISP closure(LISP env,LISP code)
@@ -791,8 +790,8 @@ void gc_unprotect(LISP *location)
     }
     if (reg == 0)
     {
-	fprintf(stderr,"Cannot unprotected %lx: never protected\n",
-		(unsigned long)*location);
+	fprintf(stderr,"Cannot unprotected %p: never protected\n",
+		(void*)*location);
 	fflush(stderr);
     }
     else if (l==0) /* its the first one in the list that needs to be deleted */
@@ -908,30 +907,30 @@ void init_storage(int init_heap_size)
  stack_limit_ptr = STACK_LIMIT(stack_start_ptr,stack_size);
 }
 
-void init_subr(const char *name, long type, SUBR_FUNC fcn)
+void init_subr(const char *name, long type, void(*fcn)(void))
 {setvar(cintern(name),subrcons(type,name,fcn),NIL);}
-void init_subr(const char *name, long type, SUBR_FUNC fcn,const char *doc)
+void init_subr(const char *name, long type, void(*fcn)(void),const char *doc)
 {LISP lname = cintern(name);
  setvar(lname,subrcons(type,name,fcn),NIL);
  setdoc(lname,cstrcons(doc));}
 
 /* New versions requiring documentation strings */
 void init_subr_0(const char *name, LISP (*fcn)(void),const char *doc)
-{init_subr(name,tc_subr_0,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_0,(void(*)(void))fcn,doc);}
 void init_subr_1(const char *name, LISP (*fcn)(LISP),const char *doc)
-{init_subr(name,tc_subr_1,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_1,(void(*)(void))fcn,doc);}
 void init_subr_2(const char *name, LISP (*fcn)(LISP,LISP),const char *doc)
-{init_subr(name,tc_subr_2,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_2,(void(*)(void))fcn,doc);}
 void init_subr_3(const char *name, LISP (*fcn)(LISP,LISP,LISP),const char *doc)
-{init_subr(name,tc_subr_3,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_3,(void(*)(void))fcn,doc);}
 void init_subr_4(const char *name, LISP (*fcn)(LISP,LISP,LISP,LISP),const char *doc)
-{init_subr(name,tc_subr_4,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_subr_4,(void(*)(void))fcn,doc);}
 void init_lsubr(const char *name, LISP (*fcn)(LISP),const char *doc)
-{init_subr(name,tc_lsubr,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_lsubr,(void(*)(void))fcn,doc);}
 void init_fsubr(const char *name, LISP (*fcn)(LISP,LISP),const char *doc)
-{init_subr(name,tc_fsubr,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_fsubr,(void(*)(void))fcn,doc);}
 void init_msubr(const char *name, LISP (*fcn)(LISP *,LISP *),const char *doc)
-{init_subr(name,tc_msubr,(SUBR_FUNC)fcn,doc);}
+{init_subr(name,tc_msubr,(void(*)(void))fcn,doc);}
 
 struct user_type_hooks *get_user_type_hooks(long type)
 {long n;
@@ -994,16 +993,27 @@ LISP gc_relocate(LISP x)
        if (FLONMPNAME(x) != NULL)
 	   wfree(FLONMPNAME(x));    /* free the print name */
        FLONMPNAME(x) = NULL;
+       EST_SWITCH_FALLTHROUGH;
     case tc_cons:
+       EST_SWITCH_FALLTHROUGH;
     case tc_symbol:
+       EST_SWITCH_FALLTHROUGH;
     case tc_closure:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_0:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_1:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_2:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_3:
+       EST_SWITCH_FALLTHROUGH;
     case tc_subr_4:
+       EST_SWITCH_FALLTHROUGH;
     case tc_lsubr:
+       EST_SWITCH_FALLTHROUGH;
     case tc_fsubr:
+       EST_SWITCH_FALLTHROUGH;
     case tc_msubr:
       if ((nw = heap) >= heap_end) gc_fatal_error();
       heap = nw+1;
@@ -1134,10 +1144,6 @@ static void gc_mark_and_sweep(void)
  mark_protected_registers();
  mark_locations((LISP *) stack_start_ptr,
 		(LISP *) &stack_end);
-#ifdef THINK_C
- mark_locations((LISP *) ((char *) stack_start_ptr + 2),
-		(LISP *) ((char *) &stack_end + 2));
-#endif
  gc_sweep();
  gc_ms_stats_end();}
 
@@ -1502,6 +1508,7 @@ LISP leval(LISP x,LISP qenv)
 	     else 
 		 goto loop;}
 	   err("bad function",tmp);}
+     EST_SWITCH_FALLTHROUGH;
     default:
         siod_backtrace = cdr(siod_backtrace);
         return(x);}}
@@ -1537,8 +1544,10 @@ void set_type_hooks(long type,
  p->equal = equal;
 }
 
-int f_getc(FILE *f)
-{long iflag;
+int f_getc(void *arg)
+{
+ FILE *f = (FILE *) arg;
+ long iflag;
  int c;
  iflag = no_interrupt(1);
  c = getc(f);
@@ -1550,18 +1559,21 @@ int f_getc(FILE *f)
  no_interrupt(iflag);
  return(c);}
 
-void f_ungetc(int c, FILE *f)
-{ungetc(c,f);}
+void f_ungetc(int c, void *arg)
+{
+  FILE *f = (FILE *) arg;
+  ungetc(c,f);
+}
 
-#ifdef WIN32
+#ifdef _WIN32
 int winsock_unget_buffer;
 bool winsock_unget_buffer_unused=true;
 bool use_winsock_unget_buffer;
 
-int f_getc_winsock(HANDLE h)
-{long iflag,dflag;
+int f_getc_winsock(void* arg)
+{long iflag;
  char c;
- DWORD lpNumberOfBytesRead;
+ HANDLE h = *((HANDLE*) arg);
  iflag = no_interrupt(1);
  if (use_winsock_unget_buffer)
  {
@@ -1583,8 +1595,9 @@ int f_getc_winsock(HANDLE h)
  no_interrupt(iflag);
  return(c);}
 
-void f_ungetc_winsock(int c, HANDLE h)
+void f_ungetc_winsock(int c, void* h)
 {
+ (void) h;
  if (winsock_unget_buffer_unused)
  {
   cerr << "f_ungetc_winsock: tried to unget before reading socket\n";
@@ -1606,31 +1619,31 @@ LISP lreadf(FILE *f)
 {struct gen_readio s;
  if ((f == stdin) && (isatty(0)) && (siod_interactive))
  {   /* readline (if selected) stuff -- only works with a terminal */
-     s.getc_fcn = (int (*)(char *))siod_fancy_getc;
-     s.ungetc_fcn = (void (*)(int, char *))siod_fancy_ungetc;
-     s.cb_argument = (char *) f;
+     s.getc_fcn = siod_fancy_getc;
+     s.ungetc_fcn = siod_fancy_ungetc;
+     s.cb_argument = f;
  }
  else  /* normal stuff */
  {
-     s.getc_fcn = (int (*)(char *))f_getc;
-     s.ungetc_fcn = (void (*)(int, char *))f_ungetc;
-     s.cb_argument = (char *) f;
+     s.getc_fcn = f_getc;
+     s.ungetc_fcn = f_ungetc;
+     s.cb_argument = f;
  }
  return(readtl(&s));}
 
-#ifdef WIN32
+#ifdef _WIN32
 LISP lreadwinsock(void)
 {
 	struct gen_readio s;
-	s.getc_fcn = (int (*)(char *))f_getc_winsock;
-	s.ungetc_fcn = (void (*)(int, char *))f_ungetc_winsock;
-	s.cb_argument = (char *) siod_server_socket;
+	s.getc_fcn = f_getc_winsock;
+	s.ungetc_fcn = f_ungetc_winsock;
+	s.cb_argument = &siod_server_socket;
 	return(readtl(&s));}
 #endif
 
 LISP readtl(struct gen_readio *f)
 {int c;
- c = flush_ws(f,(char *)NULL);
+ c = flush_ws(f,NULL);
  if (c == EOF) return(eof_val);
  UNGETC_FCN(c,f);
  return(lreadr(f));}
@@ -1659,7 +1672,7 @@ static LISP lreadr(struct gen_readio *f)
        repl_prompt = last_prompt;
        return rval;
     case ')':
-      err("unexpected close paren",NIL);
+      return(err("unexpected close paren",NIL));
     case '\'':
       return(cons(sym_quote,cons(lreadr(f),NIL)));
     case '`':
@@ -2001,23 +2014,23 @@ static int restricted_function_call(LISP l)
     LISP p;
     
     if (l == NIL)
-	return TRUE;
+	return true;
     else if (!consp(l))
-	return TRUE;
+	return true;
     else if (TYPE(car(l)) == tc_symbol)
     {
 	if (streq("quote",get_c_string(car(l))))
-	    return TRUE;
+	    return true;
 	else if (siod_member_str(get_c_string(car(l)),restricted) == NIL)
-	    return FALSE;
+	    return false;
     }
-    else if (restricted_function_call(car(l)) == FALSE)
-	return FALSE;
+    else if (restricted_function_call(car(l)) == false)
+	return false;
 
     // As its some type of list with a valid car, check the cdr
     for (p=cdr(l); consp(p); p=cdr(p))
-	if (restricted_function_call(car(p)) == FALSE)
-	    return FALSE;
-    return TRUE;
+	if (restricted_function_call(car(p)) == false)
+	    return false;
+    return true;
 }
 

@@ -43,19 +43,6 @@
 #if !defined(EST_IOSTREAM_H)
 #    define EST_IOSTREAM_H 1
 
-#include "EST_system.h"
-
-#if defined(__EMX__)
-    /* For OS/2 */
-#   include <iostream>
-using namespace std;
-#elif defined(SYSTEM_IS_UNIX)
-#   include <iostream>
-using namespace std;
-#elif defined(SYSTEM_IS_WIN32)
-#   include "win32/EST_iostream_win32.h"
-#else
-#   error No System Selected
-#endif
+#include <iostream>
 
 #endif

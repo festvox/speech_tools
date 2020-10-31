@@ -40,8 +40,8 @@
  /*                                                                       */
  /*************************************************************************/
 
-#ifndef __EST_TSimpleVector_H__
-#define __EST_TSimpleVector_H__
+#ifndef EST_TSimpleVector_H__
+#define EST_TSimpleVector_H__
 
 #include "EST_TVector.h"
 #include "instantiate/EST_TSimpleVectorI.h"
@@ -53,6 +53,15 @@
  *  containing simple types, such as `float` or `int`.
 */
 template <class T> class EST_TSimpleVector : public EST_TVector<T> {
+public:
+  using value_type = T;
+  using typename EST_TVector<T>::size_type;
+  using typename EST_TVector<T>::difference_type;
+  using typename EST_TVector<T>::reference;
+  using typename EST_TVector<T>::const_reference;
+  using typename EST_TVector<T>::pointer;
+  using typename EST_TVector<T>::const_pointer;
+
 private:
     /// private copy function
     void copy(const EST_TSimpleVector<T> &a); 
@@ -62,23 +71,22 @@ public:
     /// copy constructor
     EST_TSimpleVector(const EST_TSimpleVector<T> &v);
     /// "size" constructor
-    EST_TSimpleVector(int n): EST_TVector<T>(n) {}; 
+    EST_TSimpleVector(size_type n): EST_TVector<T>(n) {}; 
     /// memory constructor
-    EST_TSimpleVector(int n, T* memory, int offset=0, 
-		      int free_when_destroyed=0): EST_TVector<T>(n,memory)
-    {
-        (void) offset;
-        (void) free_when_destroyed;
-    }; 
+    EST_TSimpleVector(size_type n, pointer memory, difference_type offset=0, 
+		      bool free_when_destroyed=false):
+        EST_TVector<T>(n,memory, offset, free_when_destroyed) {}; 
 
     /// resize vector
-    void resize(int n, int set=1); 
+    void resize(size_type n, bool set=true); 
 
     /// assignment operator
     EST_TSimpleVector &operator=(const EST_TSimpleVector<T> &s); 
 
-    void copy_section(T* dest, int offset=0, int num=-1) const;
-    void set_section(const T* src, int offset=0, int num=-1);
+    void copy_section(pointer dest, difference_type offset=0,
+                      difference_type num=-1) const;
+    void set_section(const_pointer src, difference_type offset=0,
+                     difference_type num=-1);
 
     /// Fill entire array with 0 bits. 
     void zero(void);

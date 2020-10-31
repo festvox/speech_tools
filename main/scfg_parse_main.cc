@@ -47,46 +47,12 @@
 #include "EST_SCFG_Chart.h"
 #include "siod.h"
 
+using namespace std;
+
 static EST_String outfile = "-";
 
 static int scfg_parse_main(int argc, char **argv);
 
-
-/** @name <command>scfg_parse</command> <emphasis>Parse text using a pre-trained stochastic context free grammar</emphasis>
-    @id scfg-parse-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
-This parses given text with a given stochastic context free grammar.
-Note this program is not designed as an arbitrary parser for
-unrestricted English.  It simply parses the input non-terminals
-with the given grammar.  If you want to English (or other language)
-parses consider using the festival script <command>scfg_parse</command>
-which does proper tokenization and part of speech tagging, before
-passing it to a SCFG.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 int main(int argc, char **argv)
 {

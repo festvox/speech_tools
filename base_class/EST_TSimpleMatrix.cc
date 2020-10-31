@@ -47,21 +47,20 @@
 #include <cstring>
 #include "EST_cutils.h"
 
-using std::memcpy;
 
 template<class T> 
 void EST_TSimpleMatrix<T>::copy_data(const EST_TSimpleMatrix<T> &a)
 {
     
   if (!a.p_sub_matrix && !this->p_sub_matrix)
-    memcpy((void *)&this->a_no_check(0,0),
-	   (const void *)&a.a_no_check(0,0),
-	   this->num_rows()*this->num_columns()*sizeof(T)
-	   );
+    std::memcpy(&this->a_no_check(0,0),
+	        &a.a_no_check(0,0),
+	        this->num_rows()*this->num_columns()*sizeof(T)
+	        );
   else
     {
-    for (int i = 0; i < this->num_rows(); ++i)
-      for (int j = 0; j < this->num_columns(); ++j)
+    for (EST_TSimpleMatrix<T>::difference_type i = 0; i < this->num_rows(); ++i)
+      for (EST_TSimpleMatrix<T>::difference_type j = 0; j < this->num_columns(); ++j)
 	this->a_no_check(i,j) = a.a_no_check(i,j);
     }
 }
@@ -82,13 +81,12 @@ EST_TSimpleMatrix<T>::EST_TSimpleMatrix(const EST_TSimpleMatrix<T> &in) : EST_TM
 }
 
 template<class T> 
-void EST_TSimpleMatrix<T>::resize(int new_rows, 
-				  int new_cols, 
+void EST_TSimpleMatrix<T>::resize(EST_TSimpleMatrix<T>::size_type new_rows, 
+				  EST_TSimpleMatrix<T>::size_type new_cols, 
 				  int set)
 {
-  T* old_vals=NULL;
-  int old_offset = this->p_offset;
-  unsigned int q;
+  EST_TSimpleMatrix<T>::pointer old_vals=NULL;
+  EST_TSimpleMatrix<T>::difference_type old_offset = this->p_offset;
 
   if (new_rows<0)
     new_rows = this->num_rows();
@@ -99,36 +97,36 @@ void EST_TSimpleMatrix<T>::resize(int new_rows,
     {
       if (!this->p_sub_matrix && new_cols == this->num_columns() && new_rows != this->num_rows())
 	{
-	  int copy_r = Lof(this->num_rows(), new_rows);
+	  EST_TSimpleMatrix<T>::size_type copy_r = std::min(this->num_rows(), new_rows);
 
 	  this->just_resize(new_rows, new_cols, &old_vals);
 
-          for (q=0; q<(copy_r*new_cols*sizeof(T)); q++) /* memcpy */
-              ((char *)this->p_memory)[q] = ((char *)old_vals)[q];
-
-	  int i,j;
+	  std::memmove(this->p_memory, old_vals, copy_r*new_cols*sizeof(T));
 	  
 	  if (new_rows > copy_r)
           {
 	    if (*this->def_val == 0)
 	      {
-                  for (q=0; q<(new_rows-copy_r)*new_cols*sizeof(T); q++) /* memset */
-                ((char *)(this->p_memory + copy_r*this->p_row_step))[q] = 0;
+                  std::memset(
+                      this->p_memory + copy_r*this->p_row_step,
+                      0,
+                      (new_rows-copy_r)*new_cols*sizeof(T)
+                  );
 	      }
 	    else
 	      {
-		for(j=0; j<new_cols; j++)
-		  for(i=copy_r; i<new_rows; i++)
+		for(EST_TSimpleMatrix<T>::difference_type j=0; j<new_cols; j++)
+		  for(EST_TSimpleMatrix<T>::difference_type i=copy_r; i<new_rows; i++)
 		    this->a_no_check(i,j) = *this->def_val;
 	      }
           }
 	}
       else if (!this->p_sub_matrix)
 	{
-	  int old_row_step = this->p_row_step;
-	  int old_column_step = this->p_column_step;
-	  int copy_r = Lof(this->num_rows(), new_rows);
-	  int copy_c = Lof(this->num_columns(), new_cols);
+	  EST_TSimpleMatrix<T>::size_type old_row_step = this->p_row_step;
+	  EST_TSimpleMatrix<T>::size_type old_column_step = this->p_column_step;
+	  EST_TSimpleMatrix<T>::size_type copy_r = std::min(this->num_rows(), new_rows);
+	  EST_TSimpleMatrix<T>::size_type copy_c = std::min(this->num_columns(), new_cols);
 	  
 	  this->just_resize(new_rows, new_cols, &old_vals);
 
@@ -137,23 +135,24 @@ void EST_TSimpleMatrix<T>::resize(int new_rows,
 		     0, copy_r,
 		     0, copy_c);
 
-	  int i,j;
 	  
-	  for(i=0; i<copy_r; i++)
-	    for(j=copy_c; j<new_cols; j++)
+	  for(EST_TSimpleMatrix<T>::difference_type i=0; i<copy_r; i++)
+	    for(EST_TSimpleMatrix<T>::difference_type j=copy_c; j<new_cols; j++)
 	      this->a_no_check(i,j) =  *this->def_val;
 	  
 	  if (new_rows > copy_r)
           {
 	    if (*this->def_val == 0)
 	      {
-                  for (q=0; q<((new_rows-copy_r)*new_cols*sizeof(T)); q++) /* memset */
-                ((char *)(this->p_memory + copy_r*this->p_row_step))[q] = 0;
+                  std::memset(
+                      this->p_memory + copy_r*this->p_row_step,
+                      0,
+                      (new_rows-copy_r)*new_cols*sizeof(T));
 	      }
 	    else
 	      {
-		for(j=0; j<new_cols; j++)
-		  for(i=copy_r; i<new_rows; i++)
+		for(EST_TSimpleMatrix<T>::difference_type j=0; j<new_cols; j++)
+		  for(EST_TSimpleMatrix<T>::difference_type i=copy_r; i<new_rows; i++)
 		    this->a_no_check(i,j) = *this->def_val;
 	      }
           }

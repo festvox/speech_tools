@@ -58,7 +58,7 @@ int main(void)
 
 	EST_String name = getString(*i, "name", EST_String::Empty, status);
 
-	cout << "Name=" << name << "\n";
+	std::cout << "Name=" << name << std::endl;
     }
   
     exit(0);

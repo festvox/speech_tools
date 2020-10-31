@@ -44,6 +44,8 @@
 #include "EST_cutils.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 static LISP lts_find_feasible_pairs(LISP rules);
 static LISP make_fp(LISP in, LISP out);
 static LISP find_outs(LISP rule);
@@ -140,13 +142,13 @@ static LISP find_ins(LISP rule)
 {
     // find all symbols in [] in rule
     LISP c;
-    int state=FALSE;
+    int state=false;
     LISP ins = NIL;
 
     for (c=rule; c != NIL; c=cdr(c))
     {
 	if (streq("[",get_c_string(car(c))))
-	    state=TRUE;
+	    state=true;
 	else if (streq("]",get_c_string(car(c))))
 	    break;
 	else if (state)
@@ -159,13 +161,13 @@ static LISP find_outs(LISP rule)
 {
     // find all symbols after = rule
     LISP c;
-    int state=FALSE;
+    int state=false;
     LISP outs = NIL;
 
     for (c=rule; c != NIL; c=cdr(c))
     {
 	if (streq("=",get_c_string(car(c))))
-	    state=TRUE;
+	    state=true;
 	else if (state)
 	    outs = cons(car(c),outs);
     }

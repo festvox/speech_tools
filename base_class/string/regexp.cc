@@ -176,7 +176,7 @@ STATIC char *regpiece(int *flagp);
 STATIC char *regatom(int *flagp);
 STATIC char *regnode(char op);
 STATIC char *regnext(char *p);
-STATIC void regc(char b);
+STATIC void regc(int b);
 STATIC void reginsert(char op, char *opnd);
 STATIC void regtail(char *p, char *val);
 STATIC void regoptail(char *p, char *val);
@@ -667,7 +667,7 @@ regnode(char op)
  - regc - emit (if appropriate) a byte of code
  */
 static void
-regc(char b)
+regc(int b)
 {
 	if (regcode != &regdummy)
 		*regcode++ = b;

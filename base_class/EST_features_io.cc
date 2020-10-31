@@ -43,6 +43,8 @@
 #include "EST_String.h"
 #include "EST_Token.h"
 
+using namespace std;
+
 void EST_Features::set_function(const EST_String &name, 
 			        const EST_String &funcname)
 {
@@ -199,7 +201,7 @@ EST_read_status EST_Features::load_sexpr(EST_TokenStream &ts)
 	    }
 	    ts.get();
 	    f = ts.get().string();  /* feature name */
-	    if ((ts.peek() == "(") && (ts.peek().quoted() == FALSE))
+	    if ((ts.peek() == "(") && (ts.peek().quoted() == false))
 	    {
 		EST_Features fv;
 		set(f,fv);

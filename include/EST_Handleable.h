@@ -37,8 +37,6 @@
 
 #include <climits>
 
-using namespace std;
-
 /** @class EST_Handleable
   * @ingroup supportclasses
   * @brief Reference Counting Interface.

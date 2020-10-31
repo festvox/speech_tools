@@ -186,7 +186,7 @@ enum EST_error_behaviour
 /* but we need the basic versions.                                       */
 
 inline const char *error_name(const EST_String val) {return val;}
-inline const char *error_name(const void *val) {return EST_String::cat("<<ptr:", EST_String::Number((long)val, 16), ">>");}
+inline const char *error_name(const void *val) {return EST_String::cat("<<ptr:", EST_String::Number((ptrdiff_t)val, 16), ">>");}
 inline const char *error_name(const EST_Regex val) {return val.tostring();}
 inline const char *error_name(int val) {return EST_String::Number(val);}
 inline const char *error_name(long val) {return EST_String::Number(val);}

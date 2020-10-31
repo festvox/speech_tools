@@ -43,6 +43,7 @@
 
 #include "EST_Token.h"
 #include "EST_TNamedEnum.h"
+#include "EST_Track.h"
 #include "EST_String.h"
 #include "EST_rw_status.h"
 #include "htk.h"

@@ -43,6 +43,7 @@
 #include "EST_simplestats.h"
 #include "EST_rw_status.h"
 #include "EST_TList.h"
+#include "EST_types.h"
 #include "siod.h"
 
 /** \class EST_bracketed_string
@@ -91,8 +92,8 @@ class EST_bracketed_string {
     int operator ==(const EST_bracketed_string &a) const 
        { return ((this == &a)); }
     ///
-    friend ostream& operator << (ostream &s, const EST_bracketed_string &a)
-       { (void)a; s << "[a bracketed string]" << endl; return s; }
+    friend std::ostream& operator << (std::ostream &s, const EST_bracketed_string &a)
+       { (void)a; s << "[a bracketed string]" << std::endl; return s; }
 
 };
 
@@ -128,13 +129,19 @@ class EST_SCFG_Rule {
     est_scfg_rtype p_type;
     double p_prob;
   public:
-    ///
+    /// Default constructor
     EST_SCFG_Rule() {p_type=est_scfg_unset; p_prob=0; p_mother=0;
         p_daughter2 = 0; p_daughter1 = 0;}
-    ///
+    /// Copy constructor
     EST_SCFG_Rule(const EST_SCFG_Rule &r) 
       {p_mother = r.p_mother; p_daughter1 = r.p_daughter1;
        p_daughter2 = r.p_daughter2; p_type=r.p_type; p_prob = r.p_prob;}
+
+    /// Assignment operator
+    EST_SCFG_Rule& operator=(const EST_SCFG_Rule &r)
+      {p_mother = r.p_mother; p_daughter1 = r.p_daughter1;
+       p_daughter2 = r.p_daughter2; p_type=r.p_type; p_prob = r.p_prob; return *this;}
+
     /// Create a unary rule.
     EST_SCFG_Rule(double prob,int p,int m);
     /// Create a binary rule.

@@ -41,7 +41,7 @@
 written in matlab.
 */
 
-#include "stdlib.h"
+#include "cstdlib"
 #include "sigpr/EST_filter.h"
 #include "sigpr/EST_pitchmark.h"
 #include "ling_class/EST_Relation.h"
@@ -50,6 +50,7 @@ written in matlab.
 #include "EST_wave_aux.h"
 #include "EST_track_aux.h"
 
+using namespace std;
 
 void delta(EST_Wave &tr, EST_Wave &d, int regression_length);
 

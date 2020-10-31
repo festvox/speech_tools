@@ -17,6 +17,8 @@
 #ifndef __EST_SIOD_DEFS_H__
 #define __EST_SIOD_DEFS_H__
 
+#include "EST_Val.h"
+
 /* This states the default heap size is effective unset */
 /* The size if no heap is specified by a command argument, the */
 /* value of the environment variable SIODHEAPSIZE will be used */
@@ -181,9 +183,9 @@ typedef LISP (*SUBR_FUNC)(void);
 #define MKPTR(x) (siod_make_ptr((void *)x))
 
 struct gen_readio
-{int (*getc_fcn)(char *);
- void (*ungetc_fcn)(int, char *);
- char *cb_argument;};
+{int (*getc_fcn)(void *);
+ void (*ungetc_fcn)(int, void *);
+ void *cb_argument;};
 
 #define GETC_FCN(x) (*((*x).getc_fcn))((*x).cb_argument)
 #define UNGETC_FCN(c,x) (*((*x).ungetc_fcn))(c,(*x).cb_argument)
@@ -212,9 +214,9 @@ int NAME##_p(LISP x)                                   \
 {                                                      \
     if (val_p(x) &&                                    \
         (val_type_##NAME == val(x).type()))            \
-	return TRUE;                                   \
+	return true;                                   \
     else                                               \
-	return FALSE;                                  \
+	return false;                                  \
 }                                                      \
                                                        \
 LISP siod(const class CLASS *v)                        \
@@ -244,9 +246,9 @@ int NAME##_p(LISP x)                                   \
 {                                                      \
     if (val_p(x) &&                                    \
         (val_type_##NAME == val(x).type()))            \
-	return TRUE;                                   \
+	return true;                                   \
     else                                               \
-	return FALSE;                                  \
+	return false;                                  \
 }                                                      \
                                                        \
 LISP siod(const CLASS *v)                              \
@@ -269,9 +271,9 @@ int NAME##_p(LISP x)                                   \
 {                                                      \
     if (val_p(x) &&                                    \
         (val_type_##NAME == val(x).type()))            \
-	return TRUE;                                   \
+	return true;                                   \
     else                                               \
-	return FALSE;                                  \
+	return false;                                  \
 }                                                      \
                                                        \
 LISP siod(const CLASS v)                               \

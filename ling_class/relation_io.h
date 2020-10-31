@@ -56,10 +56,10 @@ EST_write_status save_esps_label(const EST_String &filename,
 EST_write_status save_htk_label(const EST_String &filename, 
 				const EST_Relation &a);
 
-EST_write_status save_esps_label(ostream *outf,
+EST_write_status save_esps_label(std::ostream *outf,
 				 const EST_Relation &s,
 				 bool evaluate_ff);
-EST_write_status save_htk_label(ostream *outf,
+EST_write_status save_htk_label(std::ostream *outf,
 				const EST_Relation &a);
 
 #endif /* __RELATION_IO.H__ */

@@ -482,7 +482,7 @@ int EST_String::subst(EST_String source,
 
   // printf("match '%s'\n", (const char *)(*this));
 
-  int i;
+  EST_string_size i;
   if (size > 0)
     {
     int escaped=0;
@@ -954,7 +954,7 @@ EST_String &EST_String::operator = (const EST_String &s)
 EST_String downcase(const EST_String &s)
 {
     EST_String t = EST_String(s.size, chunk_allocate(s.size+1, s.str(), s.size));
-    int i;
+    EST_String::EST_string_size i;
 
     for (i=0; i < s.length(); i++)
 	if (isupper(s(i)))
@@ -967,7 +967,7 @@ EST_String downcase(const EST_String &s)
 EST_String upcase(const EST_String &s)
 {
     EST_String t = EST_String(s.size, chunk_allocate(s.size+1, s.str(), s.size));
-    int i;
+    EST_String::EST_string_size i;
 
     for (i=0; i < s.length(); i++)
 	if (islower(s(i)))
@@ -1084,7 +1084,7 @@ EST_String EST_String::unquote_if_needed(const char quotec) const
   return *this;
 }
 
-ostream &operator << (ostream &s, const EST_String &str)
+std::ostream &operator << (std::ostream &s, const EST_String &str)
 
 {
   if (str.size > 0)
@@ -1206,7 +1206,7 @@ int operator == (const EST_String &a, const EST_String &b)
 	return 0;
     else 
 	return a.size == b.size && a(0) == b(0) && memcmp(a.str(),b.str(),a.size)==0;
-};
+}
 
 EST_String EST_String::Number(int i, int b)
 {
@@ -1251,6 +1251,32 @@ EST_String EST_String::Number(long i, int b)
       break;
     default:
       format="??%ld??";
+      break;
+    }
+  sprintf(buf, format, i);
+
+  return EST_String(buf);
+}
+
+
+EST_String EST_String::Number(long long i, int b)
+{
+  char buf[64];
+  const char *format;
+
+  switch (b)
+    {
+    case 8:
+      format="0%llo";
+      break;
+    case 10:
+      format="%lld";
+      break;
+    case 16:
+      format="0x%llx";
+      break;
+    default:
+      format="??%lld??";
       break;
     }
   sprintf(buf, format, i);

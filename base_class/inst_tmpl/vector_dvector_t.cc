@@ -53,17 +53,4 @@ template class EST_TVector<EST_DVector>;
 
 #endif
 
-int operator !=(const EST_DVector &fv1, 
-		const EST_DVector &fv2)
-{
-    int i;
-    if(fv1.length() != fv2.length())
-	return FALSE;
-    for(i=0;i<fv1.length();i++)
-	if(fv1.a_no_check(i) != fv2.a_no_check(i))
-	    return FALSE;
-
-    return TRUE;
-}
-
 

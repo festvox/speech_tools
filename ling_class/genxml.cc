@@ -50,6 +50,7 @@
 
 #include "ling_class_init.h"
 
+extern template class EST_THash<EST_String, EST_String>;
 
 static EST_Regex simpleIDRegex("[^#]*#id(\\([-a-z0-9]+\\))");
 static EST_Regex rangeIDRegex("[^#]*#id(\\([a-z]*\\)\\([0-9]*\\)\\(-\\([0-9]+\\)\\)*).*id(\\([a-z]*\\)\\([0-9]*\\)\\(-\\([0-9]+\\)\\)*)");
@@ -137,7 +138,7 @@ protected:
 		     XML_Parser &p,
 		     void *data,
 		     const char *instruction);
-  virtual void error(XML_Parser_Class &c,
+  virtual void error [[noreturn]] (XML_Parser_Class &c,
 		XML_Parser &p,
 		void *data);
 };
@@ -193,7 +194,7 @@ EST_read_status EST_GenXML::read_xml(FILE *file,
   state.utt=&u;
 
   XML_Parser *parser = EST_GenXML::pclass->make_parser(file, name, &state);
-  parser->track_context(TRUE);
+  parser->track_context(true);
 
   CATCH_ERRORS()
     return read_format_error;
@@ -205,12 +206,12 @@ EST_read_status EST_GenXML::read_xml(FILE *file,
   return read_ok;
 }
 
-static void ensure_relation(GenXML_Parse_State *state, EST_String name)
+static void ensure_relation(GenXML_Parse_State &state, EST_String name)
 {
-  if (state->rel!=NULL && name == state->relName)
+  if (state.rel!=NULL && name == state.relName)
 	return;
 
-  state->rel = state->utt->create_relation(state->relName=name);
+  state.rel = state.utt->create_relation(state.relName=name);
 }
 
 static EST_Item_Content *get_contents(GenXML_Parse_State *state, EST_String id)
@@ -243,7 +244,7 @@ static EST_String make_new_id(const char *root)
 
 
 static void extract_ids(XML_Attribute_List &attributes, 
-			EST_TList<EST_String> &ids)
+			EST_StrList &ids)
 {
   EST_String val;
   if (attributes.present("id"))
@@ -492,7 +493,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 
       EST_String relationType = attributes.val("estRelationTypeAttr");
 
-      ensure_relation(state, relName);
+      ensure_relation(*state, relName);
       state->rel_start_depth=state->depth;
       state->linear=(attributes.val(relationType) == "linear"||
 		     attributes.val(relationType) == "list");
@@ -509,12 +510,12 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
       printf("push depth=%d name=%s ig=%s\n", state->depth, name, (const char *)ig);
 #endif
       if (val != EST_String::Empty)
-	ensure_relation(state, val);
+	ensure_relation(*state, val);
 
       state->depth_stack.push(state->open_depth);
       state->open_depth=state->depth;
 
-      EST_TList<EST_String> ids;
+      EST_StrList ids;
 
       if (state->id == EST_String::Empty)
 	{
@@ -530,7 +531,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 	  break;
 	case 1:
 	  {
-	    EST_String id = ids.first();
+	    const EST_String &id = ids.first();
 
 	    if (id==EST_String::Empty)
 	      XML_Parser_Class::error(c, p, data, EST_String("Element With No Id"));
@@ -585,7 +586,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 		state->id="";
 	      }
 	    EST_Litem *idp = ids.head();
-	    bool first=TRUE;
+	    bool first=true;
 	    for(; idp!= NULL; idp = idp->next())
 	      {
 		 EST_String id = ids(idp);
@@ -595,7 +596,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 		 if (!first)
 		   element_close(c, p, data, name);
 		 else
-		   first=FALSE;
+		   first=false;
 
 		 state->id=id;
 		 element_open(c, p, data, name, attributes);
@@ -620,7 +621,7 @@ void GenXML_Parser_Class::element_open(XML_Parser_Class &c,
 #endif
 
     }
-  else
+  else {}
     ; // Skip
 
 }

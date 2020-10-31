@@ -120,17 +120,17 @@ private:
   void *p_serv_addr;
   int p_socket;
   BufferedSocket *p_buffered_socket;
-  ostream *p_trace;
+  std::ostream *p_trace;
   Mode p_mode;
 
   void zero(void);
-  void init(ostream *trace);
+  void init(std::ostream *trace);
 
-  void initClient(const EST_ServiceTable::Entry &e, ostream *trace);
-  void initClient(EST_String name, EST_String type, ostream *trace);
-  void initClient(EST_String hostname, int port, ostream *trace);
+  void initClient(const EST_ServiceTable::Entry &e, std::ostream *trace);
+  void initClient(EST_String name, EST_String type, std::ostream *trace);
+  void initClient(EST_String hostname, int port, std::ostream *trace);
 
-  void initServer(Mode mode, EST_String name, EST_String type, ostream *trace);
+  void initServer(Mode mode, EST_String name, EST_String type, std::ostream *trace);
 
 protected:
   void write(BufferedSocket &s, const EST_String string, const EST_String term = "");
@@ -157,18 +157,18 @@ public:
   /// Create a server connection by name, defaulting to "fringe", the default server name.
   EST_Server(EST_String name, EST_String type);
 
-  EST_Server(EST_String name, EST_String type, ostream *trace);
+  EST_Server(EST_String name, EST_String type, std::ostream *trace);
 
   /// Create a server connection by explicitly saying where to connect to.
   EST_Server(EST_String hostname, int port);
-  EST_Server(EST_String hostname, int port, ostream *trace);
+  EST_Server(EST_String hostname, int port, std::ostream *trace);
   //@}
 
   /**@name Server end constructors
     */
   //@{
   EST_Server(Mode mode, EST_String name, EST_String type);
-  EST_Server(Mode mode, EST_String name, EST_String type, ostream *trace);
+  EST_Server(Mode mode, EST_String name, EST_String type, std::ostream *trace);
   //@}
   
   /// Destroy the connection.

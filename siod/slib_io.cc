@@ -51,7 +51,9 @@
 #include "EST_bool.h"
 #include "siod.h"
 #include "siodp.h"
-#include "io.h"
+#include "slib_io.h"
+
+using std::cout;
 
 EST_Regex RxURL("\\([a-z]+\\)://?\\([^/:]+\\)\\(:\\([0-9]+\\)\\)?\\(.*\\)");
 EST_Regex RxFILEURL("file:.*");
@@ -91,10 +93,10 @@ int parse_url(const EST_String &url,
     host = "";
     port = "";
     path = url.after("file:");
-    return TRUE;
+    return true;
   }
   else  if (!url.matches(RxURL, 0, start_of_bracket, end_of_bracket))
-    return FALSE;
+    return false;
 
   protocol = url.at(start_of_bracket[1], end_of_bracket[1]-start_of_bracket[1]);
   host = url.at(start_of_bracket[2], end_of_bracket[2]-start_of_bracket[2]);
@@ -106,7 +108,7 @@ int parse_url(const EST_String &url,
   else
       path = bitpath;
 
-  return TRUE;
+  return true;
 }
 
 static int connect_to_server(const char *host, int port)
@@ -151,8 +153,11 @@ static int connect_to_server(const char *host, int port)
 static void server_send(int s, const char *text)
 {
   size_t n=strlen(text);
+#ifdef _MSC_VER
+  int sent;
+#else
   ssize_t sent;
-
+#endif
   while (n>0)
     if ((sent = write(s, text, n))<0)
       err("error talking to server", NIL);
@@ -164,8 +169,11 @@ static const char *server_get_line(int s)
 {
   static char buffer[MAX_LINE_LENGTH+1];
   char *p=buffer;
+#ifdef _MSC_VER
+  int n; // This is what read returns on MSVC 2019
+#else
   ssize_t n;
-
+#endif
   *p='\0';
 
   while(1==1)

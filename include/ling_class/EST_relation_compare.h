@@ -40,6 +40,13 @@
 #ifndef __EST_RELATION_COMPARE_H__
 #define __EST_RELATION_COMPARE_H__
 
+#include <cstdlib>
+#include "EST_Item.h"
+#include "EST_Relation.h"
+#include "EST_String.h"
+#include "EST_Option.h"
+#include "EST_Utterance.h"
+
 float label_distance1(EST_Item &ref, EST_Item &test);
 EST_Item *nthpos(EST_Relation &a, int n);
 void compare_labels(EST_Relation &reflab, EST_Relation &testlab);

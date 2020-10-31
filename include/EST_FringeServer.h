@@ -61,11 +61,11 @@ public:
   /// Create a server connection by name, defaulting to "fringe", the default server name.
   EST_FringeServer(EST_String name="fringe");
 
-  EST_FringeServer(EST_String name, ostream *trace);
+  EST_FringeServer(EST_String name, std::ostream *trace);
 
   /// Create a server connection by explicitly saying where to connect to.
   EST_FringeServer(EST_String hostname, int port);
-  EST_FringeServer(EST_String hostname, int port, ostream *trace);
+  EST_FringeServer(EST_String hostname, int port, std::ostream *trace);
   
   /// Destroy the connection.
   ~EST_FringeServer();

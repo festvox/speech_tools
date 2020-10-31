@@ -32,7 +32,7 @@ extern STD_API FILE16 *Stdin, *Stdout, *Stderr;
 
 STD_API FILE16 *MakeFILE16FromFILE(FILE *f, const char *type);
 STD_API FILE16 *MakeFILE16FromString(void *buf, long size, const char *type);
-#ifdef WIN32
+#ifdef _WIN32
 #ifdef SOCKETS_IMPLEMENTED
 STD_API FILE16 *MakeFILE16FromWinsock(int sock, const char *type);
 #endif

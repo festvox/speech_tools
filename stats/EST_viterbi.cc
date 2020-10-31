@@ -42,6 +42,8 @@
 #include <cstdio>
 #include "EST_viterbi.h"
 
+using namespace std;
+
 static void init_paths_array(EST_VTPoint *n,int num_states);
 static void debug_output_1(EST_VTPoint *p,EST_VTCandidate *c, 
 			   EST_VTPath *np, int i);
@@ -71,13 +73,13 @@ EST_Viterbi_Decoder::EST_Viterbi_Decoder(uclist_f_t a, unpath_f_t b)
     user_npath = b;
     num_states = 0;
 
-    do_pruning = FALSE;
+    do_pruning = false;
     overall_path_pruning_envelope_width = -1;
     candidate_pruning_envelope_width = -1;
 
-    debug = FALSE;
-    trace = FALSE;
-    big_is_good = TRUE;  // for probabilities it is
+    debug = false;
+    trace = false;
+    big_is_good = true;  // for probabilities it is
     timeline = 0;
 }
 
@@ -89,16 +91,16 @@ EST_Viterbi_Decoder::EST_Viterbi_Decoder(uclist_f_t a, unpath_f_t b, int s)
     user_clist = a;
     user_npath = b;
 
-    do_pruning = FALSE;
+    do_pruning = false;
     overall_path_pruning_envelope_width = -1;
     candidate_pruning_envelope_width = -1;
 
     // if s == -1 number of states is determined by number of cands
     // this is specific to a particular search but very efficient
     num_states = s;  // can do the lattice search more directly 
-    debug = FALSE;
-    trace = FALSE;
-    big_is_good = TRUE;  // for probabilities it is
+    debug = false;
+    trace = false;
+    big_is_good = true;  // for probabilities it is
     timeline = 0;
 }
 
@@ -153,13 +155,13 @@ static void init_paths_array(EST_VTPoint *n,int num_states)
 	n->st_paths[j] = 0;
 }
 
-const int EST_Viterbi_Decoder::betterthan(const float a,const float b) const
+int EST_Viterbi_Decoder::betterthan(const float a,const float b) const
 {
     // Some thing big is better, others want it to be as small as possible
     // this just tells you if a is better than b by checking the variable
     // in the decoder itself.
 
-    // For probabilities big_is_good == TRUE (or log probabilities)
+    // For probabilities big_is_good == true (or log probabilities)
     
     if (big_is_good)
 	return (a > b);
@@ -185,7 +187,7 @@ void EST_Viterbi_Decoder::set_pruning_parameters(float beam, float
 						 ob_beam)
 {
 
-    do_pruning = TRUE;
+    do_pruning = true;
     overall_path_pruning_envelope_width = beam;
     candidate_pruning_envelope_width = ob_beam;
 
@@ -193,12 +195,12 @@ void EST_Viterbi_Decoder::set_pruning_parameters(float beam, float
 
 void EST_Viterbi_Decoder::turn_on_debug()
 {
-    debug = TRUE;
+    debug = true;
 }
 
 void EST_Viterbi_Decoder::turn_on_trace()
 {
-    trace = TRUE;
+    trace = true;
 }
 
 
@@ -406,9 +408,9 @@ bool EST_Viterbi_Decoder::vit_prune_path(double path_score, double score_cutoff)
     // if it falls below cutoff, then prune point
     // typically will only be one path at this point anyway (Viterbi)
     if(!betterthan(path_score,score_cutoff))
-	return TRUE;
+	return true;
 
-    return FALSE;
+    return false;
 }
 
 
@@ -517,10 +519,10 @@ bool EST_Viterbi_Decoder::result(const EST_String &n)
     EST_VTPath *p;
 
     if ((timeline == 0) || (timeline->next == 0))
-	return TRUE;  // it's an empty list so it has succeeded
+	return true;  // it's an empty list so it has succeeded
     p = find_best_end();
     if (p == 0)
-	return FALSE; // there isn't any answer
+	return false; // there isn't any answer
 
     for (; p != 0; p=p->from)
     {
@@ -531,7 +533,7 @@ bool EST_Viterbi_Decoder::result(const EST_String &n)
 	    p->c->s->set(n+"_score",p->f.F("lscore",0.0));
 	}
     }
-    return TRUE;
+    return true;
 }
 
 bool EST_Viterbi_Decoder::result( EST_VTPath **bestPathEnd )
@@ -540,14 +542,14 @@ bool EST_Viterbi_Decoder::result( EST_VTPath **bestPathEnd )
   *bestPathEnd = 0; 
   
   if ((timeline == 0) || (timeline->next == 0))
-    return TRUE;  // it's an empty list so it has succeeded
+    return true;  // it's an empty list so it has succeeded
 
   *bestPathEnd = find_best_end();
 
   if (*bestPathEnd == 0)
-    return FALSE; // there isn't any answer
+    return false; // there isn't any answer
 
-  return TRUE;
+  return true;
 }
 
 

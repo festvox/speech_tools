@@ -54,6 +54,8 @@ FILE *stddebug = NULL;
 extern int el_pos;
 extern char *repl_prompt;
 
+char *editline_history_file = ".editline_history";
+
 #ifndef SUPPORT_EDITLINE
 
 /* If for some reason you don't want editline the following */
@@ -63,8 +65,9 @@ extern char *repl_prompt;
 int el_no_echo;
 int editline_histsize;
 
-int siod_el_getc(FILE *f)
+int siod_el_getc(void *f)
 {
+    (void) f;
     int c;
 
     if (el_pos == -1)
@@ -82,8 +85,9 @@ int siod_el_getc(FILE *f)
     return c;
 }
 
-void siod_el_ungetc(int c, FILE *f)
+void siod_el_ungetc(int c, void *arg)
 {
+    FILE *f = (FILE *) arg;
     ungetc(c,f);
 }
 
@@ -171,7 +175,7 @@ void siod_el_init(void)
 	walloc(char,strlen(home)+strlen(editline_history_file)+2);
     sprintf(full_history_file,"%s/%s",home,editline_history_file);
     read_history(full_history_file);
-    el_user_intr = TRUE;  /* we want SIGINT to raise a signal */
+    el_user_intr = true;  /* we want SIGINT to raise a signal */
 
     el_user_completion_function = command_completion;
     el_bind_key_in_metamap('h',siod_display_doc);
@@ -179,8 +183,9 @@ void siod_el_init(void)
     el_bind_key_in_metamap('m',siod_manual);
 }
 
-int siod_el_getc(FILE *f)
+int siod_el_getc(void *f)
 {
+    (void) f;
     int c;
 
     if (el_pos == -1)
@@ -194,7 +199,7 @@ int siod_el_getc(FILE *f)
 	el_pos = 0;
     }
     if ((el_line==NULL) ||
-	(strlen(el_line) <= el_pos))
+	((long int) strlen(el_line) <= el_pos))
 	el_pos = -1;
     if (el_line==NULL)
 	c = EOF;
@@ -209,8 +214,10 @@ int siod_el_getc(FILE *f)
     return c;
 }
 
-void siod_el_ungetc(int c, FILE *f)
+void siod_el_ungetc(int c, void *f)
 {
+    (void) f;
+    (void) c;
     if (el_pos > 0)
 	el_pos--;
     else
@@ -254,6 +261,7 @@ static char **command_completion (char *text,int start,int end)
 
 static int possible_commandp(char *text, int start, int end)
 {
+    (void) end;
     /* If non-white space previous to this is a left paren */
     /* signal we are looking for a function name           */
     int t;
@@ -262,15 +270,16 @@ static int possible_commandp(char *text, int start, int end)
 	if (strchr(" \t\n\r",text[t]) != NULL)
 	    continue;
 	else if (text[t] == '(')
-	    return TRUE;
+	    return true;
 	else
-	    return FALSE;
+	    return false;
 
-    return FALSE;
+    return false;
 }
 
 static int possible_variablep(char *text, int start, int end)
 {
+    (void) end;
     /* Almost negative of above but if previous symbol is a quote */
     /* let the file completion stuff do it                        */
     int t;
@@ -279,14 +288,14 @@ static int possible_variablep(char *text, int start, int end)
 	if (strchr(" \t\n",text[t]) != NULL)
 	    continue;
 	else if (text[t] == '(')
-	    return FALSE;
+	    return false;
 	else if ((text[t] == '"') &&
 		 (t == start-1))
-	    return FALSE;
+	    return false;
 	else
-	    return TRUE;
+	    return true;
 
-    return TRUE;
+    return true;
 }
 
 #endif /* SUPPORT_EDITLINE */

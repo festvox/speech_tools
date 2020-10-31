@@ -38,7 +38,7 @@ LISP strintern(const char *data);
 LISP strcons(long length,const char *data);
 LISP cstrcons(const char *data);
 
-void init_subr(const char *name, long type, SUBR_FUNC fcn, const char *doc);
+void init_subr(const char *name, long type, void(*fcn)(void), const char *doc);
 void init_subr_0(const char *name, LISP (*fcn)(void), const char *doc);
 void init_subr_1(const char *name, LISP (*fcn)(LISP), const char *doc);
 void init_subr_2(const char *name, LISP (*fcn)(LISP,LISP), const char *doc);
@@ -115,7 +115,7 @@ LISP err(const char *message, const char *s);
 LISP errswitch(void);
 
 void siod_list_to_strlist(LISP l, EST_StrList &a);
-LISP siod_strlist_to_list(EST_StrList &a);
+LISP siod_strlist_to_list(const EST_StrList &a);
 void siod_tidy_up();
 LISP siod_quit(void);
 const char *siod_version(void);
@@ -159,7 +159,7 @@ void pprint_to_fd(FILE *fd,LISP exp);
 LISP lread(void);
 LISP lreadtk(long j);
 LISP lreadf(FILE *f);
-#ifdef WIN32
+#ifdef _WIN32
 LISP lreadwinsock(void);
 #endif
 void set_read_hooks(char *all_set,char *end_set,

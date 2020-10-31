@@ -44,6 +44,8 @@
 #include "EST_error.h"
 #include "EST_Ngrammar.h"
 
+using namespace std;
+
 static int get_next_window(EST_TokenStream &ts,
 			   EST_StrVector &window,
 			   const EST_String &input_format,
@@ -80,8 +82,8 @@ static int get_next_window(EST_TokenStream &ts,
     // IVectors
     for (i=0; i < ngram.order(); i++)
 	if (ngram.wordlist_index(window(i)) == -1)
-	    return FALSE;
-    return TRUE;
+	    return false;
+    return true;
 }
 
 bool test_stats(EST_Ngrammar &ngram, 
@@ -107,7 +109,7 @@ bool test_stats(EST_Ngrammar &ngram,
     (void)last;
 
     if (filename == "-")
-	ts.open(stdin,FALSE);
+	ts.open(stdin,false);
     else if (ts.open(filename) == -1)
 	EST_error("EST_Ngrammar test: unable to open test file \"%s\"\n",
 		  (const char *)filename);
@@ -117,7 +119,7 @@ bool test_stats(EST_Ngrammar &ngram,
     ngram.fill_window_start(window,prev,prev_prev);
 
     while (!ts.eof() && 
-	   (get_next_window(ts,window,input_format,ngram) == TRUE))
+	   (get_next_window(ts,window,input_format,ngram) == true))
     {
 	prob = ngram.probability(window);
 	H += log(prob);

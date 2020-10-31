@@ -45,38 +45,9 @@
 #include "EST_simplestats.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 static int wfst_run_main(int argc, char **argv);
-
-/** @name <command>wfst_run</command> <emphasis>Run a weighted finite-state transducer</emphasis>
-    @id wfst-run-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-This program runs a WFST on some given data.  It works in either
-recognize mode where both inputs and output are specified, but also
-in transduction mode where an input is transduced to the output.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char **argv)
@@ -148,7 +119,7 @@ static int wfst_run_main(int argc, char **argv)
     for (f=files.head(); f != 0; f=f->next())
     {
 	if (files(f) == "-")
-	    ts.open(stdin,FALSE);
+	    ts.open(stdin,false);
 	else
 	    if (ts.open(files(f)) != 0)
 		EST_error("failed to read WFST data file from \"%s\"",

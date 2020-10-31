@@ -47,6 +47,8 @@
 #include "EST_simplestats.h"
 #include "EST_cutils.h"
 
+using namespace std;
+
 EST_Wave difference(EST_Wave &a, EST_Wave &b)
 {
     int i, j;

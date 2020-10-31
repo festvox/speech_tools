@@ -57,64 +57,11 @@
 #include "EST.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 static int wfst_build_main(int argc, char **argv);
 
 
-
-/** @name <command>wfst_build</command> <emphasis>Build a weighted finite-state transducer</emphasis>
-    @id wfst-build-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
-Build and.or process weighted finite state transducers (WFSTs) form
-various input formats.  This program accepts descriptions
-in the following formats and converts them to WFSTs
-<itemizedlist>
-<listitem><para>regular expressions</para></listitem>
-<listitem><para>regular grammars</para></listitem>
-<listitem><para>Koskenniemi/Kay/Kaplan context restriction rules</para></listitem>
-</itemizedlist>
-In addition various operations can be performed on two WFSTs
-<itemizedlist>
-<listitem><para>compose: form new WFST feeding output of first WFSTs into
-second WFSTs.</para></listitem>
-<listitem><para>union: form new WFST accepting the language both WFSTs
-</para></listitem>
-<listitem><para>intersect: form new WFST accepting only the language common
-to both WFSTs
-</para></listitem>
-<listitem><para>concat: form new WFST accepting the language from the
-concatenation of all strings in the first WFST to all strings in the
-second.
-</para></listitem>
-</itemizedlist>
-The newly formed WFSTs can be optionally determinized and minimzed.
-
-The option asis allows a single WFSTs to be loaded and determinized
-and/or minimized
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 int main(int argc, char **argv)
 {
 

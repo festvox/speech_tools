@@ -69,7 +69,7 @@ public:
 				      EST_Utterance &u, \
 				      int &max_id
 
-#define SaveUtterance_TokenStreamArgs ostream &outf,const \
+#define SaveUtterance_TokenStreamArgs std::ostream &outf,const \
 				      EST_Utterance &utt
 
   typedef EST_read_status  Load_TokenStream(LoadUtterance_TokenStreamArgs);

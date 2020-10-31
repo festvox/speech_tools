@@ -59,10 +59,14 @@ template <> EST_bracketed_string *EST_TVector<EST_bracketed_string>::error_retur
 
 
 #if defined(INSTANTIATE_TEMPLATES)
+
 #include "../base_class/EST_TVector.cc"
 
 template class EST_TVector<EST_bracketed_string>;
+extern template class EST_TVector<double>;
 #endif
+
+using namespace std;
 
 void set_corpus(EST_Bcorpus &b, LISP examples)
 {
@@ -225,7 +229,7 @@ double EST_SCFG_traintest::f_I_cal(int c, int p, int i, int k)
 //	       terminal(corpus.a_no_check(c).symbol_at(i)),
 //	       res);
     }
-    else if (corpus.a_no_check(c).valid(i,k) == TRUE)
+    else if (corpus.a_no_check(c).valid(i,k) == true)
     {
 	int j;
 	double s=0;
@@ -268,7 +272,7 @@ double EST_SCFG_traintest::f_O_cal(int c, int p, int i, int k)
 	else
 	    res = 0.0;
     }
-    else if (corpus.a_no_check(c).valid(i,k) == TRUE)
+    else if (corpus.a_no_check(c).valid(i,k) == true)
     {
 	double s1=0.0;
 	double s2,s3;

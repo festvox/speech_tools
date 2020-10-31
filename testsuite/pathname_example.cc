@@ -41,6 +41,8 @@
 #include <cstdlib>
 #include "EST_Pathname.h"
 
+using namespace std;
+
 #if defined(DATAC)
 #    define __STRINGIZE(X) #X
 #    define DATA __STRINGIZE(DATAC)
@@ -84,7 +86,7 @@ int main(void)
   EST_Pathname data(DATA);
 
   // getting the contents of a directory...
-  EST_TList<EST_String> contents(data.entries());
+  EST_StrList contents(data.entries());
 
   sort(contents);
 

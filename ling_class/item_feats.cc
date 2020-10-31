@@ -47,13 +47,15 @@
 #include "ling_class/EST_FeatureFunctionPackage.h"
 #include "EST_FeatureFunctionContext.h"
 
+using namespace std;
+
 const char *error_name(EST_Item_featfunc f)
 {
   (void)f;
   return "<<EST_Item_featfunc>>";
 }
 
-const EST_Item_featfunc get_featfunc(const EST_String &name,int must)
+EST_Item_featfunc get_featfunc(const EST_String &name,int must)
 {
     const EST_Item_featfunc f = EST_FeatureFunctionContext::global->get_featfunc(name, must);
 
@@ -95,10 +97,11 @@ void EST_register_feature_function_package(const char *name,
 /* EST_Item_featfuncs aren't a class so we can't use the standard */
 /* registration procedure and have to explicitly write it         */
 val_type val_type_featfunc = "featfunc";
-const EST_Item_featfunc featfunc(const EST_Val &v)
+
+EST_Item_featfunc featfunc(const EST_Val &v)
 {
     if (v.type() == val_type_featfunc)
-	return (const EST_Item_featfunc)v.internal_ptr();
+	return (EST_Item_featfunc) v.internal_ptr();
     else
 	EST_error("val not of type val_type_featfunc");
     return NULL;

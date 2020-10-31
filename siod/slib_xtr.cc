@@ -18,6 +18,8 @@ Array-hacking code moved to another source file.
 #include "siod.h"
 #include "siodp.h"
 
+using namespace std;
+
 static LISP bashnum = NIL;
 
 static LISP array_gc_relocate(LISP ptr)
@@ -484,7 +486,7 @@ static LISP fast_read(LISP table)
           return(rintern(tkbuffer));
       }
       else
-	err("failed to write array",NIL);
+	return(err("failed to write array",NIL));
     default:
       p = get_user_type_hooks(c);
       if (p->fast_read)
@@ -573,7 +575,7 @@ static void init_storage_xtr1(long type)
 {long j;
  struct user_type_hooks *p;
  set_gc_hooks(type,
-	      FALSE,
+	      false,
 	      array_gc_relocate,
 	      array_gc_mark,
 	      array_gc_scan,

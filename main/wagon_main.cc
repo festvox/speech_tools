@@ -49,60 +49,14 @@
 #include "EST_Wagon.h"
 #include "EST_cmd_line.h"
 
+using namespace std;
+
 enum wn_strategy_type {wn_decision_list, wn_decision_tree};
 
 static wn_strategy_type wagon_type = wn_decision_tree;
 
 static int wagon_main(int argc, char **argv);
 
-/** @name <command>wagon</command> <emphasis>CART building program</emphasis>
-    @id wagon_manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-wagon is used to build CART tress from feature data, its basic
-features include:
-
-<itemizedlist>
-<listitem><para>both decisions trees and decision lists are supported</para></listitem>
-<listitem><para>predictees can be discrete or continuous</para></listitem>
-<listitem><para>input features may be discrete or continuous</para></listitem>
-<listitem><para>many options for controlling tree building</para>
-<itemizedlist>
-<listitem><para>fixed stop value</para></listitem>
-<listitem><para>balancing</para></listitem>
-<listitem><para>held-out data and pruning</para></listitem>
-<listitem><para>stepwise use of input features</para></listitem>
-<listitem><para>choice of optimization criteria correct/entropy (for 
-classification and rmse/correlation (for regression)</para></listitem>
-</itemizedlist>
-</listitem>
-</itemizedlist>
-
-A detailed description of building CART models can be found in the
-<link linkend="cart-overview">CART model overview</link> section.
-
-*/
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 int main(int argc, char **argv)
 {
@@ -252,16 +206,16 @@ static int wagon_main(int argc, char **argv)
     }
 
     if (al.present("-quiet"))
-	wgn_quiet = TRUE;
+	wgn_quiet = true;
     if (al.present("-verbose"))
-	wgn_verbose = TRUE;
+	wgn_verbose = true;
 
     if (al.present("-stop"))
 	wgn_min_cluster_size = atoi(al.val("-stop"));
     if (al.present("-max_questions"))
 	wgn_max_questions = atoi(al.val("-max_questions"));
     if (al.present("-noprune"))
-	wgn_prune = FALSE;
+	wgn_prune = false;
     if (al.present("-predictee"))
 	wgn_predictee_name = al.val("-predictee");
     if (al.present("-count_field"))
@@ -417,6 +371,7 @@ static int wagon_main(int argc, char **argv)
     {
 	*wgn_coutput << *tree;
 	summary_results(*tree,wgn_coutput);
+	delete tree;
     }
 
     if (wgn_coutput != &cout)
@@ -424,76 +379,3 @@ static int wagon_main(int argc, char **argv)
     return 0;
 }
 
-/** @name Building Trees
-
-To build a decision tree (or list) Wagon requires data and a description
-of it.  A data file consists a set of samples, one per line each
-consisting of the same set of features.   Features may be categorial
-or continuous.  By default the first feature is the predictee and the
-others are used as predictors.  A typical data file will look like
-this
-</para>
-<para>
-<screen>
-0.399 pau sh  0   0     0 1 1 0 0 0 0 0 0 
-0.082 sh  iy  pau onset 0 1 0 0 1 1 0 0 1
-0.074 iy  hh  sh  coda  1 0 1 0 1 1 0 0 1
-0.048 hh  ae  iy  onset 0 1 0 1 1 1 0 1 1
-0.062 ae  d   hh  coda  1 0 0 1 1 1 0 1 1
-0.020 d   y   ae  coda  2 0 1 1 1 1 0 1 1
-0.082 y   ax  d   onset 0 1 0 1 1 1 1 1 1
-0.082 ax  r   y   coda  1 0 0 1 1 1 1 1 1
-0.036 r   d   ax  coda  2 0 1 1 1 1 1 1 1
-...
-</screen>
-</para>
-<para>
-The data may come from any source, such as the festival script 
-dumpfeats which allows the creation of such files easily from utterance
-files.  
-</para><para>
-In addition to a data file a description file is also require that 
-gives a name and a type to each of the features in the datafile.
-For the above example it would look like
-</para><para>
-<screen>
-((segment_duration float)
- ( name  aa ae ah ao aw ax ay b ch d dh dx eh el em en er ey f g 
-    hh ih iy jh k l m n nx ng ow oy p r s sh t th uh uw v w y z zh pau )
- ( n.name 0 aa ae ah ao aw ax ay b ch d dh dx eh el em en er ey f g 
-    hh ih iy jh k l m n nx ng ow oy p r s sh t th uh uw v w y z zh pau )
- ( p.name 0 aa ae ah ao aw ax ay b ch d dh dx eh el em en er ey f g 
-    hh ih iy jh k l m n nx ng ow oy p r s sh t th uh uw v w y z zh pau )
- (position_type 0 onset coda)
- (pos_in_syl float)
- (syl_initial 0 1)
- (syl_final   0 1)
- (R:Sylstructure.parent.R:Syllable.p.syl_break float)
- (R:Sylstructure.parent.syl_break float)
- (R:Sylstructure.parent.R:Syllable.n.syl_break float)
- (R:Sylstructure.parent.R:Syllable.p.stress 0 1)
- (R:Sylstructure.parent.stress 0 1)
- (R:Sylstructure.parent.R:Syllable.n.stress 0 1)
-)
-</screen>
-</para><para>
-The feature names are arbitrary, but as they appear in the generated
-trees is most useful if the trees are to be used in prediction of
-an utterance that the names are features and/or pathnames.  
-</para><para>
-Wagon can be used to build a tree with such files with the command
-<screen>
-wagon -data feats.data -desc fest.desc -stop 10 -output feats.tree
-</screen>
-A test data set may also be given which must match the given data description.
-If specified the built tree will be tested on the test set and results
-on that will be presented on completion, without a test set the
-results are given with respect to the training data.  However in
-stepwise case the test set is used in the multi-level training process
-thus it cannot be considered as true test data and more reasonable 
-results should found on applying the generate tree to truly
-held out data (via the program wagon_test).
-
-*/
-
-//@}

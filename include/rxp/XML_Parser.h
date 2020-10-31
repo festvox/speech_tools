@@ -48,7 +48,7 @@
 #include "EST_TKVL.h"
 #include "EST_THash.h"
 #include "EST_TDeque.h"
-#include "EST_TList.h"
+#include "EST_types.h"
 #include "rxp/rxp.h"
 
 // We only use types and functions from rxp.h, so we can throw away
@@ -191,7 +191,7 @@ public:
   /** Fill in the list with the known entity ID mappings.
     */
 
-  void registered_ids(EST_TList<EST_String> &list);
+  void registered_ids(EST_StrList &list);
 
   /**@name Creating a parser
     * 

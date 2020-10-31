@@ -41,6 +41,8 @@
 #include <cstdlib>
 #include "EST_Token.h"
 
+using namespace std;
+
 #if defined(DATAC)
 #    define __STRINGIZE(X) #X
 #    define DATA __STRINGIZE(DATAC)

@@ -45,6 +45,8 @@
 #include "sigpr/EST_sigpr_utt.h"
 #include "sigpr/EST_filter.h"
 
+using namespace std;
+
 #define EPSILON (0.0001)
 
 #define DEFAULT_FRAME_SIZE 0.01
@@ -88,55 +90,6 @@ EST_String sigpr_options_supported(void)
 	"    energy: root mean square energy\n";
 }
 
-
-
-/** @name <command>sig2fv</command> <emphasis>Generate signal processing coefficients from waveforms</emphasis>
-  * @id sigfv-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-sig2fv is used to create signal processing feature vector analysis on speech
-waveforms.
-The following types of analysis are provided:
-
-<itemizedlist>
-<listitem><para>Linear prediction (LPC)</para></listitem>
-<listitem><para>Cepstrum coding from lpc coefficients</para></listitem>
-<listitem><para>Mel scale cepstrum coding via fbank</para></listitem>
-<listitem><para>Mel scale log filterbank analysis</para></listitem>
-<listitem><para>Line spectral frequencies</para></listitem>
-<listitem><para>Linear prediction reflection coefficients</para></listitem>
-<listitem><para>Root mean square energy</para></listitem>
-<listitem><para>Power</para></listitem>
-<listitem><para>fundamental frequency (pitch)</para></listitem>
-<listitem><para>calculation of delta and acceleration coefficients of all of the 
-above</para></listitem>
-</itemizedlist>
-
-The -coefs option is used to specify a list of the names of what sort
-of basic processing is required, and -delta and -acc are used for
-delta and acceleration coefficients respectively.
-
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char *argv[])

@@ -51,6 +51,8 @@
 
 #include "EST_TVector.h"
 
+extern template class EST_TItem<EST_String>;
+
 Declare_TList_T(EST_WFST_Transition *, EST_WFST_TransitionP)
 Declare_TVector_Base_T(EST_WFST_State *, NULL, NULL, EST_WFST_StateP)
 
@@ -65,6 +67,8 @@ Instantiate_TList_T(EST_WFST_Transition *, EST_WFST_TransitionP)
 Instantiate_TVector_T(EST_WFST_State *, EST_WFST_StateP)
 
 #endif
+
+using namespace std;
 
 // Used for marking states duration traversing functions
 int EST_WFST::traverse_tag = 0;
@@ -368,11 +372,11 @@ EST_write_status EST_WFST::save(const EST_String &filename,
     fprintf(ofd,"DataType %s\n",(const char *)type);
     fprintf(ofd,"in %s\n",
       (const char *)quote_string(EST_String("(")+
-				 p_in_symbols.print_to_string(TRUE)+")",
+				 p_in_symbols.print_to_string(true)+")",
 				 "\"","\\",1));
     fprintf(ofd,"out %s\n",
       (const char *)quote_string(EST_String("(")+
-				 p_out_symbols.print_to_string(TRUE)+")",
+				 p_out_symbols.print_to_string(true)+")",
 				 "\"","\\",1));
     fprintf(ofd,"NumStates %d\n",p_num_states);
     fprintf(ofd, "ByteOrder %s\n", ((EST_NATIVE_BO == bo_big) ? "10" : "01"));
@@ -531,10 +535,10 @@ EST_read_status EST_WFST::load(const EST_String &filename)
 	    << "\" for reading" << endl;
 	return read_error;
     }
-    ts.open(fd,FALSE);
+    ts.open(fd,false);
     ts.set_quotes('"','\\');
 
-    if (((r = read_est_header(ts, hinfo, ascii, t)) != format_ok) ||
+    if ((read_est_header(ts, hinfo, ascii, t) != format_ok) ||
 	(t != est_file_fst))
     {
 	cerr << "WFST load: not a WFST file \"" << filename << "\"" <<endl;
@@ -558,12 +562,12 @@ EST_read_status EST_WFST::load(const EST_String &filename)
     if (!ascii)
     {
 	if (!hinfo.present("ByteOrder"))
-	    swap = FALSE;  // ascii or not there for some reason
+	    swap = false;  // ascii or not there for some reason
 	else if (((hinfo.val("ByteOrder") == "01") ? bo_little : bo_big) 
 		 != EST_NATIVE_BO)
-	    swap = TRUE;
+	    swap = true;
 	else
-	    swap = FALSE;
+	    swap = false;
 	r = load_binary(fd,hinfo,num_states,swap);
     }
     else

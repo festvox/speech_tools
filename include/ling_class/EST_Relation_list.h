@@ -37,6 +37,8 @@
 #ifndef __EST_RELATION_LIST_H__
 #define __EST_RELATION_LIST_H__
 
+#include "EST_Item.h"
+
 /** Given a node `l`, return true if
     `c` after it in a list relation. */
 int in_list(const EST_Item *c, const  EST_Item *l);

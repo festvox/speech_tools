@@ -32,8 +32,13 @@
  /*************************************************************************/
 
 
-#ifndef __EST_MATRIX_SUPPORT_H__
-#define __EST_MATRIX_SUPPORT_H__
+#ifndef EST_MATRIX_SUPPORT_H__
+#define EST_MATRIX_SUPPORT_H__
+
+#include <cstdlib>
+extern const std::ptrdiff_t EST_CURRENT;
+extern const std::ptrdiff_t EST_ALL;
+
 
 /** Support functions for all matrices.
   * 

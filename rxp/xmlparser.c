@@ -3134,7 +3134,7 @@ static int error(Parser p, const char8 *format, ...)
     verror(&p->xbit, format, args);
 
     p->state = PS_error;
-
+    va_end(args);
     return -1;
 }
 
@@ -3152,5 +3152,6 @@ static void warn(Parser p, const char8 *format, ...)
 	p->warning_callback(&bit, p->callback_arg);
     else
 	ParserPerror(p, &bit);
+    va_end(args);
 }
 

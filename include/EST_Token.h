@@ -41,8 +41,7 @@
 #define __EST_TOKEN_H__
 
 #include <cstdio>
-
-using namespace std;
+#include <istream>
 
 #include "EST_String.h"
 #include "EST_common.h"
@@ -84,8 +83,10 @@ class EST_Token {
     int p_quoted;
 
   public:
-    ///
+    /// Constructor
     EST_Token() {init();}
+    /// Copy constructor
+    EST_Token(const EST_Token&);
     ///
     EST_Token(const EST_String p) {init(); pname = p; }
     ///
@@ -169,7 +170,7 @@ class EST_Token {
     ///@{
     /// Note that this token was quoted (or not)
     void set_quoted(int q) { p_quoted = q; }
-    /// TRUE is token was quoted
+    /// true is token was quoted
     int quoted() const { return p_quoted; }
     ///@}
     ///
@@ -193,7 +194,7 @@ class EST_Token {
     const EST_String pos_description() const;
 
     ///
-    friend ostream& operator << (ostream& s, const EST_Token &p);
+    friend std::ostream& operator << (std::ostream& s, const EST_Token &p);
     
     ///
     EST_Token & operator = (const EST_Token &a);
@@ -231,7 +232,7 @@ enum EST_tokenstream_type {tst_none, tst_file, tst_pipe, tst_string, tst_istream
     Note there is an interesting issue about what to do about
     the last whitespace in the file.  Should it be ignored or should
     it be attached to a token with a name string of length zero.
-    In unquoted mode the eof() will return TRUE if the next token name
+    In unquoted mode the eof() will return true if the next token name
     is empty (the mythical last token).  In quoted mode the last must
     be returned so eof will not be raised.
 
@@ -246,7 +247,7 @@ class EST_TokenStream{
     EST_String PrePunctuationSymbols;
     EST_String Origin;
     FILE *fp;
-    istream *is;
+    std::istream *is;
     int fd;
     char *buffer;
     int buffer_length;
@@ -305,7 +306,7 @@ class EST_TokenStream{
     /// open a \ref EST_TokenStream for an already opened file
     int open(FILE *ofp, int close_when_finished);
     /// open a \ref EST_TokenStream for an already open istream
-    int open(istream &newis);
+    int open(std::istream &newis);
     /// open a \ref EST_TokenStream for string rather than a file
     int open_string(const EST_String &newbuffer);
     /// Close stream.
@@ -349,7 +350,7 @@ class EST_TokenStream{
     void set_PrePunctuationSymbols(const EST_String &ps) 
         { PrePunctuationSymbols = ps; p_table_wrong=1;}
     /// set characters to be used as quotes and escape, and set quote mode
-    void set_quotes(char q, char e) { quotes = TRUE; quote = q; escape = e; p_table_wrong=1;}
+    void set_quotes(char q, char e) { quotes = true; quote = q; escape = e; p_table_wrong=1;}
     /// query quote mode
     int quoted_mode(void) { return quotes; }
     ///@}
@@ -382,8 +383,8 @@ class EST_TokenStream{
     ///
     EST_TokenStream & operator >>(EST_String &p);
     ///
-    friend ostream& operator <<(ostream& s, EST_TokenStream &p);
-    //@}
+    friend std::ostream& operator <<(std::ostream& s, EST_TokenStream &p);
+    ///@}
 };
 
 /** Quote a string with given quotes and escape character

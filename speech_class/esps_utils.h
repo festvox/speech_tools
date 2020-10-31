@@ -39,6 +39,8 @@
 #ifndef __ESPS_IO_H__
 #define __ESPS_IO_H__
 
+#include <cstdio>
+#include "EST_TrackFile.h"
 #define ESPS_MAGIC 27162
 struct ESPS_PREAMBLE {
     int machine_code;   /* the machine that generated this (4 is sun) */
@@ -177,7 +179,7 @@ void set_field_f(esps_rec r, int field, int pos, float d);
 void set_field_i(esps_rec r, int field, int pos, int d);
 void set_field_s(esps_rec r, int field, int pos, short d);
 void set_field_c(esps_rec r, int field, int pos, char d);
-esps_rec new_esps_rec(esps_hdr hdr);
+esps_rec new_esps_rec(const esps_hdr hdr);
 void delete_esps_rec(esps_rec r);
 int read_esps_rec(esps_rec r, esps_hdr h, FILE *fd);
 int write_esps_rec(esps_rec r, esps_hdr h, FILE *fd);

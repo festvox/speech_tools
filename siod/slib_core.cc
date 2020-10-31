@@ -253,7 +253,7 @@ static LISP l_unwind_protect(LISP args, LISP env)
 	siod_reset_prompt();
 	// Close any that were opened below here
 	close_open_files_upto(previous_open_files);
-	if (siod_ctrl_c == TRUE)
+	if (siod_ctrl_c == true)
 	    err("forwarded through unwind-protect",NIL);
 	r = leval(car(cdr(args)),env);
     }

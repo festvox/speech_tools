@@ -52,7 +52,7 @@
 #define ERR2(m,x,y) fprintf(stderr,m,x,y)
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 #undef boolean
 #include <winsock.h>
 #include <fcntl.h>
@@ -102,7 +102,7 @@ static int StringSeek(FILE16 *file, long offset, int ptrname);
 static int StringClose(FILE16 *file);
 static int StringFlush(FILE16 *file);
 
-#ifdef WIN32
+#ifdef _WIN32
 #ifdef SOCKETS_IMPLEMENTED
 static int WinsockRead(FILE16 *file, unsigned char *buf, int max_count);
 static int WinsockWrite(FILE16 *file, const unsigned char *buf, int count);
@@ -392,7 +392,7 @@ int Vsprintf(void *buf, CharacterEncoding enc, const char *format,
 	     va_list args)
 {
     int nchars;
-    FILE16 file = {0, 0, -1, StringRead, StringWrite, StringSeek, StringFlush, StringClose, FILE16_write};
+    FILE16 file = {0, 0, -1, StringRead, StringWrite, StringSeek, StringFlush, StringClose, FILE16_write, enc, 0};
 
     file.handle = buf;
     file.enc = enc;
@@ -521,7 +521,7 @@ int Vfprintf(FILE16 *file, const char *format, va_list args)
 #endif
 	}
 
-	if(format - start + 1 > sizeof(fmt))
+	if(format - start + 1 > (long int) sizeof(fmt))
 	{
 	  ERR("Printf: format specifier too long");
 	    errno = 0;
@@ -815,6 +815,7 @@ static int StringClose(FILE16 *file)
 
 static int StringFlush(FILE16 *file)
 {
+	(void) file;
     return 0;
 }
 
@@ -952,15 +953,15 @@ int main(int argc, char **argv)
 {
     short s=3;
     int n, c;
-    char16 S[] = {'w', 'o', 'r', 'l', 'd', ' ', '£' & 0xff, 0xd841, 0xdc42, 0};
+    char16 S[] = {'w', 'o', 'r', 'l', 'd', ' ', '\xA3' & 0xff, 0xd841, 0xdc42, 0};
 
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
-    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "÷hello", S);
+    n=Printf(argv[1], s, 98765432, &c, 5.3, 3.2L, "\xF7hello", S);
     printf("\nreturned %d, c=%d\n", n, c);
 
     return 0;

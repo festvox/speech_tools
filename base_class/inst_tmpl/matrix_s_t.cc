@@ -45,6 +45,7 @@ Declare_TMatrix(EST_String)
 
 #if defined(INSTANTIATE_TEMPLATES)
 
+extern template class EST_TVector<EST_String>;
 #include "../base_class/EST_TMatrix.cc"
 
 Instantiate_TMatrix(EST_String)

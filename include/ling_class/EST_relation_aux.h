@@ -79,7 +79,7 @@ void label_to_track(const EST_Relation &lab, EST_Track &tr,
 void shift_label(EST_Relation &seg, float shift);
 void label_map(EST_Relation &seg, EST_Option &map);
 void quantize(EST_Relation &a, float q);
-int edit_labels(EST_Relation &a, EST_String sedfile);
+int edit_labels(EST_Relation &a, const EST_String &sedfile);
 
 void RelationList_select(EST_RelationList &mlf, EST_StrList filenames, bool
 			exact_match);
@@ -124,7 +124,7 @@ EST_write_status save_SentenceList(EST_String filename,
 
 
 EST_read_status read_RelationList(EST_RelationList &mlf, 
-				EST_StrList &files, EST_Option &al);
+				  const EST_StrList &files, EST_Option &al);
 
 float start(EST_Item *n);
 float duration(EST_Item *n);

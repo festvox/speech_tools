@@ -48,6 +48,8 @@
 #include "EST_track_aux.h"
 #include "EST_error.h"
 
+using namespace std;
+
 //static inline int irint(float f) { return (int)(f+0.5); }
 //static inline int irint(double f) { return (int)(f+0.5); }
 //static inline int ifloor(float f) { return (int)(f); }
@@ -964,7 +966,7 @@ void channel_to_time(EST_Track &tr, int channel, float scale)
     {
 	tr.t(i) = tr.a(i,channel) * scale;
     }
-    tr.set_equal_space(FALSE);
+    tr.set_equal_space(false);
 }
 
 void channel_to_time(EST_Track &tr, EST_ChannelType c, float scale)
@@ -1005,7 +1007,7 @@ void channel_to_time_lengths(EST_Track &tr, int channel, float scale)
 	tr.t(i) = tt;
 	tt += tr.a(i,channel) * scale;
     }
-    tr.set_equal_space(FALSE);
+    tr.set_equal_space(false);
 }
 
 void channel_to_time_lengths(EST_Track &tr, EST_ChannelType c, float scale)

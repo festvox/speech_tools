@@ -169,7 +169,7 @@ public:
   EST_THash<K,V> &operator = (const EST_THash<K,V> &from);
 
   /// Print the table to `stream` in a human readable format.
-  void dump(ostream &stream, int all=0);
+  void dump(std::ostream &stream, int all=0);
 
   /**@name Pair Iteration
     *

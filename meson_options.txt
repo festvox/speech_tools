@@ -1,0 +1,23 @@
+# Audio modules:
+option('audio_nas', type : 'feature', value : 'auto')
+option('audio_esd', type : 'feature', value : 'auto')
+option('audio_mplayer', type: 'feature', value: 'disabled')
+option('audio_win32', type: 'feature', value: 'auto')
+option('audio_irix', type: 'feature', value: 'auto')
+option('audio_os2', type: 'feature', value: 'disabled') # not implemented in meson
+option('audio_osx', type: 'feature', value: 'auto')
+option('audio_pulseaudio', type: 'feature', value: 'auto')
+option('audio_alsa', type: 'feature', value: 'auto')
+
+option('editline', type: 'feature', value: 'auto')
+option('siod_python', type: 'feature', value: 'auto')
+
+# speech_tools components:
+option('scfg', type: 'boolean', value: true)
+option('wfst', type: 'boolean', value: true)
+option('ols', type: 'boolean', value: true)
+option('kalman_filter', type: 'boolean', value: true)
+option('wagon', type: 'boolean', value: true)
+option('siod', type: 'boolean', value: true)
+option('rxp', type: 'boolean', value: true)
+

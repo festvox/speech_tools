@@ -43,7 +43,6 @@ class EST_Regex;
 #include <cstring>
 #include <iostream>
 #include <climits>
-using namespace std;
 #include "EST_Chunk.h"
 #include "EST_strcasecmp.h"
 #include "EST_bool.h"
@@ -91,9 +90,9 @@ class EST_String {
 #define __GRIPE_FATAL__ (1)
 
 #if __GRIPE_FATAL__
-#    define gripe(WHAT) (cerr<< ("oops! " WHAT "\n"),abort())
+#    define gripe(WHAT) (std::cerr<< ("oops! " WHAT "\n"),abort())
 #else
-#    define gripe(WHAT) (cerr<< ("oops! " WHAT "\n"))
+#    define gripe(WHAT) (std::cerr<< ("oops! " WHAT "\n"))
 #endif
 
 #if __STRING_ARG_GRIPE__
@@ -112,9 +111,9 @@ public:
     static const EST_String Empty;
 
     /// Type of string size field.
-    typedef int EST_string_size;
+    typedef ptrdiff_t EST_string_size;
     /// Maximum string size.
-#  define MAX_STRING_SIZE (INT_MAX)
+#  define MAX_STRING_SIZE (PTRDIFF_MAX)
 
 private:
     /// Smart pointer to actual memory.
@@ -239,9 +238,9 @@ public:
     }
 
     /// Length of string ({\em not} length of underlying chunk)
-    int length(void) const { return size; }
+    EST_string_size length(void) const { return size; }
     /// Size of underlying chunk.
-    int space (void) const { return memory.size(); }
+    EST_Chunk::EST_chunk_size space (void) const { return memory.size(); }
     /// Get a const-pointer to the actual memory.
     const char *str(void) const { return size==0?"":(const char *)memory; }
     /// Get a writable pointer to the actual memory.
@@ -258,6 +257,9 @@ public:
 
     /// Build string from a long integer.
     static EST_String Number(long i, int base=10);
+
+    /// Build string from a long long integer.
+    static EST_String Number(long long i, int base=10);
 
     /// Build string from a double.
     static EST_String Number(double d);
@@ -456,9 +458,9 @@ public:
     ///@{
 
     /// Function style access to constant strings.
-    const char operator () (int i) const { return memory[i]; }
+    char operator () (ptrdiff_t i) const { return memory[i]; }
     /// Array style access to writable strings.
-    char &operator [] (int i) { return memory(i); }
+    char &operator [] (ptrdiff_t i) { return memory(i); }
 #endif
 
     /// Cast to const char * by simply giving access to pointer.
@@ -642,18 +644,18 @@ public:
       EST_String & ignore_volatile(void) volatile { return *((EST_String *)(void *)this); }
 
     /// Stream output for EST_String.
-    friend ostream &operator << (ostream &s, const EST_String &str);
+    friend std::ostream &operator << (std::ostream &s, const EST_String &str);
     friend class EST_Regex;
 
 }; 
 
-EST_ChunkPtr chunk_allocate(int bytes);
-EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len);
-EST_ChunkPtr chunk_allocate(int bytes, const EST_ChunkPtr &initial, int initial_start, int initial_len);
+EST_ChunkPtr chunk_allocate(size_t bytes);
+EST_ChunkPtr chunk_allocate(size_t bytes, const char *initial, size_t initial_len);
+EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t initial_start, size_t initial_len);
 
 int operator == (const char *a, const EST_String &b);
 int operator == (const EST_String &a, const EST_String &b);
-ostream &operator << (ostream &s, const EST_String &str);
+std::ostream &operator << (std::ostream &s, const EST_String &str);
 
 #include "EST_Regex.h"
 

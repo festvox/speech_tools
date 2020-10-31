@@ -73,7 +73,7 @@ EST_TDeque<T>::EST_TDeque()
 
 
 template <class T>
-ostream &EST_TDeque<T>::print(ostream &s) const
+std::ostream &EST_TDeque<T>::print(std::ostream &s) const
 {
   s << "{" << p_vector.n() << "|";
 

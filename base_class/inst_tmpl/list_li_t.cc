@@ -43,6 +43,7 @@
 Declare_TList_T(EST_IList, LIST_INT)
 
 #if defined(INSTANTIATE_TEMPLATES)
+extern template class EST_TItem<int>;
 
 #include "../base_class/EST_TList.cc"
 

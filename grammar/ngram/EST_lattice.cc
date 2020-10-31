@@ -41,6 +41,8 @@
 #include <fstream>
 #include <cstdlib>
 
+using namespace std;
+
 Lattice::Lattice()
 {
     tf=0;
@@ -1603,6 +1605,10 @@ Lattice::build_transition_function()
     int num_nodes = nodes.length();
     int num_symbols = alphabet.n();
 
+    if (num_nodes <= 0) {
+        cerr << "No nodes, no transition function" << endl;
+        return true;
+    }
     if(tf != NULL)
 	cerr << "Warning : discarding existing transition function" << endl;
 
@@ -1649,7 +1655,7 @@ Lattice::accepts(EST_TList<symbol_t*> &string)
 
 
 float
-Lattice::viterbi_transduce(EST_TList<EST_String> &input,
+Lattice::viterbi_transduce(EST_StrList &input,
 			   EST_TList<Arc*> &path,
 			   EST_Litem *current_symbol,
 			   Node *start_node)

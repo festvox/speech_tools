@@ -44,13 +44,14 @@ using namespace std;
 #ifdef SUPPORT_PULSEAUDIO
 
 #include <pulse/simple.h>
-int pulse_supported = TRUE;
+bool pulse_supported = true;
 
 #define AUDIOBUFFSIZE 256
 // #define AUDIOBUFFSIZE 20480
 
 int play_pulse_wave(EST_Wave &inwave, EST_Option &al)
 {
+    (void) al;
     pa_sample_spec *ss;
     pa_simple *s;
     short *waveform;
@@ -96,12 +97,14 @@ int play_pulse_wave(EST_Wave &inwave, EST_Option &al)
 
 int record_pulse_wave(EST_Wave &inwave, EST_Option &al)
 {
+    (void) inwave;
+    (void) al;
     return -1;
 }
 
 #else /* SUPPORT_PULSEAUDIO */
 
-int pulse_supported = FALSE;
+bool pulse_supported = false;
 
 int play_pulse_wave(EST_Wave &inwave, EST_Option &al)
 {

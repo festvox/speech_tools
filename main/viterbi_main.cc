@@ -42,6 +42,8 @@
 #include <cmath>
 #include "EST.h"
 
+using namespace std;
+
 EST_read_status load_TList_of_StrVector(EST_TList<EST_StrVector> &w,
 					const EST_String &filename,
 					const int vec_len);
@@ -85,91 +87,25 @@ static float beam=-1;
 static float ob_beam=-1;
 static int n_beam = -1;
 
-static bool trace_on = FALSE;
+static bool trace_on = false;
 
 // always logs
 static double ob_log_prob_floor = SAFE_LOG_ZERO;  
 static double ob_log_prob_floor2 = SAFE_LOG_ZERO;  
 static double lm_log_prob_floor = SAFE_LOG_ZERO;  
 
-int btest_debug = FALSE;
+int btest_debug = false;
 static EST_String out_file = "";
 static EST_StrList vocab;
 static EST_Track observations;  
 static EST_Track observations2;  
 static EST_TList<EST_StrVector> given; // to do : convert to array for speed
-int using_given=FALSE;
+int using_given=false;
 
 // default is that obs are already logs
-int take_logs = FALSE;
+int take_logs = false;
 int num_obs = 1;
 
-
-
-
-/** @name  <command>viterbi</command> <emphasis>Combine n-gram model and likelihoods to estimate posterior probabilities</emphasis>
-  * @id viterbi-manual
-  * @toc
- */
-
-//@{
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-viterbi is a simple time-synchronous Viterbi decoder. It finds the
-most likely sequence of items drawn from a fixed vocabulary, given
-frame-by-frame observation probabilities for each item in that
-vocabulary, and a ngram grammar. Possible uses include:
-
-<itemizedlist>
-<listitem><para>Simple speech recogniser back end</para></listitem>
-</itemizedlist>
-
-viterbi can optionally use two sets of frame-by-frame observation
-probabilities in a weighted-sum fashion. Also, the ngram language model
-is not restricted to the conventional sliding window type in which the
-previous n-1 items are the ngram context. Items in the ngram context
-at each frame may be given. In this case, the user must provide a file
-containing the ngram context: one (n-1) tuple per line. To include
-items from the partial Viterbi path so far (i.e. found at recognition
-time, not given) the special notation <-N> is used where N indicates
-the distance back to the item required. For example <-1> would
-indicate the item on the partial Viterbi path at the last frame. See
-\Ref{Examples}.
-
-<formalpara>
-<para><title>Pruning</title></para>
-
-<para>
-Three types of pruning are available to reduce the size of the search
-space and therefore speed up the search:
-
-<itemizedlist>
-<listitem><para>Observation pruning</para></listitem>
-<listitem><para>Top-N pruning at each frame</para></listitem>
-<listitem><para>Fixed width beam pruning</para></listitem>
-</itemizedlist>
-
-</para>
-</formalpara>
-
-*/
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-
-//@}
 
 int main(int argc, char **argv)
 {
@@ -248,7 +184,7 @@ int main(int argc, char **argv)
     if (al.present("-given"))
     {
 	load_given(al.val("-given"),ngram.order());
-	using_given=TRUE;
+	using_given=true;
     }
 
     if (al.present("-lm_scale"))
@@ -297,7 +233,7 @@ int main(int argc, char **argv)
 
 
     if (al.present("-trace"))
-	trace_on = TRUE;
+	trace_on = true;
 
     // language model floor
     if (al.present("-lm_floor"))
@@ -620,7 +556,7 @@ static double find_gram_prob(EST_VTPath *p,int *state)
     // Look up transition probability from *state for name.
     // Return probability and update state
     double prob=0.0,nprob;
-    int i,f=FALSE;
+    int i,f=false;
     EST_VTPath *pp;
     
     EST_StrVector window(ngram.order());
@@ -636,7 +572,7 @@ static double find_gram_prob(EST_VTPath *p,int *state)
 	else
 	{
 	    window[i] = pstring;
-	    f = TRUE;
+	    f = true;
 	}
     }
     window[ngram.order()-1] = p->c->name.string();
@@ -700,7 +636,7 @@ static void get_history(EST_StrVector &history, EST_VTPath *p)
 {
 
     EST_VTPath *pp;
-    int i,f=FALSE;
+    int i,f=false;
     for (pp=p->from,i=0; i < history.length(); i++)
     {
 	
@@ -714,7 +650,7 @@ static void get_history(EST_StrVector &history, EST_VTPath *p)
 	else
 	{
 	    history[i] = pstring;
-	    f = TRUE;
+	    f = true;
 	}
     }
 
@@ -769,9 +705,9 @@ static int is_a_special(const EST_String &s, int &val)
 	tmp = tmp.before(">");
 	val = atoi(tmp);
 	//cerr << "special " << tmp << "=" << val << endl;
-	return TRUE;
+	return true;
     }
-    return FALSE;
+    return false;
 }
 
 static void top_n_candidates(EST_VTCandidate* &all_c)
@@ -835,26 +771,3 @@ static void top_n_candidates(EST_VTCandidate* &all_c)
 }
 
 
-/**@name Examples
-
-Example 'given' file (items f and g are in the vocabulary), the ngram
-is a 4-gram.
-
-<para>
-<screen>
-<-2> g g
-<-1> g f
-<-1> f g
-<-2> g g
-<-3> g g
-<-1> g f
-</screen>
-</para>
-
-*/
-//@{
-//@}
-
-
-
-//@}

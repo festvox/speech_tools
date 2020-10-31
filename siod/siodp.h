@@ -11,10 +11,10 @@ Declarations which are private to SLIB.C internals.
 #ifndef __SIODP_H__
 #define __SIODP_H__
 
-#include "io.h"
+#include "slib_io.h"
 
-typedef int (*repl_getc_fn)(FILE *);
-typedef void (*repl_ungetc_fn)(int,FILE *);
+typedef int (*repl_getc_fn)(void *);
+typedef void (*repl_ungetc_fn)(int,void *);
 
 /* Will get to editline functions if supported */
 extern repl_getc_fn siod_fancy_getc;
@@ -83,13 +83,7 @@ struct gc_protected
 void NNEWCELL (LISP *_into,long _type);
 #endif
 
-#ifdef THINK_C
-extern int ipoll_counter;
-void full_interrupt_poll(int *counter);
-#define INTERRUPT_CHECK() if (--ipoll_counter < 0) full_interrupt_poll(&ipoll_counter)
-#else
 #define INTERRUPT_CHECK()
-#endif
 
 extern char *stack_limit_ptr;
 
@@ -134,8 +128,8 @@ void gc_mark(LISP ptr);
 LISP newcell(long type);
 
 void put_st(const char *st);
-int f_getc(FILE *f);
-void f_ungetc(int c, FILE *f);
+int f_getc(void *f);
+void f_ungetc(int c, void *f);
 long no_interrupt(long n);
 LISP readtl(struct gen_readio *f);
 long repl_driver(long want_sigint,long want_init,struct repl_hooks *);

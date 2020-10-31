@@ -55,9 +55,9 @@ int ilist_member(const EST_IList &l,int i)
     EST_Litem *p;
     for (p = l.head(); p != 0; p = p->next())
 	if (l.item(p) == i)
-	    return TRUE;
+	    return true;
 
-    return FALSE;
+    return false;
 }
 
 int ilist_index(const EST_IList &l,int i)

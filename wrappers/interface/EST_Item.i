@@ -119,7 +119,7 @@ public:
   // replace them with their evaluation.
   void evaluate_features();
   
-  // TRUE if feature is present, FALSE otherwise */
+  // true if feature is present, false otherwise */
   int f_present(const EST_String &name) const;
 
   // Number of items (including this) until no next item.
@@ -131,7 +131,7 @@ public:
   // View item from another relation
   EST_Item *as_relation(const char *relname) const;
 
-  // TRUE if this item is in named relation
+  // true if this item is in named relation
   int in_relation(const EST_String &relname) const;
 
   // The relation name of this particular item

@@ -41,6 +41,8 @@
 #include "EST_cutils.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 void EST_WFST::build_or_transition(int start, int end, LISP disjunctions)
 {
     // Choice of either disjunct
@@ -84,57 +86,57 @@ int EST_WFST::terminal(LISP l)
     // true, l is a terminal in a regex
 
     if (atomp(l))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int EST_WFST::operator_or(LISP l)
 {
     if (l && !consp(l) && (streq("or",get_c_string(l))))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int EST_WFST::operator_plus(LISP l)
 {
     if (l && !consp(l) && (streq("+",get_c_string(l))))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int EST_WFST::operator_not(LISP l)
 {
     if (l && !consp(l) && (streq("not",get_c_string(l))))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int EST_WFST::operator_star(LISP l)
 {
     if (l && !consp(l) && (streq("*",get_c_string(l))))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int EST_WFST::operator_optional(LISP l)
 {
     if (l && !consp(l) && (streq("?",get_c_string(l))))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 int EST_WFST::operator_and(LISP l)
 {
     if (l && !consp(l) && (streq("and",get_c_string(l))))
-	return TRUE;
+	return true;
     else
-	return FALSE;
+	return false;
 }
 
 void EST_WFST::build_wfst(int start, int end,LISP regex)

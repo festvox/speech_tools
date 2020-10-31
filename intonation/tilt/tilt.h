@@ -37,8 +37,8 @@
 /*                                                                       */
 /*=======================================================================*/
 
-#ifndef __TILT_H__
-#define __TILT_H__
+#ifndef INTONATION_TILT_H
+#define INTONATION_TILT_H
 
 
 #include "ling_class/EST_Relation.h"
@@ -83,4 +83,4 @@ inline float dur(EST_Item &e)
 }
 */
 
-#endif /* TILT_UTILS */
+#endif /* INTONATION_TILT_H */

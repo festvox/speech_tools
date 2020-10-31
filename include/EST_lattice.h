@@ -89,11 +89,11 @@ private:
 protected:
 
     // not necessarily defined or used ...
-    //friend inline ostream& operator<<(ostream &s, Lattice::quantised_label_table_entry_t &q);
-    //friend inline ostream& operator<<(ostream& s, Lattice::name_map_entry_t &n);
-    friend inline ostream& operator<<(ostream& s, const Lattice::symbol_t &sy);
-    friend inline ostream& operator<<(ostream& s, const Lattice::Node &n);
-    friend inline ostream& operator<<(ostream& s, const Lattice::Arc &n);
+    //friend inline std::ostream& operator<<(std::ostream &s, Lattice::quantised_label_table_entry_t &q);
+    //friend inline std::ostream& operator<<(std::ostream& s, Lattice::name_map_entry_t &n);
+    friend inline std::ostream& operator<<(std::ostream& s, const Lattice::symbol_t &sy);
+    friend inline std::ostream& operator<<(std::ostream& s, const Lattice::Node &n);
+    friend inline std::ostream& operator<<(std::ostream& s, const Lattice::Arc &n);
 
 
     // maps, for speed
@@ -170,7 +170,7 @@ public:
 
     // traversing functions
     bool accepts(EST_TList<symbol_t*> &string);
-    float viterbi_transduce(EST_TList<EST_String> &input,
+    float viterbi_transduce(EST_StrList &input,
 			    EST_TList<Arc*> &path,
 			    EST_Litem *current_symbol = NULL,
 			    Node *start_node = NULL);
@@ -249,7 +249,7 @@ operator + (const Lattice::symbol_t s1,
 {
     (void) s1;
     (void) s2;
-    cerr << "operator + makes no sense for Lattice::symbol_t !" << endl;
+    std::cerr << "operator + makes no sense for Lattice::symbol_t !" << std::endl;
     return Lattice::symbol_t();
 
 }
@@ -288,34 +288,34 @@ inline int operator == (Lattice::symbol_t s1, Lattice::symbol_t s2)
 
 
 /*
-inline ostream& operator<<(ostream &s, Lattice::quantised_label_table_entry_t &q){
+inline std::ostream& operator<<(std::ostream &s, Lattice::quantised_label_table_entry_t &q){
     s << q.value;
     return s;
 }
 */
 
 /*
-inline ostream& operator<<(ostream& s, Lattice::name_map_entry_t &n)
+inline std::ostream& operator<<(std::ostream& s, Lattice::name_map_entry_t &n)
 {
     s << n.index << "=" << n.name;
     return s;
 }
 */
 
-inline ostream& operator<<(ostream& s, const Lattice::symbol_t &sm)
+inline std::ostream& operator<<(std::ostream& s, const Lattice::symbol_t &sm)
 {
     s << "[q=" << sm.qmap_index << ",n=" << sm.nmap_index << "]";
     return s;
 }
 
 
-inline ostream& operator<<(ostream& s, const Lattice::Node &n)
+inline std::ostream& operator<<(std::ostream& s, const Lattice::Node &n)
 {
     s << "Node:" << n.name;
     return s;
 }
 
-inline ostream& operator<<(ostream &s, const Lattice::Arc &a)
+inline std::ostream& operator<<(std::ostream &s, const Lattice::Arc &a)
 {
     s << a.label;
     return s;

@@ -46,8 +46,11 @@ extern "C"
 {
 #endif
 
-int siod_el_getc(FILE *f);
-void siod_el_ungetc(int c, FILE *f);
+#include <stdio.h>
+#include <stdbool.h>
+
+int siod_el_getc(void *f);
+void siod_el_ungetc(int c, void *f);
 void siod_el_init(void);
 char **siod_variable_generator(char *text,int length);
 char **siod_command_generator(char *text,int length);
@@ -58,13 +61,6 @@ void siod_saydocstring(const char *symbol);
 extern int editline_histsize;
 extern int el_no_echo;
 extern char *editline_history_file;
-
-#ifndef TRUE
-#define TRUE (1==1)
-#endif
-#ifndef FALSE
-#define FALSE (1==0)
-#endif
 
 #ifdef __cplusplus
 }

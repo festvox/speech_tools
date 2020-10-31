@@ -40,6 +40,8 @@
 #include "EST_multistats.h"
 #include "EST_simplestats.h"
 
+using namespace std;
+
 static void ols_load_selected_feats(const EST_FMatrix &X, 
 				    const EST_IVector &included,
 				    EST_FMatrix &Xl);
@@ -61,11 +63,11 @@ int ols(const EST_FMatrix &X,const EST_FMatrix &Y, EST_FMatrix &coeffs)
     EST_FMatrix Xplus;
 
     if (!pseudo_inverse(X,Xplus))
-	return FALSE;
+	return false;
 
     multiply(Xplus,Y,coeffs);
 
-    return TRUE;
+    return true;
 }
 
 int robust_ols(const EST_FMatrix &X,
@@ -77,7 +79,7 @@ int robust_ols(const EST_FMatrix &X,
 
     included.resize(X.num_columns());
     for (i=0; i<included.length(); i++)
-	 included.a_no_check(i) = TRUE;
+	 included.a_no_check(i) = true;
 
     return robust_ols(X,Y,included,coeffs);
 }
@@ -100,16 +102,16 @@ int robust_ols(const EST_FMatrix &X,
     {
 	cerr << "OLS: less rows than columns, so cannot find solution."
 	    << endl;
-	return FALSE;
+	return false;
     }
     if (X.num_columns() != included.length())
     {
 	cerr << "OLS: `included' list wrong size: internal error."
 	    << endl;
-	return FALSE;
+	return false;
     }
 
-    while (TRUE)
+    while (true)
     {
 	ols_load_selected_feats(X,included,Xl);
 	if (pseudo_inverse(Xl,Xplus,singularity))
@@ -124,20 +126,20 @@ int robust_ols(const EST_FMatrix &X,
 	    for (s=i=0; i<singularity; i++)
 	    {
 		s++;
-		while ((included(s) == FALSE) ||
+		while ((included(s) == false) ||
                        (included(s) == OLS_IGNORE))
                        s++;
 	    }
-	    if (included(s) == FALSE)
+	    if (included(s) == false)
 	    {   // oops
 		cerr << "OLS: found singularity twice, shouldn't happen" 
 		    << endl;
-		return FALSE;
+		return false;
 	    }
 	    else
 	    {
 		cerr << "OLS: omitting singularity in column " << s << endl;
-		included[s] = FALSE;
+		included[s] = false;
 	    }
 	}
     }
@@ -154,7 +156,7 @@ int robust_ols(const EST_FMatrix &X,
 	    coeffs.a_no_check(i,0) = 0.0;
 
 
-    return TRUE;
+    return true;
 
 }
 
@@ -165,14 +167,14 @@ static void ols_load_selected_feats(const EST_FMatrix &X,
     int i,j,k,width;
 
     for (width=i=0; i<included.length(); i++)
-	if (included(i) == TRUE)
+	if (included(i) == true)
 	    width++;
 
     Xl.resize(X.num_rows(),width);
 
     for (i=0; i<X.num_rows(); i++)
 	for (k=j=0; j < X.num_columns(); j++)
-	    if (included(j) == TRUE)
+	    if (included(j) == true)
 	    {
 		Xl.a_no_check(i,k) = X.a_no_check(i,j);
 		k++;
@@ -187,11 +189,11 @@ int ols_apply(const EST_FMatrix &samples,
     // Apply coefficients to samples for res.
 
     if (samples.num_columns() != coeffs.num_rows())
-	return FALSE;
+	return false;
 
     multiply(samples,coeffs,res);
 
-    return TRUE;
+    return true;
 }
 
 int stepwise_ols(const EST_FMatrix &X,
@@ -218,7 +220,7 @@ int stepwise_ols(const EST_FMatrix &X,
                                     feat_names))
 	{
 	    cerr << "OLS: stepwise failed" << endl;
-	    return FALSE;
+	    return false;
 	}
 	if ((bscore - (bscore * (limit/100))) <= best_score)
 	    break;
@@ -226,7 +228,7 @@ int stepwise_ols(const EST_FMatrix &X,
 	{
 	    best_score = bscore;
 	    coeffs = coeffsl;
-	    included[best_feat] = TRUE;
+	    included[best_feat] = true;
 	    printf("FEATURE %d %s: %2.4f\n",
 		   nf,
 		   (const char *)feat_names.nth(best_feat),
@@ -236,7 +238,7 @@ int stepwise_ols(const EST_FMatrix &X,
 	}
     }
 
-    return TRUE;
+    return true;
 }
 
 static int ols_stepwise_find_best(const EST_FMatrix &X,
@@ -257,13 +259,13 @@ static int ols_stepwise_find_best(const EST_FMatrix &X,
 
     for (i=0; i < included.length(); i++)
     {
-	if (included.a_no_check(i) == FALSE)
+	if (included.a_no_check(i) == false)
 	{
 	    float cor, rmse;
 	    EST_FMatrix pred;
-	    included.a_no_check(i) = TRUE;
+	    included.a_no_check(i) = true;
 	    if (!robust_ols(X,Y,included,coeffsl))
-		return FALSE;  // failed for some reason
+		return false;  // failed for some reason
 	    ols_apply(Xtest,coeffsl,pred);
             ols_test(Ytest,pred,cor,rmse);
             printf("tested %d %s %f best %f\n",
@@ -274,11 +276,11 @@ static int ols_stepwise_find_best(const EST_FMatrix &X,
 		coeffs = coeffsl;
 		best_feat = i;
 	    }
-	    included.a_no_check(i) = FALSE;
+	    included.a_no_check(i) = false;
 	}
     }
 
-    return TRUE;
+    return true;
 }
 
 int ols_test(const EST_FMatrix &real,
@@ -295,7 +297,10 @@ int ols_test(const EST_FMatrix &real,
     double v1,v2,v3;
 
     if (real.num_rows() != predicted.num_rows())
-	return FALSE;  // can't do this
+    {
+        correlation = 0;
+	return false;  // can't do this
+    }
 
     for (i=0; i < real.num_rows(); i++)
     {
@@ -322,7 +327,7 @@ int ols_test(const EST_FMatrix &real,
     {   // happens when there's very little variation in x
 	correlation = 0;
 	rmse = se.mean();
-	return FALSE;
+	return false;
     }
     // Pearson's product moment correlation coefficient
     correlation = (xy.mean() - (x.mean()*y.mean()))/ sqrt(v3);
@@ -334,10 +339,10 @@ int ols_test(const EST_FMatrix &real,
     // So I catch it here.  If I knew more math I'd be able to describe
     // this better but the code would remain the same.
     if ((correlation <= 1.0) && (correlation >= -1.0))
-	return TRUE;
+	return true;
     else
     {
 	correlation = 0;
-	return FALSE;
+	return false;
     }
 }

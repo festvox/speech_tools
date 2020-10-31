@@ -344,7 +344,7 @@ bool EST_BackoffNgrammarState::ngram_exists(const EST_StrVector &words,
       return false;
 }
 
-const EST_BackoffNgrammarState *const
+const EST_BackoffNgrammarState *
 EST_BackoffNgrammarState::get_state(const EST_StrVector &words) const
 {
     EST_BackoffNgrammarState *s;
@@ -393,7 +393,7 @@ void EST_BackoffNgrammarState::zap()
 }
 
 
-const double EST_BackoffNgrammarState::get_backoff_weight(const EST_StrVector &words) const
+double EST_BackoffNgrammarState::get_backoff_weight(const EST_StrVector &words) const
 {
     EST_BackoffNgrammarState *s;
     if (words.n()-1-p_level >= 0)
@@ -630,17 +630,9 @@ const EST_StrVector &EST_Ngrammar::make_ngram_from_index(const int index) const
     
     for(i=p_order-2;i>=0;i--)
     {
-#if defined(sun) && ! defined(__svr4__)
-/* SunOS */
-	int rem = ind%vocab->length();
-	int quot = ind/vocab->length();
-	(*ngram)[i] = wordlist_index(rem);
-	ind = quot;
-#else
 	div_t d = div(ind,vocab->length());
 	(*ngram)[i] = wordlist_index(d.rem);
 	ind = d.quot;
-#endif
     }
     
     return *ngram;
@@ -658,7 +650,7 @@ bool EST_Ngrammar::init_vocab(const EST_StrList &word_list)
     pred_vocab = vocab;	// same thing in this case
     vocab_pdf.init(pred_vocab);
     
-    return (bool)(vocab != NULL);
+    return true;
 }
 
 bool EST_Ngrammar::init_vocab(const EST_StrList &word_list,
@@ -672,7 +664,7 @@ bool EST_Ngrammar::init_vocab(const EST_StrList &word_list,
 	return false;
     vocab_pdf.init(pred_vocab);
     
-    return (bool)(vocab != NULL);
+    return true;
 }
 
 bool EST_Ngrammar::check_vocab(const EST_StrList &word_list)
@@ -995,7 +987,7 @@ bool EST_Ngrammar::ngram_exists(const EST_StrVector &words, const double thresho
 }
 
 
-const double EST_Ngrammar::get_backoff_weight(const EST_StrVector &words) const
+double EST_Ngrammar::get_backoff_weight(const EST_StrVector &words) const
 {
     if(p_representation == EST_Ngrammar::backoff)
 	return backoff_representation->get_backoff_weight(words);
@@ -1072,7 +1064,7 @@ bool EST_Ngrammar::oov_preprocess(const EST_String &filename,
     // open the original files for reading
     if (filename == "-")
     {
-	if( ts.open(stdin, FALSE) == -1)
+	if( ts.open(stdin, false) == -1)
 	{
 	    cerr << "EST_Ngrammar:: failed to open stdin";
 	    cerr << " for reading" << endl;
@@ -1172,27 +1164,27 @@ bool EST_Ngrammar::build_ngram(const EST_String &filename,
     int bad_word=0;
     EST_String s;
     EST_TokenStream ts;
-    int eoln_is_eos = FALSE;
-    int sliding_window = TRUE;
+    int eoln_is_eos = false;
+    int sliding_window = true;
     int count=0;
     clear();
     
     if ( (input_format == "") || (input_format == "sentence_per_line") )
     {
 	// may do something here later
-	eoln_is_eos = TRUE;
-	sliding_window = TRUE;
+	eoln_is_eos = true;
+	sliding_window = true;
     }
     else if (input_format == "sentence_per_file")
     {
-	eoln_is_eos = FALSE;
-	sliding_window = TRUE;
+	eoln_is_eos = false;
+	sliding_window = true;
 	p_number_of_sentences = 1;
     }
     else if(input_format == "ngram_per_line")
     {
-	eoln_is_eos = FALSE;
-	sliding_window = FALSE;
+	eoln_is_eos = false;
+	sliding_window = false;
 	p_number_of_sentences = 1;
     }
     else
@@ -1205,7 +1197,7 @@ bool EST_Ngrammar::build_ngram(const EST_String &filename,
     
     if (filename == "-")
     {
-	if( ts.open(stdin, FALSE) == -1)
+	if( ts.open(stdin, false) == -1)
 	{
 	    cerr << "EST_Ngrammar:: failed to open stdin";
 	    cerr << " for reading" << endl;
@@ -1847,7 +1839,7 @@ bool EST_Ngrammar::set_representation(EST_Ngrammar::representation_t new_represe
     else
     {
 	cerr << "set_representation: unknown ngrammar representation" << endl;
-	return FALSE;
+	return false;
     }
 }
 
@@ -2392,7 +2384,7 @@ EST_Ngrammar::backoff_prob_dist(const EST_StrVector &words) const
     return *p;
 }
 
-const double EST_Ngrammar::get_backoff_discount(const int order, const double freq) const
+double EST_Ngrammar::get_backoff_discount(const int order, const double freq) const
 {
     if(order > p_order)
     {
@@ -2407,7 +2399,7 @@ const double EST_Ngrammar::get_backoff_discount(const int order, const double fr
 	return 0;
 }
 
-const double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
+double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
 					       const bool trace) const
 {
     const EST_BackoffNgrammarState *state;
@@ -2523,7 +2515,7 @@ const double EST_Ngrammar::backoff_probability(const EST_StrVector &words,
 }
 
 
-const double 
+double 
 EST_Ngrammar::backoff_reverse_probability_sub(const EST_StrVector &words,
 					      const EST_BackoffNgrammarState *root) const
 {
@@ -2590,7 +2582,7 @@ EST_Ngrammar::backoff_reverse_probability_sub(const EST_StrVector &words,
     }
 }
 
-const double 
+double 
 EST_Ngrammar::backoff_reverse_probability(const EST_StrVector &words) const
 {
     

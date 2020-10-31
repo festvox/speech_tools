@@ -36,8 +36,9 @@
 /*                    Command line options                               */
 /*                                                                       */
 /*=======================================================================*/
-#ifndef __cmd_line_H__
-#define __cmd_line_H__
+#ifndef cmd_line_H__
+#define cmd_line_H__
+
 
 #include "EST_String.h"
 #include "EST_Option.h"
@@ -53,4 +54,4 @@ int parse_command_line(int argc,
 int init_lib_ops(EST_Option &al, EST_Option &options);
 void override_lib_ops(EST_Option &a_list, EST_Option &al);
 
-#endif /* __cmd_line_H__ */
+#endif /* cmd_line_H__ */

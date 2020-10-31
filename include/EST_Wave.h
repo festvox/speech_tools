@@ -102,19 +102,19 @@ public:
   */
   short &a(int i, int channel = 0);
   short a(int i, int channel = 0) const;
-  INLINE short &a_no_check(int i, int channel = 0)
+  inline short &a_no_check(int i, int channel = 0)
         { return p_values.a_no_check(i,channel); }
-  INLINE short a_no_check(int i, int channel = 0) const
+  inline short a_no_check(int i, int channel = 0) const
         { return p_values.a_no_check(i,channel); }
-  INLINE short &a_no_check_1(int i, int channel = 0)
+  inline short &a_no_check_1(int i, int channel = 0)
         { return p_values.a_no_check_1(i,channel); }
-  INLINE short a_no_check_1(int i, int channel = 0) const
+  inline short a_no_check_1(int i, int channel = 0) const
         { return p_values.a_no_check_1(i,channel); }
 
   
   /** explicit set_a, easier to wrap than assignment
    */
-  INLINE short set_a(int i, int channel = 0, short val = 0)
+  inline short set_a(int i, int channel = 0, short val = 0)
   { return a(i,channel) = val; }
 
   /** return amplitude of sample <tt>i</tt> from channel <tt>
@@ -323,7 +323,7 @@ public:
   EST_Wave& operator |=(const EST_Wave &a);
 
   /// print waveform
-  friend ostream& operator << (ostream& p_values, const EST_Wave &sig);
+  friend std::ostream& operator << (std::ostream& p_values, const EST_Wave &sig);
 
   // integrity check *** debug
   void integrity() const { p_values.integrity() ; }

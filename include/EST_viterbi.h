@@ -157,7 +157,7 @@ class EST_Viterbi_Decoder {
     void vit_add_path(EST_VTPoint *p, EST_VTPath *np);
     void vit_add_paths(EST_VTPoint *p, EST_VTPath *np);
     EST_VTPath *find_best_end() const;
-    const int betterthan(const float a,const float b) const;
+    int betterthan(const float a,const float b) const;
     void prune_initialize(EST_VTPoint *p,
 			  double &best_score, double &best_candidate_score,
 			  double &score_cutoff, double &candidate_cutoff,
@@ -215,12 +215,12 @@ class EST_Viterbi_Decoder {
     void search(void);
     /** Extract the result from the table and store it as a feature
         on the related \ref EST_Item  in the given \ref EST_Relation 
-        named as `n`. Return FALSE if no path is found.
+        named as `n`. Return false if no path is found.
     */
     bool result(const EST_String &n);
 
     /** Extract the end point of the best path found during search. 
-	Return FALSE if no path is found.
+	Return false if no path is found.
      */
     bool result( EST_VTPath **bestPathEnd );
 

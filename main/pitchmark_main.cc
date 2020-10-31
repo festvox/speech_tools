@@ -45,6 +45,7 @@
 #include "EST_speech_class.h"
 #include "sigpr/EST_pitchmark.h"
 
+using namespace std;
 
 void set_options(EST_Features &op, EST_Option &al);
 
@@ -66,88 +67,6 @@ void pm_fill(EST_Track &pm, float new_end, float max,
 
 void pm_to_f0(EST_Track &pm, EST_Track &f0);
 */
-
-
-/** @name <command> pitchmark </command> <emphasis> Find instants of glottal closure in Laryngograph file</emphasis>
-
-  * @id pitchmark-manual
-  * @toc */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-<command>pitchmark</command> locates instants of glottal closure in a
-laryngograph waveform, and performs post-processing to produce even
-pitchmarks. EST does not currently provide any means of pitchmarking a
-speech waveform.
-
-Pitchmarking is performed by calling the
-<function>pitchmark()</function> function, which carries out the
-following operations: 
-
-<orderedlist> <listitem><para>Double low pass filter the signal. This
-removes noise in the signal. The parameter
-<parameter>lx_lf</parameter> specifies the low pass cutoff frequency,
-and <parameter>lx_lo</parameter> specifies the order. Double filtering
-(feeding the waveform through the filter, then reversing the waveform
-and feeding it through again) is performed to reduce any phase shift
-between the input and output of the filtering operation.
-</para></listitem>
-
-<listitem><para>Double high pass filter the signal. This removes the
-very low frequency swell that is often observed in laryngograph
-waveforms.  The parameter <parameter>lx_hf</parameter> specifies the high pass cutoff frequency,
-and <parameter>lx_ho</parameter> specifies the order.
-Double filtering is performed to reduce any phase shift
-between the input and output of the filtering operation.
-</para></listitem>
-
-<listitem><para>Calculate the delta signal. The filtered waveform is
-differentiated using the <function>delta()</function>
-function.</para></listitem>
-
-<listitem><para>Low pass filter the delta signal. Some noise may still
-be present in the signal, and this is removed by further low pass
-filtering. Experimentation has shown that simple mean smoothing is
-often more effective than FIR smoothing at this point.  The parameter
-<parameter>mo</parameter> is used to specify the size of the mean
-smoothing window.  If FIR smoothing is chosen, the parameter
-<parameter>df_lf</parameter> specifies the low pass cutoff frequency,
-and <parameter>df_lo</parameter> specifies the order. Double filtering
-is again used to avoid phase distortion.
-
-</para></listitem>
-
-<listitem><para>Pick zero crossings. Now simple zero-crossing is used
-to find the pitchmarks themselves.  </para></listitem>
-
-</orderedlist>
-
-<command>pitchmark</command> also performs post-processing on the pitchmarks. 
-This can be used to eliminate pitchmarks which occur too closely together, 
-or to provide estimated evenly spaced pitchmarks during unvoiced regions.
-The -fill option switches <action>this facility on</action>, 
-and -min, -max, -def, 
--end and -wave_end control its operation.
-
-*/
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main (int argc, char *argv[])
@@ -402,29 +321,3 @@ void set_options(EST_Features &op, EST_Option &al)
 	op.set("pm_debug", 1);
 }
 
-/** @name Examples
-</para>
-<formalpara><title>Basic Pitchmarking</title>
-<para>
-<screen>
-$ pitchmark kdt_010.lar -o kdt_010.pm -otype est
-</screen>
-</para> 
-</formalpara>
-
-<formalpara><title>Pitchmarking with unvoiced regions
-filled</title> <para> The following fills unvoiced regions with pitch
-periods that are about 0.01 seconds long. It also post-processes the
-set of pitchmarks and ensures that noe are above 0.02 seconds long and
-none below 0.003. A final unvoiced region extending to the end of the
-wave is specified by using the -wave_end option.
-</para> </formalpara><para>
-<screen>
-$ pitchmark kdt_010.lar -o kdt_010.pm -otype est -fill -min 0.003  \
-       -max 0.02 -def 0.01 -wave_end
-</screen>
-
-*/
-
-//@{
-//@}

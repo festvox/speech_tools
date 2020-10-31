@@ -46,6 +46,8 @@
 #include "EST_cutils.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 static LISP find_rewrites(LISP rules, LISP terms, LISP nonterms);
 static LISP rg_find_nt_ts(LISP rules,LISP sets);
 static LISP prod_join(LISP n, LISP p);

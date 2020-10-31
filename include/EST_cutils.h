@@ -47,8 +47,9 @@ extern "C" {
 
 extern const char * const est_tools_version;
 extern const char * const est_name;
-extern const char * const est_libdir;
+extern const char * est_libdir;
 extern const char * const est_ostype;
+char * get_estlibdir(const char *path, const char *path_rel_bin);
 
 #include "EST_walloc.h"
 #include "EST_system.h"

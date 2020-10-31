@@ -96,20 +96,20 @@ void add_assumption(int y,int z,wfst_assumes &assumptions)
 {
     // Add a binding of y to z, and z to y to assumptions
     EST_Litem *p;
-    int y_ok = FALSE;
-    int z_ok = FALSE;
+    int y_ok = false;
+    int z_ok = false;
 
     for (p=assumptions.list.head(); p != 0; p=p->next())
     {
 	if (assumptions.list(p).k == y)
 	{
 	    assumptions.list(p).v.append(z);
-	    y_ok = TRUE;
+	    y_ok = true;
 	}
 	if (assumptions.list(p).k == z)
 	{
 	    assumptions.list(p).v.append(y);
-	    z_ok = TRUE;
+	    z_ok = true;
 	}
 	if (z_ok && y_ok)
 	    break;
@@ -134,7 +134,7 @@ int equivalent_to(int y,int z,wfst_assumes &assumptions)
     EST_Litem *p,*q;
 
     if (y==z)
-	return TRUE;
+	return true;
     else 
     {
 	for (p=assumptions.list.head(); p != 0; p=p->next())
@@ -144,17 +144,17 @@ int equivalent_to(int y,int z,wfst_assumes &assumptions)
 		EST_IList &b = assumptions.list(p).v;
 		for (q=b.head(); q != 0; q=q->next())
 		    if (z == b(q))
-			return TRUE;
+			return true;
 	    }
 	    if (assumptions.list(p).k == z)
 	    {   
 		EST_IList &b = assumptions.list(p).v;
 		for (q=b.head(); q != 0; q=q->next())
 		    if (y == b(q))
-			return TRUE;
+			return true;
 	    }
 	}
-	return FALSE;
+	return false;
     }
 }
 

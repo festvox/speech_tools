@@ -48,6 +48,8 @@
 #include "EST_SCFG.h"
 #include "siod.h"
 
+using namespace std;
+
 EST_String outfile = "-";
 EST_String domain = "nlogp";
 EST_String values = "equal";
@@ -62,39 +64,7 @@ static LISP make_all_rules(const EST_StrList &NonTerminals,
 			   const EST_StrList &Terminals);
 static void generate_probs(double *probs,int num);
 
-/** @name <command>scfg_make</command> <emphasis>Make the rules for a stochastic context free grammar</emphasis>
-    @id scfg-make-manual
-  * @toc
- */
 
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
-Builds a stochastic context free grammar from a vocabulary of non-terminal
-and terminal symbols.  An exhaustive set of all possible binary rules
-are generated with random (or equal) probabilities (or negative log
-probabilities).  This program is designed for making grammars that
-can be trained using scfg_train.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main(int argc, char **argv)

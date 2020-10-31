@@ -73,7 +73,6 @@
 /* modified by awb to allow specifcation of history size at run time  */
 /* (though only once)                                                 */
 int editline_histsize=256;
-char *editline_history_file = ".editline_history";
 /* If this is defined it'll be called for completion first, before the */
 /* internal file name completion will be                               */
 EL_USER_COMPLETION_FUNCTION_TYPE*el_user_completion_function = NULL;
@@ -229,7 +228,7 @@ extern char	*tgetstr();
 extern int	tgetent();
 extern int	tgetnum();
 #endif	/* defined(USE_TERMCAP) */
-
+
 /*
 **  TTY input/output functions.
 */
@@ -428,7 +427,7 @@ STATIC void TTYinfo()
 	TTYrows = SCREEN_ROWS;
     }
 }
-
+
 
 /*
 **  Print an array of words in columns.
@@ -686,7 +685,7 @@ STATIC void clear_line()
     TTYputs(bol);
     for (i=screen_pos()/TTYwidth; i > 0; i--)
 	if (upline) TTYputs(upline);
-    for (i=0; i < strlen(Prompt); i++)
+    for (i=0; i < (int) strlen(Prompt); i++)
 	TTYput(' ');
     Point = 0;
     ceol();
@@ -745,7 +744,6 @@ STATIC STATUS insert_string(ECHAR *p)
 
     return Point == End ? CSstay : CSmove;
 }
-
 
 STATIC ECHAR *next_hist()
 {
@@ -1143,7 +1141,7 @@ STATIC STATUS meta()
     unsigned int	c;
     KEYMAP		*kp;
 
-    if ((c = TTYget()) == EOF)
+    if ((c = TTYget()) == (unsigned int) EOF)
 	return CSeof;
 #if	defined(ANSI_ARROWS)
     /* Also include VT-100 arrows. */
@@ -1159,7 +1157,7 @@ STATIC STATUS meta()
 #endif	/* defined(ANSI_ARROWS) */
 
     if (isdigit(c)) {
-	for (Repeat = c - '0'; (c = TTYget()) != EOF && isdigit(c); )
+	for (Repeat = c - '0'; (c = TTYget()) != (unsigned int) EOF && isdigit(c); )
 	    Repeat = Repeat * 10 + c - '0';
 	el_Pushed = 1;
 	el_PushBack = c;
@@ -1208,9 +1206,9 @@ STATIC STATUS TTYspecial(unsigned int c)
     if (ISMETA(c))
 	return CSdispatch;
 
-    if (c == rl_erase || c == DEL)
+    if (c == (unsigned int) rl_erase || c == DEL)
 	return bk_del_char();
-    if (c == rl_kill) {
+    if (c == (unsigned int) rl_kill) {
 	if (Point != 0) {
 	    for (i=screen_pos()/TTYwidth; i > 0; i--)
 		if (upline) TTYputs(upline);
@@ -1220,10 +1218,10 @@ STATIC STATUS TTYspecial(unsigned int c)
 	Repeat = NO_ARG;
 	return kill_line();
     }
-    if (c == rl_intr || c == rl_quit) {
+    if (c == (unsigned int) rl_intr || c == (unsigned int) rl_quit) {
 	Point = End = 0;
 	Line[0] = '\0';
-	if (c == rl_intr) 
+	if (c == (unsigned int) rl_intr) 
 	{
 	    el_intr_pending = 1;
 	    return CSdone;
@@ -1231,7 +1229,7 @@ STATIC STATUS TTYspecial(unsigned int c)
 	else 
 	    return redisplay();
     }
-    if (c == rl_eof && Point == 0 && End == 0)
+    if (c == (unsigned int) rl_eof && Point == 0 && End == 0)
 	return CSeof;
 
     return CSdispatch;
@@ -1245,7 +1243,7 @@ STATIC ECHAR *editinput()
     OldPoint = Point = Mark = End = 0;
     Line[0] = '\0';
 
-    while ((c = TTYget()) != EOF)
+    while ((c = TTYget()) != (unsigned int) EOF)
       {
 	switch (TTYspecial(c)) {
 	case CSdone:
@@ -1345,6 +1343,7 @@ void read_history(const char *history_file)
 void
 rl_reset_terminal(char *p)
 {
+ (void)p;
 }
 
 void
@@ -1393,8 +1392,7 @@ char *readline(CONST char *prompt)
 }
 
 void
-add_history(p)
-    char	*p;
+add_history(char *p)
 {
     if (p == NULL || *p == '\0')
 	return;
@@ -1405,7 +1403,7 @@ add_history(p)
 #endif	/* defined(UNIQUE_HISTORY) */
     hist_add((ECHAR *)p);
 }
-
+
 
 STATIC STATUS beg_line()
 {
@@ -1685,7 +1683,7 @@ STATIC STATUS accept_line()
     return CSdone;
 }
 
-#ifdef SYSTEM_IS_WIN32
+#ifdef _WIN32
 STATIC STATUS end_of_input()
 {
     Line[End] = '\0';
@@ -1714,7 +1712,7 @@ STATIC STATUS quote()
 {
     unsigned int	c;
 
-    return (c = TTYget()) == EOF ? CSeof : insert_char((int)c);
+    return (c = TTYget()) == (unsigned int) EOF ? CSeof : insert_char((int)c);
 }
 
 STATIC STATUS wipe()
@@ -1745,9 +1743,9 @@ STATIC STATUS exchange()
     unsigned int	c;
 
     if ((c = TTYget()) != CTL('X'))
-	return c == EOF ? CSeof : ring_bell();
+	return c == (unsigned int) EOF ? CSeof : ring_bell();
 
-    if ((c = Mark) <= End) {
+    if ((c = Mark) <= (unsigned int) End) {
 	Mark = Point;
 	Point = c;
 	return CSmove;
@@ -1781,7 +1779,7 @@ STATIC STATUS move_to_char()
     int			i;
     ECHAR		*p;
 
-    if ((c = TTYget()) == EOF)
+    if ((c = TTYget()) == (unsigned int) EOF)
 	return CSeof;
     for (i = Point + 1, p = &Line[i]; i < End; i++, p++)
 	if (*p == c) {
@@ -1934,7 +1932,7 @@ STATIC KEYMAP	Map[33] = {
     {	CTL('W'),	wipe		},
     {	CTL('X'),	exchange	},
     {	CTL('Y'),	yank		},
-#ifdef SYSTEM_IS_WIN32
+#ifdef _WIN32
     {	CTL('Z'),	end_of_input	},
 #else
     {	CTL('Z'),	ring_bell	},

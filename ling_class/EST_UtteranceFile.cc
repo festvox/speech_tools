@@ -47,6 +47,8 @@
 #include "ling_class/EST_Utterance.h"
 #include "EST_UtteranceFile.h"
 
+using namespace std;
+
 static EST_read_status load_all_contents(EST_TokenStream &ts,
 //					 EST_THash<int,EST_Val> &sitems,
 					 EST_TVector < EST_Item_Content * > &sitems,
@@ -185,8 +187,6 @@ static EST_read_status load_all_contents(EST_TokenStream &ts,
 	EST_Item_Content *si = new EST_Item_Content;
 
 	si->relations.add_item("__READ__", est_val((EST_Item *)NULL), 1);
-
-	id = 0;
 
 	Sid = ts.get().string();
 
@@ -428,7 +428,7 @@ EST_read_status EST_UtteranceFile::load_apml(EST_TokenStream &ts,
   if ((stream=ts.filedescriptor())==NULL)
     return read_error;
 
-  long pos=ftell(stream);
+  long int pos=ftell(stream);
 
   {
   char buf[80];
@@ -446,7 +446,10 @@ EST_read_status EST_UtteranceFile::load_apml(EST_TokenStream &ts,
     return read_format_error;
   }
 
-  fseek(stream, pos, 0);
+  if (fseek(stream, pos, 0) != 0) {
+      cerr << "Error reading DOCTYPE apml header" << endl;
+	  return read_error;
+  }
 
   EST_read_status stat = apml_read(stream, ts.filename(),u, max_id);
 
@@ -468,7 +471,7 @@ EST_read_status EST_UtteranceFile::load_genxml(EST_TokenStream &ts,
   if ((stream=ts.filedescriptor())==NULL)
     return read_error;
 
-  long pos=ftell(stream);
+  long int pos=ftell(stream);
 
   {
   char buf[80];
@@ -632,19 +635,19 @@ EST_String EST_UtteranceFile::options_supported(void)
 // note the order here defines the order in which loads are tried.
 Start_TNamedEnumI_T(EST_UtteranceFileType, EST_UtteranceFile::Info, EST_UtteranceFile::map, utterancefile)
   { uff_none,		{ NULL }, 
-    { FALSE, NULL, NULL, "unknown utterance file type"} },
+    { false, NULL, NULL, "unknown utterance file type"} },
   { uff_est,		{ "est", "est_ascii"}, 
-    { TRUE, EST_UtteranceFile::load_est_ascii,  EST_UtteranceFile::save_est_ascii, "Standard EST Utterance File" } },
+    { true, EST_UtteranceFile::load_est_ascii,  EST_UtteranceFile::save_est_ascii, "Standard EST Utterance File" } },
 #if defined(INCLUDE_XML_FORMATS)
   { uff_apml,		{ "apml", "xml"}, 
-    { TRUE, EST_UtteranceFile::load_apml,  NULL, "Utterance in APML" } },
+    { true, EST_UtteranceFile::load_apml,  NULL, "Utterance in APML" } },
   { uff_genxml,		{ "genxml", "xml"}, 
-    { TRUE, EST_UtteranceFile::load_genxml,  EST_UtteranceFile::save_genxml, "Utterance in XML, Any DTD" } },
+    { true, EST_UtteranceFile::load_genxml,  EST_UtteranceFile::save_genxml, "Utterance in XML, Any DTD" } },
 #endif
   { uff_xlabel,	{ "xlabel"}, 
-    { TRUE, EST_UtteranceFile::load_xlabel,  EST_UtteranceFile::save_xlabel, "Xwaves Label File" } },
+    { true, EST_UtteranceFile::load_xlabel,  EST_UtteranceFile::save_xlabel, "Xwaves Label File" } },
   { uff_none,		{NULL},
-      { FALSE, NULL, NULL, "unknown utterance file type"} }
+      { false, NULL, NULL, "unknown utterance file type"} }
 
 End_TNamedEnumI_T(EST_UtteranceFileType, EST_UtteranceFile::Info, EST_UtteranceFile::map, utterancefile)
 

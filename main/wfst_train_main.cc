@@ -45,41 +45,12 @@
 #include "EST_simplestats.h"
 #include "EST_WFST.h"
 
+using namespace std;
+
 LISP load_string_data(EST_WFST &wfst,EST_String &filename);
 void wfst_train(EST_WFST &wfst, LISP data);
 
 static int wfst_train_main(int argc, char **argv);
-
-/** @name <command>wfst_train</command> <emphasis>Train a weighted finite-state transducer</emphasis>
-    @id wfst-train-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-This takes an existing WFST and data and splits states in an entropy
-reduce way to produced a new WFST that better models the given data.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
-
 
 int main(int argc, char **argv)
 {

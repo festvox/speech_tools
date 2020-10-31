@@ -36,6 +36,7 @@
 #define __EST_TTIMEINDEX_H__
 
 #include <iostream>
+#include "EST_TVector.h"
 
 /** @class EST_TTI_Entry
   * A time index for a container. The container defines how to get an
@@ -83,8 +84,8 @@ extern int operator !=(const EST_TTI_Entry<CONTAINER> &e1,
 		       const EST_TTI_Entry<CONTAINER> &e2);
 
 template<class CONTAINER>
-extern ostream& operator <<(
-			    ostream &s, 
+extern std::ostream& operator <<(
+			    std::ostream &s,
 			    const EST_TTI_Entry<CONTAINER> &e);
 #endif
 

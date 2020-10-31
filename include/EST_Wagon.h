@@ -55,11 +55,11 @@
 #include "omp.h"
 #endif
 
-#define wagon_error(WMESS) (cerr << WMESS << endl,exit(-1))
+#define wagon_error(WMESS) (std::cerr << WMESS << std::endl,exit(-1))
 
 // I get floating point exceptions of Alphas when I do any comparisons
 // with HUGE_VAL or FLT_MAX so I'll make my own
-#define WGN_HUGE_VAL 1.0e20
+#define WGN_HUGE_VAL 1.0e20f
 
 class WVector : public EST_FVector
 {
@@ -67,7 +67,7 @@ class WVector : public EST_FVector
     WVector(int n) : EST_FVector(n) {}
     int get_int_val(int n) const { return (int)a_no_check(n); }
     float get_flt_val(int n) const { return a_no_check(n); }
-    void set_int_val(int n,int i) { a_check(n) = (int)i; }
+    void set_int_val(int n,int i) { a_check(n) = (float)i; }
     void set_flt_val(int n,float f) { a_check(n) = f; }
 };
 
@@ -95,8 +95,8 @@ class WDataSet : public WVectorList {
     void ignore_non_numbers();
 
     int ftype(const int &i) const {return p_type(i);}
-    int ignore(int i) const {return p_ignore(i); }
-    void set_ignore(int i,int value) { p_ignore[i] = value; }
+    bool ignore(int i) const {return (bool)p_ignore(i); }
+    void set_ignore(ptrdiff_t i, bool value) { p_ignore[i] = (int)value; }
     const EST_String &feat_name(const int &i) const {return p_name(i);}
     int samples(void) const {return length();}
     int width(void) const {return dlength;}
@@ -127,6 +127,18 @@ class WQuestion {
     ~WQuestion() {;}
     WQuestion(int fp, wn_oper o,EST_Val a)
        { feature_pos=fp; op=o; operand1=a; }
+    WQuestion& operator = (const WQuestion &o) {
+      if (this != &o) {
+        this->yes = o.yes;
+        this->no = o.no;
+        this->score = o.score;
+        this->op = o.op;
+        this->feature_pos = o.feature_pos;
+        this->operand1 = o.operand1;
+        this->operandl = o.operandl;
+      }
+      return *this;
+    }
     void set_fp(const int &fp) {feature_pos=fp;}
     void set_oper(const wn_oper &o) {op=o;}
     void set_operand1(const EST_Val &a) {operand1 = a;}
@@ -134,14 +146,14 @@ class WQuestion {
     void set_no(const int &n) {no=n;}
     int get_yes(void) const {return yes;}
     int get_no(void) const {return no;}
-    const int get_fp(void) const {return feature_pos;}
-    const wn_oper get_op(void) const {return op;}
+    int get_fp(void) const {return feature_pos;}
+    wn_oper get_op(void) const {return op;}
     const EST_Val get_operand1(void) const {return operand1;}
     const EST_IList &get_operandl(void) const {return operandl;}
-    const float get_score(void) const {return score;}
+    float get_score(void) const {return score;}
     void set_score(const float &f) {score=f;}
-    const int ask(const WVector &w) const;
-    friend ostream& operator<<(ostream& s, const WQuestion &q);
+    bool ask(const WVector &w) const;
+    friend std::ostream& operator<<(std::ostream& s, const WQuestion &q);
 };
 
 enum wnim_type {wnim_unset, wnim_float, wnim_class, 
@@ -199,7 +211,7 @@ class WImpurity {
     float cluster_distance(int i); // distance i from centre in sds
     int in_cluster(int i);       // distance i from centre < most remote member
     float cluster_ranking(int i);  // position in closeness to centre
-    friend ostream& operator<<(ostream &s, WImpurity &imp);
+    friend std::ostream& operator<<(std::ostream &s, WImpurity &imp);
 };
 
 class WDlist {
@@ -227,7 +239,7 @@ class WDlist {
     const WQuestion &question() const {return p_question;}
     EST_Val predict(const WVector &w);
     friend WDlist *add_to_dlist(WDlist *l,WDlist *a);
-    friend ostream &operator<<(ostream &s, WDlist &d);
+    friend std::ostream &operator<<(std::ostream &s, WDlist &d);
 };
 
 class WNode {
@@ -237,9 +249,9 @@ class WNode {
     WImpurity impurity;
     WNode *left;
     WNode *right;
-    void print_out(ostream &s, int margin);
+    void print_out(std::ostream &s, int margin);
     int leaf(void) const { return ((left == 0) || (right == 0)); }
-    int pure(void);
+    bool pure(void);
   public:
     WNode() { left = right = 0; }
     ~WNode() { if (left != 0) {delete left; left=0;}
@@ -255,7 +267,7 @@ class WNode {
     EST_Val predict(const WVector &w);
     WNode *predict_node(const WVector &d);
     int samples(void) const { return data.n(); }
-    friend ostream& operator<<(ostream &s, WNode &n);
+    friend std::ostream& operator<<(std::ostream &s, WNode &n);
 };
 
 extern Discretes wgn_discretes;
@@ -269,12 +281,12 @@ extern EST_Track wgn_VertexFeats;
 void wgn_load_datadescription(EST_String fname,LISP ignores);
 void wgn_load_dataset(WDataSet &ds,EST_String fname);
 WNode *wgn_build_tree(float &score);
-WNode *wgn_build_dlist(float &score,ostream *output);
+WNode *wgn_build_dlist(float &score,std::ostream *output);
 WNode *wagon_stepwise(float limit);
 float wgn_score_question(WQuestion &q, WVectorVector &ds);
 void wgn_find_split(WQuestion &q,WVectorVector &ds,
 		WVectorVector &y,WVectorVector &n);
-float summary_results(WNode &tree,ostream *output);
+float summary_results(WNode &tree,std::ostream *output);
 
 extern int wgn_min_cluster_size;
 extern int wgn_max_questions;

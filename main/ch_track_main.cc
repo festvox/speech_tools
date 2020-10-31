@@ -40,6 +40,8 @@
 #include "EST.h"
 #include "EST_cmd_line_options.h"
 
+using namespace std;
+
 #define DEFAULT_TIME_SCALE 0.001
 
 int StrListtoIList(EST_StrList &s, EST_IList &il);
@@ -52,48 +54,6 @@ EST_read_status read_TrackList(EST_TrackList &tlist, EST_StrList &files,
 			       EST_Option &al);
 
 void extract(EST_Track &tr, EST_Option &al);
-/** @name <command>ch_track</command> <emphasis>Track file manipulation</emphasis>
-  * @id ch-track-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-ch_track is used to manipulate the format of a track
-file. Operations include:
-
-<itemizedlist>
-<listitem><para>file format conversion</para></listitem>
-<listitem><para>smoothing</para></listitem>
-<listitem><para>changing the frame spacing of a track (resampling)</para></listitem>
-<listitem><para>producing differentiated and delta tracks</para></listitem>
-<listitem><para>Using a threshold to convert a track file to a label file</para></listitem>
-
-<listitem><para>making multiple input files into a single multi-channel output file</para></listitem>
-<listitem><para>extracting a single channel from a multi-channel track</para></listitem>
-<listitem><para>extracting a time-delimited portion of the waveform</para></listitem>
-</itemizedlist>
-
- */
-
-//@}
-
-/**@name Options
-  */
-//@{
-
-//@options
-
-//@}
-
 
 int main(int argc, char *argv[])
 {

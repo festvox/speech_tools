@@ -45,6 +45,8 @@
 #include <cstring>
 #include "EST_Chunk.h"
 
+using namespace std;
+
 EST_Chunk::EST_Chunk ()
 {
   count = 0;
@@ -103,7 +105,7 @@ void EST_Chunk::operator -- ()
 }
 #endif
 
-void *EST_Chunk::operator new (size_t size, int bytes)
+void *EST_Chunk::operator new (size_t size, size_t bytes)
 {
 
   if (bytes > MAX_CHUNK_SIZE)
@@ -234,14 +236,14 @@ char &EST_ChunkPtr::operator () (int i) {
  /*                                                                      */
  /************************************************************************/
 
-EST_ChunkPtr chunk_allocate(int bytes)
+EST_ChunkPtr chunk_allocate(size_t bytes)
 {
   EST_Chunk *cp = new(bytes) EST_Chunk;
 
   return (EST_ChunkPtr)cp;
 }
 
-EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len)
+EST_ChunkPtr chunk_allocate(size_t bytes, const char *initial, size_t initial_len)
 {
   if (initial_len >= bytes)
     {
@@ -258,7 +260,7 @@ EST_ChunkPtr chunk_allocate(int bytes, const char *initial, int initial_len)
   return (EST_ChunkPtr)cp;
 }
 
-EST_ChunkPtr chunk_allocate(int bytes, const EST_ChunkPtr &initial, int initial_start, int initial_len)
+EST_ChunkPtr chunk_allocate(size_t bytes, const EST_ChunkPtr &initial, size_t initial_start, size_t initial_len)
 {
   if (initial_len >= bytes)
     {
@@ -319,10 +321,11 @@ void grow_chunk(EST_ChunkPtr &cp, EST_Chunk::EST_chunk_size newsize)
 {
   if (!cp.ptr || cp.ptr->size < newsize)
     {
-      if (cp.ptr)
-	cp_make_updatable(cp);
       EST_Chunk *newchunk = new(newsize) EST_Chunk;
-      memcpy(newchunk->memory, cp.ptr->memory, cp.ptr->size);
+      if (cp.ptr) {
+	cp_make_updatable(cp);
+	memcpy(newchunk->memory, cp.ptr->memory, cp.ptr->size);
+      }
       cp = newchunk;
     }
 }
@@ -331,10 +334,11 @@ void grow_chunk(EST_ChunkPtr &cp, EST_Chunk::EST_chunk_size inuse, EST_Chunk::ES
 {
   if (!cp.ptr || cp.ptr->size < newsize)
     {
-      if (cp.ptr)
-	cp_make_updatable(cp, inuse);
       EST_Chunk *newchunk = new(newsize) EST_Chunk;
-      memcpy(newchunk->memory, cp.ptr->memory, inuse);
+      if (cp.ptr) {
+	cp_make_updatable(cp, inuse);
+	memcpy(newchunk->memory, cp.ptr->memory, inuse);
+      }
       cp = newchunk;
     }
 }

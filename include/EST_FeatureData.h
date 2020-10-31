@@ -111,7 +111,7 @@ public:
     EST_FeatureSample &EST_FeatureSample::operator=
 	(const EST_FeatureSample &f);
 
-  friend ostream& operator << (ostream &st, const EST_FeatureSample &a);
+  friend std::ostream& operator << (std::ostream &st, const EST_FeatureSample &a);
   //@}
 */
 
@@ -185,7 +185,7 @@ public:
     const EST_Val &a(int sample, int field) const;
     const EST_Val &a(int sample, const EST_String &name) const;
 
-    friend ostream& operator << (ostream &st,const EST_FeatureData &a);
+    friend std::ostream& operator << (std::ostream &st,const EST_FeatureData &a);
 
 };
 

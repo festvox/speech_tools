@@ -45,6 +45,8 @@
 #include "EST_String.h"
 #include "EST_error.h"
 
+using namespace std;
+
 #define BUFFER_SIZE (1024)
 
 
@@ -100,8 +102,10 @@ int main(int argc, char *argv[])
 
     FILE *dest;
 
-    if ((dest=fopen(out_file, "wb")) == NULL)
+    if ((dest=fopen(out_file, "wb")) == NULL) {
       EST_sys_error("Can't create '%s'", (const char *)out_file);
+      return -1;
+    }
 
     EST_Litem *item;
 
@@ -109,8 +113,10 @@ int main(int argc, char *argv[])
       {
 	FILE *src;
 
-	if ((src=fopen(files(item), "rb"))==NULL)
+	if ((src=fopen(files(item), "rb"))==NULL) {
 	  EST_sys_error("can't read '%s'", (const char *)files(item));
+	  return -1;
+	}
 
 	unsigned int n;
 	char buf[BUFFER_SIZE];

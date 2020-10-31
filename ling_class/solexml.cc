@@ -136,7 +136,7 @@ EST_read_status solexml_read(FILE *file,
   state.utt=&u;
 
   XML_Parser *parser = pclass.make_parser(file, name, &state);
-  parser->track_context(TRUE);
+  parser->track_context(true);
 
   CATCH_ERRORS()
     return read_format_error;
@@ -169,7 +169,7 @@ static EST_Item_Content *get_contents(Parse_State *state, EST_String id)
 }
 
 static void extract_ids(XML_Attribute_List &attributes, 
-			EST_TList<EST_String> &ids)
+			EST_StrList &ids)
 {
   EST_String val;
   static int count;
@@ -272,11 +272,11 @@ void Sole_Parser_Class::element_open(XML_Parser_Class &c,
         || strcmp(name, "wordlist")==0
         || strcmp(name, "w")==0)
     {
-        EST_TList<EST_String> ids;
+      EST_StrList ids;
         extract_ids(attributes, ids);
 
         EST_Litem *idp = ids.head();
-        bool first=TRUE;
+        bool first=true;
         for(; idp!= NULL; idp = idp->next())
 	{
             EST_String id = ids(idp);
@@ -284,7 +284,7 @@ void Sole_Parser_Class::element_open(XML_Parser_Class &c,
                 XML_Parser_Class::error(c, p, data, EST_String("Element With No Id"));
 
             if (first)
-                first=FALSE;
+                first=false;
             else
 	    {
                 state->current = state->parent;

@@ -51,6 +51,12 @@
 #include "EST_audio.h"
 #include "EST_wave_aux.h"
 
+#ifdef _WIN32
+#include <process.h>
+#endif
+
+using namespace std;
+
 static int play_sunau_wave(EST_Wave &inwave, EST_Option &al);
 static int play_socket_wave(EST_Wave &inwave, EST_Option &al);
 static int play_aucomm_wave(EST_Wave &inwave, EST_Option &al);
@@ -361,7 +367,7 @@ static int record_sunau_wave(EST_Wave &wave, EST_Option &al)
     num_samples = (int)(8000*al.fval("-time"));
     ulawwave = walloc(unsigned char,num_samples);
     
-    for (r=i=0; i < num_samples; i+= r)
+    for (i=0; i < num_samples; i+= r)
     {
 	if (num_samples > i+AUDIOBUFFSIZE)
 	    n = AUDIOBUFFSIZE;

@@ -59,14 +59,14 @@ int operator !=(const EST_DMatrix &fm1,
     int i,j;
     if(fm1.num_rows() != fm2.num_rows() ||
        fm1.num_columns() != fm2.num_columns() )
-	return FALSE;
+	return false;
 
     for(i=0;i<fm1.num_rows();i++)
 	for(j=0;j<fm1.num_columns();j++)
 	    if(fm1.a_no_check(i,j) != fm1.a_no_check(i,j))
-		return FALSE;
+		return false;
     
-    return TRUE;
+    return true;
 }
 
 

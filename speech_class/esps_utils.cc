@@ -64,6 +64,8 @@
 #include "EST_wave_utils.h"
 #include "esps_utils.h"
 
+using namespace std;
+
 /* First you must realise there is in fact a number of very similar but */
 /* subtly different header formats that appear on ESPS files.           */
 /* ESPS_FEA and ESPS_SD (others for filters, spectrograms, etc)         */
@@ -742,7 +744,7 @@ esps_hdr new_esps_hdr(void)
 {
     esps_hdr h = walloc(struct ESPS_HDR_struct,1);
     h->file_type = ESPS_FEA;
-    h->swapped = FALSE;
+    h->swapped = false;
     h->num_records = 0;
     h->num_fields = 0;
     h->field_name = NULL;
@@ -997,9 +999,9 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
     if (fread(&preamble,sizeof(preamble),1,fd) != 1)
         return wrong_format;
     if (preamble.check == ESPS_MAGIC)
-	swap = FALSE;
+	swap = false;
     else if (preamble.check == SWAPINT(ESPS_MAGIC))
-	swap = TRUE;
+	swap = true;
     else
 	return wrong_format;
 
@@ -1091,7 +1093,7 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	if (hdr->swapped) shortdata = SWAPSHORT(shortdata);
 	hdr->field_type[i] = shortdata;
     }
-    typematch = TRUE;
+    typematch = true;
     if (fread(&intdata,4,1,fd)!=1)                      /* number of doubles */
     {
 	fprintf(stderr,"ESPS hdr: got lost in the header\n");
@@ -1099,7 +1101,7 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	return misc_read_error;
     }
     if (hdr->swapped) intdata = SWAPINT(intdata);
-    if (fhdr.num_doubles != intdata) typematch = FALSE;
+    if (fhdr.num_doubles != intdata) typematch = false;
     if (fread(&intdata,4,1,fd)!=1)                      /* number of floats */
     {
 	fprintf(stderr,"ESPS hdr: got lost in the header\n");
@@ -1107,7 +1109,7 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	return misc_read_error;
     }
     if (hdr->swapped) intdata = SWAPINT(intdata);
-    if (fhdr.num_floats != intdata) typematch = FALSE;
+    if (fhdr.num_floats != intdata) typematch = false;
     if (fread(&intdata,4,1,fd)!=1)                      /* number of ints */
     {
 	fprintf(stderr,"ESPS hdr: got lost in the header\n");
@@ -1115,7 +1117,7 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	return misc_read_error;
     }
     if (hdr->swapped) intdata = SWAPINT(intdata);
-    if (fhdr.num_ints != intdata) typematch = FALSE;
+    if (fhdr.num_ints != intdata) typematch = false;
     if (fread(&intdata,4,1,fd)!=1)                      /* number of shorts */
     {
 	fprintf(stderr,"ESPS hdr: got lost in the header\n");
@@ -1123,7 +1125,7 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	return misc_read_error;
     }
     if (hdr->swapped) intdata = SWAPINT(intdata);
-    if (fhdr.num_shorts != intdata) typematch = FALSE;
+    if (fhdr.num_shorts != intdata) typematch = false;
     if (fread(&intdata,4,1,fd)!=1)                      /* number of chars */
     {
 	fprintf(stderr,"ESPS hdr: got lost in the header\n");
@@ -1131,8 +1133,8 @@ enum EST_read_status read_esps_hdr(esps_hdr *uhdr,FILE *fd)
 	return misc_read_error;
     }
     if (hdr->swapped) intdata = SWAPINT(intdata);
-    if (fhdr.num_chars != intdata) typematch = FALSE;
-    if ((hdr->file_type != ESPS_SD) && (typematch == FALSE))
+    if (fhdr.num_chars != intdata) typematch = false;
+    if ((hdr->file_type != ESPS_SD) && (typematch == false))
     {
 	fprintf(stderr,"ESPS hdr: got lost in the header\n");
 	delete_esps_hdr(hdr);

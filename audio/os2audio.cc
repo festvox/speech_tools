@@ -21,7 +21,7 @@
 
 #include "EST_unix.h" 
 
-int os2audio_supported = TRUE; 
+bool os2audio_supported = true; 
 
 #define INCL_OS2MM
 
@@ -107,7 +107,7 @@ static LONG APIENTRY MyEvent(ULONG ulStatus, PMCI_MIX_BUFFER PlayedBuffer, ULONG
 
    } /* end switch */
 
-   return( TRUE );
+   return( true );
 
 } /* end MyEvent */
 
@@ -206,7 +206,7 @@ int play_os2audio_wave(EST_Wave &inwave, EST_Option &al)
    }
 
    /* Create a semaphore to know when data has been played by the DART thread */
-   DosCreateEventSem(NULL,&dataplayed,0,FALSE); 
+   DosCreateEventSem(NULL,&dataplayed,0,false); 
 
    /* Write buffers to kick off the amp mixer. */
    rc = mmp.pmixWrite( mmp.ulMixHandle,
@@ -246,21 +246,22 @@ int play_os2audio_wave(EST_Wave &inwave, EST_Option &al)
       return(-1);
    }
 
-   return TRUE;
+   return true;
 }
 
 #else 
 
 # include "EST_Wave.h"
 # include "EST_Option.h"
+# include <iostream>
 
-int os2audio_supported = FALSE;
+bool os2audio_supported = false;
 
 int play_os2audio_wave(EST_Wave &inwave, EST_Option &al)
 {
     (void)inwave;
     (void)al;
-    cerr << "OS/2 16bit realtime DART playback not supported." << endl;
+    std::cerr << "OS/2 16bit realtime DART playback not supported." << std::endl;
     return -1;
 }
 

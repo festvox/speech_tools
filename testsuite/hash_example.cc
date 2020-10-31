@@ -44,6 +44,10 @@
 #include "EST_THash.h"
 #include "EST_String.h"
 
+using namespace std;
+
+extern template class EST_THash<EST_String, int>;
+
 // a very boring thing to do to a pair, see map below
 
 static void look_at(EST_String &s, int &l)

@@ -37,6 +37,8 @@
 #ifndef __EST_RELATION_TREE_H__
 #define __EST_RELATION_TREE_H__
 
+#include "EST_Item.h"
+
 /**@defgroup buildtraversetrees Functions for building and traversing tree relations
 
  */

@@ -66,7 +66,7 @@ H = EST_common.h EST_TKVL.h EST_Option.h EST_TList.h \
 
 DEVELOPMENT_DIRS = # development
 
-ALL_DIRS = unix win32 sigpr ling_class instantiate rxp $(DEVELOPMENT_DIRS)
+ALL_DIRS = sigpr ling_class instantiate rxp $(DEVELOPMENT_DIRS)
 
 FILES = Makefile $(H)
 INSTALL = install_incs

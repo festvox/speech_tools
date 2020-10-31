@@ -17,11 +17,13 @@
 #include "audioP.h"
 #include "EST_io_aux.h"
 
+using namespace std;
+
 #if defined (SUPPORT_IRIX) || defined (SUPPORT_IRIX53)
 #include <audio.h>
 #include <unistd.h>
 
-int irix_supported = TRUE;
+bool irix_supported = true;
 
 int play_irix_wave(EST_Wave &inwave, EST_Option &al)
 {
@@ -83,7 +85,7 @@ int play_irix_wave(EST_Wave &inwave, EST_Option &al)
 }
 
 #else
-int irix_supported = FALSE;
+bool irix_supported = false;
 
 int play_irix_wave(EST_Wave &inwave, EST_Option &al)
 {

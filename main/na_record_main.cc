@@ -39,48 +39,19 @@
 #include "EST.h"
 #include "EST_audio.h"
 #include "EST_cmd_line_options.h"
-#if defined(WIN32) || defined(__CYGWIN__)
-#include "windows.h"
-#include "Mmsystem.h"
+#if defined(_WIN32) || defined(__CYGWIN__)
+#ifndef NOMINMAX
+#define NOMINMAX /* windows.h defines min and max macros that collide with std::min and std::max */
+#endif
+#include <windows.h>
+#include <mmsystem.h>
 #endif
 
-int record_voxware_wave(EST_Wave &inwave, EST_Option &al);
-#if defined(WIN32) || defined(__CYGWIN__)
+using namespace std;
+
+#if defined(_WIN32) || defined(__CYGWIN__)
 int win_record_wave(EST_Wave &wave,  EST_Option &al);
 #endif
-
-/** @name <command>na_record</command> <emphasis>Audio file recording</emphasis>
-    @id na-record-manual
-  * @toc
- */
-
-//@{
-
-
-/**@name Synopsis
-  */
-//@{
-
-//@synopsis
-
-/**
-
-na_record records wavefors from an audio device.  It only supports
-recording for N seconds (default is 10).  Specifying the frequency
-defines the recording frequency (if supported by the hardware).  This
-currently doesn't support NAS audio in.
-
- */
-
-//@}
-
-/**@name OPTIONS
-  */
-//@{
-
-//@options
-
-//@}
 
 
 int main (int argc, char *argv[])
@@ -115,7 +86,7 @@ int main (int argc, char *argv[])
 	al.add_item("-time", "10");
     if (al.present("-o"))
 	out_file = al.val("-o");
-#if defined(WIN32) || defined(__CYGWIN__)
+#if defined(_WIN32) || defined(__CYGWIN__)
     if (win_record_wave(wave,al) != 0)
 #else
     if (record_wave(wave,al) != 0)
@@ -128,7 +99,7 @@ int main (int argc, char *argv[])
     return 0;
 }
 
-#if defined(WIN32) || defined(__CYGWIN__)
+#if defined(_WIN32) || defined(__CYGWIN__)
 int win_record_wave(EST_Wave &wave,  EST_Option &al)
 {
     char command_buffer[100];  // This could be more robust - ART

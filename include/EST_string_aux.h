@@ -92,13 +92,13 @@
  *  @}
  */
 
-void StringtoStrList(EST_String s, EST_StrList &l, EST_String sep="");
+void StringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep="");
 
-void BracketStringtoStrList(EST_String s, EST_StrList &l, EST_String sep="");
+void BracketStringtoStrList(EST_String s, EST_StrList &l, const EST_String &sep="");
 
-EST_read_status load_StrList(EST_String filename, EST_StrList &l);
-EST_write_status save_StrList(EST_String filename, EST_StrList &l, 
-			      EST_String style="words");
+EST_read_status load_StrList(const EST_String &filename, EST_StrList &l);
+EST_write_status save_StrList(const EST_String &filename, EST_StrList &l, 
+			      const EST_String &style="words");
 
 
 void strip_quotes(EST_String &s, const EST_String quote_char="\"");

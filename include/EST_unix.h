@@ -53,9 +53,31 @@
 #   include <sys/wait.h>
 #   include <sys/resource.h>
 #   include <dirent.h>
-#elif defined(SYSTEM_IS_WIN32)
-#   include <io.h>
-#   include "win32/EST_unix_win32.h"
+#elif defined(_WIN32)
+
+#include <io.h>
+#include <process.h> /* for getpid() and the exec..() family */
+#include <direct.h> /* for _getcwd() and _chdir() */
+
+#ifdef _MSC_VER
+#define access _access
+#define dup2 _dup2
+#define getcwd _getcwd
+#define chdir _chdir
+#define isatty _isatty
+#endif
+
+/* Second argument of access() */
+#ifndef R_OK
+#define R_OK    4       /* Test for read permission.  */
+#endif
+#ifndef W_OK
+#define W_OK    2       /* Test for write permission.  */
+#endif
+#ifndef F_OK
+#define F_OK    0       /* Test for existence.  */
+#endif
+
 #else
 #   error No System Selected
 #endif

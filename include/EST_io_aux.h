@@ -57,9 +57,9 @@
  *  \brief Make a unique temporary filename
  *  \fn EST_String stdin_to_file()
  *  \brief Copy stdin to a file and return the name of that tmpfile
- *  \fn int writable_file(char *filename)
+ *  \fn bool writable_file(char *filename)
  *  \brief return true if this file is writeable
- *  \fn int readable_file(char *filename)
+ *  \fn bool readable_file(char *filename)
  *  \brief return true if this file is readable
  *  \fn inline int delete_file(const EST_String &filename)
  *  \brief OS independent way of removing a file
@@ -74,8 +74,8 @@
 
 EST_String make_tmp_filename();
 EST_String stdin_to_file();
-int writable_file(char *filename);
-int readable_file(char *filename);
+bool writable_file(char *filename);
+bool readable_file(char *filename);
 
 inline int
 delete_file(const EST_String &filename)
@@ -95,10 +95,10 @@ int compress_file(const EST_String &filename,
 		  const EST_String &new_filename, 
 		  const EST_String &prog_name);
 		  
-#define numeric_char(in) (((in < '9' ) && (in > '0')) ? TRUE : FALSE)
+#define numeric_char(in) (((in < '9' ) && (in > '0')) ? true : false)
 
-#ifdef WIN32
-#include "Winsock2.h"
+#ifdef _WIN32
+#include <winsock2.h>
 typedef SOCKET SOCKET_FD;
 #else
 typedef int SOCKET_FD;

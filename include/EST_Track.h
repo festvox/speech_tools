@@ -40,9 +40,10 @@
 
 class EST_Track;
 
-#ifndef __Track_H__
-#define __Track_H__
+#ifndef Track_H__
+#define Track_H__
 
+#include <cstdlib>
 #include "EST_FMatrix.h"
 #include "EST_types.h"
 #include "EST_TrackMap.h"
@@ -155,7 +156,7 @@ public:
 	are kept, up to the limits imposed by the new number of frames
 	and channels. If the new track size is bigger, new positions
 	are filled with 0 */
-    void resize(int num_frames, EST_StrList &map, bool preserve = 1);
+    void resize(int num_frames, const EST_StrList &map, bool preserve = 1);
 
     /** resize the track's auxiliary channels.
      */
@@ -681,7 +682,7 @@ public:
     EST_Track& operator = (const EST_Track& a);
     EST_Track& operator+=(const EST_Track &a); // add to existing track
     EST_Track& operator|=(const EST_Track &a); // add to existing track in parallel
-    friend ostream& operator << (ostream& s, const EST_Track &tr);
+    friend std::ostream& operator << (std::ostream& s, const EST_Track &tr);
 
     // Default constructor
     EST_Track(int num_frames, EST_TrackMap &map);
@@ -744,9 +745,16 @@ public:
 protected:
   class IPointer_f { 
   public:
-    EST_Track *frame; int i; 
+    EST_Track *frame;
+    int i; 
     IPointer_f();
     IPointer_f(const IPointer_f &p);
+    IPointer_f & operator = (const IPointer_f &p) {
+        if (this != &p) {
+            frame=new EST_Track(*(p.frame));
+        }
+        return *this;
+    }
     ~IPointer_f();
   };
 
@@ -770,4 +778,4 @@ public:
 typedef EST_TList<EST_Track> EST_TrackList;
 
 
-#endif /* __Track_H__ */
+#endif /* Track_H__ */

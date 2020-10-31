@@ -99,7 +99,7 @@ public:
     int add_fitem(const EST_String &rkey, const float &rval);
 
     /// print options
-    friend  ostream& operator << (ostream& s, const EST_Option &kv);
+    friend  std::ostream& operator << (std::ostream& s, const EST_Option &kv);
 };
 
 #endif // __EST_OPTION_H__

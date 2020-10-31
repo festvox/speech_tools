@@ -43,6 +43,9 @@
 #include "EST_util_class.h"
 #include "EST_types.h"
 
+using namespace std;
+
+
 /**@name key_value_example
   * 
   * some stuff about lists

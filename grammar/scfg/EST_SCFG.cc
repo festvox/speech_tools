@@ -41,6 +41,8 @@
 #include "EST_Pathname.h"
 #include "EST_SCFG.h"
 
+using namespace std;
+
 EST_SCFG_Rule::EST_SCFG_Rule(double prob,int p, int m)
 { 
     set_rule(prob,p,m); 
@@ -306,6 +308,9 @@ ostream &operator << (ostream &s, const EST_SCFG_Rule &rule)
 
 Declare_TList(EST_SCFG_Rule)
 #if defined(INSTANTIATE_TEMPLATES)
+
+extern template class EST_TItem<EST_String>;
+
 #include "../base_class/EST_TList.cc"
 #include "../base_class/EST_TSortable.cc"
 

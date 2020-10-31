@@ -269,12 +269,12 @@ int main(void)
         n = inext(n);
       else                    // if no sisters are left, go back up the tree 
 	{                       // until a sister to a parent is found 
-	  bool found=FALSE;
+	  bool found=false;
 	  for (EST_Item *pp = parent(n); pp != 0; pp = parent(pp))
 	    if (inext(pp))
 	      {
 		n = inext(pp);
-		found=TRUE;
+		found=true;
 		break;
 	      }
 	  if (!found)

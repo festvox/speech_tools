@@ -62,7 +62,7 @@ EST_FMatrix mahalanobis_distance(EST_FMatrix &gu, EST_FMatrix &v);
 EST_FMatrix population_mean(EST_FMatrix *in, int num_pop);
 EST_FMatrix add_populations(EST_FMatrix *in, int num_pop);
 
-EST_FMatrix confusion(EST_StrStr_KVL &list, EST_StrList &lex);
+EST_FMatrix confusion(const EST_StrStr_KVL &list, const EST_StrList &lex);
 void print_confusion(const EST_FMatrix &a, EST_StrStr_KVL &list, 
 		     EST_StrList &lex);
 

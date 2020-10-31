@@ -53,6 +53,8 @@
 
 #include "waveP.h"
 
+using namespace std;
+extern template class EST_TVector<short>;
 #define sgn(x) (x>0?1:x?-1:0)
 
 const EST_String DEF_FILE_TYPE = "riff";
@@ -248,7 +250,7 @@ EST_read_status EST_Wave::load(const EST_String filename,
     EST_TokenStream ts;
 
     if (filename == "-")
-	ts.open(stdin,FALSE);
+	ts.open(stdin,false);
     else if ((ts.open(filename)) == -1)
     {
 	cerr << "Wave load: can't open file \"" << filename << "\"" << endl;
@@ -297,7 +299,7 @@ EST_read_status EST_Wave::load_file(const EST_String filename,
     EST_TokenStream ts;
 
     if (filename == "-")
-	ts.open(stdin,FALSE);
+	ts.open(stdin,false);
     else if ((ts.open(filename)) == -1)
     {
 	cerr << "Wave load: can't open file \"" << filename << "\"" << endl;
