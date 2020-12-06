@@ -102,8 +102,8 @@ $(TEST_SCRIPTS:%=%_script_test) : %_script_test : %.sh correct/%_script.out
 	@echo 'test $* (script)'
 	@OUTPUT='$*_script.out'  ;\
 	TOP='$(TOP)' ;\
-	DATA='$(DATA)' ;\
-	export TOP OUTPUT DATA ;\
+	EST_HOME='$(EST_HOME)' ;\
+	export TOP OUTPUT EST_HOME ;\
 	LD_LIBRARY_PATH='$(TOP)/lib:$(LD_LIBRARY_PATH)' ; export LD_LIBRARY_PATH;\
 	if /bin/sh $*.sh $($(*:=_script_args)) ;\
 	then \

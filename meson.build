@@ -6,7 +6,9 @@ PROJECT_DATE = 'July 2020'
 PROJECT_VERSION = meson.project_version()
 PROJECT_STATE = 'current'
 SYSTEM_TYPE = host_machine.cpu_family() + '_' + host_machine.system()
-ESTLIBDIRC = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
+ESTLIB_SUBDIR = join_paths(get_option('datadir'), meson.project_name())
+ESTLIBDIRC = join_paths(get_option('prefix'), ESTLIB_SUBDIR)
+SIOD_SUBDIR = join_paths(ESTLIB_SUBDIR, 'siod')
 DOCDIR = join_paths(get_option('prefix'), get_option('datadir'), 'doc', meson.project_name())
 
 
@@ -97,14 +99,61 @@ subdir('lib')
 subdir('doc')
 
 pkg = import('pkgconfig')
+pkg.generate(
+  eststring,
+  name: 'eststring',
+  description: 'Edinburgh Speech Tools Library (eststring)',
+  subdirs: pkg_config_h_subdirs,
+  version: meson.project_version(),
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
+  filebase : 'eststring'
+)
+
+pkg.generate(
+  estbase,
+  name: 'estbase',
+  description: 'Edinburgh Speech Tools Library (estbase)',
+  requires: eststring,
+  subdirs: pkg_config_h_subdirs,
+  version: meson.project_version(),
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
+  filebase : 'estbase'
+)
+
+pkg.generate(
+  estools,
+  name: 'estools',
+  description: 'Edinburgh Speech Tools Library (estools)',
+  requires: [estbase, eststring],
+  subdirs: pkg_config_h_subdirs,
+  version: meson.project_version(),
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
+  filebase : 'estools'
+)
 
 pkg.generate(
   name: meson.project_name(),
   description: 'Edinburgh Speech Tools Library',
-  libraries: [estools, estbase, eststring],
+  requires: [estools, estbase, eststring],
   subdirs: pkg_config_h_subdirs,
   version: meson.project_version(),
-  variables: ['pkgdatadir=${prefix}/' + get_option('datadir') / meson.project_name() ],
+  variables:
+  [
+    'pkgdatadir=${prefix}/' + ESTLIB_SUBDIR,
+    'sioddir=${prefix}/' + SIOD_SUBDIR
+  ],
   filebase : meson.project_name()
 )
 

@@ -33,6 +33,7 @@
 ###########################################################################
 
 VITERBI=${VITERBI:-$TOP/bin/viterbi}
+DATA="${DATA:-../lib/example_data}"
 
 $VITERBI -ngram "$DATA/vit.B.ngram" \
 	"$DATA/vit.observes" \
