@@ -111,6 +111,8 @@ protected:
 		void *data);
 };
 
+/* For debugging */
+/*
 static void print_attributes(XML_Attribute_List &attributes)
 {
   XML_Attribute_List::Entries them;
@@ -120,6 +122,7 @@ static void print_attributes(XML_Attribute_List &attributes)
 	   (const char *)them->k, 
 	   (const char *)them->v);
 }
+*/
 
 EST_read_status solexml_read(FILE *file, 
 			     const EST_String &name,
@@ -127,7 +130,6 @@ EST_read_status solexml_read(FILE *file,
 			     int &max_id)
 {
   (void)max_id;
-  (void)print_attributes;	// just to shut -Wall up.
   Sole_Parser_Class pclass;
   Parse_State state;
 

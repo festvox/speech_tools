@@ -143,7 +143,19 @@ protected:
 		void *data);
 };
 
-static void print_attributes(XML_Attribute_List &attributes);
+/* For debugging.
+ */
+/*
+static void print_attributes(XML_Attribute_List &attributes)
+{
+  XML_Attribute_List::Entries them;
+
+  for(them.begin(attributes); them ; them++)
+    printf(" %s='%s'", 
+	   (const char *)them->k, 
+	   (const char *)them->v);
+}
+*/
 
 XML_Parser_Class *EST_GenXML::pclass;
 
@@ -186,7 +198,6 @@ EST_read_status EST_GenXML::read_xml(FILE *file,
 				     int &max_id)
 {
   (void)max_id;
-  (void)print_attributes;	// just to shut -Wall up.
   GenXML_Parse_State state;
 
   u.clear();
@@ -377,17 +388,6 @@ static void extract_ids(XML_Attribute_List &attributes,
   // cout << ids << "\n";
 }
 
-/* For debugging.
- */
-static void print_attributes(XML_Attribute_List &attributes)
-{
-  XML_Attribute_List::Entries them;
-
-  for(them.begin(attributes); them ; them++)
-    printf(" %s='%s'", 
-	   (const char *)them->k, 
-	   (const char *)them->v);
-}
 
 /** Now we define the callbacks.
   */

@@ -165,7 +165,7 @@ float sum(const EST_FMatrix &a)
 // set all elements not on the diagonal to zero.
 EST_FMatrix diagonalise(const EST_FMatrix &a)
 {
-    EST_FMatrix b(a, 0.0f);	// initialise and fill b with zeros
+    EST_FMatrix b(a, 0);	// initialise and fill b with zeros
 
     if (a.num_rows() != a.num_columns())
     {
@@ -270,7 +270,7 @@ EST_FMatrix backwards(EST_FMatrix &a)
 // where int abs(int) is a macro
 EST_FMatrix fmatrix_abs(const EST_FMatrix &a)
 {
-    EST_FMatrix b(a, 0.0f);
+    EST_FMatrix b(a, 0);
     
     for (EST_FMatrix::difference_type i = 0; i < a.num_rows(); ++i)
 	for (EST_FMatrix::difference_type j = 0; j < a.num_columns(); ++j)

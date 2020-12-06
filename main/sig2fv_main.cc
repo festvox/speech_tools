@@ -49,7 +49,7 @@ using namespace std;
 
 #define EPSILON (0.0001)
 
-#define DEFAULT_FRAME_SIZE 0.01
+#define DEFAULT_FRAME_SIZE 0.01f
 #define DEFAULT_FRAME_FACTOR 2.0
 #define DEFAULT_LPC_ORDER 16
 #define DEFAULT_REF_ORDER 16

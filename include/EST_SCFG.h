@@ -60,7 +60,7 @@ class EST_bracketed_string {
     int p_length;
     LISP *symbols;
     LISP bs;
-    int **valid_spans;   // triangular matrix
+    bool **valid_spans;   // triangular matrix
     int find_num_nodes(LISP string);
     int set_leaf_indices(LISP string,int i,LISP *symbols);
     int num_leafs(LISP l) const;
@@ -84,7 +84,7 @@ class EST_bracketed_string {
     const EST_String symbol_at(int i) const 
        { return EST_String(get_c_string(car(symbols[i]))); }
     /// If a bracketing from i to k is valid in string
-    int valid(int i,int k) const { return valid_spans[i][k]; }
+    bool valid(int i,int k) const { return valid_spans[i][k]; }
 
     ///
     int operator !=(const EST_bracketed_string &a) const 

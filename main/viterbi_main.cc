@@ -372,7 +372,7 @@ static void load_wstream(const EST_String &filename,
     if(vocab.empty())
 	load_vocab(vfile);
 
-    if (obs.load(filename,0.10) != 0)
+    if (obs.load(filename,0.10f) != 0)
     {
 	cerr << "can't find observations file \"" << filename << "\"" << endl;
 	exit(-1);

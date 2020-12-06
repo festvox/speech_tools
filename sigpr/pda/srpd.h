@@ -50,8 +50,8 @@
 #define DEFAULT_MAX_PITCH     400.0 /* Hz */
 
 #define DEFAULT_SF            20000 /* Hz. Sampling Frequency */
-#define DEFAULT_SHIFT         5.0   /* ms */
-#define DEFAULT_LENGTH        10.0   /* ms */
+#define DEFAULT_SHIFT         5.0f   /* ms */
+#define DEFAULT_LENGTH        10.0f   /* ms */
 #define DEFAULT_TSILENT       120   /* max. abs sample amplitude of noise */
 #define DEFAULT_TMIN          0.75
 #define DEFAULT_TMAX_RATIO    0.85

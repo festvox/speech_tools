@@ -622,7 +622,7 @@ void sig2fft(const EST_FVector &sig,
 
     int i,half_fft_order;
     float real,imag;
-    float window_size = sig.length();
+    int window_size = sig.length();
     int fft_order = fft_vec.length();
 
     // work out FFT order required
@@ -725,7 +725,7 @@ void fbank2melcep(const EST_FVector &fbank_vec,
     if(liftering_parameter != 0.0)
 	PI_over_liftering_parameter = PI / liftering_parameter;
     else
-	PI_over_liftering_parameter = PI; // since sin(n.PI) == 0
+	PI_over_liftering_parameter = (float) PI; // since sin(n.PI) == 0
 
     // if we are not including cepstral coeff 0 (c0) then we need
     // to do a cosine transform 1 longer than otherwise

@@ -55,8 +55,8 @@ void track_to_label(const EST_Track &tr, EST_Relation &lab, float thresh)
 {
     int i;
     EST_Item *tmp_seg;
-    int p_pos = false;
-    int c_pos = false;
+    bool p_pos = false;
+    bool c_pos = false;
     
     for (i = 0; i < tr.num_frames(); ++i)
     {

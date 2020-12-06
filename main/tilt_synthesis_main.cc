@@ -58,7 +58,7 @@ int main (int argc, char *argv[])
     EST_Item *e;
 
     float shift;
-    const float default_frame_shift = 0.01; // i.e 10ms intervals
+    const float default_frame_shift = 0.01f; // i.e 10ms intervals
 
     parse_command_line
 	(argc, argv,

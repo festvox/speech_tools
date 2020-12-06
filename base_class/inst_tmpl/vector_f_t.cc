@@ -42,7 +42,7 @@
 #include "EST_TSimpleVector.h"
 #include <iostream>
 
-Declare_TVector_Base(float, 0, -123.456)
+Declare_TVector_Base(float, 0.0f, -123.456f)
 Declare_TSimpleVector(float)
 
 #if defined(INSTANTIATE_TEMPLATES)

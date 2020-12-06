@@ -43,7 +43,7 @@
 
 using namespace std;
 
-#define DEFAULT_FRAME_SIZE 0.001
+#define DEFAULT_FRAME_SIZE 0.001f
 #define DEFAULT_FRAME_LENGTH 0.008
 #define DEFAULT_ORDER 256
 #define DEFAULT_PREEMPH 0.94

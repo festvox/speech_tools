@@ -42,7 +42,7 @@
 
 using namespace std;
 
-#define DEFAULT_TIME_SCALE 0.001
+#define DEFAULT_TIME_SCALE 0.001f
 
 int StrListtoIList(EST_StrList &s, EST_IList &il);
 void extract_channel(EST_Track &orig, EST_Track &nt, EST_IList &ch_list);

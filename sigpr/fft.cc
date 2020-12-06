@@ -376,7 +376,7 @@ void FR4TR(int in, int nn, float *b0, float *b1, float *b2, float* b3) {
   for(j14=j13;j14<=L14;j14+=L13)
   for(jthet=j14;jthet<=L15;jthet+=L14) 
     {
-      th2 = jthet - 2;
+      th2 = (float) jthet - 2;
       if(th2<=0.0) 
 	{
 	  for(k=0;k<in;k++) 

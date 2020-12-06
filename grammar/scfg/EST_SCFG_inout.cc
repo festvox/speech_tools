@@ -84,7 +84,7 @@ void EST_bracketed_string::init()
     bs = NIL; 
     gc_protect(&bs); 
     symbols = 0;
-    valid_spans = 0;
+    valid_spans = nullptr;
     p_length = 0;
 }
 
@@ -125,12 +125,12 @@ void EST_bracketed_string::set_bracketed_string(LISP string)
     bs = string;
 
     int i,j;
-    valid_spans = new int*[length()];
+    valid_spans = new bool*[length()];
     for (i=0; i < length(); i++)
     {
-	valid_spans[i] = new int[length()+1];
+	valid_spans[i] = new bool[length()+1];
 	for (j=i+1; j <= length(); j++)
-	    valid_spans[i][j] = 0;
+	    valid_spans[i][j] = false;
     }
     
     // fill in valid table 
@@ -178,7 +178,7 @@ void EST_bracketed_string::find_valid(int s,LISP t) const
 	for (c=s,l=t; l != NIL; l=cdr(l))
 	{
 	    c += num_leafs(car(l));
-	    valid_spans[s][c] = 1;
+	    valid_spans[s][c] = true;
 	}
 	find_valid(s,car(t));
 	find_valid(s+num_leafs(car(t)),cdr(t));

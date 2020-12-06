@@ -46,10 +46,10 @@
 
 using namespace std;
 
-static int get_next_window(EST_TokenStream &ts,
-			   EST_StrVector &window,
-			   const EST_String &input_format,
-			   EST_Ngrammar &ngram)
+static bool get_next_window(EST_TokenStream &ts,
+			    EST_StrVector &window,
+			    const EST_String &input_format,
+			    EST_Ngrammar &ngram)
 {
     int i;
     if ((input_format == "sentence_per_line") ||

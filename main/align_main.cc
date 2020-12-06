@@ -322,7 +322,7 @@ void align(EST_Utterance &utt,
     EST_IMatrix dpp(r_size+1,h_size+1);
 
     // Initialise first row and column
-    dpt(0,0) = subs_cost * name_distance(ri,hi);
+    dpt(0,0) = (float) subs_cost * name_distance(ri,hi);
     dpp(0,0) = 0;
     for (i=1; i<r_size+1; i++)
     {
@@ -342,7 +342,7 @@ void align(EST_Utterance &utt,
 	hi = utt.relation(hyporel)->first();
 	for (j=1; hi; hi=inext(hi),j++)
 	{
-	    cost = name_distance(ri,hi);
+	    cost = (float) name_distance(ri,hi);
 	    to_insert = insdel_cost + dpt(i,j-1);
 	    to_del = insdel_cost + dpt(i-1,j);
 	    to_subs = (cost * subs_cost) + dpt(i-1,j-1);

@@ -348,7 +348,7 @@ load(Lattice &lattice,EST_String filename)
 
     EST_TList<float> list_qmap;
 
-    float error_margin = 1.0e-02; // temporary hack
+    float error_margin = 1.0e-02f; // temporary hack
 
     for(i=0;i<numarcs;i++){
 		

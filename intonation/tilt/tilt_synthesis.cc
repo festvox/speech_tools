@@ -148,11 +148,11 @@ void rfc_synthesis(EST_Track &fz, EST_Relation &ev, float f_shift, int no_conn)
 	   	if ((start_pos / f_shift-(int)start_pos / f_shift)>.5)
 			start_index=int(start_pos / f_shift+1);
 		else
-			start_index = (int) start_pos / f_shift;	
+			start_index = (int) (start_pos / f_shift);	
 		if(end_pos / f_shift-(int)end_pos / f_shift>.5)
 			end_index = int( end_pos / f_shift+1); 
 		else
-			end_index = (int) end_pos / f_shift; 
+			end_index = (int) (end_pos / f_shift); 
 //	    cout << "a: " << fz.equal_space() << endl;
 
 	    fz.sub_track(sub, start_index, (end_index - start_index) + 1, 
@@ -187,11 +187,11 @@ void rfc_synthesis(EST_Track &fz, EST_Relation &ev, float f_shift, int no_conn)
 	if ((start_pos / f_shift-(int)start_pos / f_shift)>.5)
 		start_index=int(start_pos / f_shift+1);
 	else
-		start_index = (int) start_pos / f_shift; 
+		start_index = (int) (start_pos / f_shift); 
 	if(end_pos / f_shift-(int)end_pos / f_shift>.5)
 		end_index = int( end_pos / f_shift+1); 
 	else
-		end_index = (int) end_pos / f_shift; 
+		end_index = (int) (end_pos / f_shift); 
 
 
 	if (start_index >= end_index) // no connection needed

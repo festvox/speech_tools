@@ -144,6 +144,7 @@ int main(int argc, char *argv[])
   exit(0);
 }
 
+
 static void print_attributes(XML_Attribute_List &attributes)
 {
   XML_Attribute_List::Entries them;
@@ -162,7 +163,6 @@ void My_Parser_Class::document_open(XML_Parser_Class &c,
 		      void *data)
 {
   (void)c; (void)p; 
-  (void)print_attributes;
   Parse_State *state = (Parse_State *)data;
 
   state->depth=1;

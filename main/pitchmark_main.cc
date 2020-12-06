@@ -247,10 +247,10 @@ void override_lib_ops(EST_Option &op, EST_Option &al)
     op.override_ival("lx_high_order", 19);
     op.override_ival("df_low_frequency", 1000);
     op.override_ival("df_low_order", 19);
-    op.override_fval("min_period", 0.003);
-    op.override_fval("max_period", 0.02);
-    op.override_fval("def_period", 0.01);
-    op.override_fval("pm_end", -1.0);
+    op.override_fval("min_period", 0.003f);
+    op.override_fval("max_period", 0.02f);
+    op.override_fval("def_period", 0.01f);
+    op.override_fval("pm_end", -1.0f);
     
     if (al.present("-lx_lf"))
 	op.override_ival("lx_low_frequency", al.ival("-lx_lf", 0));
