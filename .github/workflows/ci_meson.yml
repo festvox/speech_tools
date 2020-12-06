@@ -16,6 +16,7 @@ jobs:
     - run: meson setup build
       env:
         CC: gcc
+    - run: meson compile -C build -v
     - run: meson test -C build -v
     - uses: actions/upload-artifact@v1
       if: failure()
@@ -35,6 +36,7 @@ jobs:
     - run: meson setup build
       env:
         CC: gcc
+    - run: meson compile -C build -v
     - run: meson test -C build -v
     - uses: actions/upload-artifact@v1
       if: failure()
@@ -53,6 +55,7 @@ jobs:
 #    - run: meson setup build
 #      env:
 #        CC: gcc
+#    - run: meson compile -C build -v
 #    - run: meson test -C build -v
 #    - uses: actions/upload-artifact@v1
 #      if: failure()
@@ -60,7 +63,7 @@ jobs:
 #        name: Windows_Meson_Testlog
 #        path: build/meson-logs/testlog.txt
 #
-#  windows-msvc:
+#  windows-msvc-64:
 #    runs-on: windows-2019
 #    defaults:
 #      run:
@@ -78,7 +81,7 @@ jobs:
 #    - name: Configure
 #      run: |
 #        call "%VCVARS%"
-#        meson setup --backend vs2019 --buildtype debug build
+#        meson setup --backend vs2019 --buildtype debug --default-library static build
 #    - name: Build
 #      run: |
 #        call "%VCVARS%"
@@ -92,4 +95,36 @@ jobs:
 #      with:
 #        name: Windows_Meson_Testlog
 #        path: build/meson-logs/testlog.txt
-
+#
+#  windows-msvc-32:
+#    runs-on: windows-2019
+#    defaults:
+#      run:
+#        shell: cmd
+#    env:
+#      VCVARS: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat
+#    steps:
+#    - uses: actions/checkout@v2
+#    - uses: actions/setup-python@v1
+#      with:
+#        python-version: '3.x'
+#    - run: pip install meson
+#    - name: Add msbuild to PATH
+#      uses: microsoft/setup-msbuild@v1.0.2
+#    - name: Configure
+#      run: |
+#        call "%VCVARS%"
+#        meson setup --backend vs2019 --buildtype debug --default-library static build
+#    - name: Build
+#      run: |
+#        call "%VCVARS%"
+#        meson compile -C build -v --vs-args "/p:Platform=Win32"
+#    - name: Test
+#      run: |
+#        call "%VCVARS%"
+#        meson test -C build -v
+#    - uses: actions/upload-artifact@v1
+#      if: failure()
+#      with:
+#        name: Windows_Meson_Testlog
+#        path: build/meson-logs/testlog.txt
