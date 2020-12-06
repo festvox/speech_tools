@@ -139,19 +139,48 @@ don't get the extensive use the unix builds do.
 
 # BUILDING IT
 
-## Configuration
+## Using Meson
 
-### Meson instructions
+### Configuration
+
 
 Run `meson setup --help` to see all the options meson provides. See the
 additional specific options for Edinburg Speech Tools defined in the
 `meson_options.txt` file. Use:
 
-    meson setup --prefix="/your/installation/directory" -Daudio_pulseaudio=false builddir
+    meson setup --prefix="/your/installation/directory" -Daudio_pulseaudio=disabled builddir
 
 This will create the `builddir` directory with your desired configuration.
 
-### Makefile instructions
+### Compilation
+
+You can start the compilation process with:
+
+    meson compile -C builddir
+
+Once the build finishes, you can run the test suite:
+
+    meson test -C builddir
+
+### Installation
+
+Run:
+
+    meson install -C builddir
+
+If the installation directory specified in `prefix` is not standard
+(`/usr`, `/usr/local`), you will have to add `$prefix/bin` to your path and
+`$prefix/lib` (where the shared libraries are) into your ldconfig settings,
+for instance setting `LD_LIBRARY_PATH` to the directory where the shared
+libraries are.
+
+In case you have trouble setting `LD_LIBRARY_PATH` you can use 
+`--default-library=static` in the meson setup.
+
+
+## Using Make
+
+### Configuration
 
 All compile-time configuration for the system is done through GNU 
 configure.  On most systems you can configure the system
@@ -184,19 +213,7 @@ Simple choices for common set ups are given near the top of this
 file. But for some sub-systems you will also need to change pathnames
 for external library support.
 
-## Compilation
-
-### Meson instructions
-
-From the previous step, you can start the compilation process with:
-
-    meson compile -C builddir
-
-Once the build finishes, you can run the test suite:
-
-    meson test -C builddir
-
-### Makefile instructions
+### Compilation
 
 Once you have configured config/config you can compile the system. 
 
@@ -232,25 +249,7 @@ To test the system after compilation
 
           unix$ gmake test
 
-## Installing the system
-
-### Meson instructions
-
-Run:
-
-    meson install -C builddir
-
-If the installation directory specified in `prefix` is not standard
-(`/usr`, `/usr/local`), you will have to add `$prefix/bin` to your path and
-`$prefix/lib` (where the shared libraries are) into your ldconfig settings,
-for instance setting `LD_LIBRARY_PATH` to the directory where the shared
-libraries are.
-
-In case you have trouble setting `LD_LIBRARY_PATH` you can use 
-`--default-library=static` in the meson setup.
-
-
-### Makefile instructions
+### Installation
 
 All executables are linked to from speech_tools/bin and you should add
 that to your PATH in order to use them.
