@@ -148,7 +148,8 @@ Run `meson setup --help` to see all the options meson provides. See the
 additional specific options for Edinburg Speech Tools defined in the
 `meson_options.txt` file. Use:
 
-    meson setup --prefix="/your/installation/directory" -Daudio_pulseaudio=disabled builddir
+    cd speech_tools/
+    meson setup --prefix="/your/installation/directory" -Daudio_pulseaudio=disabled ./builddir
 
 This will create the `builddir` directory with your desired configuration.
 
@@ -156,17 +157,17 @@ This will create the `builddir` directory with your desired configuration.
 
 You can start the compilation process with:
 
-    meson compile -C builddir
+    meson compile -C ./builddir
 
 Once the build finishes, you can run the test suite:
 
-    meson test -C builddir
+    meson test -C ./builddir
 
 ### Installation
 
 Run:
 
-    meson install -C builddir
+    meson install -C ./builddir
 
 If the installation directory specified in `prefix` is not standard
 (`/usr`, `/usr/local`), you will have to add `$prefix/bin` to your path and
