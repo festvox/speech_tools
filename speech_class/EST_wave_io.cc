@@ -525,9 +525,14 @@ enum EST_read_status load_wave_riff(EST_TokenStream &ts, short **data, int
 	fprintf(stderr, "RIFF file is not of type WAVE\n");
 	return misc_read_error;	/* not a wave file */
     }
-    if ((ts.fread(info,sizeof(char),4) != 4) ||
-	(strncmp(info,"fmt ",4) != 0))
-	return misc_read_error;	/* something else wrong */
+    if (ts.fread(info,sizeof(char),4) != 4) return misc_read_error;
+    while (strncmp(info,"fmt ",4) != 0)
+    {
+    if (ts.fread(&dsize,4,1) != 1) return misc_read_error;
+    if (EST_BIG_ENDIAN) dsize = SWAPINT(dsize);
+    ts.seek(dsize+ts.tell());
+    if (ts.fread(info,sizeof(char),4) != 4) return misc_read_error;
+    }
 
     if (ts.fread(&dsize,4,1) != 1) return misc_read_error;
     if (EST_BIG_ENDIAN) dsize = SWAPINT(dsize);
