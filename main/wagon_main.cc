@@ -390,7 +390,7 @@ static int wagon_main(int argc, char **argv)
 	omp_set_num_threads(1);
     }
 #else
-    if (al.present ("-omp_nthreads"))
+    if (al.present ("-omp_nthreads") && atoi(al.val("-omp_nthreads")) != 1)
     {
         printf("wagon: -omp_nthreads ignored: not supported in this build.\n");
     }
