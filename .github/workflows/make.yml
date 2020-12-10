@@ -1,0 +1,25 @@
+name: make
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - run: ./configure
+    - run: make
+    - run: make test
+
+  macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: brew install gcc
+    - run: ./configure
+      env:
+        CC: gcc
+    - run: make
+    - run: make test
+

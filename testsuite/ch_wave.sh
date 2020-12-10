@@ -34,6 +34,7 @@
 
 CH_WAVE=${CH_WAVE:-$TOP/bin/ch_wave}
 BCAT=${BCAT:-$TOP/bin/bcat}
+DATA="${DATA:-${EST_HOME}/lib/example_data}"
 
 test_conversion () {
 	type=$1
