@@ -61,7 +61,7 @@ UInt32 waveSize;
 UInt32 waveIndex;
 bool done;
 
-OSStatus render_callback(void *inref,                            
+OSStatus render_callback(void *inref,
                         AudioUnitRenderActionFlags *inflags,
                         const AudioTimeStamp *instamp,
                         UInt32 inbus,
@@ -69,7 +69,7 @@ OSStatus render_callback(void *inref,
                         AudioBufferList *ioData)
 {
 
-  // fill each channel with available audio data  
+  // fill each channel with available audio data
 
   UInt32 channels = ioData->mNumberBuffers;
   int totalNumberOfBytes = waveSize;
@@ -103,17 +103,17 @@ void  CreateDefaultAU()
     OSStatus err = noErr;
 
     // Open the default output unit
-    ComponentDescription desc;
+    AudioComponentDescription desc;
     desc.componentType = kAudioUnitType_Output;
     desc.componentSubType = kAudioUnitSubType_DefaultOutput;
     desc.componentManufacturer = kAudioUnitManufacturer_Apple;
     desc.componentFlags = 0;
     desc.componentFlagsMask = 0;
-    
-    Component comp = FindNextComponent(NULL, &desc);
+
+    AudioComponent comp = AudioComponentFindNext(NULL, &desc);
     if (comp == NULL) { printf ("FindNextComponent\n"); return; }
-    
-    err = OpenAComponent(comp, &outau);
+
+    err = AudioComponentInstanceNew(comp, &outau);
     if (comp == NULL) { printf ("OpenAComponent=%ld\n", long(err)); return; }
 
     // Set up render callback
@@ -121,14 +121,14 @@ void  CreateDefaultAU()
     input.inputProc = render_callback;
     input.inputProcRefCon = NULL;
 
-    err = AudioUnitSetProperty (outau, 
-                                kAudioUnitProperty_SetRenderCallback, 
+    err = AudioUnitSetProperty (outau,
+                                kAudioUnitProperty_SetRenderCallback,
                                 kAudioUnitScope_Input,
-                                0, 
-                                &input, 
+                                0,
+                                &input,
                                 sizeof(input));
     if (err) { printf ("AudioUnitSetProperty-CB=%ld\n", long(err)); return; }
-    
+
 }
 
 int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
@@ -137,15 +137,15 @@ int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
     AudioStreamBasicDescription waveformat, outformat;
     UInt32 size = sizeof(AudioStreamBasicDescription);
     UInt32 running;
-    
+
     CreateDefaultAU();
-         
-    // The EST_Wave structure will allow us to access individula channels 
+
+    // The EST_Wave structure will allow us to access individula channels
     // so this is set up using kAudioFormatFlagIsNonInterleaved format.
     // Here the per packet and per frame info is per channel.
     waveformat.mSampleRate = (Float64)inwave.sample_rate();
     waveformat.mFormatID = kAudioFormatLinearPCM;
-    waveformat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger 
+    waveformat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger
                                     | kAudioFormatFlagsNativeEndian
                                     | kLinearPCMFormatFlagIsPacked
                                     | kAudioFormatFlagIsNonInterleaved;
@@ -154,20 +154,20 @@ int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
     waveformat.mBytesPerPacket = 2;
     waveformat.mBytesPerFrame = 2;
     waveformat.mBitsPerChannel = 16;
-    
-    err = AudioUnitSetProperty(outau, 
-    				                   kAudioUnitProperty_StreamFormat, 
-    				                   kAudioUnitScope_Input, 
-    				                   0, 
-    				                   &waveformat, 
-    				                   size);
+
+    err = AudioUnitSetProperty(outau,
+    				           kAudioUnitProperty_StreamFormat,
+    				           kAudioUnitScope_Input,
+    				           0,
+    				           &waveformat,
+    				           size);
     if (err != noErr) {
                 cerr << "Error setting input audio stream format." << endl;
-                CloseComponent(outau);
+                AudioComponentInstanceDispose(outau);
                 return -1;
     }
-    
-    err = AudioUnitGetProperty(outau, 
+
+    err = AudioUnitGetProperty(outau,
                                kAudioUnitProperty_StreamFormat,
                                kAudioUnitScope_Output,
                                0,
@@ -175,29 +175,29 @@ int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
                                &size);
     if (err != noErr) {
         cerr << "Error getting output audio stream format." << endl;
-        CloseComponent(outau);
+        AudioComponentInstanceDispose(outau);
         return -1;
     }
-            
+
     err = AudioUnitInitialize(outau);
-        if (err) { 
-            printf ("AudioUnitInitialize=%ld\n", long(err)); 
+        if (err) {
+            printf ("AudioUnitInitialize=%ld\n", long(err));
             return -1;
         }
-    
+
     // set up for playing
-    waveSize = inwave.num_samples()*sizeof(short); 
+    waveSize = inwave.num_samples()*sizeof(short);
     waveMatrix = &inwave.values();
     done = FALSE;
     waveIndex = 0;
-    
+
     err = AudioOutputUnitStart(outau);
     if (err != noErr) {
         cerr << "Error starting audio outup: " << err << endl;
-        CloseComponent(outau);
+        AudioComponentInstanceDispose(outau);
         return -1;
     }
-    
+
     // Poll every 50ms whether the sound has stopped playing yet.
     // Probably not the best way of doing things.
     size = sizeof(UInt32);
@@ -206,9 +206,9 @@ int play_macosx_wave(EST_Wave &inwave, EST_Option &al)
         err = AudioUnitGetProperty(outau, kAudioOutputUnitProperty_IsRunning,
                     kAudioUnitScope_Global, 0, &running, &size);
     } while (err == noErr && running && !done);
-        
-    CloseComponent (outau);
-    
+
+    AudioComponentInstanceDispose (outau);
+
     return 1;
 }
 
