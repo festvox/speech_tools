@@ -217,8 +217,6 @@ include $(EST)/config/systems/$(SYSTEM_TYPE).mak
 
 include $(EST)/config/compilers/$(COMPILER).mak
 
-include $(EST)/config/user_flags.mak
-
 ifneq ($(JAVA_COMPILER),none)
     include $(EST)/config/compilers/$(JAVA_COMPILER).mak
 endif

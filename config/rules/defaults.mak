@@ -173,13 +173,13 @@ endif
 ## Default C Compilation
 
 ifndef	CC_COMMAND
-    CC_COMMAND = $(CC) -c $(CFLAGS) $(COMPILE_CCFLAGS) $(DEFINES) $(INCLUDES) $(USER_CPPFLAGS) $(USER_CFLAGS)
+    CC_COMMAND = $(CC) -c $(CPPFLAGS) $(CFLAGS) $(COMPILE_CCFLAGS) $(DEFINES) $(INCLUDES)
 endif
 
 ## Default C++ Compilation
 
 ifndef CXX_COMMAND
-    CXX_COMMAND = $(CXX) -c $(CXXFLAGS) $(COMPILE_CXXFLAGS) $(DEFINES) $(INCLUDES) $(TEMPLATES) $(USER_CPPFLAGS) $(USER_CXXFLAGS)
+    CXX_COMMAND = $(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $(COMPILE_CXXFLAGS) $(DEFINES) $(INCLUDES) $(TEMPLATES)
 endif
 
 ## C++ for dynamic loading
@@ -205,6 +205,6 @@ endif
 ## Link a program (not including libraries)
 
 ifndef LINK_COMMAND
-    LINK_COMMAND = $(CXX) $(LINKFLAGS) $(TEMPLATES) $(USER_LINKFLAGS)
+    LINK_COMMAND = $(CXX) $(LINKFLAGS) $(TEMPLATES) $(LDFLAGS)
 endif
 
