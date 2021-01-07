@@ -630,17 +630,9 @@ const EST_StrVector &EST_Ngrammar::make_ngram_from_index(const int index) const
     
     for(i=p_order-2;i>=0;i--)
     {
-#if defined(sun) && ! defined(__svr4__)
-/* SunOS */
-	int rem = ind%vocab->length();
-	int quot = ind/vocab->length();
-	(*ngram)[i] = wordlist_index(rem);
-	ind = quot;
-#else
 	div_t d = div(ind,vocab->length());
 	(*ngram)[i] = wordlist_index(d.rem);
 	ind = d.quot;
-#endif
     }
     
     return *ngram;

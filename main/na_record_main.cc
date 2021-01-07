@@ -44,7 +44,6 @@
 #include "Mmsystem.h"
 #endif
 
-int record_voxware_wave(EST_Wave &inwave, EST_Option &al);
 #if defined(WIN32) || defined(__CYGWIN__)
 int win_record_wave(EST_Wave &wave,  EST_Option &al);
 #endif
