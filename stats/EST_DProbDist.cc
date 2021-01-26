@@ -46,6 +46,8 @@
 #include "EST_TKVL.h"
 #include "EST_simplestats.h"
 
+using namespace std;
+
 /* We share ints and pointers for two types of probability distributions */
 /* The know discrete sets can be indexed by ints which is *much* faster  */
 /* the indices pass around a pointers but the lower part contain ints in */

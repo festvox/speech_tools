@@ -13,6 +13,8 @@
 #include "siod.h"
 #include "siodp.h"
 
+using namespace std;
+
 int siod_server_socket = -1;
 
 LISP siod_send_lisp_to_client(LISP x)

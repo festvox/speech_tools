@@ -44,6 +44,8 @@
 #include "ling_class/EST_Item.h"
 #include "relation_io.h"
 
+using namespace std;
+
 VAL_REGISTER_CLASS(relation,EST_Relation)
 
 EST_Relation::EST_Relation(const EST_String &name)

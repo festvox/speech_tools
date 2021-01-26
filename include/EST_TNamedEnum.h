@@ -53,7 +53,7 @@
 
 #include <cstring>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 #include "EST_String.h"
 #include "EST_rw_status.h"

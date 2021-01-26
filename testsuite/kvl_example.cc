@@ -43,6 +43,9 @@
 #include "EST_util_class.h"
 #include "EST_types.h"
 
+using namespace std;
+
+
 #if defined(DATAC)
 #    define __STRINGIZE(X) #X
 #    define DATA __STRINGIZE(DATAC)

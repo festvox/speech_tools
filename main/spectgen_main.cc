@@ -41,6 +41,8 @@
 #include "EST_cmd_line_options.h"
 #include "sigpr/EST_spectrogram.h"
 
+using namespace std;
+
 #define DEFAULT_FRAME_SIZE 0.001
 #define DEFAULT_FRAME_LENGTH 0.008
 #define DEFAULT_ORDER 256

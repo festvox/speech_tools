@@ -49,6 +49,7 @@
  */
 
 //@{
+using namespace std;
 
 void extract_channels(EST_Wave &single, const EST_Wave &multi,  EST_IList &ch_list);
 

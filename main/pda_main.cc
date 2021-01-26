@@ -41,6 +41,8 @@
 #include "sigpr/EST_sigpr_utt.h"
 #include "EST_cmd_line_options.h"
 
+using namespace std;
+
 void set_parameters(EST_Features &a_list, EST_Option &al);
 
 void option_override(EST_Features &op, EST_Option al, 

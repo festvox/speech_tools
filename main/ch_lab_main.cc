@@ -44,6 +44,7 @@
 #include "EST_string_aux.h"
 
 int check_vocab(EST_Relation &a, EST_StrList &vocab);
+using namespace std;
 
 /** @name <command>ch_lab</command> <emphasis>Label file manipulation</emphasis>
     @id ch_lab_manual

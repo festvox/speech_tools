@@ -71,7 +71,7 @@ public:
   bool is_empty(void) const;
 
   /// print picture of state. Mostly useful for debugging.
-  ostream &print(ostream &s) const;
+  std::ostream &print(std::ostream &s) const;
 
   /**@name stack
     * 
@@ -111,7 +111,7 @@ public:
   T &shift() { return back_pop(); }
   ///@}
 
-  friend ostream& operator << (ostream &st, const EST_TDeque< T > &deq)
+  friend std::ostream& operator << (std::ostream &st, const EST_TDeque< T > &deq)
     {
         return deq.print(st);
     }

@@ -46,6 +46,8 @@
 #include "EST_Token.h"
 #include "EST_cmd_line.h"
 
+using namespace std;
+
 static int ols_test_main(int argc, char **argv);
 static void load_ols_data(EST_FMatrix &X, EST_FMatrix &Y, WDataSet &d);
 

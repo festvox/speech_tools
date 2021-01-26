@@ -50,6 +50,8 @@
 #include "EST_Token.h"
 #include "EST_cutils.h"
 
+using namespace std;
+
 EST_read_status
 load_ngram_htk_ascii(const EST_String filename, EST_Ngrammar &n)
 {

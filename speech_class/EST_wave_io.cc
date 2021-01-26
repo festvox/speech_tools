@@ -50,6 +50,8 @@
 #include "waveP.h"
 #include "EST_FileType.h"
 
+using namespace std;
+
 static int def_load_sample_rate = 16000;
 
 /*************************************************************************/

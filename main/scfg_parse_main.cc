@@ -47,6 +47,8 @@
 #include "EST_SCFG_Chart.h"
 #include "siod.h"
 
+using namespace std;
+
 static EST_String outfile = "-";
 
 static int scfg_parse_main(int argc, char **argv);

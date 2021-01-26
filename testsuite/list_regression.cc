@@ -41,6 +41,8 @@
 #include "EST_TList.h"
 #include "EST_String.h"
 
+using namespace std;
+
 Declare_TList(EST_String)
 
 int

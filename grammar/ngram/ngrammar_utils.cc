@@ -44,6 +44,8 @@
 #include "EST_error.h"
 #include "EST_Ngrammar.h"
 
+using namespace std;
+
 static int get_next_window(EST_TokenStream &ts,
 			   EST_StrVector &window,
 			   const EST_String &input_format,

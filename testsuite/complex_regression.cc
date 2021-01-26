@@ -38,6 +38,8 @@
 #include <iostream>
 #include <cstdio>
 
+using namespace std;
+
 int main()
 {
     EST_Complex z(4.0, 3.0);

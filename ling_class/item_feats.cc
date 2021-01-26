@@ -47,6 +47,8 @@
 #include "ling_class/EST_FeatureFunctionPackage.h"
 #include "EST_FeatureFunctionContext.h"
 
+using namespace std;
+
 const char *error_name(EST_Item_featfunc f)
 {
   (void)f;

@@ -90,7 +90,7 @@ public:
 	s << e.type << " " << e.rise_amp << " " << e.rise_dur
 	    << " " << e.fall_amp << " " << e.fall_dur
 	    << " " << e.start_amp << " " << e.start_pos
-            << endl;
+            << std::endl;
 	    return s;
 	}
 };
@@ -139,7 +139,7 @@ public:
 	    << " sf0:" << e.start_f0() << " spos:" << e.start_pos()
 	    << " pf0:" << e.peak_f0() << " ppos:" << e.peak_pos()
 	    << " ef0:" << e.end_f0() << " epos:" << e.end_pos()
-            << endl;
+            << std::endl;
 	    return s;
 	}
 };
@@ -176,7 +176,7 @@ public:
 	s << e.type << " " << e.amp() << " " << e.dur()
 	    << " " << e.tilt() << " " << e.pos()
 	    << " sf0 " << e.start_f0() << " " << e.start_pos()
-            << endl;
+            << std::endl;
 	    return s;
 	}
 

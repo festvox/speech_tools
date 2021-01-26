@@ -40,6 +40,8 @@
 #include "EST_multistats.h"
 #include "EST_simplestats.h"
 
+using namespace std;
+
 static void ols_load_selected_feats(const EST_FMatrix &X, 
 				    const EST_IVector &included,
 				    EST_FMatrix &Xl);

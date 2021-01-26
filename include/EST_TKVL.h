@@ -41,7 +41,7 @@
 
 #include <cmath>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 #include "EST_TList.h"
 #include "instantiate/EST_TKVLI.h"
@@ -63,7 +63,7 @@ template<class K, class V> class EST_TKVI {
 	return( (i.k == k) && (i.v == v) );
     }
 
-    friend  ostream& operator << (ostream& s, EST_TKVI<K,V> const &i)
+    friend  std::ostream& operator << (std::ostream& s, EST_TKVI<K,V> const &i)
         {  return s << i.k << "\t" << i.v << "\n"; }
 };
 
@@ -150,10 +150,10 @@ template<class K, class V> class EST_TKVL {
     /// apply function to each pair
     void map(void (*func)(K&, V&));
     
-    friend ostream& operator << (ostream& s, EST_TKVL<K,V> const &l)
+    friend std::ostream& operator << (std::ostream& s, EST_TKVL<K,V> const &l)
     {EST_Litem *p; 
         for (p = l.list.head(); p ; p = p->next()) 
-            s << l.list(p).k << "\t" << l.list(p).v << endl; 
+            s << l.list(p).k << "\t" << l.list(p).v << std::endl; 
         return s;
     } 
     

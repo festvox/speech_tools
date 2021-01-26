@@ -45,6 +45,8 @@
 #include "sigpr/EST_sigpr_utt.h"
 #include "sigpr/EST_filter.h"
 
+using namespace std;
+
 #define EPSILON (0.0001)
 
 #define DEFAULT_FRAME_SIZE 0.01

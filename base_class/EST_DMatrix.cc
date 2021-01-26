@@ -52,6 +52,8 @@
 #include "EST_Token.h"
 #include "rateconv.h"
 
+using namespace std;
+
 EST_String EST_DMatrix::default_file_type = "est_ascii";
 
 EST_DMatrix::EST_DMatrix(const EST_DMatrix &a, int b)

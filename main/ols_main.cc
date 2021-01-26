@@ -44,6 +44,8 @@
 #include "EST_multistats.h"
 #include "EST_cmd_line.h"
 
+using namespace std;
+
 static void load_ols_data(EST_FMatrix &X, EST_FMatrix &Y, WDataSet &d);
 static int ols_main(int argc, char **argv);
 

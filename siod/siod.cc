@@ -51,6 +51,8 @@ template <> EST_Regex *EST_THash<EST_String, EST_Regex *>::Dummy_Value = NULL;
   Instantiate_TStringHash_T(EST_Regex *, hash_string_regex)
 #endif
 
+using namespace std;
+
 static EST_TStringHash<EST_Regex *> regexes(100);
 
 int siod_init(int heap_size)

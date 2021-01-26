@@ -39,6 +39,7 @@
 #include "EST.h"
 #include "EST_Ngrammar.h"
 
+using namespace std;
 
 /** @name <command>ngram_test</command> <emphasis> Test n-gram language model </emphasis>
     @id ngram_test_manual

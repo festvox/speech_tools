@@ -17,6 +17,8 @@
 #include "audioP.h"
 #include "EST_io_aux.h"
 
+using namespace std;
+
 #if defined (SUPPORT_IRIX) || defined (SUPPORT_IRIX53)
 #include <audio.h>
 #include <unistd.h>

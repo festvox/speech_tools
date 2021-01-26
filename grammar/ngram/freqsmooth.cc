@@ -49,6 +49,8 @@
 #include <cfloat>
 #include "EST_Ngrammar.h"
 
+using namespace std;
+
 static double fs_find_backoff_prob(EST_Ngrammar *backoff_ngrams,
 				       int order,const EST_StrVector words,
 				       int smooth_thresh);

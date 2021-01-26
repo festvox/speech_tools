@@ -249,7 +249,7 @@ operator + (const Lattice::symbol_t s1,
 {
     (void) s1;
     (void) s2;
-    cerr << "operator + makes no sense for Lattice::symbol_t !" << endl;
+    std::cerr << "operator + makes no sense for Lattice::symbol_t !" << std::endl;
     return Lattice::symbol_t();
 
 }

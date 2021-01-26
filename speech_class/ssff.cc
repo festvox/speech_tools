@@ -55,6 +55,8 @@
 #include "EST_TrackFile.h"
 #include "EST_FileType.h"
 
+using namespace std;
+
 EST_read_status EST_TrackFile::load_ssff(const EST_String filename, 
 					EST_Track &tr, float ishift, float startt)
 {

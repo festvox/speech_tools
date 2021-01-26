@@ -52,6 +52,8 @@
 #include "EST_Wagon.h"
 #include "EST_math.h"
 
+using namespace std;
+
 Discretes wgn_discretes;
 
 WDataSet wgn_dataset;

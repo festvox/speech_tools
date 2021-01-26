@@ -69,9 +69,9 @@ EST_write_status save(const EST_String &filename, const EST_TVector<float> &a)
     {
       *outf << a(i) << "\t";
     }
-    *outf << endl;
+    *outf << std::endl;
     
-    if (outf != &cout)
+    if (outf != &std::cout)
 	delete outf;
     return write_ok;
 }

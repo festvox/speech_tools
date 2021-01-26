@@ -37,7 +37,7 @@
 #include <iostream>
 #include "EST_bool.h"
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 /** @class EST_THandle
   * @ingroup supportclasses
@@ -145,8 +145,8 @@ public:
   friend int operator != (const EST_THandle< BoxT, ObjectT > &a, const EST_THandle< BoxT, ObjectT > & b)
     { return !( a==b ); }
 
-  friend ostream & operator << (ostream &s, const EST_THandle< BoxT, ObjectT > &a)
-    { return s << "HANDLE"; }
+  friend std::ostream & operator << (std::ostream &s, const EST_THandle< BoxT, ObjectT > &a)
+    { (void)a; return s << "HANDLE"; }
 };
 
 #endif

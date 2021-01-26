@@ -61,7 +61,7 @@
 #include "EST_system.h"
 #include <cstdlib>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 #include "EST_String.h"
 #include "EST_string_aux.h"

@@ -64,6 +64,8 @@ template <> EST_bracketed_string *EST_TVector<EST_bracketed_string>::error_retur
 template class EST_TVector<EST_bracketed_string>;
 #endif
 
+using namespace std;
+
 void set_corpus(EST_Bcorpus &b, LISP examples)
 {
     LISP e;

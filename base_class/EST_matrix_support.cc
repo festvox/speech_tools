@@ -45,6 +45,8 @@
 
 const int EST_CURRENT=-1;
 const int EST_ALL=-1;
+using namespace std;
+
 
 bool EST_matrix_bounds_check(int r,
 			     int c,

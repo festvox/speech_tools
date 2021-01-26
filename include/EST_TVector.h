@@ -41,7 +41,7 @@
 #define __EST_TVector_H__
 
 #include <iostream>
-using namespace std;
+using namespace std; // FIXME: To be removed
 #include "EST_bool.h"
 #include "EST_rw_status.h"
 

@@ -37,7 +37,7 @@
 
 #include <climits>
 
-using namespace std;
+using namespace std; // FIXME: To be removed
 
 /** @class EST_Handleable
   * @ingroup supportclasses

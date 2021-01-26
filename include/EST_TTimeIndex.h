@@ -83,8 +83,8 @@ extern int operator !=(const EST_TTI_Entry<CONTAINER> &e1,
 		       const EST_TTI_Entry<CONTAINER> &e2);
 
 template<class CONTAINER>
-extern ostream& operator <<(
-			    ostream &s, 
+extern std::ostream& operator <<(
+			    std::ostream &s,
 			    const EST_TTI_Entry<CONTAINER> &e);
 #endif
 

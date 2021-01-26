@@ -40,6 +40,8 @@
 #include "EST.h"
 #include "EST_cmd_line_options.h"
 
+using namespace std;
+
 #define DEFAULT_TIME_SCALE 0.001
 
 int StrListtoIList(EST_StrList &s, EST_IList &il);

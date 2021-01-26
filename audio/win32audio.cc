@@ -44,6 +44,8 @@
 #include "EST_io_aux.h"
 #include "EST_Pathname.h"
 
+using namespace std;
+
 #ifdef SUPPORT_WIN32AUDIO
 
 #include <EST_system.h>

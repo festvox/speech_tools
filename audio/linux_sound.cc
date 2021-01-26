@@ -60,6 +60,8 @@
 #include "EST_io_aux.h"
 #include "EST_error.h"
 
+using namespace std;
+
 #ifdef SUPPORT_FREEBSD16
 #include <sys/soundcard.h>
 #include <fcntl.h>

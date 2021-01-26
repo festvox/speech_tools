@@ -66,6 +66,8 @@ Instantiate_TVector_T(EST_WFST_State *, EST_WFST_StateP)
 
 #endif
 
+using namespace std;
+
 // Used for marking states duration traversing functions
 int EST_WFST::traverse_tag = 0;
 

@@ -49,6 +49,7 @@
 #include "ling_class/EST_relation_compare.h"
 #include "EST_io_aux.h"
 
+using namespace std;
 
 int close_enough(EST_Item &a, EST_Item &b)
 {

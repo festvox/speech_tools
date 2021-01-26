@@ -201,7 +201,7 @@ enum EST_tprob_type {tprob_string, tprob_int, tprob_discrete};
           EST_String name;
           double prob;
           item_prob(i,name,prob);
-          cout << name << ": prob " << prob << endl;
+          std::cout << name << ": prob " << prob << std::endl;
        }
     \endverbatim
 

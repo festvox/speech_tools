@@ -48,6 +48,8 @@
 #include "EST_Option.h"
 #include "relation_io.h"
 
+using namespace std;
+
 #define DEF_SAMPLE_RATE 16000
 #define HTK_UNITS_PER_SECOND 10000000
 

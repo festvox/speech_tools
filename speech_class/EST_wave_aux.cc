@@ -48,6 +48,8 @@
 #include "EST_io_aux.h"
 #include "EST_error.h"
 
+using namespace std;
+
 void extract(EST_Wave &sig, EST_Option &al);
 
 /* Allow EST_Wave to be used in an EST_Val */

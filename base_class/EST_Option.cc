@@ -42,6 +42,12 @@
 #include "EST_io_aux.h"
 #include "EST_Token.h"
 
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::cerr;
+using std::endl;
+
 static const EST_String Empty_String("");
 
 // Fills in keyval pair. If Key already exists, overwrites value.
