@@ -85,6 +85,7 @@ SYSTEMS =					\
 	unknown_Linux.mak			\
         power_macintosh_Darwin.mak              \
 	unknown_unknown.mak			\
+	arm64_Darwin.mak			\
 	x86_64_Darwin.mak
 
 
