@@ -38,11 +38,11 @@ const hs_regexp *prog;
 const char *source;
 char *dest;
 {
-	register char *src;
-	register char *dst;
-	register char c;
-	register int no;
-	register int len;
+	char *src;
+	char *dst;
+	char c;
+	int no;
+	int len;
 
 	if (prog == NULL || source == NULL || dest == NULL) {
 		hs_regerror("NULL parm to regsub");
