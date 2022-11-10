@@ -40,11 +40,11 @@ DIRNAME=config
 FILES = Makefile ReadMe example.Makefile example.module.mak\
 	 common_make_rules test_make_rules vc_common_make_rules  \
 	config.in vc_config_make_rules-dist \
-	project.mak system.sh make_system.mak user_flags.mak
+	project.mak system.sh make_system.mak
 
 #LOCAL_CLEAN = modinclude*.inc system.mak
 
-LOCAL_DISTCLEAN = modinclude*.inc system.mak config user_flags.mak
+LOCAL_DISTCLEAN = modinclude*.inc system.mak config
 
 ALL_DIRS = systems compilers rules configs modules
 
