@@ -83,6 +83,8 @@ int play_wave(EST_Wave &inwave, EST_Option &al)
     {
 	if (nas_supported)
 	    protocol = "netaudio";  // the default protocol
+	else if (pipewire_supported)
+	    protocol = "pipewire";
 	else if (pulse_supported)
 	    protocol = "pulseaudio";
 	else if (esd_supported)
@@ -116,6 +118,8 @@ int play_wave(EST_Wave &inwave, EST_Option &al)
 
     if (upcase(protocol) == "NETAUDIO")
 	return play_nas_wave(*toplay,al);
+    else if (upcase(protocol) == "PIPEWIRE")
+	return play_pipewire_wave(*toplay,al);
     else if (upcase(protocol) == "PULSEAUDIO")
 	return play_pulse_wave(*toplay,al);
     else if (upcase(protocol) == "ESDAUDIO")
@@ -255,6 +259,8 @@ EST_String options_supported_audio(void)
     audios += " audio_command";
     if (nas_supported)
 	audios += " netaudio";
+	else if (pipewire_supported)
+	audios += " pipewire";
     else if (pulse_supported)
 	audios += " pulseaudio";
     else if (esd_supported)
@@ -299,6 +305,8 @@ int record_wave(EST_Wave &wave, EST_Option &al)
     {
 	if (nas_supported)
 	    protocol = "netaudio";  // the default protocol
+	else if (pipewire_supported)
+	    protocol = "pipewire";
 	else if (pulse_supported)
 	    protocol = "pulseaudio";
 	else if (esd_supported)
@@ -321,6 +329,8 @@ int record_wave(EST_Wave &wave, EST_Option &al)
 
     if (upcase(protocol) == "NETAUDIO")
 	return record_nas_wave(wave,al);
+    else if (upcase(protocol) == "PIPEWIRE")
+        return record_pipewire_wave(wave,al);
     else if (upcase(protocol) == "PULSEAUDIO")
         return record_pulse_wave(wave,al);
     else if (upcase(protocol) == "ESDAUDIO")

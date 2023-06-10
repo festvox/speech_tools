@@ -2,7 +2,9 @@
 /*                                                                       */
 /*                Centre for Speech Technology Research                  */
 /*                     University of Edinburgh, UK                       */
-/*                         Copyright (c) 1996                            */
+/*                      Copyright (c) 1997,1998                          */
+/*                            Red Hat, Inc.                              */
+/*                         Copyright (c) 2008                            */
 /*                        All Rights Reserved.                           */
 /*                                                                       */
 /*  Permission is hereby granted, free of charge, to use and distribute  */
@@ -30,31 +32,7 @@
 /*  THIS SOFTWARE.                                                       */
 /*                                                                       */
 /*************************************************************************/
-/*                       Author :  Alan W Black                          */
-/*                       Date   :  May 1996                              */
+/*  Support for PipeWire                                        */
 /*=======================================================================*/
-/*                 Shared (private) audio declarations                   */
-/*                                                                       */
-/*=======================================================================*/
-#ifndef __AUDIOP_H__
-#define __AUDIOP_H__
 
-int play_nas_wave(EST_Wave &inwave, EST_Option &al);
-int play_pulse_wave(EST_Wave &inwave, EST_Option &al);
-int play_esd_wave(EST_Wave &inwave, EST_Option &al);
-int play_sun16_wave(EST_Wave &inwave, EST_Option &al);
-int play_linux_wave(EST_Wave &inwave, EST_Option &al);
-int play_pipewire_wave(EST_Wave &inwave, EST_Option &al);
-int play_mplayer_wave(EST_Wave &inwave, EST_Option &al);
-int play_win32audio_wave(EST_Wave &inwave, EST_Option &al);
-int play_irix_wave(EST_Wave &inwave, EST_Option &al);
-int play_macosx_wave(EST_Wave &inwave, EST_Option &al);
-
-int record_nas_wave(EST_Wave &inwave, EST_Option &al);
-int record_pulse_wave(EST_Wave &inwave, EST_Option &al);
-int record_esd_wave(EST_Wave &inwave, EST_Option &al);
-int record_sun16_wave(EST_Wave &inwave, EST_Option &al);
-int record_linux_wave(EST_Wave &inwave, EST_Option &al);
-int record_pipewire_wave(EST_Wave &inwave, EST_Option &al);
-
-#endif /* __AUDIOP_H__ */
+// TODO

@@ -94,6 +94,13 @@ if audio_alsa_dep.found()
   audio_lib_deps += audio_alsa_dep
 endif
 
+#pipewire
+audio_pipewire_dep = dependency('libpipewire-0.3', version: '>= 0.3.52', required: get_option('audio_pipewire'))
+if audio_pipewire_dep.found()
+  audio_lib_cpp_args += '-DSUPPORT_PIPEWIRE'
+  audio_lib_deps += audio_pipewire_dep
+endif
+
 ## voxware
 if host_machine.system() == 'freebsd' or host_machine.system() == 'netbsd' or host_machine.system() == 'openbsd'
   audio_lib_cpp_args += '-DSUPPORT_FREEBSD16'
