@@ -44,7 +44,7 @@ LOCAL_DEFAULT_LIBRARY = estbase
 H = audioP.h
 CPPSRCS = gen_audio.cc nas.cc esd.cc sun16audio.cc \
           mplayer.cc win32audio.cc irixaudio.cc os2audio.cc \
-          macosxaudio.cc pulseaudio.cc  linux_sound.cc
+          macosxaudio.cc pulseaudio.cc pipewire.cc linux_sound.cc
 
 SRCS = $(CPPSRCS)
 OBJS = $(SRCS:.cc=.o)

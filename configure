@@ -623,6 +623,7 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 OMP_DEFS
 OMP_OPTS
+PIPEWIRE
 PULSE_AUDIO
 NAS_AUDIO
 LINUXAUDIO
@@ -703,6 +704,7 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_nas_audio
+with_pipewire
 with_pulseaudio
 '
       ac_precious_vars='build_alias
@@ -1346,6 +1348,7 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-nas_audio        enable NCD's network audio system
+   --with-pipewire       Compile PipeWire audio module [default=no]
   --with-pulseaudio       Compile PulseAudio audio module [default=no]
 
 Some influential environment variables:
@@ -4342,6 +4345,18 @@ fi
 
 
 
+# Check whether --with-pipewire was given.
+if test "${with_pipewire+set}" = set; then :
+  withval=$with_pipewire;
+else
+  with_pipewire=no
+fi
+
+PIPEWIRE=
+if test "x$with_pipewire" != xno; then :
+  PIPEWIRE="PIPEwIRE"
+fi
+
 
 # Check whether --with-pulseaudio was given.
 if test "${with_pulseaudio+set}" = set; then :
@@ -4349,8 +4364,6 @@ if test "${with_pulseaudio+set}" = set; then :
 else
   with_pulseaudio=no
 fi
-
-
 
 PULSE_AUDIO=
 if test "x$with_pulseaudio" != xno; then :

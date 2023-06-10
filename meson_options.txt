@@ -8,6 +8,7 @@ option('audio_os2', type: 'feature', value: 'disabled') # not implemented in mes
 option('audio_osx', type: 'feature', value: 'auto')
 option('audio_pulseaudio', type: 'feature', value: 'disabled')
 option('audio_alsa', type: 'feature', value: 'auto')
+option('audio_pipewire', type: 'feature', value: 'disabled')
 
 option('editline', type: 'feature', value: 'auto')
 option('siod_python', type: 'feature', value: 'auto')

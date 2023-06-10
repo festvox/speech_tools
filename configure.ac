@@ -131,6 +131,28 @@ AC_ARG_WITH([nas_audio],
             [NAS_AUDIO=])
 AC_SUBST(NAS_AUDIO)
 
+
+PIPEWIRE=
+AS_IF([test "x$with_pipewire" != xno],
+      [PIPEWIRE="PIPEWIRE"],
+      []
+)
+
+AC_ARG_WITH([pipewire],
+  [AS_HELP_STRING([--with-pipewire],
+  [Compile PipeWire audio module @<:@default=no@:>@])],
+  [],
+  [with_pipewire=no])
+
+
+PIPEWIRE=
+AS_IF([test "x$with_pipewire" != xno],
+      [PIPEWIRE="PIPEWIRE"],
+      []
+)
+
+AC_SUBST(PIPEWIRE)
+
 AC_ARG_WITH([pulseaudio],
   [AS_HELP_STRING([--with-pulseaudio],
   [Compile PulseAudio audio module @<:@default=no@:>@])],

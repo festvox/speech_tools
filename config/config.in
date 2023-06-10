@@ -86,6 +86,9 @@ INCLUDE_MODULES += @NAS_AUDIO@
 ## Elightenment Sound Demon, for KDE etc.
 # INCLUDE_MODULES += ESD_AUDIO
 
+## PipeWire sound server. Write PIPEWIRE to include it.
+INCLUDE_MODULES += @PIPEWIRE@
+
 ## PulseAudio sound server. Write PULSE_AUDIO to include it.
 INCLUDE_MODULES += @PULSE_AUDIO@
 
